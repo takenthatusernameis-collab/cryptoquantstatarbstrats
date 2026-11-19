@@ -2,39 +2,40 @@
 
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-19T02:31:24Z (disk re-verified 2026-11-19T02:31:24Z — C377, C378, C379 all frozen intact, C312 10×315,648 intact, no blocked sessions, queue depth 3 to C381 plus backlog to C383). **NEXT SESSION: EXECUTE C380 (SEMICOV) END-TO-END NOW — first tool call must be writing campaign380 code.** **Repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE — prioritization is therefore fixed: (1) cross-sectional relative-value stat-arb (dollar-neutral rank dispersion across the 10 USDT-M perps) is the PRIMARY axis, (2) seasonal-dislocation mean-reversion is the signal overlay on that primary axis, (3) costed out-of-sample validation with Holm+BH multiplicity control is the ONLY acceptance gate. Every campaign must be a stat-arb edge attempt on real on-disk C312 5m data, not a directional bet.** **C281B–C379 ALL FROZEN FORMAL NEGATIVES.** **C377 (PSLOPE) FROZEN (20261119T002526Z):** 0 survivors, dominant `pslope_t_dev` 0.3149. **C378 (VOVR — VOLATILITY-OF-VOLATILITY RATIO) FROZEN (20261119T003707Z):** 0 survivors, dominant `vovr_cv_dev` 0.3274. **C379 (CURV — WINDOW QUADRATIC-TREND CURVATURE) FULLY EXECUTED & FROZEN (20261119T013128Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `curv_tilt_placebo` 0.6133 (placebo dominates, attribution_ok false — no real-vs-placebo separation); 5 SHA256 artifacts + cache on disk (SHAs in the C379 RESULT block). **C380 (SEMICOV — SIGNED-CONDITIONAL LAG COVARIANCE) IS THE ACTIVE CAMPAIGN — PRE-SEEDED FROM FAMILY BACKLOG ITEM 5, EXECUTE END-TO-END NOW.** **Queue depth = 3 (C380 SEMICOV active → C381 TURNINGPT pre-seeded → C382 TAILMEM pre-seeded from family backlog) so the queue can never be empty.** **Bottlenecks: NONE (C287 permanently decoupled, no session waits on any dependency).**
+**Handoff written:** 2026-11-19T02:38:18Z (disk re-verified 2026-11-19T02:38:18Z — C377–C380 all frozen intact, C312 10×315,648 intact, no blocked sessions, queue depth 3 to C381 plus backlog to C383). **NEXT SESSION: EXECUTE C381 (TURNINGPT) END-TO-END NOW — first tool call must be writing campaign381 code.** **Repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE — prioritization is therefore fixed: (1) cross-sectional relative-value stat-arb (dollar-neutral rank dispersion across the 10 USDT-M perps) is the PRIMARY axis, (2) seasonal-dislocation mean-reversion is the signal overlay on that primary axis, (3) costed out-of-sample validation with Holm+BH multiplicity control is the ONLY acceptance gate. Every campaign must be a stat-arb edge attempt on real on-disk C312 5m data, not a directional bet.** **C281B–C380 ALL FROZEN FORMAL NEGATIVES.** **C377 (PSLOPE) FROZEN (20261119T002526Z):** 0 survivors, dominant `pslope_t_dev` 0.3149. **C378 (VOVR) FROZEN (20261119T003707Z):** 0 survivors, dominant `vovr_cv_dev` 0.3274. **C379 (CURV) FROZEN (20261119T013128Z):** 0 survivors, dominant `curv_tilt_placebo` 0.6133. **C380 (SEMICOV — SIGNED-CONDITIONAL LAG COVARIANCE) FROZEN (20261119T023818Z):** 0 survivors, dominant `semicov_decay_placebo` 0.4446. **Queue depth = 3 (C381 TURNINGPT active → C382 TAILMEM pre-seeded → C383 pre-seeded from family backlog) so the queue can never be empty.** **Bottlenecks: NONE (C287 permanently decoupled, no session waits on any dependency).**
 
-> **INITIAL TASK MESSAGE (written 2026-11-19T02:31:24Z — ONE authoritative timestamp; supersedes every earlier session message) — NEXT SESSION: EXECUTE C380 (SEMICOV) END-TO-END NOW.**
+> **INITIAL TASK MESSAGE (written 2026-11-19T02:38:18Z — ONE authoritative timestamp; supersedes every earlier session message) — NEXT SESSION: EXECUTE C381 (TURNINGPT) END-TO-END NOW.**
 >
 > **Priority is fixed by the repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE.** (1) PRIMARY: **cross-sectional relative-value stat-arb** — every bar, rank all 10 USDT-M perps on the campaign signal and hold a **dollar-neutral long-top / short-bottom** book at gross 1.0 (this is the arbitrage; never a directional bet). (2) SIGNAL OVERLAY: **causal seasonal-dislocation mean-reversion** score (trailing same-`(weekday×tod)` bucket mean/std, `shift(1)`, `min_periods=3`). (3) ACCEPTANCE GATE: **costed out-of-sample PnL + Holm AND BH multiplicity control at α=0.05** — never weakened. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 >
-> **DISK STATE, RE-VERIFIED THIS SESSION (2026-11-19T01:40:40Z):** C377 (PSLOPE) frozen and intact — 5 artifacts `reports/campaign377_*_20261119T002526Z.json`, cache `data/cache/campaign377_pslope_5m/` (10 shards × 315,648 bars, 38.48 MB, meta `8b6d7c61...`). C378 (VOVR) frozen and intact — 5 artifacts `reports/campaign378_*_20261119T003707Z.json`, cache `data/cache/campaign378_vovr_5m/` (10 shards × 315,648 bars, 38.48 MB, meta `6a872497...`). C379 (CURV) frozen and intact — 5 artifacts `reports/campaign379_*_20261119T013128Z.json` (oos_sweep `7d8a1450...` and verdict `9234261c...`), cache `data/cache/campaign379_curv_5m/` (10 shards × 315,648 bars, 38.48 MB, meta `ff4ad68a...`), 3 scripts + 2 tests present, 23/23 green. C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10 symbols × 315,648 bars, 65 MB, `perp_close` only). Deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0.
+> **DISK STATE, RE-VERIFIED THIS SESSION (2026-11-19T02:38:18Z):** C377–C380 all frozen and intact (5 artifacts each + cache on disk, SHAs in the RESULT blocks). C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10 symbols × 315,648 bars, 65 MB, `perp_close` only). C380 SEMICOV cache `data/cache/campaign380_semicov_5m/` (10 shards × 315,648 bars, ~38.5 MB, meta `87357cc9...`). Deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0.
 >
-> **BOTTLENECK STATUS (authoritative): NONE — nothing is blocked, nothing must be waited on.** C287 (451/403) is permanently unreachable and DECOUPLED: never retry it; it is not on the critical path. Every frozen campaign C281B–C379 is read-only; re-running one is a hard violation and never unblocks anything. Queue depth is 3 (C380 SEMICOV active → C381 TURNINGPT → C382 TAILMEM pre-seeded) and the family backlog below extends it to C383, so no future session faces an empty queue and an idle or planning-only turn is indistinguishable from avoidance. **The FIRST tool call of the next session must be writing campaign380 code.**
+> **BOTTLENECK STATUS (authoritative): NONE — nothing is blocked, nothing must be waited on.** C287 (451/403) is permanently unreachable and DECOUPLED: never retry it; it is not on the critical path. Every frozen campaign C281B–C380 is read-only; re-running one is a hard violation and never unblocks anything. Queue depth is 3 (C381 TURNINGPT active → C382 TAILMEM pre-seeded → C383 pre-seeded from family backlog) and the family backlog below extends it to C383, so no future session faces an empty queue and an idle or planning-only turn is indistinguishable from avoidance. **The FIRST tool call of the next session must be writing campaign381 code.**
 >
 > **EXECUTION CARD (copy-paste, no thought required):**
 > ```
-> cp scripts/build_c379_curv_features.py  scripts/build_c380_semicov_features.py
-> cp scripts/preflight_c379.py              scripts/preflight_c380.py
-> cp scripts/run_c379_curv_xsec_oos.py    scripts/run_c380_semicov_xsec_oos.py
-> cp tests/test_preflight_c379.py           tests/test_preflight_c380.py
-> cp tests/test_c379_curv_xsec_oos.py     tests/test_c380_semicov_xsec_oos.py
-> # adapt all 5 files to the C380 SEMICOV spec (family backlog item 5): signed-conditional lag covariance
-> # for lags k in {1,2,4}, cov(r_t, r_{t-k} | r_{t-k}<0) - cov(r_t, r_{t-k} | r_{t-k}>0) over W=256;
-> # PLACEBO_SEED from family backlog, cache dir = campaign380_semicov_5m, prefixes = campaign380_*
-> python3 scripts/build_c380_semicov_features.py     # -> data/cache/campaign380_semicov_5m/
-> python3 scripts/preflight_c380.py                 # must print ready:true
-> python3 scripts/run_c380_semicov_xsec_oos.py         # FULL 1296-config costed OOS sweep
-> python3 -m pytest tests/test_preflight_c380.py tests/test_c380_semicov_xsec_oos.py -q   # >=21 green incl. brute-force equality
-> sha256sum reports/campaign380_*_<TS>Z.json        # record all 5 artifact SHAs
+> cp scripts/build_c380_semicov_features.py scripts/build_c381_turningpt_features.py
+> cp scripts/preflight_c380.py              scripts/preflight_c381.py
+> cp scripts/run_c380_semicov_xsec_oos.py   scripts/run_c381_turningpt_xsec_oos.py
+> cp tests/test_preflight_c380.py           tests/test_preflight_c381.py
+> cp tests/test_c380_semicov_xsec_oos.py    tests/test_c381_turningpt_xsec_oos.py
+> # adapt all 5 files to the C381 TURNINGPT spec (family backlog item 6): second-difference turning-point rate
+> # over W=256 log-returns: turningpt[t] = mean( 1{sign(r_t-r_{t-1}) != sign(r_{t-1}-r_{t-2})} );
+> # NaN if t<W-1, any NaN/non-finite in window, or non-finite. cache dir = campaign381_turningpt_5m,
+> # prefixes = campaign381_*, 1296 configs, PLACEBO_SEED from family backlog, ref turningpt_dev L=240 H=4.
+> python3 scripts/build_c381_turningpt_features.py     # -> data/cache/campaign381_turningpt_5m/
+> python3 scripts/preflight_c381.py                 # must print ready:true
+> python3 scripts/run_c381_turningpt_xsec_oos.py         # FULL 1296-config costed OOS sweep
+> python3 -m pytest tests/test_preflight_c381.py tests/test_c381_turningpt_xsec_oos.py -q   # >=21 green incl. brute-force equality
+> sha256sum reports/campaign381_*_<TS>Z.json        # record all 5 artifact SHAs
 > ```
-> Target artifacts: `reports/campaign380_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+> Target artifacts: `reports/campaign381_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
 >
-> **C380 — SIGNED-CONDITIONAL LAG COVARIANCE (SEMICOV) — ACTIVE.** Price-only, W=256; for lags k∈{1,2,4}: semicov[k] = cov(r_t, r_{t-k} | r_{t-k}<0) − cov(r_t, r_{t-k} | r_{t-k}>0) (asymmetric response to down vs up moves); collapse to `semicov_sum = Σ_k semicov[k]` and `semicov_decay = semicov[1] − semicov[4]`. NaN if t<W-1, any NaN/non-finite in window, or non-finite. Distinct from C375 ACOVK (unconditional autocovariance profile), C372 TIRV (lagged-product cumulants), C360 LVAC (leverage cross-moment with |r|), C364 DSRV (same-bar semivariance sign split). Vectorize via sign-masked rolling covariance; brute-force equality vs per-window reference loop (`maxdiff < 1e-12`). Cache `data/cache/campaign380_semicov_5m/`; signals `{semicov_sum_dev, semicov_decay_dev, semicov_sum_placebo, semicov_decay_placebo}`; **1296** configs; ref/stability `semicov_sum_dev, L=240, H=4, 0.0007, 0.0001, taker`; `ATTR_REPRESENTATIVES={semicov_sum_dev, semicov_decay_dev}`; same 6-item deliverables, then `state.yaml` (`latest_campaign_done: C380`, `next_campaign: C381`).
+> **C381 — SECOND-DIFFERENCE TURNING-POINT RATE (TURNINGPT) — ACTIVE NEXT.** Price-only (`perp_close`), volume-free, W=256; `turningpt[t] = mean( 1{sign(r_t-r_{t-1}) != sign(r_{t-1}-r_{t-2})} )` over trailing log-returns X=r[t-W+1..t]; NaN if t<W-1, any NaN/non-finite in window, or non-finite. Collapse to `turningpt` (single base metric); signals `{turningpt_dev, turningpt_placebo}` (2 real + 1 placebo, or mirror the C380 4-signal pattern with `turningpt_dev, turningpt_decay_dev` + placebos — pick the 4-signal layout for parity). Distinct from C344 (sign-change/chop on first price differences — TURNINGPT is on second differences of returns / local peaks-troughs of the return path), C365 KER, C374 SIGNRUN, C377 PSLOPE, C379 CURV — this is turning-point clustering in the return path, never used. Vectorize via sign-masked rolling comparison; brute-force equality vs per-window reference loop (`maxdiff < 1e-12`). Same 6-item deliverables, then `state.yaml` (`latest_campaign_done: C381`, `next_campaign: C382`).
 >
-> **C381 — PRE-SEEDED from family backlog item 6 (TURNINGPT — second-difference turning-point rate).** Execute the moment C380 freezes; spec in the family backlog below.
+> **C382 — PRE-SEEDED from family backlog item 7 (TAILMEM — extreme-indicator persistence).** Execute the moment C381 freezes; spec in the family backlog below.
 >
-> **ANTI-AVOIDANCE (hard violations):** (1) output with no new test file, cache, preflight pass, running sweep, passing test, or recorded artifact; (2) planning/analysis/review without concurrent heavy execution; (3) stopping after tests but before build → preflight → sweep → artifacts; (4) re-running any frozen campaign C281B–C379 or C287; (5) a grid smaller than the literal `N_TRIALS` (1296); (6) skipping the brute-force equality tests; (7) freezing a campaign without its frozen-table row + SHAs and a `research_state/state.yaml` update. This repo is STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else counts as progress.
+> **ANTI-AVOIDANCE (hard violations):** (1) output with no new test file, cache, preflight pass, running sweep, passing test, or recorded artifact; (2) planning/analysis/review without concurrent heavy execution; (3) stopping after tests but before build → preflight → sweep → artifacts; (4) re-running any frozen campaign C281B–C380 or C287; (5) a grid smaller than the literal `N_TRIALS` (1296); (6) skipping the brute-force equality tests; (7) freezing a campaign without its frozen-table row + SHAs and a `research_state/state.yaml` update. This repo is STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else counts as progress.
 ---
 
 ## C359 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T005752Z)
@@ -624,6 +625,7 @@ C281B–C375: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C377 | 20261119T002526Z | window OLS trend-slope t-statistic (PSLOPE) | 1296 | pslope_t_dev 0.3149 | `ca59354117b204ae1c64c9442fa097dc1f1db16b1d1f08a2ddd3f96151d49ee1` | `b1b4462f47887cb8d22127d21c48593a7bc7fbb8e00a141040368f09bc077869` |
 | C378 | 20261119T003707Z | volatility-of-volatility ratio (VOVR) | 1296 | vovr_cv_dev 0.3274 | `f105a5a060cc7472fdff4dfc03c5fbcfc8d7b90f2a8082861baffdf7fd4fd9f9` | `30eb7baa9d782a5be1fe3240545157c5f1549c9a8e9e57b16b40537d0454e7f8` |
 | C379 | 20261119T013128Z | window quadratic-trend curvature (CURV) | 1296 | curv_tilt_placebo 0.6133 | `7d8a1450bb69c241c9b578ec08fb99c65d3ca5b939d64d3e8cdebf694343138f` | `9234261cb1f37505d672431fbb1b5ee4e4cf5832e975c784f5a3bc51c477c5e3` |
+| C380 | 20261119T023818Z | signed-conditional lag covariance (SEMICOV) | 1296 | semicov_decay_placebo 0.4446 | `dc3a4b16917933770d39480b81c71773597cb41558d2785e6bfdb1c5f19ceef0` | `0a493bbdb75cd5045985680c94f3704d9b32da78d79fcc4182de1d02431fe54d` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -777,6 +779,19 @@ C379 (WINDOW QUADRATIC-TREND CURVATURE (CURV) × SEASONAL-DISLOCATION mean-rever
 - verdict `9234261cb1f37505d672431fbb1b5ee4e4cf5832e975c784f5a3bc51c477c5e3`
 - binding_constraint `774cc79dda35ac303953c09ec3c37883101fb3044949561b749e29b8ee256e1d`
 - cache: meta `ff4ad68a92151cb5b96585d2398aef0af9d26fe79808e8e36a03791a7b9c3a6b`, provenance `281d59876df1d9f33fc1ebf2fa3acd824ab2c2681d67bf5a6c129043332f70b`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+
+---
+
+## C380 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261119T023818Z)
+
+C380 (SIGNED-CONDITIONAL LAG COVARIANCE (SEMICOV) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `semicov_decay_placebo` 0.4446 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. SEMICOV brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign380_semicov_5m/` (10 shards × 315,648 bars, ~38.5 MB). NO EDGE through C380. Frozen — DO NOT re-run.
+
+- oos_sweep `dc3a4b16917933770d39480b81c71773597cb41558d2785e6bfdb1c5f19ceef0`
+- tradable_edge_registry `29039045b6ce3dffaa4f4d2b345be246aae496c3b8a860452acc1ac4085ba980`
+- summary `6b72a800b923e803750ff09230a4c545c229c5197af95a31dec6ffb02ecd9527`
+- verdict `0a493bbdb75cd5045985680c94f3704d9b32da78d79fcc4182de1d02431fe54d`
+- binding_constraint `f71e079f28c7105834c025430103185e0b33a83bd86d606ccdafe68742d13072`
+- cache: meta `87357cc9317ac69d7a12134665db1bf56838d64262c88a08e9f28718f5922ada`, provenance `ec2fdd6287559259526b1e19ed5c62fc2c9c3bcf2369df52e381c2289636a980`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
 
 ---
 

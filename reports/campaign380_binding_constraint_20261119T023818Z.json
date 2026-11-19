@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T023818Z",
+  "campaign": 380,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign380_oos_sweep_20261119T023818Z.json",
+  "oos_sweep_sha256": "dc3a4b16917933770d39480b81c71773597cb41558d2785e6bfdb1c5f19ceef0",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "semicov_sum_dev": 0.11261136408203229,
+    "semicov_decay_dev": 0.11016902755749315,
+    "semicov_sum_placebo": 0.3326533168854634,
+    "semicov_decay_placebo": 0.4445662914750112
+  },
+  "dominant_attribution": "semicov_decay_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "semicov_sum_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9287573783207999,
+      -0.8823449527096057,
+      -0.8375192107458874,
+      -1.2871093213569063,
+      -0.8750404158827173,
+      -1.013057764787073,
+      -0.8266262379701266,
+      -0.9335148539424724
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -5.528118429915265,
+    "second_half_sharpe": -13.120027160890816,
+    "sharpe_corr": 0.9936979119268821,
+    "stable": false
+  },
+  "diagnosis": "C380 cross-sectional intraday SIGNED-CONDITIONAL LAG COVARIANCE (SEMICOV) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
