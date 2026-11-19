@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T003707Z",
+  "campaign": 378,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign378_oos_sweep_20261119T003707Z.json",
+  "oos_sweep_sha256": "f105a5a060cc7472fdff4dfc03c5fbcfc8d7b90f2a8082861baffdf7fd4fd9f9",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vovr_cv_dev": 0.32739231319198864,
+    "vovr_trend_dev": 0.16525995398564258,
+    "vovr_cv_placebo": 0.31919675007804627,
+    "vovr_trend_placebo": 0.1881509827443225
+  },
+  "dominant_attribution": "vovr_cv_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vovr_cv_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -2.0528741730513507,
+      -2.184469860839768,
+      -2.4693886418875493,
+      -2.447419180063001,
+      -2.200952380005402,
+      -2.3418939803247345,
+      -2.055636296987034,
+      -2.078329291023752
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -12.981397758619513,
+    "second_half_sharpe": -19.02779901003736,
+    "sharpe_corr": 0.9982685145637198,
+    "stable": false
+  },
+  "diagnosis": "C378 cross-sectional intraday VOLATILITY-OF-VOLATILITY RATIO (VOVR) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

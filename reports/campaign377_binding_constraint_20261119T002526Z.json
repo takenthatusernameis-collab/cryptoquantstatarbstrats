@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T002526Z",
+  "campaign": 377,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign377_oos_sweep_20261119T002526Z.json",
+  "oos_sweep_sha256": "ca59354117b204ae1c64c9442fa097dc1f1db16b1d1f08a2ddd3f96151d49ee1",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "pslope_t_dev": 0.3148967419749065,
+    "pslope_slope_dev": 0.2734977296756844,
+    "pslope_t_placebo": 0.23130685543928628,
+    "pslope_slope_placebo": 0.18029867291012275
+  },
+  "dominant_attribution": "pslope_t_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "pslope_t_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.5399754555789742,
+      -0.3385077745865739,
+      -0.42635084235466403,
+      -0.762011651543117,
+      -0.5547991568666775,
+      -0.16211284744701,
+      -0.37528963574803076,
+      -0.3675898444061733
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -3.2576435066027667,
+    "second_half_sharpe": -2.6252611818202127,
+    "sharpe_corr": 0.9921367578426579,
+    "stable": false
+  },
+  "diagnosis": "C377 cross-sectional intraday WINDOW OLS TREND-SLOPE T-STATISTIC (PSLOPE) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
