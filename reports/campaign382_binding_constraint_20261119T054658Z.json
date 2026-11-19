@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T054658Z",
+  "campaign": 382,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign382_oos_sweep_20261119T054658Z.json",
+  "oos_sweep_sha256": "2bb479e1ed21d40fe5a87ffd247e973b4cd7bfe049b866d9f4450c14d06b0ad0",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "tailmem_ac1_dev": 0.13690090745209324,
+    "tailmem_decay_dev": 0.16375900348374423,
+    "tailmem_ac1_placebo": 0.31433304239552956,
+    "tailmem_decay_placebo": 0.38500704666863295
+  },
+  "dominant_attribution": "tailmem_decay_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "tailmem_ac1_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.897224919129313,
+      -0.7034136139858226,
+      -0.8551606920480491,
+      -0.9202582013162804,
+      -0.8627585553098936,
+      -0.7403076236941856,
+      -0.7303392258630605,
+      -0.7978208931669865
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.99248278533357,
+    "second_half_sharpe": -14.80904428636727,
+    "sharpe_corr": 0.998931014914921,
+    "stable": false
+  },
+  "diagnosis": "C382 cross-sectional intraday EXTREME-INDICATOR PERSISTENCE (TAILMEM) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
