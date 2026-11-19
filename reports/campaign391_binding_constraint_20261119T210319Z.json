@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T210319Z",
+  "campaign": 391,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign391_oos_sweep_20261119T210319Z.json",
+  "oos_sweep_sha256": "3607b4d351edb08df144bba32dd15fb71e06a57bde26ae2976a1f091ab449361",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "xskew3_gap_dev": 0.0978661548926259,
+    "xskew3_raw_dev": 0.09695599513213862,
+    "xskew3_gap_placebo": 0.34372010622193244,
+    "xskew3_raw_placebo": 0.46145774375330306
+  },
+  "dominant_attribution": "xskew3_raw_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "xskew3_gap_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.692801788939038,
+      -0.7549738679805946,
+      -0.7480440774689788,
+      -0.5429584187268346,
+      -0.7707871223031134,
+      -0.7964616642016105,
+      -0.808615584908875,
+      -0.6752410927462819
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.026507556333355,
+    "second_half_sharpe": -14.570412084893972,
+    "sharpe_corr": 0.99939833557151,
+    "stable": false
+  },
+  "diagnosis": "C391 cross-sectional intraday XSKEW3 (lag-1 cross third-moment time-irreversibility gap) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
