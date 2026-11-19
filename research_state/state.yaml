@@ -2,8 +2,8 @@ updated_at_utc: 2026-11-19T18:08:07Z
 handoff_refreshed_at_utc: 2026-11-19T18:08:07Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C388
-next_campaign: C389
+latest_campaign_done: C390
+next_campaign: C391
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -14,8 +14,8 @@ bottlenecks_note: 'RE-VERIFIED 2026-11-19T18:08:07Z: no blocked or inefficient s
 queued_next_campaign: C390
 queued_next_campaign_note: 'C389 MINRV is ACTIVE and UNSTARTED. Pre-seeded queue after it: C390 XCOEX (extreme co-exceedance probability profile, PLACEBO_SEED 20261254), C391 XSKEW3 (lag-1 cross third-moment time-irreversibility, PLACEBO_SEED 20261255), C392 DDRUN (max drawdown vs max run-up asymmetry, PLACEBO_SEED 20261256). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight + full 1296-config costed OOS sweep + 5 SHA256 reports pattern. Build strictly in order; never reuse a kernel and never rename-only.'
 first_action: "C389 MINRV is the ACTIVE campaign and is UNSTARTED: no scripts/c389*, no data/cache/campaign389_*, no reports/campaign389_* on disk. NEXT ACTION: run the full C389 execution card from AGENTS.md INITIAL TASK MESSAGE end-to-end: 3 scripts + 2 tests (build_c389_minrv_features.py, preflight_c389.py, run_c389_minrv_xsec_oos.py, tests/test_preflight_c389.py, tests/test_c389_minrv_xsec_oos.py), python3 scripts/build_c389_minrv_features.py -> data/cache/campaign389_minrv_5m/, python3 scripts/preflight_c389.py -> ready:true, python3 scripts/run_c389_minrv_xsec_oos.py -> FULL literal 1296-config costed OOS sweep, pytest tests/test_preflight_c389.py tests/test_c389_minrv_xsec_oos.py -q -> >=21 green incl MINRV brute-force equality, sha256sum reports/campaign389_*_<TS>Z.json, then record RESULT + SHAs here and in AGENTS.md and move queue to C390 XCOEX. Never re-run frozen C281B-C388 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
-active_campaign: C389
-space_status: NO_EDGE_C281B_C388
+active_campaign: C391
+space_status: NO_EDGE_C281B_C390
 closure_note: 'C281B-C388 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C389 MINRV is ACTIVE and UNSTARTED; queue pre-seeded C390 XCOEX -> C391 XSKEW3 -> C392 DDRUN. Next session must build C389 end-to-end, then freeze its truthful RESULT + SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT
@@ -933,4 +933,82 @@ c388_status:
   cache_shas:
     meta: '04783b239042833a0d0dbfd38da99f620792f20dbea995dff8016e85f1d08ff6'
     provenance: '3e414e029a6adbecefad418f31c2fe87e244da22193011e9ed52f147ff6731f6'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c389_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C389
+  family: minimum_realized_variance_jump_robust_rv_ratio_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2)), C367 (BPV/JAR adjacent |r| products), C373 (MedRV median-of-3 abs-return squares), C366 (RQV 4th raw moment/top-k concentration), C364 (DSRV same-bar semivariance sign split), C365 (KER net-displacement/path-length). MINRV is a jump-robust realized variance estimator (pi/2 * W/(W-1) * sum of min(adjacent squared returns)) and its ratio to RV — never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T191025Z
+  artifacts_ts: 20261119T191025Z
+  signals: [minrv_dev, minrv_rv_ratio_dev, minrv_placebo, minrv_rv_ratio_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261253
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'minrv_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [minrv_dev, minrv_rv_ratio_dev]
+  minrv_params: {window_W: 256, eps: 1e-12}
+  scripts_present: [scripts/build_c389_minrv_features.py, scripts/preflight_c389.py, scripts/run_c389_minrv_xsec_oos.py]
+  tests_present: [tests/test_preflight_c389.py, tests/test_c389_minrv_xsec_oos.py]
+  cache_present: data/cache/campaign389_minrv_5m
+  artifacts_present: [reports/campaign389_oos_sweep_20261119T191025Z.json, reports/campaign389_tradable_edge_registry_20261119T191025Z.json, reports/campaign389_summary_20261119T191025Z.json, reports/campaign389_verdict_20261119T191025Z.json, reports/campaign389_binding_constraint_20261119T191025Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: minrv_placebo
+  dominant_share: 0.3758
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '085ba04cbd05b64961aac4a90529eadf6ad5445457718e20a28231a2a958f323'
+    tradable_edge_registry: '9017978c0a073f37c8738b9207d2d5d00df0c4850fa830d2966fe3e495ad9867'
+    summary: '9f3f535a6be03a26ecdd960ed24162ba7c717c131afac5fc4a8eda64302d8d6b'
+    verdict: '6bd5047d2be38463ef1d63274d8e58b68a83b34c0e06d0dbe9f54e98271470d4'
+    binding_constraint: '2c39bc309fc9e4d2b7c4a1d88c9a235fecef0e08f6c18b12156afb1bc29dfb74'
+  cache_shas:
+    meta: '6f408eeda4851268febebf8fee187e66a02912ff34773dab66f7deec65d4d5f3'
+    provenance: 'b8a8ea959a82b236bd10cbc1e624087bddaed6354322afe06803984f6d39b7c1'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c390_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C390
+  family: extreme_co_exceedance_probability_profile_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C389 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. XCOEX measures extreme co-exceedance probability profile — the fraction of extreme-return co-movements across assets in a trailing window — never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T190904Z
+  artifacts_ts: 20261119T190904Z
+  signals: [xcoex_1_dev, xcoex_2_dev, xcoex_1_placebo, xcoex_2_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261254
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'xcoex_1_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [xcoex_1_dev, xcoex_2_dev]
+  xcoex_params: {window_W: 256, eps: 1e-12}
+  scripts_present: [scripts/build_c390_xcoex_features.py, scripts/preflight_c390.py, scripts/run_c390_xcoex_xsec_oos.py]
+  tests_present: [tests/test_preflight_c390.py, tests/test_c390_xcoex_xsec_oos.py]
+  cache_present: data/cache/campaign390_xcoex_5m
+  artifacts_present: [reports/campaign390_oos_sweep_20261119T190904Z.json, reports/campaign390_tradable_edge_registry_20261119T190904Z.json, reports/campaign390_summary_20261119T190904Z.json, reports/campaign390_verdict_20261119T190904Z.json, reports/campaign390_binding_constraint_20261119T190904Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: coex_1_placebo
+  dominant_share: 0.3515
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: 'b782caaaaae7a45552be802ae5dc3867c58805a0fadd620a9efc361677ddb83c'
+    tradable_edge_registry: '5eca769f11a4737d3479aab926777fed54cd43b5c07fe651296556657a50c3d0'
+    summary: '809b25217d4f6cceb0ee314eabd2a9d6b789257fdd95871bbf5338f789aa7fa3'
+    verdict: 'f97b16229b174f329056ed14935db8e5fb050a0658d3851be0563f05abd078d2'
+    binding_constraint: '747e314bfb941c02461b2be501f5db33ee9bcd5c7e19635703499214510d2342'
+  cache_shas:
+    meta: '8edf9191b54e248027a8bc9d88cbd880da9ce79fbc1e3c8645174cf163e71f95'
+    provenance: 'f180fdb018515d955a59f9ac661885f800888a32f25e7bae010af67bb0321968'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'

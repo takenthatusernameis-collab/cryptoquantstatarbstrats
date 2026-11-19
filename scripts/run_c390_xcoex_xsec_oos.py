@@ -286,6 +286,7 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
 # ------------------------------------------------------- XCOEX: extreme co-exceedance probability profile
 XCOEX_W = 256
 XCOEX_Q = 0.90
+XCOEX_EPS = 1e-12
 
 
 def _xcoex_bruteforce(close: np.ndarray, W: int = XCOEX_W,
@@ -298,9 +299,12 @@ def _xcoex_bruteforce(close: np.ndarray, W: int = XCOEX_W,
         return out
     r = np.zeros(n, dtype=float)
     r[1:] = np.diff(np.log(c))
+    eps = XCOEX_EPS
     for t in range(W, n):
         X = r[t - W + 1:t + 1]
         if not np.isfinite(X).all():
+            continue
+        if float(np.sum(X * X)) <= eps:
             continue
         a = np.abs(X)
         q90 = np.percentile(a, 100.0 * q)
@@ -332,31 +336,31 @@ def compute_xcoex_metrics(close: np.ndarray, W: int = XCOEX_W,
         return out
     r = np.zeros(n, dtype=float)
     r[1:] = np.diff(np.log(c))
-    wv = sliding_window_view(r, W)  # (n-W+1? )
-    # sliding window of W returns aligned: row p covers r[p..p+W-1], close bar t=p+W-1
-    # we want t>=W -> p>=1? Actually for close bar t, X=r[t-W+1..t]. Use W+?
-    # Use view of W returns ending at t: sliding_window_view(r, W) gives rows r[i:i+W], close bar = i+W-1.
-    # Need i+W-1 >= W -> i>=1.
     wv = sliding_window_view(r, W)  # (n-W+1, W)
     # rows where close bar t>=W: i from 1 to n-W
     rows = wv[1:]  # (n-W, W), close bars W..n-1
     n_windows = rows.shape[0]
     a = np.abs(rows)
+    rv = (rows * rows).sum(axis=1)  # realized variance per window
     q90 = np.percentile(a, 100.0 * q, axis=1)  # (n_windows,)
     e = (a >= q90[:, None]).astype(int)  # (n_windows, W)
 
     # coex_1
     denom1 = e[:, :-1].sum(axis=1)
     num1 = (e[:, 1:] & e[:, :-1]).sum(axis=1)
-    coex_1 = np.where(denom1 >= 3, num1 / np.where(denom1 == 0, 1, denom1), np.nan)
 
     # coex_4
     denom4 = e[:, :-4].sum(axis=1)
     num4 = (e[:, 4:] & e[:, :-4]).sum(axis=1)
-    coex_4 = np.where(denom4 >= 3, num4 / np.where(denom4 == 0, 1, denom4), np.nan)
 
-    decay = coex_1 - coex_4
-    valid = (denom1 >= 3) & (denom4 >= 3) & np.isfinite(coex_1) & np.isfinite(coex_4)
+    eps = XCOEX_EPS
+    finite_win = np.isfinite(rows).all(axis=1)
+    valid = finite_win & (rv > eps) & (denom1 >= 3) & (denom4 >= 3)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        coex_1 = np.where(valid, num1 / np.where(denom1 == 0, 1.0, denom1), np.nan)
+        coex_4 = np.where(valid, num4 / np.where(denom4 == 0, 1.0, denom4), np.nan)
+    decay = np.where(valid, coex_1 - coex_4, np.nan)
+
     ts = np.arange(W, n)
     out["coex_1"][ts[valid]] = coex_1[valid]
     out["coex_decay"][ts[valid]] = decay[valid]
