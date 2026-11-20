@@ -1,17 +1,24 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T17:37:11Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T17:39:12Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
-## DISK TRUTH (re-verified 2026-11-20T12:55:00Z)
+This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
+
+## DISK TRUTH (re-verified 2026-11-20T17:37:57Z by this session)
 
 - **C281B–C402 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C402.
-- **Frozen boundary = C402 TSCALE** (`20261120T163611Z`): 2592 configs costed-OOS, dominant attribution `tscale_slope_placebo` 0.1611, 30/30 tests green, cache `data/cache/campaign402_tscale_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed this session and MATCH: oos_sweep `6e9dc436…63bae9`, registry `0245a836…fc2d7c`, summary `3f98f9c0…5823`, verdict `5fc98912…884d3`, binding_constraint `c177b528…fe42` (full digests in `research_state/state.yaml`).
-- **C403 ASYMCURV is the ACTIVE campaign** — UNSTARTED (N_TRIALS=1944, PLACEBO_SEED=20261267). Build end-to-end per C403 spec, never rename-only.
-- **C404 DOMFREQ is pre-registered** (N_TRIALS=1296, PLACEBO_SEED=20261268). Queue must never sit idle.
+- **Frozen boundary = C402 TSCALE** (`20261120T163611Z`): 2592 configs costed-OOS, dominant attribution `tscale_slope_placebo` 0.1611, 30/30 tests green, cache `data/cache/campaign402_tscale_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed and MATCH: oos_sweep `6e9dc436…63bae9`, registry `0245a836…fc2d7c`, summary `3f98f9c0…5823`, verdict `5fc98912…884d3`, binding_constraint `c177b528…fe42` (full digests in `research_state/state.yaml`).
+- **C403 ASYMCURV is the ACTIVE campaign — verified UNSTARTED this session**: `ls scripts tests | grep -c c403 == 0`, `ls data/cache/campaign403_asymcurv_5m` → missing, `ls reports | grep -c campaign403 == 0`. N_TRIALS=1944, PLACEBO_SEED=20261267. Build end-to-end, never rename-only.
+- **C404 DOMFREQ is pre-registered** (N_TRIALS=1296, PLACEBO_SEED=20261268).
+- **C405 COSKEW is pre-registered by this handoff** (N_TRIALS=1296, PLACEBO_SEED=20261269) so queue depth stays 3 and no future session can run dry.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
 - **Environment ready**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
-- **Quarantine**: `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/` and `archive/void_c402_clone/` (C401 RVQUART clone-and-rename) are read-only evidence. Never copy, import, cite, fix, freeze or re-run anything in them.
-- **Queue depth 3** → C403 (ACTIVE) → C404 (pre-registered) → (next genuinely-new family). The queue can never be empty.
+- **VERIFICATION COMMANDS THAT ACTUALLY WORK** (previous handoffs had a broken check): `ls data/cache` also contains `campaign402_tscale_5m.meta.json` and `.provenance.json` siblings, so `ls data/cache | grep -c campaign402` returns **3**, not 0/1. Use `ls data/cache/campaign402_tscale_5m | wc -l` (=10) and `test -d data/cache/campaign403_asymcurv_5m` instead. The shard-count proof is `ls data/cache/campaign403_asymcurv_5m | wc -l == 10`.
+- **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
+  - **NEW THIS SESSION — `archive/void_c403_clone/`**: 5 files named `*c403*` that are a rename-only clone of C402 TSCALE. Verified inside: `campaign: 402`, `PLACEBO_SEED = 20261266`, `CACHE_DIR = campaign402_tscale_5m`. Naïvely running it would overwrite the frozen C402 report set. The C403 slot is empty on purpose — build C403 fresh.
+  - `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`.
+- **Queue depth 3** → C403 (ACTIVE, 1944) → C404 DOMFREQ (1296) → C405 COSKEW (1296). The queue can never be empty.
+- **No blocking bottlenecks.** Only standing hazard is clone-and-rename; it is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below.
 
 ## PRIORITY (fixed by the repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE)
 
@@ -20,11 +27,13 @@
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T17:37:11Z; supersedes every earlier session message)
+## INITIAL TASK MESSAGE (2026-11-20T17:39:12Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C403 ASYMCURV END-TO-END NOW.** C402 TSCALE is FROZEN (20261120T163611Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant tscale_slope_placebo 0.1611). C403 is UNSTARTED on disk (verified: `ls scripts tests | grep -c c403 == 0`, `ls data/cache | grep -c campaign403 == 0`, `ls reports | grep -c campaign403 == 0`). C404 DOMFREQ is pre-registered (N_TRIALS=1296, PLACEBO_SEED=20261268) and must follow immediately. Queue can NEVER sit idle.
+**FIRST ACTION — BUILD C403 ASYMCURV END-TO-END NOW.** C402 TSCALE is FROZEN (20261120T163611Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant tscale_slope_placebo 0.1611). C403 is UNSTARTED on disk (re-verified 17:37:57Z: `ls scripts tests | grep -c c403 == 0`, `test -d data/cache/campaign403_asymcurv_5m` false, `ls reports | grep -c campaign403 == 0`). C404 DOMFREQ (N_TRIALS=1296, PLACEBO_SEED=20261268) and C405 COSKEW (N_TRIALS=1296, PLACEBO_SEED=20261269) are pre-registered and must follow. Queue can NEVER sit idle.
 
-**Disk truth (do not re-litigate):** C281B–C402 all FROZEN formal negatives; C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (archive/void_c381, archive/void_c398_clone, archive/void_c402_clone, archive/void_c402_reclone). No bottlenecks. Queue: C403 (ACTIVE) → C404 (pre-registered) → next genuinely-new family.
+**Bottlenecks removed by this handoff (do not re-litigate):** (a) the `*c403*` rename-only clone of C402 was quarantined read-only at `archive/void_c403_clone/` — copy from the genuine C402 scripts, never from `archive/void_*`; (b) the broken cache-verification command was replaced with shard-count proofs (above); (c) `research_state/state.yaml` pointers were corrected (`active_campaign: C403`, `queued_next_campaign: C404`), so nothing is blocked.
+
+**Disk truth:** C281B–C402 all FROZEN formal negatives; C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). No bottlenecks.
 
 **Build C403 ASYMCURV (ASYMMETRIC CURVATURE / CONDITIONAL SKEWNESS) end-to-end, never rename-only.** N_TRIALS=1944, PLACEBO_SEED=20261267. Clone C402 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
 
@@ -34,6 +43,7 @@ cp scripts/preflight_c402.py              scripts/preflight_c403.py
 cp scripts/run_c402_tscale_xsec_oos.py    scripts/run_c403_asymcurv_xsec_oos.py
 cp tests/test_preflight_c402.py           tests/test_preflight_c403.py
 cp tests/test_c402_tscale_xsec_oos.py     tests/test_c403_asymcurv_xsec_oos.py
+grep -n "402\|20261266\|tscale\|TSCALE" scripts/*c403* tests/*c403*   # must return NOTHING before proceeding
 python3 scripts/build_c403_asymcurv_features.py     # -> data/cache/campaign403_asymcurv_5m/ (10 shards)
 python3 scripts/preflight_c403.py                   # must print ready:true
 python3 scripts/run_c403_asymcurv_xsec_oos.py       # FULL literal 1944-config costed OOS sweep
@@ -51,7 +61,20 @@ sha256sum reports/campaign403_*_<TS>Z.json          # record all 5 artifact SHAs
 
 **Guard tests required:** artifact["campaign"]==403; mandate names ASYMCURV; N_TRIALS==1944; PLACEBO_SEED==20261267; ASYMCURV kernel not allclose 0 where defined; kernel-distinctness vs RSKEK/RSK/RKT/Hill/XSKEW3/SEMICOV/DSRV; brute-force equality maxdiff < 1e-12.
 
-**The moment C403 is frozen, immediately build C404 DOMFREQ** (N_TRIALS=1296, PLACEBO_SEED=20261268) per its pre-registered spec (dom_period, spec_centroid via rfft argmax/centroid; brute-force maxdiff < 1e-9), then advance to the next genuinely-new family. Queue must never sit idle. Anti-avoidance: no session ends without 3 scripts + 2 tests + cache + preflight ready:true + FULL literal-N_TRIALS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality + durable record + frozen-table row + state.yaml update.
+**The moment C403 is frozen, immediately build C404 DOMFREQ** (N_TRIALS=1296, PLACEBO_SEED=20261268) per its pre-registered spec (dom_period, spec_centroid via rfft argmax/centroid; brute-force maxdiff < 1e-9), then **C405 COSKEW** (below), then the next genuinely-new family. Queue must never sit idle.
+
+### C404 — PRE-REGISTERED SPEC (DOMFREQ: DOMINANT SPECTRAL FREQUENCY / SPECTRAL CENTROID)
+
+X = r[t-W+1..t], W=256 (NaN if t<W or any NaN). Detrend `Y = X − mean(X)`. One-sided power `P_j = |rfft(Y)_j|²`, j=1..W/2 (DC excluded), `f_j = j/W`. `dom_period[t] = W / argmax_j P_j`; `spec_centroid[t] = Σ_j f_j P_j / Σ_j P_j`. NaN if Σ_j P_j ≤ 0 or not finite. Distinct from SPECFM (flatness/entropy), VOVR, TSCALE. Grid: SIGNALS={dom_period_dev, spec_centroid_dev, dom_period_placebo, spec_centroid_placebo} → 4×6×3×3×3×2 = **1296**. Ref `dom_period_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={dom_period_dev, spec_centroid_dev}`. Cache `data/cache/campaign404_domfreq_5m/` with `domfreq_params={window_W:256}`. Brute-force maxdiff < 1e-9 (FFT round-off). Kernel-distinctness vs SPECFM/VOVR. Same gates/verdict.
+
+### C405 — PRE-REGISTERED SPEC (COSKEW: CROSS-SECTIONAL CO-SKEWNESS / CO-KURTOSIS vs EQUAL-WEIGHT MARKET)
+
+The only **cross-asset higher co-moment** family ever run here, and it matches the repo's PRIMARY cross-sectional axis: systematic (market-factor) skewness risk rather than an asset's own moments. On the common C312 grid, define the equal-weight market return `m[s] = (1/10) Σ_i r_i[s]`. For each asset i and bar t, window X = r_i[t-W+1..t], M = m[t-W+1..t], W=256 (NaN if t<W or any NaN):
+- `coskew[t] = mean((X−μ_X)(M−μ_M)²) / (σ_X·σ_M²)` (systematic co-skewness)
+- `cokurt[t] = mean((X−μ_X)(M−μ_M)³) / (σ_X·σ_M³)` (systematic co-kurtosis)
+NaN if σ_X ≤ 0 or σ_M ≤ 0 or not finite. Distinct from every univariate moment family (RSKEK C361, RSK/RKT C371, LMOM C398), from SEMICOV (conditional covariance), LVAC (leverage `corr(r,|r|)`), XSKEW3 (lag-1 cross third moment), TIRV, QSPREAD, CTES. Grid: SIGNALS={coskew_dev, cokurt_dev, coskew_placebo, cokurt_placebo} → 4×6×3×3×3×2 = **1296**; LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical; placebo seed **20261269**; ref `coskew_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker; `ATTR_REPRESENTATIVES={coskew_dev, cokurt_dev}`; cache `data/cache/campaign405_coskew_5m/` with `coskew_params={window_W:256}`; brute-force equality maxdiff < 1e-12 (manual per-window loop with explicit market series); kernel-distinctness guards vs RSKEK/RSKT/SEMICOV/LVAC/XSKEW3. Same gates/verdict.
+
+**Anti-avoidance:** no session ends without 3 scripts + 2 tests + cache + preflight ready:true + FULL literal-N_TRIALS sweep + 5 SHA256 reports (+ gitignored `.full.json`) + ≥21 green tests incl. brute-force equality + durable RESULT record + frozen-table row + `state.yaml` update. Terminal closure by fiat is PROHIBITED; prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
 ---
 
