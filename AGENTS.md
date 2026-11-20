@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T11:49:53Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T12:55:00Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
-## DISK TRUTH (re-verified 2026-11-20T11:49:53Z)
+## DISK TRUTH (re-verified 2026-11-20T12:55:00Z)
 
 - **C281B–C401 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C401.
 - **Frozen boundary = C401 RVQUART** (`20261120T095554Z`): 1296 configs costed-OOS, dominant attribution `rq_placebo` 0.5504, 32/32 tests green, cache `data/cache/campaign401_rvquart_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed this session and MATCH: oos_sweep `f8b2717b…a1e3`, registry `d66008e2…22da`, summary `bcef840c…05f7`, verdict `6623f227…cbec`, binding_constraint `0c4ee670…e89f` (full digests in `research_state/state.yaml`).
