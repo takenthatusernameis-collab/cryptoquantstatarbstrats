@@ -20,7 +20,34 @@
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T11:58:51Z; supersedes every earlier session message)
+## INITIAL TASK MESSAGE (2026-11-20T12:53:36Z; supersedes every earlier session message)
+
+**RE-CLONE TRAP REMOVED THIS SESSION (2026-11-20T12:53:36Z).** A second `*c402*` rename-only clone of C401 RVQUART was found on disk (campaign: 401, PLACEBO_SEED 20261265, CACHE_DIR campaign401_rvquart_5m, report prefix campaign401_*) and quarantined read-only to `archive/void_c402_reclone/` (5 files). The C402 slot is empty again: `ls scripts tests | grep -c c402 == 0`. Do NOT copy/import/cite anything under `archive/void_c402_clone/` or `archive/void_c402_reclone/`. Re-verify before building: `ls scripts tests | grep -c c402 == 0`, `ls data/cache | grep -c campaign402 == 0`, `ls reports | grep -c campaign402 == 0`.
+
+**FIRST ACTION — build C402 TSCALE end-to-end from C401 plumbing, FULLY re-specified (never rename-only).** Sequence, no stopping in between:
+
+```
+cp scripts/build_c401_rvquart_features.py  scripts/build_c402_tscale_features.py
+cp scripts/preflight_c401.py              scripts/preflight_c402.py
+cp scripts/run_c401_rvquart_xsec_oos.py   scripts/run_c402_tscale_xsec_oos.py
+cp tests/test_preflight_c401.py           tests/test_preflight_c402.py
+cp tests/test_c401_rvquart_xsec_oos.py    tests/test_c402_tscale_xsec_oos.py
+# then MANDATORY rewrite per the C402 FULL SPEC below (campaign 402, TSCALE kernel,
+# PLACEBO_SEED 20261266, 2592 configs, tscale_params={window_W:256,k_vals:[12,24,48]})
+python3 scripts/build_c402_tscale_features.py
+python3 scripts/preflight_c402.py                 # must print ready:true
+python3 scripts/run_c402_tscale_xsec_oos.py       # FULL literal 2592-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c402.py tests/test_c402_tscale_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign402_*_<TS>Z.json        # record all 5 artifact SHAs
+```
+
+SELF-CHECK before the sweep: `grep -n "401\|rvquart\|RVQUART" scripts/*c402* tests/*c402*` must return nothing. Then record truthful RESULT + SHAs in AGENTS.md + research_state/state.yaml, add frozen-table row, freeze. Verify `ls scripts tests | grep -c c402 == 5` and `ls data/cache/campaign402_tscale_5m/ | wc -l == 10` before freezing. The moment C402 is frozen, immediately build C403 (ASYMCURV, N_TRIALS=1944), then C404 (DOMFREQ, 1296) — queue must never sit idle.
+
+Priority unchanged: PRIMARY axis = cross-sectional dollar-neutral long-top/short-bottom across all 10 USDT-M perps (gross 1.0, never directional); signal overlay = causal seasonal-dislocation mean-reversion; ONLY gate = costed OOS PnL with Holm AND BH at alpha=0.05. C281B–C401 all FROZEN formal negatives — do NOT re-run.
+
+---
+
+## INITIAL TASK MESSAGE (2026-11-20T11:58:51Z; supersedes every earlier session message) [ARCHIVED]
 
 **READ THIS FIRST (no re-planning, no context re-read).** Repo = `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE. The PRIMARY axis is always the cross-sectional dollar-neutral long-top / short-bottom book across all 10 USDT-M perps (gross 1.0, never directional); the signal overlay is causal seasonal-dislocation mean-reversion; the ONLY gate is costed out-of-sample PnL with Holm AND BH at α=0.05. C281B–C401 are all FROZEN formal negatives — do NOT re-run them. The queue is depth-3 and can never be empty: **C402 (ACTIVE, absent from disk) → C403 → C404**.
 
