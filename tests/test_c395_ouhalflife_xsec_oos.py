@@ -1,6 +1,6 @@
-"""Tests for C394 runner (scripts/run_c394_ctes_xsec_oos.py): pure-function tests on
-synthetic arrays (including a brute-force equality test for the vectorized CTES
-kernels vs the per-window reference loop) plus schema/flag validation of emitted
+"""Tests for C395 runner (scripts/run_c395_ouhalflife_xsec_oos.py): pure-function tests on
+synthetic arrays (including a brute-force equality test for the vectorized OU
+half-life kernels vs the per-window reference loop) plus schema/flag validation of emitted
 real-data artifacts. No network, no fabricated market data."""
 from __future__ import annotations
 
@@ -9,14 +9,13 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from numpy.lib.stride_tricks import sliding_window_view
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c394_ctes_xsec_oos as R  # noqa: E402
+import run_c395_ouhalflife_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -46,9 +45,9 @@ def test_n_trials_matches_pre_registered_grid_product():
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("ces_spread_placebo", "ces_asym_placebo"):
+    for pb in ("ou_kappa_placebo", "ou_halflife_placebo"):
         assert pb in R.SIGNALS
-    for real in ("ces_spread_dev", "ces_asym_dev"):
+    for real in ("ou_kappa_dev", "ou_halflife_dev"):
         assert real in R.SIGNALS
 
 
@@ -110,78 +109,72 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- CTES metric (brute-force equality)
-def test_ctes_matches_brute_force():
-    """The vectorized ces_spread/ces_asym kernels MUST equal the brute-force
-    reference (per-window conditional tail expectation). Compared strictly
-    (maxdiff < 1e-12) with matching NaN patterns."""
-    rng = np.random.default_rng(123)
-    r = rng.standard_normal(900) * 0.001
-    fast = R.compute_ctes_metrics(r, R.CTES_W, R.CTES_N_TAIL, R.CTES_EPS)
-    brute = R._ctes_bruteforce(r, R.CTES_W, R.CTES_N_TAIL, R.CTES_EPS)
-    for key in ("es_down", "es_up", "ces_spread", "ces_asym"):
+# ---------------------------------------------------------------- OU half-life metric (brute-force equality)
+def test_ouhalflife_matches_brute_force():
+    """The vectorized phi/kappa/halflife kernels MUST equal the brute-force
+    reference (per-window rolling lag-1 autocorrelation of log prices).
+    Compared strictly (maxdiff < 1e-12) with matching NaN patterns."""
+    rng = np.random.default_rng(20261259)
+    # Geometric Brownian Motion-like prices: log prices are a random walk
+    log_prices = np.cumsum(rng.standard_normal(2000) * 0.001) + 10.0
+    close = np.exp(log_prices)
+    fast = R.compute_ouhalflife_metrics(close, R.OU_W)
+    brute = R._ouhalflife_bruteforce(close, R.OU_W)
+    for key in ("phi", "kappa", "halflife"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN pattern mismatch"
-    fs, bs_ = fast["ces_spread"], brute["ces_spread"]
-    fin_s = np.isfinite(fs) & np.isfinite(bs_)
-    maxdiff_s = float(np.max(np.abs(fs[fin_s] - bs_[fin_s]))) if fin_s.sum() else 0.0
-    assert maxdiff_s < 1e-12, f"ces_spread: maxdiff={maxdiff_s} >= 1e-12"
-    fa, ba = fast["ces_asym"], brute["ces_asym"]
-    fin_a = np.isfinite(fa) & np.isfinite(ba)
-    maxdiff_a = float(np.max(np.abs(fa[fin_a] - ba[fin_a]))) if fin_a.sum() else 0.0
-    assert maxdiff_a < 1e-12, f"ces_asym: maxdiff={maxdiff_a} >= 1e-12"
+        maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
+        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
 
 
-def test_ctes_defined_after_window_nan_before():
+def test_ouhalflife_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
-    r = rng.standard_normal(2000) * 0.001
-    m = R.compute_ctes_metrics(r, R.CTES_W, R.CTES_N_TAIL, R.CTES_EPS)
-    W = R.CTES_W
-    for key in ("es_down", "es_up", "ces_spread", "ces_asym"):
+    log_prices = np.cumsum(rng.standard_normal(2000) * 0.001) + 10.0
+    close = np.exp(log_prices)
+    m = R.compute_ouhalflife_metrics(close, R.OU_W)
+    W = R.OU_W
+    for key in ("phi", "kappa", "halflife"):
         assert np.isnan(m[key][:W]).all(), key
-        assert np.isfinite(m[key][W:]).all(), key
+        assert np.isfinite(m[key][W:]).any(), key
 
 
-def test_ctes_non_finite_return_propagates():
-    """A non-finite return in the window -> NaN for all CTES outputs."""
+def test_ouhalflife_non_finite_close_propagates():
+    """A non-finite close in the window -> NaN for all OU outputs in affected bars."""
     rng = np.random.default_rng(9)
-    r = rng.standard_normal(600) * 0.001
-    r[300] = np.inf
-    W = R.CTES_W
-    m = R.compute_ctes_metrics(r, W, R.CTES_N_TAIL, R.CTES_EPS)
-    # r[300]=inf affects bars t where 300 in [t-W, t) => t in (300, 300+W]
-    for t in range(301, min(301 + W, 600)):
-        assert np.isnan(m["ces_spread"][t]), f"ces_spread t={t} should be NaN"
-        assert np.isnan(m["ces_asym"][t]), f"ces_asym t={t} should be NaN"
+    log_prices = np.cumsum(rng.standard_normal(600) * 0.001) + 10.0
+    close = np.exp(log_prices)
+    close[300] = np.inf
+    W = R.OU_W
+    m = R.compute_ouhalflife_metrics(close, W, )
+    # close[300]=inf affects bars t where 300 in [t-W+1, t] => t in [300, 300+W-1]
+    for t in range(300, min(300 + W, 600)):
+        assert np.isnan(m["phi"][t]), f"phi t={t} should be NaN"
+        assert np.isnan(m["kappa"][t]), f"kappa t={t} should be NaN"
+        assert np.isnan(m["halflife"][t]), f"halflife t={t} should be NaN"
     for t in range(W, 300):
-        assert np.isfinite(m["ces_spread"][t])
-        assert np.isfinite(m["ces_asym"][t])
-    for t in range(300 + W + 1, 600):
-        assert np.isfinite(m["ces_spread"][t])
-        assert np.isfinite(m["ces_asym"][t])
+        assert np.isfinite(m["phi"][t])
+    for t in range(300 + W, 600):
+        assert np.isfinite(m["phi"][t])
 
 
-def test_ctes_params():
-    assert R.CTES_W == 256
-    assert R.CTES_P == 0.10
-    assert R.CTES_N_TAIL == 26
-    assert R.CTES_EPS == 1e-12
+def test_ouhalflife_params():
+    assert R.OU_W == 256
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "ces_spread_dev": "ces_spread_dev",
-        "ces_asym_dev": "ces_asym_dev",
+        "ou_kappa_dev": "ou_kappa_dev",
+        "ou_halflife_dev": "ou_halflife_dev",
     }
-    assert R.PLACEBO_SEED == 20261258
+    assert R.PLACEBO_SEED == 20261259
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.CTES_W == 256
-    assert R.SIGNALS[0] == "ces_spread_dev"
+    assert R.OU_W == 256
+    assert R.SIGNALS[0] == "ou_kappa_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -210,8 +203,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"es_down", "es_up", "ces_spread", "ces_asym"}
-    for k in ("es_down", "es_up", "ces_spread", "ces_asym"):
+    assert set(series.keys()) == {"phi", "kappa", "halflife"}
+    for k in ("phi", "kappa", "halflife"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -228,61 +221,68 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_ctes_kernel_distinct_from_degenerate():
-    """Rewrite guard: CTES metrics are not degenerate (ces_spread not allclose to 0,
-    ces_asym not allclose to 0 where defined)."""
+def test_ouhalflife_kernel_not_degenerate():
+    """Rewrite guard: OU metrics are not degenerate (kappa not allclose to 0,
+    halflife not allclose to inf/0 where defined)."""
     rng = np.random.default_rng(55)
-    r = rng.standard_normal(800) * 0.001
-    W = R.CTES_W
-    mm = R.compute_ctes_metrics(r, W, R.CTES_N_TAIL, R.CTES_EPS)
-    ces_spread = mm["ces_spread"]
-    ces_asym = mm["ces_asym"]
-    spread_valid = ces_spread[W:]
-    asym_valid = ces_asym[W:]
-    fin = np.isfinite(spread_valid) & np.isfinite(asym_valid)
+    log_prices = np.cumsum(rng.standard_normal(800) * 0.001) + 10.0
+    close = np.exp(log_prices)
+    W = R.OU_W
+    mm = R.compute_ouhalflife_metrics(close, W)
+    kappa = mm["kappa"]
+    halflife = mm["halflife"]
+    kappa_valid = kappa[W:]
+    hl_valid = halflife[W:]
+    fin = np.isfinite(kappa_valid) & np.isfinite(hl_valid)
     assert fin.sum() > 0
-    assert not np.allclose(spread_valid[fin], 0.0, atol=1e-12), "ces_spread collapses to 0"
-    assert not np.allclose(asym_valid[fin], 0.0, atol=1e-12), "ces_asym collapses to 0"
+    assert not np.allclose(kappa_valid[fin], 0.0, atol=1e-12), "kappa collapses to 0"
+    assert not np.allclose(hl_valid[fin], 0.0, atol=1e-12), "halflife collapses to 0"
 
 
 # ---------------------------------------------------------------- guard tests (rewrite guards)
-def test_artifact_campaign_is_394():
-    """Rewrite guard: every emitted artifact self-identifies campaign 394 (never 392/393)."""
+def test_artifact_campaign_is_395():
+    """Rewrite guard: every emitted artifact self-identifies campaign 395 (never 394/396)."""
     for part in ("verdict", "summary", "registry", "oos_sweep"):
-        files = sorted((ROOT / "reports").glob(f"campaign394_{part}_*.json"))
+        files = sorted((ROOT / "reports").glob(f"campaign395_{part}_*.json"))
         files = [f for f in files if ".full." not in f.name]
         if not files:
             continue
         obj = json.loads(files[-1].read_text())
-        assert obj["campaign"] == 394, f"{part} artifact campaign != 394: {obj.get('campaign')}"
+        assert obj["campaign"] == 395, f"{part} artifact campaign != 395: {obj.get('campaign')}"
 
 
-def test_mandate_contains_ctes_and_tail_expectation():
-    """Rewrite guard: the C394 mandate names CTES and conditional tail expectation
-    (never VTERM/semicov/xcoex/xskew3/ddrun/vterm)."""
-    p = sorted((ROOT / "reports").glob("campaign394_oos_sweep_*.json"))
+def test_mandate_contains_ou_half_life():
+    """Rewrite guard: the C395 mandate names OU half-life / mean-reversion
+    (never CTES/semicov/xcoex/xskew3/ddrun/vterm)."""
+    p = sorted((ROOT / "reports").glob("campaign395_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "CTES" in mandate, "mandate missing CTES"
-    assert "conditional tail" in mandate.lower(), "mandate missing conditional tail"
-    assert "expectation" in mandate.lower(), "mandate missing expectation"
-    assert "spread" in mandate.lower(), "mandate missing spread"
-    assert "VTERM" not in mandate, "mandate must not reference VTERM"
+    assert "OU" in mandate, "mandate missing OU"
+    assert "half-life" in mandate.lower() or "halflife" in mandate.lower(), "mandate missing half-life"
+    assert "mean-reversion" in mandate.lower(), "mandate missing mean-reversion"
+    assert "CTES" not in mandate, "mandate must not reference CTES"
     assert "semicov" not in mandate.lower(), "mandate must not reference semicov"
     assert "XCOEX" not in mandate, "mandate must not reference XCOEX"
     assert "XSKEW3" not in mandate, "mandate must not reference XSKEW3"
     assert "DDRUN" not in mandate, "mandate must not reference DDRUN"
+    assert "VTERM" not in mandate, "mandate must not reference VTERM"
 
 
-def test_placebo_seed_is_20261258():
-    assert R.PLACEBO_SEED == 20261258
+def test_placebo_seed_is_20261259():
+    assert R.PLACEBO_SEED == 20261259
+
+
+def test_placebo_seed_unique_not_reserved():
+    """Rewrite guard: C395 placebo seed 20261259 must not collide with reserved
+    seeds 20261224–20261258 used by prior campaigns."""
+    assert not (20261224 <= R.PLACEBO_SEED <= 20261258), "placebo seed must be outside 20261224-20261258"
 
 
 # ---------------------------------------------------------------- real artifacts schema (if present)
 def _find_latest(prefix: str):
-    files = sorted((ROOT / "reports").glob(f"campaign394_{prefix}_*.json"))
+    files = sorted((ROOT / "reports").glob(f"campaign395_{prefix}_*.json"))
     files = [f for f in files if ".full." not in f.name]
     return files[-1] if files else None
 
@@ -292,7 +292,7 @@ def test_artifacts_if_present_have_required_flags():
     if p is None:
         return
     v = json.loads(p.read_text())
-    assert v["campaign"] == 394
+    assert v["campaign"] == 395
     assert v["real_data_only"] is True and v["fabricated_data"] is False
     assert v["executed_fills"] is False
     assert v["verdict"] in ("EDGE_PROVEN", "RETRACTED")
@@ -306,24 +306,19 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["ctes_params"]["window_W"] == 256
-    assert sw["config"]["ctes_params"]["n_tail"] == 26
-    assert sw["config"]["ctes_params"]["eps"] == 1e-12
+    assert sw["config"]["ou_params"]["window_W"] == 256
 
 
-def test_cache_meta_ctes_params_distinct():
-    meta_path = ROOT / "data" / "cache" / "campaign394_ctes_5m.meta.json"
+def test_cache_meta_ou_params_distinct():
+    meta_path = ROOT / "data" / "cache" / "campaign395_ouhalflife_5m.meta.json"
     if not meta_path.exists():
         return
     meta = json.loads(meta_path.read_text())
-    assert meta["campaign"] == 394
+    assert meta["campaign"] == 395
     assert meta["source_campaign"] == 312
-    assert "ces_params" in meta
-    assert meta["ces_params"]["window_W"] == 256
-    assert meta["ces_params"]["tail_p"] == 0.10
-    assert meta["ces_params"]["n_tail"] == 26
-    assert meta["ces_params"]["eps"] == 1e-12
-    for other in ("vterm_params", "ddrun_params", "semicov_params", "qspread_params", "rar_params", "lvac_params",
+    assert "ou_params" in meta
+    assert meta["ou_params"]["window_W"] == 256
+    for other in ("ces_params", "vterm_params", "ddrun_params", "semicov_params", "qspread_params", "rar_params", "lvac_params",
                   "hill_params", "rskek_params", "opte_params", "qatm_params", "dsrv_params",
                   "ker_params", "rqv_params", "bpv_params", "rmad_params", "gmd_params",
                   "rskrkt_params", "tirv_params", "rlrv_params", "signrun_params",
@@ -344,18 +339,19 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_ctes_matches_brute_force()
-    test_ctes_defined_after_window_nan_before()
-    test_ctes_non_finite_return_propagates()
-    test_ctes_params()
+    test_ouhalflife_matches_brute_force()
+    test_ouhalflife_defined_after_window_nan_before()
+    test_ouhalflife_non_finite_close_propagates()
+    test_ouhalflife_params()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_ctes_kernel_distinct_from_degenerate()
-    test_artifact_campaign_is_394()
-    test_mandate_contains_ctes_and_tail_expectation()
-    test_placebo_seed_is_20261258()
+    test_ouhalflife_kernel_not_degenerate()
+    test_artifact_campaign_is_395()
+    test_mandate_contains_ou_half_life()
+    test_placebo_seed_is_20261259()
+    test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    test_cache_meta_ctes_params_distinct()
-    print("All C394 runner tests passed")
+    test_cache_meta_ou_params_distinct()
+    print("All C395 runner tests passed")

@@ -84,7 +84,7 @@ def main() -> int:
     blocked: list[str] = []
 
     if not CACHE_META.exists():
-        print(json.dumps({"ready": False, "blocked_reasons": ["C394 meta missing"]}, indent=2))
+        print(json.dumps({"ready": False, "blocked_reasons": ["C395 meta missing"]}, indent=2))
         return 1
     try:
         meta = json.loads(CACHE_META.read_text())
@@ -133,10 +133,7 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("ces_params", {}).get("window_W") == 256
-        and meta.get("ces_params", {}).get("tail_p") == 0.10
-        and meta.get("ces_params", {}).get("n_tail") == 26
-        and meta.get("ces_params", {}).get("eps") == 1e-12
+        and meta.get("ou_params", {}).get("window_W") == 256
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -152,7 +149,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "ces_params": meta.get("ces_params"),
+        "ou_params": meta.get("ou_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -165,7 +162,7 @@ def main() -> int:
         "ok": bool(flags_ok),
     }
     if not flags_ok:
-        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/ces_params mismatch")
+        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/ou_params mismatch")
     checks["shards"] = {"n_shards": len(shard_sha_meta), "ok": bool(shard_ok), "detail": shard_detail}
     if not shard_ok:
         blocked.append("one or more shards missing / sha or size mismatch / over push limit")
@@ -185,9 +182,9 @@ def main() -> int:
     grid_start = meta.get("grid_start_utc")
     grid_end = meta.get("grid_end_utc")
     if n_grid == 0 or not symbols:
-        blocked.append("C394 common grid is empty")
+        blocked.append("C395 common grid is empty")
     if n_symbols < N_SYMBOLS:
-        blocked.append(f"C394 has {n_symbols} symbols (< {N_SYMBOLS} required)")
+        blocked.append(f"C395 has {n_symbols} symbols (< {N_SYMBOLS} required)")
     in_window = bool(str(grid_start).startswith("2023-01") and str(grid_end).startswith("2025-12"))
     checks["grid"] = {
         "n_symbols": n_symbols, "symbols": symbols, "n_grid_bars": n_grid,
@@ -195,7 +192,7 @@ def main() -> int:
         "in_window": in_window,
     }
     if not in_window:
-        blocked.append("C394 grid not in 2023-01..2025-12 window")
+        blocked.append("C395 grid not in 2023-01..2025-12 window")
 
     detail = {}
     all_ok = True
@@ -239,7 +236,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where CTES scalars t<W, any NaN/non-finite in window, or n_tail<2; NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where OU half-life scalars t<W, any NaN/non-finite in window, phi<=0 (oscillatory), or phi>=1 (unit root/explosive). NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:
@@ -259,7 +256,7 @@ def main() -> int:
         "real_data_only": True,
         "fabricated_data": False,
         "executed_fills": False,
-        "campaign": 394,
+        "campaign": 395,
         "part": "preflight",
         "checks": checks,
         "blocked_reasons": blocked,

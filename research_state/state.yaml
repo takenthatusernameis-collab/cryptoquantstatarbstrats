@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-20T01:18:12Z
-handoff_refreshed_at_utc: 2026-11-20T01:18:12Z
+updated_at_utc: 2026-11-20T02:12:59Z
+handoff_refreshed_at_utc: 2026-11-20T02:12:59Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C394
-next_campaign: C395
+latest_campaign_done: C395
+next_campaign: C396
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -14,8 +14,8 @@ bottlenecks_note: 'RE-VERIFIED 2026-11-20T01:18:12Z: no blocked or inefficient s
 queued_next_campaign: C395
 queued_next_campaign_note: 'C391 XSKEW3 and C392 DDRUN are FROZEN (20261119T210319Z, 20261119T212251Z). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, 26/26 tests green). C395 OUHALFLIFE is now ACTIVE and UNSTARTED (next genuinely new price-only family: OU mean-reversion half-life × seasonal-dislocation stat-arb; spec pre-registered in AGENTS.md INITIAL TASK MESSAGE). Pre-seeded queue after it: C396 (next genuinely new price-only family, spec written at execution). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight + full 1296-config costed OOS sweep + 5 SHA256 reports pattern. Build strictly in order; never reuse a kernel and never rename-only.'
 first_action: "C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, binding multiple_testing, 26/26 tests green). C395 is the ACTIVE campaign and is UNSTARTED. NEXT ACTION: build C395 end-to-end per AGENTS.md INITIAL TASK MESSAGE: write spec (next genuinely new price-only family, not in C377-C394), 3 scripts + 2 tests, build -> cache data/cache/campaign395_*_5m/, preflight -> ready:true, full literal 1296-config costed OOS sweep, python3 -m pytest tests/test_preflight_c395.py tests/test_c395_*_xsec_oos.py -q -> >=21 green incl brute-force equality (maxdiff < 1e-12), sha256sum reports/campaign395_*_<TS>Z.json, then record RESULT + SHAs here and AGENTS.md and advance queue to C396. Never re-run frozen C281B-C394 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
-active_campaign: C395
-space_status: NO_EDGE_C281B_C394
+active_campaign: C396
+space_status: NO_EDGE_C281B_C395
 closure_note: 'C281B-C390 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C389 MINRV frozen 20261119T191025Z (minrv_placebo 0.3758, 27/27 tests green). C390 XCOEX frozen 20261119T190904Z (coex_1_placebo 0.3515, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C391 XSKEW3 FROZEN 20261119T210319Z (xskew3_raw_placebo 0.4615, 27/27 tests green). C392 DDRUN FROZEN 20261119T212251Z (dd_asym_placebo 0.3191, 27/27 tests green). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, 26/26 tests green). C395 is ACTIVE and UNSTARTED; queue pre-seeded C395 -> C396. Next session must build C395 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT + SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT

@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""C394 — rigorous costed out-of-sample test of the cross-sectional intraday
-CTES (conditional tail expectation / expected shortfall tail spread & asymmetry
-within the trailing window) x SEASONAL-DISLOCATION mean-reversion stat-arb
-family on 10 USDT-M linear perps at native 5m (1296 pre-registered configs).
+"""C395 — rigorous costed out-of-sample test of the cross-sectional intraday
+OU MEAN-REVERSION HALF-LIFE (OUHALFLIFE) x SEASONAL-DISLOCATION mean-reversion
+stat-arb family on 10 USDT-M linear perps at native 5m (1296 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 ------------------------------------------------------------------
-C281B–C393 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
+C281B–C394 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
 premium/index/mark basis, quarterly term-structure, same-asset spot-perp
 lead-lag, autocorrelation/chop/vol-clustering/close-envelope/rescaled-range/
 drawdown-duration/realized-variance-concentration/permutation-entropy/DFA
@@ -37,25 +36,25 @@ minimum realized variance / jump-robust RV ratio (MINRV, C389),
 extreme co-exceedance probability profile (XCOEX, C390),
 lag-1 cross third-moment time-irreversibility (XSKEW3, C391),
 max drawdown vs max run-up asymmetry (DDRUN, C392),
-front-half vs back-half realized variance asymmetry (VTERM, C393).
+front-half vs back-half realized variance asymmetry (VTERM, C393),
+conditional tail expectation / expected shortfall tail spread & asymmetry (CTES, C394).
 
-C394 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of CTES conditional-tail-expectation scalars:
+C395 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
+DOW) seasonal deviation of OU MEAN-REVERSION HALF-LIFE scalars:
 
-    For each bar t, trailing returns X = r[t-W .. t-1] (W=256 returns),
-    sorted ascending xs=sort(X), tail fraction p=0.10 (n_tail=26 tail obs
-    per side):
-        es_down[t] = mean(xs[:n_tail])   (lower-tail conditional expectation / ES)
-        es_up[t]   = mean(xs[-n_tail:])  (upper-tail conditional expectation / ES)
-        ces_spread[t] = es_up - es_down   (tail dispersion / conditional tail spread)
-        ces_asym[t]   = es_up + es_down   (tail location balance / ES asymmetry)
-    NaN if t<W, any NaN/non-finite in X, or n_tail<2.
+    For each bar t, trailing log prices P = log(close)[t-W+1 .. t] (W=256),
+    NaN if t<W or any NaN/non-finite:
+        AR(1) coefficient phi[t] = Σ_{i=t-W+2..t} (P_i − mean(P))·(P_{i−1} − mean(P))
+                                   / Σ_{i=t-W+2..t} (P_{i−1} − mean(P))²
+        kappa[t]   = −ln(phi[t]) for 0 < phi[t] < 1, else NaN
+        halflife[t] = ln(2)/kappa[t] = −ln(2)/ln(phi[t]) for 0 < phi[t] < 1, else NaN
+    phi<=0 oscillatory/non-reverting, phi>=1 unit root/explosive.
 
-Distinct from C317 (realized vol total magnitude only), C362 (Hill — tail index
-from exceedance ordering, not conditional-tail mean), C363 (QATM — quantile
-locations and boxplot outlier counts), C364 (DSRV — same-bar semivariance sign
-split), C376 (QSPREAD — quantile spread ratio and asymmetry), C393 (VTERM —
-front/back RV ratio time split). Price-only (perp_close), volume-free.
+Distinct from C375 (ACOVK raw autocovariance LEVELS, no OU transform),
+C365 (KER net-displacement/path-length ratio), and every moment/tail/entropy/
+scaling/path-geometry family C281B–C394. OU half-life is a finite-sample
+mean-reversion SPEED/horizon statistic — never used before. Price-only
+(perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -79,15 +78,15 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 cache_dir = ROOT / "data" / "cache"
 
-CACHE_DIR = cache_dir / "campaign394_ctes_5m"
-CACHE_META = cache_dir / "campaign394_ctes_5m.meta.json"
-CACHE_PROV = cache_dir / "campaign394_ctes_5m.provenance.json"
+CACHE_DIR = cache_dir / "campaign395_ouhalflife_5m"
+CACHE_META = cache_dir / "campaign395_ouhalflife_5m.meta.json"
+CACHE_PROV = cache_dir / "campaign395_ouhalflife_5m.provenance.json"
 REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "ces_spread_dev", "ces_asym_dev",
-    "ces_spread_placebo", "ces_asym_placebo"
+    "ou_kappa_dev", "ou_halflife_dev",
+    "ou_kappa_placebo", "ou_halflife_placebo"
 )
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
@@ -97,7 +96,7 @@ COST_VARIANTS = ("taker", "maker_blend")
 FRAC = 1.0 / 3.0
 ALPHA = 0.05
 MIN_PERIODS_BASELINE = 3
-PLACEBO_SEED = 20261258
+PLACEBO_SEED = 20261259
 TRAIN_M, TEST_M, ROLL_M = 12, 3, 3
 STABILITY_MIN_SIGN_CONSISTENCY = 0.70
 STABILITY_MIN_SHARPE_CORR = 0.50
@@ -109,15 +108,15 @@ N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "ces_spread_dev": ("ces_spread", "dev"),
-    "ces_asym_dev": ("ces_asym", "dev"),
-    "ces_spread_placebo": ("ces_spread", "placebo_dev"),
-    "ces_asym_placebo": ("ces_asym", "placebo_dev"),
+    "ou_kappa_dev": ("kappa", "dev"),
+    "ou_halflife_dev": ("halflife", "dev"),
+    "ou_kappa_placebo": ("kappa", "placebo_dev"),
+    "ou_halflife_placebo": ("halflife", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "ces_spread_dev": "ces_spread_dev",
-    "ces_asym_dev": "ces_asym_dev",
+    "ou_kappa_dev": "ou_kappa_dev",
+    "ou_halflife_dev": "ou_halflife_dev",
 }
 
 
@@ -290,87 +289,107 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- CTES: conditional tail expectation
-CTES_W = 256
-CTES_P = 0.10
-CTES_N_TAIL = 26
-CTES_EPS = 1e-12
+# ------------------------------------------------------- OU HALF-LIFE: finite-sample mean-reversion speed
+OU_W = 256
 
 
-def _ctes_bruteforce(ret: np.ndarray, W: int = CTES_W, n_tail: int = CTES_N_TAIL,
-                     eps: float = CTES_EPS) -> dict:
-    r = np.asarray(ret, dtype=float)
-    n = len(r)
-    out = {"es_down": np.full(n, np.nan, dtype=float),
-           "es_up": np.full(n, np.nan, dtype=float),
-           "ces_spread": np.full(n, np.nan, dtype=float),
-           "ces_asym": np.full(n, np.nan, dtype=float)}
+def _ouhalflife_bruteforce(close: np.ndarray, W: int = OU_W) -> dict:
+    """Reference per-window OU half-life: rolling lag-1 autocorrelation of log prices.
+    phi[t] = Σ(P_i − mean(P))·(P_{i−1} − mean(P)) / Σ(P_{i−1} − mean(P))² over i=2..W,
+    window P = log(close)[t-W+1 .. t] (W prices ending at t). kappa = −ln(phi),
+    halflife = ln(2)/kappa for 0 < phi < 1, else NaN."""
+    Q = np.log(np.asarray(close, dtype=float))
+    n = len(Q)
+    out = {"phi": np.full(n, np.nan, dtype=float),
+           "kappa": np.full(n, np.nan, dtype=float),
+           "halflife": np.full(n, np.nan, dtype=float)}
     if n < W:
         return out
     for t in range(W, n):
-        X = r[t - W:t]  # W returns ending at t-1
+        X = Q[t - W + 1:t + 1]  # W log prices ending at t
         if not np.isfinite(X).all():
             continue
-        xs = np.sort(X)
-        if n_tail < 2:
+        mean_X = float(np.mean(X))
+        X_lag = X[:-1]   # P_{i-1}, i=2..W  (W-1 values)
+        X_cur = X[1:]    # P_i, i=2..W     (W-1 values)
+        num = float(np.sum((X_cur - mean_X) * (X_lag - mean_X)))
+        den = float(np.sum((X_lag - mean_X) ** 2))
+        if not np.isfinite(den) or den <= 0:
             continue
-        es_down = float(np.mean(xs[:n_tail]))
-        es_up = float(np.mean(xs[-n_tail:]))
-        if not (np.isfinite(es_down) and np.isfinite(es_up)):
-            continue
-        out["es_down"][t] = es_down
-        out["es_up"][t] = es_up
-        out["ces_spread"][t] = es_up - es_down
-        out["ces_asym"][t] = es_up + es_down
+        phi = num / den
+        out["phi"][t] = phi
+        if 0.0 < phi < 1.0:
+            out["kappa"][t] = -float(np.log(phi))
+            out["halflife"][t] = float(np.log(2.0) / out["kappa"][t])
     return out
 
 
-def compute_ctes_metrics(ret: np.ndarray, W: int = CTES_W, n_tail: int = CTES_N_TAIL,
-                         eps: float = CTES_EPS) -> dict:
-    r = np.asarray(ret, dtype=float)
-    n = len(r)
-    out = {"es_down": np.full(n, np.nan, dtype=float),
-           "es_up": np.full(n, np.nan, dtype=float),
-           "ces_spread": np.full(n, np.nan, dtype=float),
-           "ces_asym": np.full(n, np.nan, dtype=float)}
+def compute_ouhalflife_metrics(close: np.ndarray, W: int = OU_W) -> dict:
+    """Vectorized OU half-life for all bars: rolling lag-1 autocorrelation of
+    log prices via sliding_window_view + per-window centering (numerically
+    stable, matches _ouhalflife_bruteforce with maxdiff < 1e-12)."""
+    Q = np.log(np.asarray(close, dtype=float))
+    n = len(Q)
+    out = {"phi": np.full(n, np.nan, dtype=float),
+           "kappa": np.full(n, np.nan, dtype=float),
+           "halflife": np.full(n, np.nan, dtype=float)}
     if n < W:
         return out
-    # sliding window view over returns: shape (n-W+1, W)
-    # window j = r[j:j+W] corresponds to bar t = j+W (returns r[t-W:t])
-    windows = sliding_window_view(r, W)  # (n-W+1, W)
-    n_windows = windows.shape[0]
-    # valid windows: all finite in window
-    finite_win = np.isfinite(windows).all(axis=1)
-    xs = np.sort(windows, axis=1)  # (n_windows, W), ascending per row
-    es_down = xs[:, :n_tail].mean(axis=1)   # lower-tail conditional expectation
-    es_up = xs[:, -n_tail:].mean(axis=1)    # upper-tail conditional expectation
-    valid = finite_win & np.isfinite(es_down) & np.isfinite(es_up)
+
+    # sliding_window_view(Q, W): window j = Q[j:j+W], maps to bar t = j+W-1.
+    # Valid bars t=W..n-1 -> windows j=1..n-W -> windows[1:].
+    windows = sliding_window_view(Q, W)  # (n-W+1, W), view (no copy)
+    win = windows[1:]  # (n_ts, W), maps to bars t=W..n-1
+    n_ts = n - W
+    t_idx = np.arange(W, n)
+
+    win_finite = np.isfinite(win).all(axis=1)
+    win_f = np.where(win_finite[:, None], win, 0.0)  # (n_ts, W), copy
+
+    X_lag = win_f[:, :-1]  # (n_ts, W-1), view
+    X_cur = win_f[:, 1:]   # (n_ts, W-1), view
+    mean_col = (win_f.sum(axis=1) / W)[:, None]  # (n_ts, 1)
+
+    X_lag_c = X_lag - mean_col  # (n_ts, W-1), copy
+    X_cur_c = X_cur - mean_col  # (n_ts, W-1), copy
+
     with np.errstate(divide="ignore", invalid="ignore"):
-        ces_spread = np.where(valid, es_up - es_down, np.nan)
-        ces_asym = np.where(valid, es_up + es_down, np.nan)
-    # map back to bar indices: window j ends at t = j + W
-    ts = np.arange(W, n)  # bars W..n-1, one per window j=0..n-W-1
-    n_ts = len(ts)
-    valid_v = valid[:n_ts]
-    out["es_down"][ts[valid_v]] = es_down[:n_ts][valid_v]
-    out["es_up"][ts[valid_v]] = es_up[:n_ts][valid_v]
-    out["ces_spread"][ts[valid_v]] = ces_spread[:n_ts][valid_v]
-    out["ces_asym"][ts[valid_v]] = ces_asym[:n_ts][valid_v]
+        numerator = np.sum(X_lag_c * X_cur_c, axis=1)  # (n_ts,)
+        denominator = np.sum(X_lag_c ** 2, axis=1)     # (n_ts,)
+
+    valid = win_finite & np.isfinite(numerator) & np.isfinite(denominator) & (denominator > 0)
+
+    phi_vals = np.full(n_ts, np.nan, dtype=float)
+    phi_vals[valid] = numerator[valid] / denominator[valid]
+
+    phi_at_t = np.full(n, np.nan, dtype=float)
+    phi_at_t[t_idx[valid]] = phi_vals[valid]
+    out["phi"] = phi_at_t
+
+    phi = phi_at_t[t_idx]
+    kappa_vals = np.full(n_ts, np.nan, dtype=float)
+    hl_vals = np.full(n_ts, np.nan, dtype=float)
+    phi_ok = np.isfinite(phi) & (phi > 0.0) & (phi < 1.0)
+    kappa_vals[phi_ok] = -np.log(phi[phi_ok])
+    hl_vals[phi_ok] = np.log(2.0) / kappa_vals[phi_ok]
+
+    out["kappa"][t_idx] = kappa_vals
+    out["halflife"][t_idx] = hl_vals
     return out
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar CTES metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): one entry per base metric."""
+    """Compute the causal per-bar OU half-life metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): kappa and halflife."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
-    log_return = bs["log_return"]
+    perp_close = bs["perp_close"]
     series: dict = {}
-    METRIC_KEYS = ("es_down", "es_up", "ces_spread", "ces_asym")
+    METRIC_KEYS = ("phi", "kappa", "halflife")
     mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
     for i in range(n_assets):
-        m = compute_ctes_metrics(np.asarray(log_return[i], dtype=float),
-                                 CTES_W, CTES_N_TAIL, CTES_EPS)
+        m = compute_ouhalflife_metrics(np.asarray(perp_close[i], dtype=float),
+                                       OU_W)
         for k in METRIC_KEYS:
             mats[k][i] = np.asarray(m[k], dtype=float)
     for k in METRIC_KEYS:
@@ -403,9 +422,9 @@ def build_scores(series: dict, bucket: np.ndarray) -> dict:
 
 def verify_cache() -> tuple:
     if not CACHE_DIR.exists():
-        raise SystemExit(f"FATAL: C394 shard dir missing: {CACHE_DIR}")
+        raise SystemExit(f"FATAL: C395 shard dir missing: {CACHE_DIR}")
     if not CACHE_META.exists():
-        raise SystemExit(f"FATAL: C394 meta missing: {CACHE_META}")
+        raise SystemExit(f"FATAL: C395 meta missing: {CACHE_META}")
     meta_sha = sha256_file(CACHE_META)
     prov_sha = sha256_file(CACHE_PROV) if CACHE_PROV.exists() else None
     meta = json.loads(CACHE_META.read_text())
@@ -454,9 +473,9 @@ def build_series(payload: dict):
     index = pd.DatetimeIndex(pd.to_datetime(idx_ms, unit="ms", utc=True))
     n_b = len(index)
     if n_b == 0:
-        raise SystemExit("FATAL: C394 common grid is empty")
+        raise SystemExit("FATAL: C395 common grid is empty")
     if n_b % 288 != 0:
-        raise SystemExit("FATAL: C394 grid is not a whole number of 288-bar days")
+        raise SystemExit("FATAL: C395 grid is not a whole number of 288-bar days")
 
     def mat(key):
         out = np.zeros((n_assets, n_b), dtype=float)
@@ -596,7 +615,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="ces_spread_dev", L=240, H=4,
+    ref_cfg = dict(signal="ou_kappa_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -719,35 +738,32 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     sweep_obj = {
-        "generated_at_utc": ts, "campaign": 394, "part": "oos_sweep",
-        "analysis": "c394_ctes_xsec_stat_arb_oos_5m",
+        "generated_at_utc": ts, "campaign": 395, "part": "oos_sweep",
+        "analysis": "c395_ouhalflife_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C394 — test the cross-sectional intraday CTES (conditional tail "
-            "expectation / expected shortfall tail spread & asymmetry) x "
-            "SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M "
-            "linear perps at native 5m (1296 pre-registered configs). Per-bar "
-            "primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) "
-            "(r[0]=0); abs_ret=|log_return|. CTES scalars over fixed intrinsic "
-            "window W=256 returns ending at t-1, X=r[t-W:t], sorted ascending "
-            "xs=sort(X), tail fraction p=0.10 (n_tail=26 tail observations per "
-            "side): es_down=mean(xs[:n_tail]) (lower-tail conditional expectation "
-            "/ ES); es_up=mean(xs[-n_tail:]) (upper-tail conditional expectation "
-            "/ ES); ces_spread=es_up-es_down (tail dispersion / conditional tail "
-            "spread); ces_asym=es_up+es_down (tail location balance / ES "
-            "asymmetry). NaN if t<W, any NaN/non-finite in X, or n_tail<2. "
-            "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket "
-            "from history strictly before bar t (causal shift(1)), NaN-aware, "
-            "excluding NaN obs. Signals: 2 real (ces_spread_dev, ces_asym_dev) + "
-            "2 placebos (phase-randomized surrogates, never edges). Single-leg "
-            "dollar-neutral perp PnL with costs on turnover (taker=fee+slip; "
-            "maker_blend=0.5*fee+slip). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, "
-            "stability, signal-vs-placebo attribution. PRE-REGISTERED NaN policy: "
-            "metric NaN unless sufficient finite obs and valid denominators; "
-            "seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score "
-            "bars weight 0."
+            "C395 — test the cross-sectional intraday OU MEAN-REVERSION HALF-LIFE "
+            "(OUHALFLIFE) x SEASONAL-DISLOCATION mean-reversion stat-arb family on "
+            "10 USDT-M linear perps at native 5m (1296 pre-registered configs). "
+            "Per-bar primitives: perp_close real 5m kline close; "
+            "log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. OU scalars "
+            "over fixed intrinsic window W=256 log prices P=log(close)[t-W+1..t] "
+            "ending at bar t: phi[t]=rolling lag-1 autocorrelation of log prices; "
+            "kappa[t]=−ln(phi[t]) for 0<phi[t]<1 else NaN (OU mean-reversion speed); "
+            "halflife[t]=ln(2)/kappa[t]=−ln(2)/ln(phi[t]) for 0<phi[t]<1 else NaN. "
+            "phi<=0 oscillatory/non-reverting, phi>=1 unit root/explosive. NaN if "
+            "t<W, any NaN/non-finite in window. Seasonal baseline = trailing "
+            "mean/std at same (weekday,tod) bucket from history strictly before bar "
+            "t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real "
+            "(ou_kappa_dev, ou_halflife_dev) + 2 placebos (phase-randomized "
+            "surrogates, never edges). Single-leg dollar-neutral perp PnL with costs "
+            "on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH "
+            "at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
+            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and "
+            "valid denominators; seasonal stats NaN-aware min_periods excluding NaN "
+            "obs; NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
@@ -764,16 +780,15 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "ctes_params": {"window_W": CTES_W, "tail_p": CTES_P, "n_tail": CTES_N_TAIL,
-                            "eps": CTES_EPS},
+            "ou_params": {"window_W": OU_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "vterm_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                          "observed_mean_bps_per_split": obs_mean_bps},
+            "ouhalflife_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+                               "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -785,18 +800,16 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs/denominator requirements (t<W=256).",
+                "note": "metric NaN share dominated by finite-obs/denominator requirements (t<W=256, phi<=0 or phi>=1).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 returns ending at t-1, X=r[t-W:t], sorted ascending "
-                          "xs=sort(X), tail fraction p=0.10 (n_tail=26 tail obs per side): "
-                          "es_down=mean(xs[:n_tail]) (lower-tail ES); es_up=mean(xs[-n_tail:]) "
-                          "(upper-tail ES); ces_spread=es_up-es_down (tail spread); "
-                          "ces_asym=es_up+es_down (tail asymmetry / location balance).",
-            "signals": "ces_spread/ces_asym over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+            "primitives": "fixed intrinsic window W=256 log prices ending at bar t, P=log(close)[t-W+1..t]: "
+                          "phi[t]=rolling lag-1 autocorrelation of log prices; kappa[t]=−ln(phi[t]) for 0<phi[t]<1; "
+                          "halflife[t]=ln(2)/kappa[t]=−ln(2)/ln(phi[t]) for 0<phi[t]<1.",
+            "signals": "kappa/halflife over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
@@ -807,9 +820,9 @@ def main(argv: list[str] | None = None) -> int:
             "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "ctes_vectorization_note": "CTES via sliding_window_view(log_return, 256) over per-asset return series aligned to close bars; "
-                        "es_down/es_up computed via np.sort over (n_windows, 256) and mean of first/last 26 entries; "
-                        "window-NaN enforced by finite-count over the W-bar trailing returns. No Python loop over bars x assets "
+            "ou_vectorization_note": "OU phi/kappa/halflife via sliding_window_view(log(close), 256) over per-asset close series aligned to close bars; "
+                        "phi computed from cumulative sums of Q, Q², and Q[i]·Q[i+1] (vectorized rolling lag-1 autocorrelation); "
+                        "window-NaN enforced by finite-count over the W-bar trailing log prices. No Python loop over bars x assets "
                         "— validated against brute force with maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
@@ -831,15 +844,15 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign394_oos_sweep_{ts}.json"
+    op = reports / f"campaign395_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign394_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign395_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
     registry = {
-        "generated_at_utc": ts, "campaign": 394, "part": "registry",
+        "generated_at_utc": ts, "campaign": 395, "part": "registry",
         "analysis": "tradable_edge_registry",
         "n_tradable": len(surviving),
         "n_edge_proven_deterministic": int(n_edge),
@@ -852,12 +865,12 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign394_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign395_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
     summary = {
-        "generated_at_utc": ts, "campaign": 394, "part": "summary",
+        "generated_at_utc": ts, "campaign": 395, "part": "summary",
         "analysis": "validation_summary", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "universe": sweep_obj["universe"], "config": sweep_obj["config"],
@@ -866,28 +879,26 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign394_summary_{ts}.json"
+    op_sum = reports / f"campaign395_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C394 cross-sectional intraday CTES (conditional tail expectation / expected "
-        f"shortfall tail spread & asymmetry) stat-arb edge {verdict} "
+        f"C395 cross-sectional intraday OU MEAN-REVERSION HALF-LIFE (OUHALFLIFE) stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C394 cross-sectional intraday CTES (conditional tail expectation / expected "
-        f"shortfall tail spread & asymmetry) stat-arb edge validated: "
+        else f"C395 cross-sectional intraday OU MEAN-REVERSION HALF-LIFE (OUHALFLIFE) stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
     verdict_obj = {
-        "generated_at_utc": ts, "campaign": 394, "part": "verdict",
+        "generated_at_utc": ts, "campaign": 395, "part": "verdict",
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c394_ctes_xsec_stat_arb_costed_oos_5m",
+        "basis": "c395_ouhalflife_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -908,7 +919,7 @@ def main(argv: list[str] | None = None) -> int:
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-    op_ver = reports / f"campaign394_verdict_{ts}.json"
+    op_ver = reports / f"campaign395_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 
@@ -916,7 +927,7 @@ def main(argv: list[str] | None = None) -> int:
     bind_path = None
     if binding is not None:
         binding_obj = {
-            "generated_at_utc": ts, "campaign": 394, "part": "binding_constraint",
+            "generated_at_utc": ts, "campaign": 395, "part": "binding_constraint",
             "analysis": "binding_constraint_diagnosis", "verdict": verdict,
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
             "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
@@ -928,12 +939,11 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C394 cross-sectional intraday CTES (conditional tail expectation / expected "
-                "shortfall tail spread & asymmetry) stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
+                "C395 cross-sectional intraday OU MEAN-REVERSION HALF-LIFE (OUHALFLIFE) stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }
-        op_bind = reports / f"campaign394_binding_constraint_{ts}.json"
+        op_bind = reports / f"campaign395_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
@@ -943,7 +953,7 @@ def main(argv: list[str] | None = None) -> int:
         ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 394, "verdict": verdict, "edge_proven": edge_proven,
+        "campaign": 395, "verdict": verdict, "edge_proven": edge_proven,
         "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
         "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
         "n_survive_both": n_survive_both,
