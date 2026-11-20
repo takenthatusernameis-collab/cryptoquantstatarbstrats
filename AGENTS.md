@@ -1,17 +1,17 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T18:48:00Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T19:31:46Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-20T18:47:20Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-20T19:31:46Z by this session — command OUTPUTS quoted, not inferred)
 
 - **C281B–C403 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C403.
 - **Frozen boundary = C403 ASYMCURV** (`20261120T183921Z`): 1944 configs costed-OOS, dominant attribution `skew_down_placebo` 0.2380, 32/32 tests green, cache `data/cache/campaign403_asymcurv_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s verified MATCH on disk: oos_sweep `e04c18c7…71561`, registry `c72ae24e…9a3516`, summary `8d68f2fb…000af`, verdict `3c78dfa3…e5e2d`, binding_constraint `ae8ab9d0…e1562` (full digests in `research_state/state.yaml`).
-- **C404 DOMFREQ is the ACTIVE campaign — verified UNSTARTED at 18:47:20Z**: `ls scripts tests | grep -c c404` → `0`; `ls data/cache | grep -c campaign404` → `0`; `ls reports | grep -c campaign404` → `0`. N_TRIALS=1296, PLACEBO_SEED=20261268. Build end-to-end, never rename-only.
+- **C404 DOMFREQ is the ACTIVE campaign — verified UNSTARTED at 19:31:46Z**: `ls scripts tests | grep -c c404` → `0`; `ls data/cache | grep -c campaign404` → `0`; `ls reports | grep -c campaign404` → `0`. N_TRIALS=1296, PLACEBO_SEED=20261268. Build end-to-end, never rename-only.
 - **Queue depth 4 (can never run dry):** C404 DOMFREQ (ACTIVE, seed 20261268, 1296) → C405 COSKEW (seed 20261269, 1296) → C406 BETAASYM (seed 20261270, 1296) → C407 XSRANK (seed 20261271, 1296). All four specs are fully pre-registered below. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
-- **Environment ready (verified 18:47:20Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
+- **Environment ready (verified 19:31:46Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign403_asymcurv_5m | wc -l` → `10`; `ls scripts tests | grep -c c403` → `5`; `ls reports | grep -c campaign403` → `6` (5 artifacts + `.full.json`); C404 slot must read 0 on all three greps above; `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `0`.
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
   - `archive/void_c403_clone/` (rename-only clone of C402 TSCALE — superseded by genuine C403 build; scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`). Never run.
