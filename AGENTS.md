@@ -1,17 +1,17 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T19:44:44Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T20:44:16Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-20T19:44:44Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-20T20:44:16Z by this session — command OUTPUTS quoted, not inferred)
 
 - **C281B–C405 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C405.
 - **Frozen boundary = C405 COSKEW** (`20261120T203749Z`): 1296 configs costed-OOS, dominant attribution `cokurt_placebo` 0.4246, 29/29 tests green, cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s verified MATCH on disk: oos_sweep `80dbda6e…b0d89e`, registry `0fe0c370…1bf057`, summary `668805b7…ed9a7`, verdict `785ce7ac…b15c56`, binding_constraint `c396904d…12d46` (full digests in `research_state/state.yaml`).
 - **C406 BETAASYM is the ACTIVE campaign — verified UNSTARTED**: `ls scripts tests | grep -c c406` → `0`; `ls data/cache | grep -c campaign406` → `0`; `ls reports | grep -c campaign406` → `0`. N_TRIALS=1296, PLACEBO_SEED=20261270. Build end-to-end, never rename-only.
 - **Queue depth 3 (can never run dry):** C406 BETAASYM (ACTIVE, seed 20261270, 1296) → C407 XSRANK (seed 20261271, 1296) → C408 (pre-registered, seed TBD). All three specs are fully pre-registered below. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
-- **Environment ready (verified 19:41:00Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
+- **Environment ready (verified 20:44:16Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign404_domfreq_5m | wc -l` → `10`; `ls scripts tests | grep -c c404` → `5`; `ls reports | grep -c campaign404` → `12` (5 artifacts + `.full.json` + 6 from smoke run); `ls data/cache/campaign405_coskew_5m | wc -l` → `10`; `ls scripts tests | grep -c c405` → `5`; `ls reports | grep -c campaign405` → `6` (5 artifacts + `.full.json`); C406 slot must read 0 on all three greps above; `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `10` (cache shards only, meta+prov separate).
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
   - `archive/void_c403_clone/` (rename-only clone of C402 TSCALE — superseded by genuine C403 build; scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`). Never run.
@@ -25,9 +25,9 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T20:37:49Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-20T20:44:16Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C406 BETAASYM END-TO-END NOW.** Nothing is blocked and nothing is half-built: the C406 slot is empty on disk. C405 COSKEW is BUILT AND FROZEN (20261120T203749Z): RETRACTED formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution cokurt_placebo 0.4246. All 5 artifact SHA256 recorded in AGENTS.md + research_state/state.yaml, frozen-table row added. Disk re-verified at 20:37:49Z: C405 frozen (5 scripts/tests, 10 cache shards, 6 reports), C406 slot empty (0 scripts/tests, 0 cache, 0 reports), C407 pre-registered, C312 intact (11 entries). Build C406 BETAASYM end-to-end (N_TRIALS=1296, PLACEBO_SEED=20261270), then C407 XSRANK (N_TRIALS=1296, PLACEBO_SEED=20261271), then C408 — the queue is depth-3 and must never sit idle.
+**FIRST ACTION — BUILD C406 BETAASYM END-TO-END NOW.** Nothing is blocked and nothing is half-built: the C406 slot is empty on disk. C405 COSKEW is BUILT AND FROZEN (20261120T203749Z): RETRACTED formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution cokurt_placebo 0.4246. All 5 artifact SHA256 recorded in AGENTS.md + research_state/state.yaml, frozen-table row added. Disk re-verified at 20:44:16Z: C405 frozen (5 scripts/tests, 10 cache shards, 6 reports), C406 slot empty (0 scripts/tests, 0 cache, 0 reports), C407 pre-registered, C312 intact (11 entries). Build C406 BETAASYM end-to-end (N_TRIALS=1296, PLACEBO_SEED=20261270), then C407 XSRANK (N_TRIALS=1296, PLACEBO_SEED=20261271), then C408 — the queue is depth-3 and must never sit idle.
 
 **Disk truth:** C281B–C405 all FROZEN formal negatives; C405 cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars) and 5 `reports/campaign405_*_20261120T203749Z.json` artifacts present; C406 slot empty and unstarted (`ls scripts tests | grep -c c406 == 0`, `ls data/cache | grep -c campaign406 == 0`, `ls reports | grep -c campaign406 == 0`); C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). No bottlenecks.
 
