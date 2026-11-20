@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T10:54:30Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T10:56:42Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
-## DISK TRUTH (re-verified 2026-11-20T10:53:23Z)
+## DISK TRUTH (re-verified 2026-11-20T10:56:42Z)
 
 - **C281B–C401 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C401.
 - **Frozen boundary = C401 RVQUART** (`20261120T095554Z`): 1296 configs costed-OOS, dominant attribution `rq_placebo` 0.5504, 32/32 tests green, cache `data/cache/campaign401_rvquart_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed this session and MATCH: oos_sweep `f8b2717b…a1e3`, registry `d66008e2…22da`, summary `bcef840c…05f7`, verdict `6623f227…cbec`, binding_constraint `0c4ee670…e89f` (full digests in `research_state/state.yaml`).
@@ -19,9 +19,11 @@
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T10:54:30Z; supersedes every earlier session message)
+## INITIAL TASK MESSAGE (2026-11-20T10:56:42Z; supersedes every earlier session message)
 
 **READ THIS FIRST (no re-planning, no context re-read).** Repo = `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE. The PRIMARY axis is always the cross-sectional dollar-neutral long-top / short-bottom book across all 10 USDT-M perps (gross 1.0, never directional); the signal overlay is causal seasonal-dislocation mean-reversion; the ONLY gate is costed out-of-sample PnL with Holm AND BH at α=0.05. C281B–C401 are all FROZEN formal negatives — do NOT re-run them. The queue is depth-3 and can never be empty: **C402 (ACTIVE, absent from disk) → C403 → C404**.
+
+**DISK STATE VERIFIED AT 2026-11-20T10:56:42Z (do not re-litigate):** `ls scripts tests | grep -c c402 == 0`, `ls data/cache | grep -c campaign402 == 0`, `ls reports | grep -c campaign402 == 0` → **C402 does not exist; it is yours to build.** C401 is fully frozen: `data/cache/campaign401_rvquart_5m/` = 10 shards, and `reports/campaign401_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261120T095554Z.json` + gitignored `campaign401_oos_sweep_20261120T095554Z.full.json` all exist. Deps import cleanly (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). `research_state/state.yaml` pointers already read `latest_campaign_done: C401`, `active_campaign: C402`, `queued_next_campaign: C403`, `queue_depth: 3`, `space_status: NO_EDGE_C281B_C401`.
 
 **FIRST ACTION — start here: build C402 TSCALE end-to-end, then advance to C403.** If C402 already exists on disk (5 files + 10 cache shards + 5 reports), skip straight to C403 and then C404 using the pre-registered specs below; never idle on prose.
 Create all 5 files FRESH from the C401 plumbing and FULLY re-specify them (never rename-only). Sequence, no stopping in between:
