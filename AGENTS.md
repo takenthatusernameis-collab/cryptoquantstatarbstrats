@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T10:53:23Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T10:54:30Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 ## DISK TRUTH (re-verified 2026-11-20T10:53:23Z)
 
@@ -19,7 +19,7 @@
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T10:53:23Z; supersedes every earlier session message)
+## INITIAL TASK MESSAGE (2026-11-20T10:54:30Z; supersedes every earlier session message)
 
 **READ THIS FIRST (no re-planning, no context re-read).** Repo = `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE. The PRIMARY axis is always the cross-sectional dollar-neutral long-top / short-bottom book across all 10 USDT-M perps (gross 1.0, never directional); the signal overlay is causal seasonal-dislocation mean-reversion; the ONLY gate is costed out-of-sample PnL with Holm AND BH at α=0.05. C281B–C401 are all FROZEN formal negatives — do NOT re-run them. The queue is depth-3 and can never be empty: **C402 (ACTIVE, absent from disk) → C403 → C404**.
 
