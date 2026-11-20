@@ -402,31 +402,34 @@ def compute_leadlag_metrics(log_return, market_return, W=LEADLAG_W):
     X_win_lag = swv_X[:, :-1, :]                # (n_assets, n-W, W)
     M_win_lag = swv_M[1:, :]                    # (n-W, W)
 
+    # Global span NaN check: any non-finite in X[:, t-W..t] or M[t-W..t]
+    # (the full W+1-bar span) -> all LEADLAG outputs NaN at bar t.
+    swv_X_span = sliding_window_view(X, W + 1, axis=1)   # (n_assets, n-W, W+1)
+    swv_M_span = sliding_window_view(M, W + 1)           # (n-W, W+1)
+    x_span_ok = np.isfinite(swv_X_span).all(axis=(0, 2))  # (n-W,)
+    m_span_ok = np.isfinite(swv_M_span).all(axis=1)        # (n-W,)
+    span_ok = (x_span_ok & m_span_ok)[None, :]             # (1, n-W)
+
     for name, X_win, M_win in (("lead_beta", X_win_lead, M_win_lead),
                                ("lag_beta", X_win_lag, M_win_lag)):
-        row_ok = np.isfinite(X_win).all(axis=2)                    # (n_assets, n-W)
-        m_ok = np.isfinite(M_win).all(axis=1)[None, :]             # (1, n-W)
-        pair_ok = row_ok & m_ok
-
         n_pairs = X_win.shape[2]
         mean_a = X_win.mean(axis=2)                                # (n_assets, n-W)
         mean_b = M_win.mean(axis=1)                                # (n-W,)
         mean_ab = (X_win * M_win[None, :, :]).mean(axis=2)         # (n_assets, n-W)
-        var_a = ((X_win - mean_a[:, :, None]) ** 2).mean(axis=2)   # (n_assets, n-W)
         var_b = ((M_win - mean_b[:, None]) ** 2).mean(axis=1)      # (n-W,)
 
         cov = mean_ab - mean_a * mean_b[None, :]
-        denom = np.sqrt(var_a * var_b[None, :])
+        var_b_2d = var_b[None, :]                                  # (1, n-W)
 
-        corr = np.where(denom > 0, cov / np.where(denom > 0, denom, 1.0), np.nan)
+        beta = np.where(var_b_2d > 0, cov / np.where(var_b_2d > 0, var_b_2d, 1.0), np.nan)
 
-        valid = (pair_ok & (n_pairs >= 3) & np.isfinite(corr)
-                 & (var_a > 0.0) & (var_b[None, :] > 0.0))
+        valid = (span_ok & (n_pairs >= 3) & np.isfinite(beta)
+                 & (var_b_2d > 0.0))
 
         if name == "lead_beta":
-            lead_beta[:, t_idx] = np.where(valid, corr, np.nan)
+            lead_beta[:, t_idx] = np.where(valid, beta, np.nan)
         else:
-            lag_beta[:, t_idx] = np.where(valid, corr, np.nan)
+            lag_beta[:, t_idx] = np.where(valid, beta, np.nan)
 
     valid_both = np.isfinite(lead_beta) & np.isfinite(lag_beta)
     leadlag_asym[valid_both] = lag_beta[valid_both] - lead_beta[valid_both]
@@ -804,11 +807,11 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
-        "mandate": (
+            "mandate": (
             "C408 — test the cross-sectional intraday LEADLAG: CROSS-SECTIONAL "
-            "LEADER-FOLLOWER BETA ASYMMETRY VS EQUAL-WEIGHT MARKET x "
+            "LEADER-FOLLOWER REGRESSION-COEFFICIENT ASYMMETRY VS EQUAL-WEIGHT MARKET x "
             "SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M "
-            "linear perps at native 5m (1296 pre-registered configs). Per-bar "
+            "linear perps at native 5m (1944 pre-registered configs). Per-bar "
             "primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) "
             "(r[0]=0); abs_ret=|log_return|. Equal-weight market return "
             "m[s]=(1/10)*sum_i r_i[s]. LEADLAG scalars over fixed intrinsic "

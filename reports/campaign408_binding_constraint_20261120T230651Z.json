@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261120T230651Z",
+  "campaign": 408,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign408_oos_sweep_20261120T230651Z.json",
+  "oos_sweep_sha256": "48bd6a61a5ea4291003c511eb5bba112b1a967476197aa37465ee8a796271fa3",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "leadlag_asym_dev": 0.11217053058868234,
+    "lead_beta_dev": 0.11418201543140859,
+    "lag_beta_dev": 0.12180036764637923,
+    "leadlag_asym_placebo": 0.25094947781295374,
+    "lead_beta_placebo": 0.21853280342246342,
+    "lag_beta_placebo": 0.18236480509811268
+  },
+  "dominant_attribution": "leadlag_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "leadlag_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.6897268619890998,
+      -0.8278807477222634,
+      -0.9296138258766266,
+      -0.8226440492167062,
+      -0.7413646003179405,
+      -0.9206303985262604,
+      -1.0187615221629294,
+      -0.7830412501326188
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.595742983937825,
+    "second_half_sharpe": -7.845028361986813,
+    "sharpe_corr": 0.9994094978056328,
+    "stable": false
+  },
+  "diagnosis": "C408 cross-sectional intraday LEADLAG leader-follower beta asymmetry stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
