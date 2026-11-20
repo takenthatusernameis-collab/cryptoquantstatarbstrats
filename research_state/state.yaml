@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-19T22:18:00Z
-handoff_refreshed_at_utc: 2026-11-19T22:18:00Z
+updated_at_utc: 2026-11-20T01:08:30Z
+handoff_refreshed_at_utc: 2026-11-20T01:08:30Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C393
-next_campaign: C394
+latest_campaign_done: C394
+next_campaign: C395
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-19T20:13:17Z (disk verified): C281B-C390 ALL FROZEN formal negatives, latest C390 XCOEX 20261119T190904Z (dominant coex_1_placebo 0.3515, attribution_ok false, 27/27 tests green) and C389 MINRV 20261119T191025Z (dominant minrv_placebo 0.3758, 27/27 tests green). C391 XSKEW3 (lag-1 cross third-moment time-irreversibility x seasonal-dislocation stat-arb) FROZEN 20261119T210319Z (0 Holm+BH survivors, dd_asym_placebo 0.4615). C392 DDRUN (max drawdown vs max run-up asymmetry x seasonal-dislocation stat-arb) FROZEN 20261119T212251Z (0 Holm+BH survivors, dd_asym_placebo 0.3191). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, attribution_ok false, 27/27 tests green). C394 CTES (conditional tail expectation tail spread & asymmetry x seasonal-dislocation stat-arb) is ACTIVE and UNSTARTED: no scripts/c394*, no tests/*c394*, no data/cache/campaign394_ctes_5m/, no reports/campaign394_* on disk. C381 attempt remains VOID/QUARANTINED read-only at archive/void_c381/ - never freeze, cite, copy or re-run. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C393. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb (dollar-neutral rank long-top/short-bottom, gross 1.0) is PRIMARY; seasonal-dislocation mean-reversion is the signal overlay; costed OOS + Holm AND BH is the only gate. Queue depth 3 (C394 CTES active -> C395 -> C396 next new price-only family). Bottlenecks: NONE.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-19T20:13:17Z (disk verified): C281B-C390 ALL FROZEN formal negatives, latest C390 XCOEX 20261119T190904Z (dominant coex_1_placebo 0.3515, attribution_ok false, 27/27 tests green) and C389 MINRV 20261119T191025Z (dominant minrv_placebo 0.3758, 27/27 tests green). C391 XSKEW3 (lag-1 cross third-moment time-irreversibility x seasonal-dislocation stat-arb) FROZEN 20261119T210319Z (0 Holm+BH survivors, dd_asym_placebo 0.4615). C392 DDRUN (max drawdown vs max run-up asymmetry x seasonal-dislocation stat-arb) FROZEN 20261119T212251Z (0 Holm+BH survivors, dd_asym_placebo 0.3191). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, attribution_ok false, 27/27 tests green). C394 CTES (conditional tail expectation tail spread & asymmetry x seasonal-dislocation stat-arb) is FROZEN formal negative (frozen 20261120T010830Z): 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, dominant attribution ces_asym_placebo 0.4841, binding multiple_testing, 26/26 tests green. C381 attempt remains VOID/QUARANTINED read-only at archive/void_c381/ - never freeze, cite, copy or re-run. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C393. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb (dollar-neutral rank long-top/short-bottom, gross 1.0) is PRIMARY; seasonal-dislocation mean-reversion is the signal overlay; costed OOS + Holm AND BH is the only gate. Queue depth 3 (C394 CTES active -> C395 -> C396 next new price-only family). Bottlenecks: NONE.'
 bottlenecks_verified_removed_at_utc: "2026-11-19T20:13:17Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-19T20:13:17Z: no blocked or inefficient sessions; no external data fetches needed; C287 decoupled and NOT on the critical path. C281B-C390 ALL COMPLETE FORMAL NEGATIVES. The one live duplicate-work vector found this session was a stale pointer set - state.yaml declared C389 MINRV ACTIVE/UNSTARTED in handoff.note, bottlenecks_note, queued_next_campaign, queued_next_campaign_note, first_action and closure_note, which would have driven the next session into re-running a FROZEN campaign (hard violation); all six fields are now re-pointed to C394 CTES active, C395 next. C381 attempt VOID and its code+artifacts quarantined read-only under archive/void_c381/ so it cannot be copied, cited or re-run; residual risk removed by mandatory rewrite guards in the AGENTS.md INITIAL TASK MESSAGE: artifact campaign integer must equal the campaign, mandate string must name the new metric, kernel-distinctness guard, placebo seed must match the runner constant, and N_TRIALS must equal 1296. C312 5m source ready (10x315648); environment import-verified again this session (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); console scripts are at /home/runner/work/_temp/kilo-home/.local/bin (not on PATH) so tests must run as python3 -m pytest. Queue depth 3 (C394 CTES active, C395, C396 next new price-only family) so the queue can never be empty. NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C394
-queued_next_campaign_note: 'C391 XSKEW3 and C392 DDRUN are FROZEN (20261119T210319Z, 20261119T212251Z). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is ACTIVE and UNSTARTED (no scripts/c394*, no tests/*c394*, no data/cache/campaign394_ctes_5m/, no reports/campaign394_* on disk). Pre-seeded queue after it: C395 (next genuinely new price-only family, spec written at execution), C396 (next genuinely new price-only family, spec written at execution). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight + full 1296-config costed OOS sweep + 5 SHA256 reports pattern. Build strictly in order; never reuse a kernel and never rename-only.'
-first_action: "C394 CTES is the ACTIVE campaign and is UNSTARTED: no scripts/c394*, no tests/*c394*, no data/cache/campaign394_ctes_5m/, no reports/campaign394_* on disk. NEXT ACTION: build C394 CTES end-to-end per AGENTS.md INITIAL TASK MESSAGE: 3 scripts + 2 tests, build -> cache data/cache/campaign394_ctes_5m/, preflight -> ready:true, full literal 1296-config costed OOS sweep, python3 -m pytest tests/test_preflight_c394.py tests/test_c394_ctes_xsec_oos.py -q -> >=21 green incl CTES brute-force equality (maxdiff < 1e-12), sha256sum reports/campaign394_*_<TS>Z.json, then record RESULT + SHAs here and AGENTS.md and advance queue to C395. Never re-run frozen C281B-C393 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
-active_campaign: C394
-space_status: NO_EDGE_C281B_C390
-closure_note: 'C281B-C390 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C389 MINRV frozen 20261119T191025Z (minrv_placebo 0.3758, 27/27 tests green). C390 XCOEX frozen 20261119T190904Z (coex_1_placebo 0.3515, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C391 XSKEW3 FROZEN 20261119T210319Z (xskew3_raw_placebo 0.4615, 27/27 tests green). C392 DDRUN FROZEN 20261119T212251Z (dd_asym_placebo 0.3191, 27/27 tests green). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is ACTIVE and UNSTARTED; queue pre-seeded C395 -> C396. Next session must build C394 CTES end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT + SHAs.'
+queued_next_campaign: C395
+queued_next_campaign_note: 'C391 XSKEW3 and C392 DDRUN are FROZEN (20261119T210319Z, 20261119T212251Z). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, 26/26 tests green). C395 is now ACTIVE and UNSTARTED (next genuinely new price-only family). Pre-seeded queue after it: C396 (next genuinely new price-only family, spec written at execution). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight + full 1296-config costed OOS sweep + 5 SHA256 reports pattern. Build strictly in order; never reuse a kernel and never rename-only.'
+first_action: "C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, binding multiple_testing, 26/26 tests green). C395 is the ACTIVE campaign and is UNSTARTED. NEXT ACTION: build C395 end-to-end per AGENTS.md INITIAL TASK MESSAGE: write spec (next genuinely new price-only family, not in C377-C394), 3 scripts + 2 tests, build -> cache data/cache/campaign395_*_5m/, preflight -> ready:true, full literal 1296-config costed OOS sweep, python3 -m pytest tests/test_preflight_c395.py tests/test_c395_*_xsec_oos.py -q -> >=21 green incl brute-force equality (maxdiff < 1e-12), sha256sum reports/campaign395_*_<TS>Z.json, then record RESULT + SHAs here and AGENTS.md and advance queue to C396. Never re-run frozen C281B-C394 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
+active_campaign: C395
+space_status: NO_EDGE_C281B_C394
+closure_note: 'C281B-C390 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C389 MINRV frozen 20261119T191025Z (minrv_placebo 0.3758, 27/27 tests green). C390 XCOEX frozen 20261119T190904Z (coex_1_placebo 0.3515, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C391 XSKEW3 FROZEN 20261119T210319Z (xskew3_raw_placebo 0.4615, 27/27 tests green). C392 DDRUN FROZEN 20261119T212251Z (dd_asym_placebo 0.3191, 27/27 tests green). C393 VTERM is FROZEN formal negative (frozen 20261119T221900Z; dominant vterm_level_placebo 0.2787, 27/27 tests green). C394 CTES is FROZEN formal negative (frozen 20261120T010830Z; dominant ces_asym_placebo 0.4841, 26/26 tests green). C395 is ACTIVE and UNSTARTED; queue pre-seeded C395 -> C396. Next session must build C395 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT + SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT
   campaign: C381
@@ -818,7 +818,7 @@ family_backlog_c373_plus:
   - 'C387 COMPLETE_FORMAL_NEGATIVE: BANDX normalized-band crossing intensity asymmetry (seed 20261251)'
   - 'C388 COMPLETE_FORMAL_NEGATIVE: MADR first-moment upside/downside capture ratio (seed 20261252)'
 
-handoff_as_of_utc: 2026-11-19T18:08:07Z
+handoff_as_of_utc: 2026-11-20T01:08:30Z
 queue_depth: 3
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry
@@ -1128,4 +1128,44 @@ c393_status:
   cache_shas:
     meta: '445204e4f7f499e187976b010c23a1efae61112fb9384e8b3561478a7b5978ef'
     provenance: '4a59b7a616990d08cdd56aaaac0c27be797e6234d18901521ec9818386e64f3d'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+
+c394_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C394
+  family: cross_sectional_conditional_tail_expectation_tail_spread_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C393 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. CTES measures conditional tail expectation / expected shortfall tail spread (es_up - es_down) and tail location balance (es_up + es_down) over trailing W=256 returns with tail fraction p=0.10 (n_tail=26) — a coherent tail-risk functional never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261120T010830Z
+  artifacts_ts: 20261120T010830Z
+  signals: [ces_spread_dev, ces_asym_dev, ces_spread_placebo, ces_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261258
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'ces_spread_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [ces_spread_dev, ces_asym_dev]
+  ctes_params: {window_W: 256, tail_p: 0.10, n_tail: 26, eps: 1e-12}
+  scripts_present: [scripts/build_c394_ctes_features.py, scripts/preflight_c394.py, scripts/run_c394_ctes_xsec_oos.py]
+  tests_present: [tests/test_preflight_c394.py, tests/test_c394_ctes_xsec_oos.py]
+  cache_present: data/cache/campaign394_ctes_5m
+  artifacts_present: [reports/campaign394_oos_sweep_20261120T010830Z.json, reports/campaign394_tradable_edge_registry_20261120T010830Z.json, reports/campaign394_summary_20261120T010830Z.json, reports/campaign394_verdict_20261120T010830Z.json, reports/campaign394_binding_constraint_20261120T010830Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: ces_asym_placebo
+  dominant_share: 0.48414840126229136
+  attribution_ok: false
+  tests_green: 26
+  artifacts:
+    oos_sweep: '8c807f4afb3dc50969ebe1b003c4299d520422e5aa2be1cf6768b519c2c8f68b'
+    tradable_edge_registry: '1eb5358c0fb681e0366ce7e0733b93af58e7540a5a32589648cf6b5e6294320b'
+    summary: '0111dcbd6814541b637d3884c9fdd286cf9e9e2c58bd3a05b209a314bfde4f7e'
+    verdict: 'bfb8abcce576ee96dda7266c7ca43b5c31c36380bbc0a844e8241ea073ca7a89'
+    binding_constraint: 'ca7b1a7f1b5c7867f5f69d68b404c9131f112a4339ce0ad558ecf7bda55eea20'
+  cache_shas:
+    meta: '10c5681cb9da0b6048cc93488dbeb03db044e3793e7c5dcf666a2e29cf44a317'
+    provenance: 'be4295425c039ba9d370e890f1a74e44d088a129bb7d98b66ea92d4d82e2b803'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
