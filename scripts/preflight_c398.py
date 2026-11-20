@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""C397 preflight: fail-closed verification of the real C397 USDT-M
-cross-sectional intraday SPECFM: SPECTRAL FLATNESS / SPECTRAL ENTROPY OF
-LOG-RETURNS feature cache before the C397 runner sweeps the pre-registered
-costed OOS grid.
+"""C398 preflight: fail-closed verification of the real C398 USDT-M
+cross-sectional intraday LMOM: L-MOMENT SKEWNESS / KURTOSIS (TAU3, TAU4)
+feature cache before the C398 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign397_specfm_5m/`` and every shard SHA256 + byte size
+  ``data/cache/campaign398_lmom_5m/`` and every shard SHA256 + byte size
   matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -33,9 +32,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign397_specfm_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign397_specfm_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign397_specfm_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign398_lmom_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign398_lmom_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign398_lmom_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -85,7 +84,7 @@ def main() -> int:
     blocked: list[str] = []
 
     if not CACHE_META.exists():
-        print(json.dumps({"ready": False, "blocked_reasons": ["C397 meta missing"]}, indent=2))
+        print(json.dumps({"ready": False, "blocked_reasons": ["C398 meta missing"]}, indent=2))
         return 1
     try:
         meta = json.loads(CACHE_META.read_text())
@@ -134,7 +133,7 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("specfm_params", {}).get("window_W") == 256
+        and meta.get("lmom_params", {}).get("window_W") == 256
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -150,7 +149,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "specfm_params": meta.get("specfm_params"),
+        "lmom_params": meta.get("lmom_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -163,7 +162,7 @@ def main() -> int:
         "ok": bool(flags_ok),
     }
     if not flags_ok:
-        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/specfm_params mismatch")
+        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/lmom_params mismatch")
     checks["shards"] = {"n_shards": len(shard_sha_meta), "ok": bool(shard_ok), "detail": shard_detail}
     if not shard_ok:
         blocked.append("one or more shards missing / sha or size mismatch / over push limit")
@@ -183,9 +182,9 @@ def main() -> int:
     grid_start = meta.get("grid_start_utc")
     grid_end = meta.get("grid_end_utc")
     if n_grid == 0 or not symbols:
-        blocked.append("C397 common grid is empty")
+        blocked.append("C398 common grid is empty")
     if n_symbols < N_SYMBOLS:
-        blocked.append(f"C397 has {n_symbols} symbols (< {N_SYMBOLS} required)")
+        blocked.append(f"C398 has {n_symbols} symbols (< {N_SYMBOLS} required)")
     in_window = bool(str(grid_start).startswith("2023-01") and str(grid_end).startswith("2025-12"))
     checks["grid"] = {
         "n_symbols": n_symbols, "symbols": symbols, "n_grid_bars": n_grid,
@@ -193,7 +192,7 @@ def main() -> int:
         "in_window": in_window,
     }
     if not in_window:
-        blocked.append("C397 grid not in 2023-01..2025-12 window")
+        blocked.append("C398 grid not in 2023-01..2025-12 window")
 
     detail = {}
     all_ok = True
@@ -237,7 +236,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where SPECFM scalars t<W or any NaN/non-finite in window or sum(P)<=0 or not finite. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where LMOM scalars t<W or any NaN/non-finite in window or lambda_2<=0 or not finite. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:
@@ -257,7 +256,7 @@ def main() -> int:
         "real_data_only": True,
         "fabricated_data": False,
         "executed_fills": False,
-        "campaign": 397,
+        "campaign": 398,
         "part": "preflight",
         "checks": checks,
         "blocked_reasons": blocked,

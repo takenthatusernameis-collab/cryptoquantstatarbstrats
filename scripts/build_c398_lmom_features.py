@@ -1,47 +1,45 @@
 #!/usr/bin/env python3
-"""C397 feature build — real USDT-M linear perp cross-sectional intraday
-SPECFM: SPECTRAL FLATNESS / SPECTRAL ENTROPY OF LOG-RETURNS raw inputs: trailing
-log-return frequency-domain shape over trailing prices — never used in C377–C396
-or the immediately preceding campaign.
+"""C398 feature build — real USDT-M linear perp cross-sectional intraday
+LMOM: L-MOMENT SKEWNESS / KURTOSIS (TAU3, TAU4) raw inputs: trailing
+log-return bounded order-statistic / probability-weighted-moment shape over
+trailing prices — never used in C377–C397 or the immediately preceding
+campaign.
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
 grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
 (real only):
 
-    data/cache/campaign397_specfm_5m/<SYM>.npz
+    data/cache/campaign398_lmom_5m/<SYM>.npz
         index_ms        int64   common 5m grid (ms)
         perp_close      float32 real 5m kline close (execution price)
         log_return      float32 causal log-return (r[t]=log(c[t]/c[t-1]), r[0]=0)
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner derives the causal per-bar SPECFM frequency-domain scalars over a
-fixed intrinsic window W=256 bars ending at bar t, over trailing log returns
-X = r[t-W+1 .. t]:
+The runner derives the causal per-bar LMOM scalars over a fixed intrinsic
+window W=256 bars ending at bar t, over trailing log returns X = r[t-W+1 .. t]:
 
-    F = rfft(X)                              (one-sided FFT, length W//2+1=129)
-    P_k = |F_k|^2                            (power spectrum), exclude DC (k=0)
-    P = P_1..P_{W//2}                        (128 positive-frequency bins)
-    specfm[t]  = exp(mean(ln(P + eps))) / mean(P + eps)   (geometric/arithmetic mean;
-                                                         in (0,1]; ~1 white/flat, ->0 tonal)
-    specent[t] = -sum_k p_k ln(p_k), p_k = P_k / sum(P)   (Shannon entropy of the
-                                                          normalized power spectrum, nats)
-NaN if t<W or any NaN/non-finite in window, or sum(P)<=0, or not finite.
+    sort X ascending x_(1)<=...<=x_(W); unbiased probability-weighted moments
+    beta_r = (1/C(W,r+1)) * sum_{i=r+1..W} C(i-1,r) * x_(i);
+    lambda_1 = beta_0, lambda_2 = 2*beta_1 - beta_0,
+    lambda_3 = 6*beta_2 - 6*beta_1 + beta_0,
+    lambda_4 = 20*beta_3 - 30*beta_2 + 12*beta_1 - beta_0;
+    lmom_skew[t] = lambda_3 / lambda_2   (L-skewness tau3)
+    lmom_kurt[t] = lambda_4 / lambda_2   (L-kurtosis tau4)
+NaN if t<W or any NaN/non-finite in window, or lambda_2<=0 or not finite.
 Real scalars per window.
 
-SPECFM is genuinely distinct from all prior families C281B–C396: it is a
-frequency-domain statistic (Wiener-Khinchin spectral flatness measure plus the
-Shannon entropy of the normalized FFT power spectrum of the trailing return
-window), distinct from C396 MAGNET (time-domain Shannon entropy of the
-magnitude |r| distribution binned by its own deciles), C355/C356
-(Sample/Multiscale Entropy over binary sign series), C357 (Lempel-Ziv
-complexity), C359 (ordinal-pattern transition entropy), and every
-moment/tail/variance/path family. Price-only (perp_close), volume-free.
+LMOM is genuinely distinct from all prior families C281B–C397: it is a bounded
+order-statistic / probability-weighted-moment shape statistic (L-skewness
+tau3 and L-kurtosis tau4), distinct from C361/C371 (conventional power-moment
+skew/kurt), C369 (GMD/IQR order statistics), C362 (Hill EVT tail index), C364
+(DSRV semivariance sign split), C376 (quantile spread extremes), and every
+entropy/fractal/scaling family C346–C359. Price-only (perp_close), volume-free.
 Cache stays under the 100 MB budget. Read-only reuse of real on-disk data — no
 network, no fabrication, no resampling, no imputation.
 
-C397 is genuinely distinct from all prior families C281B–C396 and the
+C398 is genuinely distinct from all prior families C281B–C397 and the
 immediately preceding campaign.
 """
 
@@ -59,9 +57,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 SRC_DIR = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m"
 SRC_META = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m.meta.json"
-DST_DIR = ROOT / "data" / "cache" / "campaign397_specfm_5m"
-DST_META = ROOT / "data" / "cache" / "campaign397_specfm_5m.meta.json"
-DST_PROV = ROOT / "data" / "cache" / "campaign397_specfm_5m.provenance.json"
+DST_DIR = ROOT / "data" / "cache" / "campaign398_lmom_5m"
+DST_META = ROOT / "data" / "cache" / "campaign398_lmom_5m.meta.json"
+DST_PROV = ROOT / "data" / "cache" / "campaign398_lmom_5m.provenance.json"
 
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
@@ -120,7 +118,7 @@ def _verify_existing(symbols: list[str]) -> bool:
         meta = json.loads(DST_META.read_text())
     except Exception:  # noqa: BLE001
         return False
-    if int(meta.get("campaign") or 0) != 397:
+    if int(meta.get("campaign") or 0) != 398:
         return False
     if meta.get("real_data_only") is not True or meta.get("fabricated_data") is not False:
         return False
@@ -216,8 +214,8 @@ def main(argv: list[str] | None = None) -> int:
         summary = {
             "built": False,
             "verified": True,
-            "note": "C397 cache already present and faithful (SHA/size/content OK); left untouched.",
-            "campaign": 397,
+            "note": "C398 cache already present and faithful (SHA/size/content OK); left untouched.",
+            "campaign": 398,
             "part": "feature_build",
             "symbols": symbols,
             "n_symbols": len(symbols),
@@ -307,7 +305,7 @@ def main(argv: list[str] | None = None) -> int:
 
     meta = {
         "generated_at_utc": ts,
-        "campaign": 397,
+        "campaign": 398,
         "part": "feature_build",
         "interval": "5m",
         "bar_ms": BAR_MS,
@@ -337,7 +335,7 @@ def main(argv: list[str] | None = None) -> int:
         "under_push_limit": bool(total < PUSH_LIMIT_BYTES and max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total < CACHE_BUDGET_BYTES),
         "n_buckets_tod_dow": int(N_BUCKETS),
-        "specfm_params": {
+        "lmom_params": {
             "window_W": 256,
         },
         "field_definition": (
@@ -345,16 +343,16 @@ def main(argv: list[str] | None = None) -> int:
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; "
             "funding_rate all-NaN control (USDT-M funding unreachable). "
-            "Runner derives SPECFM frequency-domain scalars over fixed intrinsic "
-            "window W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-            "F=rfft(X) (one-sided FFT, length W//2+1=129); P_k=|F_k|^2 excluding "
-            "DC (k=0) -> P=P_1..P_{W//2}; "
-            "specfm[t]=exp(mean(ln(P+eps)))/mean(P+eps) (geometric/arithmetic "
-            "power-mean ratio, in (0,1]); "
-            "specent[t]=-sum_k p_k ln(p_k) with p_k=P_k/sum(P) (Shannon entropy "
-            "of normalized power spectrum, nats). "
-            "NaN if t<W or any NaN/non-finite in window or sum(P)<=0 or not "
-            "finite. Seasonal deviation of specfm and specent at same "
+            "Runner derives LMOM bounded order-statistic / probability-weighted-moment "
+            "shape scalars over fixed intrinsic window W=256 trailing log returns "
+            "X=r[t-W+1..t] ending at bar t: sort X ascending x_(1)<=...<=x_(W); "
+            "unbiased probability-weighted moments beta_r = (1/C(W,r+1))*sum_{i=r+1..W} "
+            "C(i-1,r)*x_(i); lambda_1=beta_0, lambda_2=2*beta_1-beta_0, "
+            "lambda_3=6*beta_2-6*beta_1+beta_0, lambda_4=20*beta_3-30*beta_2+12*beta_1-beta_0; "
+            "lmom_skew[t]=lambda_3/lambda_2 (L-skewness tau3); "
+            "lmom_kurt[t]=lambda_4/lambda_2 (L-kurtosis tau4). "
+            "NaN if t<W or any NaN/non-finite in window or lambda_2<=0 or not finite. "
+            "Seasonal deviation of lmom_skew and lmom_kurt at same "
             "(weekday,tod) bucket from history strictly before bar t (causal "
             "shift(1)), NaN-aware min_periods=3."
         ),
@@ -371,7 +369,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; specfm/specent NaN where t<W or any NaN/non-finite in the W-bar trailing return window, sum(P)<=0, or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; lmom_skew/lmom_kurt NaN where t<W or any NaN/non-finite in the W-bar trailing return window or lambda_2<=0 or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }
@@ -379,10 +377,10 @@ def main(argv: list[str] | None = None) -> int:
 
     prov = {
         "generated_at_utc": ts,
-        "campaign": 397,
+        "campaign": 398,
         "part": "provenance",
         "source_host": "https://data.binance.vision",
-        "note": "C397 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
+        "note": "C398 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
         "interval": "5m",
         "bar_ms": BAR_MS,
         "window_start_month": WINDOW_START,
@@ -404,7 +402,7 @@ def main(argv: list[str] | None = None) -> int:
 
     summary = {
         "built": True,
-        "campaign": 397,
+        "campaign": 398,
         "part": "feature_build",
         "symbols": symbols,
         "n_symbols": len(symbols),

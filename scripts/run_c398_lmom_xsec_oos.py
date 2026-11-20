@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""C397 — rigorous costed out-of-sample test of the cross-sectional intraday
-SPECFM: SPECTRAL FLATNESS / SPECTRAL ENTROPY OF LOG-RETURNS x SEASONAL-DISLOCATION
+"""C398 — rigorous costed out-of-sample test of the cross-sectional intraday
+LMOM: L-MOMENT SKEWNESS / KURTOSIS (TAU3, TAU4) x SEASONAL-DISLOCATION
 mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296
 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 ------------------------------------------------------------------
-C281B–C396 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
+C281B–C397 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
 premium/index/mark basis, quarterly term-structure, same-asset spot-perp
 lead-lag, autocorrelation/chop/vol-clustering/close-envelope/rescaled-range/
 drawdown-duration/realized-variance-concentration/permutation-entropy/DFA
@@ -39,30 +39,33 @@ lag-1 cross third-moment time-irreversibility (XSKEW3, C391),
 max drawdown vs max run-up asymmetry (DDRUN, C392),
 front-half vs back-half realized variance asymmetry (VTERM, C393),
 conditional tail expectation / expected shortfall tail spread & asymmetry (CTES, C394),
-OU mean-reversion half-life (OUHALFLIFE, C395), and the immediately preceding
-campaign (magnitude-distribution Shannon entropy, MAGNET, C396).
+OU mean-reversion half-life (OUHALFLIFE, C395), magnitude-distribution Shannon
+entropy (MAGNET, C396), and the immediately preceding campaign
+(spectral flatness / spectral entropy, SPECFM, C397).
 
-C397 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of SPECFM frequency-domain scalars:
+C398 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
+DOW) seasonal deviation of LMOM bounded order-statistic / probability-weighted-
+moment shape scalars:
 
     For each bar t, trailing log returns X = r[t-W+1 .. t] (W=256),
     NaN if t<W or any NaN/non-finite:
-        F = rfft(X)                          (one-sided FFT, length W//2+1=129)
-        P_k = |F_k|^2                        (power spectrum); exclude DC (k=0)
-        P = P_1..P_{W//2}                    (128 positive-frequency bins)
-        specfm[t]  = exp(mean(ln(P + eps))) / mean(P + eps)
-                     (geometric mean / arithmetic mean of power; in (0,1];
-                      ~1 white/flat spectrum, ->0 tonal/peaky spectrum)
-        specent[t] = -sum_k p_k ln(p_k), p_k = P_k / sum(P)
-                     (Shannon entropy of the normalized power spectrum, nats)
-    NaN if t<W or any NaN/non-finite in window, sum(P)<=0, or not finite.
+        sort X ascending x_(1)<=...<=x_(W);
+        unbiased probability-weighted moments
+        beta_r = (1/C(W,r+1)) * sum_{i=r+1..W} C(i-1,r) * x_(i);
+        lambda_1 = beta_0,
+        lambda_2 = 2*beta_1 - beta_0,
+        lambda_3 = 6*beta_2 - 6*beta_1 + beta_0,
+        lambda_4 = 20*beta_3 - 30*beta_2 + 12*beta_1 - beta_0;
+        lmom_skew[t] = lambda_3 / lambda_2   (L-skewness tau3)
+        lmom_kurt[t] = lambda_4 / lambda_2   (L-kurtosis tau4)
+    NaN if t<W or any NaN/non-finite in window, lambda_2<=0, or not finite.
 
-Distinct from every moment/tail/entropy/path family C281B–C396: SPECFM is a
-frequency-domain statistic (Wiener-Khinchin spectral flatness measure plus the
-Shannon entropy of the normalized FFT power spectrum of the trailing return
-window), never used before. It differs from C396 MAGNET, which is the
-time-domain Shannon entropy of the magnitude |r| distribution binned by its
-own deciles. Price-only (perp_close), volume-free.
+Distinct from every moment/tail/entropy/path family C281B–C397: LMOM is a
+bounded order-statistic / probability-weighted-moment shape statistic
+(L-skewness tau3 and L-kurtosis tau4), never used before. It differs from
+C361/C371 (conventional power-moment skew/kurt — standardized central moments,
+not probability-weighted moments over order statistics) and from every
+entropy/fractal/scaling family. Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -86,15 +89,15 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 cache_dir = ROOT / "data" / "cache"
 
-CACHE_DIR = cache_dir / "campaign397_specfm_5m"
-CACHE_META = cache_dir / "campaign397_specfm_5m.meta.json"
-CACHE_PROV = cache_dir / "campaign397_specfm_5m.provenance.json"
+CACHE_DIR = cache_dir / "campaign398_lmom_5m"
+CACHE_META = cache_dir / "campaign398_lmom_5m.meta.json"
+CACHE_PROV = cache_dir / "campaign398_lmom_5m.provenance.json"
 REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "specfm_dev", "specent_dev",
-    "specfm_placebo", "specent_placebo"
+    "lmom_skew_dev", "lmom_kurt_dev",
+    "lmom_skew_placebo", "lmom_kurt_placebo"
 )
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
@@ -104,7 +107,7 @@ COST_VARIANTS = ("taker", "maker_blend")
 FRAC = 1.0 / 3.0
 ALPHA = 0.05
 MIN_PERIODS_BASELINE = 3
-PLACEBO_SEED = 20261261
+PLACEBO_SEED = 20261262
 TRAIN_M, TEST_M, ROLL_M = 12, 3, 3
 STABILITY_MIN_SIGN_CONSISTENCY = 0.70
 STABILITY_MIN_SHARPE_CORR = 0.50
@@ -116,15 +119,15 @@ N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "specfm_dev": ("specfm", "dev"),
-    "specent_dev": ("specent", "dev"),
-    "specfm_placebo": ("specfm", "placebo_dev"),
-    "specent_placebo": ("specent", "placebo_dev"),
+    "lmom_skew_dev": ("lmom_skew", "dev"),
+    "lmom_kurt_dev": ("lmom_kurt", "dev"),
+    "lmom_skew_placebo": ("lmom_skew", "placebo_dev"),
+    "lmom_kurt_placebo": ("lmom_kurt", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "specfm_dev": "specfm_dev",
-    "specent_dev": "specent_dev",
+    "lmom_skew_dev": "lmom_skew_dev",
+    "lmom_kurt_dev": "lmom_kurt_dev",
 }
 
 
@@ -297,48 +300,57 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- SPECFM: spectral flatness / spectral entropy
-SPECFM_W = 256
-SPECFM_EPS = 1e-12
+# ------------------------------------------------------- LMOM: L-moment skewness / kurtosis (tau3, tau4)
+LMOM_W = 256
 
 
-def _specfm_bruteforce(log_return: np.ndarray, W: int = SPECFM_W) -> dict:
-    """Reference per-window SPECFM scalars over trailing log returns X=r[t-W+1..t].
-    F=rfft(X) (one-sided FFT); P_k=|F_k|^2 excluding DC; P=P_1..P_{W//2};
-    specfm=exp(mean(ln(P+eps)))/mean(P+eps); specent=-sum p ln p with p=P/sum(P)."""
+def _lmom_bruteforce(log_return: np.ndarray, W: int = LMOM_W) -> dict:
+    """Reference per-window LMOM scalars over trailing log returns X=r[t-W+1..t].
+    Sort ascending x_(1)<=...<=x_(W); unbiased probability-weighted moments
+    beta_r = (1/C(W,r+1))*sum_{i=r+1..W} C(i-1,r)*x_(i);
+    lambda_1=beta_0, lambda_2=2*beta_1-beta_0,
+    lambda_3=6*beta_2-6*beta_1+beta_0, lambda_4=20*beta_3-30*beta_2+12*beta_1-beta_0;
+    lmom_skew=lambda_3/lambda_2, lmom_kurt=lambda_4/lambda_2."""
+    from math import comb
     X = np.asarray(log_return, dtype=float)
     n = len(X)
-    out = {"specfm": np.full(n, np.nan, dtype=float),
-           "specent": np.full(n, np.nan, dtype=float)}
+    out = {"lmom_skew": np.full(n, np.nan, dtype=float),
+           "lmom_kurt": np.full(n, np.nan, dtype=float)}
     if n < W:
         return out
-    eps = SPECFM_EPS
     for t in range(W, n):
         Xw = X[t - W + 1:t + 1]
         if not np.isfinite(Xw).all():
             continue
-        F = np.fft.rfft(Xw)
-        P = np.abs(F) ** 2
-        P = P[1:]  # exclude DC -> W//2 positive-frequency bins
-        Pe = P + eps
-        out["specfm"][t] = float(np.exp(np.mean(np.log(Pe))) / np.mean(Pe))
-        p = Pe / Pe.sum()
-        ent = 0.0
-        for pk in p:
-            if pk > 0:
-                ent -= pk * np.log(pk)
-        out["specent"][t] = ent
+        xs = np.sort(Xw)
+        betas = np.zeros(4, dtype=float)
+        for r in range(4):
+            denom = comb(W, r + 1)
+            s = 0.0
+            for i in range(r + 1, W + 1):
+                s += comb(i - 1, r) * xs[i - 1]
+            betas[r] = s / denom
+        b0, b1, b2, b3 = betas
+        lam1 = b0
+        lam2 = 2.0 * b1 - b0
+        lam3 = 6.0 * b2 - 6.0 * b1 + b0
+        lam4 = 20.0 * b3 - 30.0 * b2 + 12.0 * b1 - b0
+        if not np.isfinite(lam2) or lam2 <= 0:
+            continue
+        out["lmom_skew"][t] = lam3 / lam2
+        out["lmom_kurt"][t] = lam4 / lam2
     return out
 
 
-def compute_specfm_metrics(log_return: np.ndarray, W: int = SPECFM_W) -> dict:
-    """Vectorized SPECFM spectral flatness/entropy for all bars via
-    sliding_window_view + np.fft.rfft along axis=1 + reductions along axis=1
-    (matches _specfm_bruteforce with maxdiff < 1e-12)."""
+def compute_lmom_metrics(log_return: np.ndarray, W: int = LMOM_W) -> dict:
+    """Vectorized LMOM L-skewness/L-kurtosis for all bars via
+    sliding_window_view + sort + cumulative binomial-weighted sums
+    (matches _lmom_bruteforce with maxdiff < 1e-12)."""
+    from math import comb
     X = np.asarray(log_return, dtype=float)
     n = len(X)
-    out = {"specfm": np.full(n, np.nan, dtype=float),
-           "specent": np.full(n, np.nan, dtype=float)}
+    out = {"lmom_skew": np.full(n, np.nan, dtype=float),
+           "lmom_kurt": np.full(n, np.nan, dtype=float)}
     if n < W:
         return out
 
@@ -352,40 +364,57 @@ def compute_specfm_metrics(log_return: np.ndarray, W: int = SPECFM_W) -> dict:
     win_finite = np.isfinite(win).all(axis=1)
     A = np.where(win_finite[:, None], win, 0.0)  # (n_ts, W), copy
 
-    F = np.fft.rfft(A, axis=1)  # (n_ts, W//2+1)
-    P = np.abs(F) ** 2
-    P = P[:, 1:]  # exclude DC -> (n_ts, W//2)
-    Pe = P + SPECFM_EPS
+    xs = np.sort(A, axis=1)  # (n_ts, W), sorted ascending per window
 
-    with np.errstate(divide="ignore", invalid="ignore"):
-        logmean = np.mean(np.log(Pe), axis=1)
-        arithmean = np.mean(Pe, axis=1)
-        specfm_vals = np.exp(logmean) / arithmean  # (n_ts,)
-        p = Pe / Pe.sum(axis=1, keepdims=True)      # (n_ts, W//2), sums to 1
-        pln = np.where(p > 0.0, p * np.log(p), 0.0)
-        specent_vals = -pln.sum(axis=1)             # (n_ts,)
+    # Precompute binomial weight matrix W_mat[i, r] = C(i-1, r) for i=r+1..W (1-indexed i), else 0.
+    # Position index p = 0..W-1 corresponds to x_(p+1).
+    W_mat = np.zeros((W, 4), dtype=float)
+    for p in range(W):
+        i = p + 1  # 1-indexed order-statistic position
+        for r in range(4):
+            if i >= r + 1:
+                W_mat[p, r] = comb(i - 1, r)
+    norms = np.array([comb(W, r + 1) for r in range(4)], dtype=float)  # (4,)
 
-    specfm_at_t = np.full(n, np.nan, dtype=float)
-    specent_at_t = np.full(n, np.nan, dtype=float)
-    specfm_at_t[t_idx[win_finite]] = specfm_vals[win_finite]
-    specent_at_t[t_idx[win_finite]] = specent_vals[win_finite]
-    out["specfm"] = specfm_at_t
-    out["specent"] = specent_at_t
+    # betas[:, r] = sum_p xs[:, p] * W_mat[p, r] / norms[r]
+    betas = (xs @ W_mat) / norms[None, :]  # (n_ts, 4)
+    b0 = betas[:, 0]
+    b1 = betas[:, 1]
+    b2 = betas[:, 2]
+    b3 = betas[:, 3]
+
+    lam1 = b0
+    lam2 = 2.0 * b1 - b0
+    lam3 = 6.0 * b2 - 6.0 * b1 + b0
+    lam4 = 20.0 * b3 - 30.0 * b2 + 12.0 * b1 - b0
+
+    valid = win_finite & np.isfinite(lam2) & (lam2 > 0)
+    skew_vals = np.full(n_ts, np.nan, dtype=float)
+    kurt_vals = np.full(n_ts, np.nan, dtype=float)
+    skew_vals[valid] = lam3[valid] / lam2[valid]
+    kurt_vals[valid] = lam4[valid] / lam2[valid]
+
+    skew_at_t = np.full(n, np.nan, dtype=float)
+    kurt_at_t = np.full(n, np.nan, dtype=float)
+    skew_at_t[t_idx[valid]] = skew_vals[valid]
+    kurt_at_t[t_idx[valid]] = kurt_vals[valid]
+    out["lmom_skew"] = skew_at_t
+    out["lmom_kurt"] = kurt_at_t
     return out
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar SPECFM metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): specfm, specent."""
+    """Compute the causal per-bar LMOM metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): lmom_skew, lmom_kurt."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
     log_return = bs["log_return"]
     series: dict = {}
-    METRIC_KEYS = ("specfm", "specent")
+    METRIC_KEYS = ("lmom_skew", "lmom_kurt")
     mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
     for i in range(n_assets):
-        m = compute_specfm_metrics(np.asarray(log_return[i], dtype=float),
-                                   SPECFM_W)
+        m = compute_lmom_metrics(np.asarray(log_return[i], dtype=float),
+                                 LMOM_W)
         for k in METRIC_KEYS:
             mats[k][i] = np.asarray(m[k], dtype=float)
     for k in METRIC_KEYS:
@@ -418,9 +447,9 @@ def build_scores(series: dict, bucket: np.ndarray) -> dict:
 
 def verify_cache() -> tuple:
     if not CACHE_DIR.exists():
-        raise SystemExit(f"FATAL: C397 shard dir missing: {CACHE_DIR}")
+        raise SystemExit(f"FATAL: C398 shard dir missing: {CACHE_DIR}")
     if not CACHE_META.exists():
-        raise SystemExit(f"FATAL: C397 meta missing: {CACHE_META}")
+        raise SystemExit(f"FATAL: C398 meta missing: {CACHE_META}")
     meta_sha = sha256_file(CACHE_META)
     prov_sha = sha256_file(CACHE_PROV) if CACHE_PROV.exists() else None
     meta = json.loads(CACHE_META.read_text())
@@ -469,9 +498,9 @@ def build_series(payload: dict):
     index = pd.DatetimeIndex(pd.to_datetime(idx_ms, unit="ms", utc=True))
     n_b = len(index)
     if n_b == 0:
-        raise SystemExit("FATAL: C397 common grid is empty")
+        raise SystemExit("FATAL: C398 common grid is empty")
     if n_b % 288 != 0:
-        raise SystemExit("FATAL: C397 grid is not a whole number of 288-bar days")
+        raise SystemExit("FATAL: C398 grid is not a whole number of 288-bar days")
 
     def mat(key):
         out = np.zeros((n_assets, n_b), dtype=float)
@@ -611,7 +640,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="specfm_dev", L=240, H=4,
+    ref_cfg = dict(signal="lmom_skew_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -734,31 +763,32 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     sweep_obj = {
-        "generated_at_utc": ts, "campaign": 397, "part": "oos_sweep",
-        "analysis": "c397_specfm_xsec_stat_arb_oos_5m",
+        "generated_at_utc": ts, "campaign": 398, "part": "oos_sweep",
+        "analysis": "c398_lmom_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C397 — test the cross-sectional intraday SPECFM: SPECTRAL FLATNESS "
-            "/ SPECTRAL ENTROPY OF LOG-RETURNS x SEASONAL-DISLOCATION "
+            "C398 — test the cross-sectional intraday LMOM: L-MOMENT SKEWNESS "
+            "/ KURTOSIS (TAU3, TAU4) x SEASONAL-DISLOCATION "
             "mean-reversion stat-arb family on 10 USDT-M linear perps at native "
             "5m (1296 pre-registered configs). Per-bar primitives: perp_close "
             "real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
-            "abs_ret=|log_return|. SPECFM scalars over fixed intrinsic window "
-            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-            "F=rfft(X) (one-sided FFT, length W//2+1=129); P_k=|F_k|^2 excluding "
-            "DC (k=0) -> P=P_1..P_{W//2}; "
-            "specfm[t]=exp(mean(ln(P+eps)))/mean(P+eps) (geometric/arithmetic "
-            "power-mean ratio, in (0,1]); "
-            "specent[t]=-sum_k p_k ln(p_k) with p_k=P_k/sum(P) (Shannon entropy "
-            "of normalized power spectrum, nats). NaN if t<W or any NaN/non-finite "
-            "in window or sum(P)<=0 or not finite. Seasonal baseline = trailing "
-            "mean/std at same (weekday,tod) bucket from history strictly before bar "
-            "t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real "
-            "(specfm_dev, specent_dev) + 2 placebos (phase-randomized surrogates, "
-            "never edges). Single-leg dollar-neutral perp PnL with costs on "
-            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). "
+            "abs_ret=|log_return|. LMOM scalars over fixed intrinsic window "
+            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t: sort X "
+            "ascending x_(1)<=...<=x_(W); unbiased probability-weighted moments "
+            "beta_r = (1/C(W,r+1))*sum_{i=r+1..W} C(i-1,r)*x_(i); "
+            "lambda_1=beta_0, lambda_2=2*beta_1-beta_0, "
+            "lambda_3=6*beta_2-6*beta_1+beta_0, lambda_4=20*beta_3-30*beta_2+12*beta_1-beta_0; "
+            "lmom_skew[t]=lambda_3/lambda_2 (L-skewness tau3); "
+            "lmom_kurt[t]=lambda_4/lambda_2 (L-kurtosis tau4). NaN if t<W or "
+            "any NaN/non-finite in window, lambda_2<=0, or not finite. "
+            "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket "
+            "from history strictly before bar t (causal shift(1)), NaN-aware, "
+            "excluding NaN obs. Signals: 2 real (lmom_skew_dev, lmom_kurt_dev) "
+            "+ 2 placebos (phase-randomized surrogates, never edges). "
+            "Single-leg dollar-neutral perp PnL with costs on turnover "
+            "(taker=fee+slip; maker_blend=0.5*fee+slip). "
             "Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, "
             "signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric "
             "NaN unless sufficient finite obs and valid denominators; seasonal "
@@ -780,15 +810,15 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "specfm_params": {"window_W": SPECFM_W},
+            "lmom_params": {"window_W": LMOM_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "specfm_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                           "observed_mean_bps_per_split": obs_mean_bps},
+            "lmom_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+                         "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -800,17 +830,19 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or lambda_2<=0).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
             "primitives": "fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-                          "F=rfft(X) (one-sided FFT, length W//2+1=129); P_k=|F_k|^2 excluding DC; "
-                          "P=P_1..P_{W//2}; specfm=exp(mean(ln(P+eps)))/mean(P+eps); "
-                          "specent=-sum p ln p with p=P/sum(P).",
-            "signals": "specfm/specent over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+                          "sort X ascending x_(1)<=...<=x_(W); unbiased probability-weighted moments "
+                          "beta_r = (1/C(W,r+1))*sum_{i=r+1..W} C(i-1,r)*x_(i); "
+                          "lambda_1=beta_0, lambda_2=2*beta_1-beta_0, "
+                          "lambda_3=6*beta_2-6*beta_1+beta_0, lambda_4=20*beta_3-30*beta_2+12*beta_1-beta_0; "
+                          "lmom_skew=lambda_3/lambda_2, lmom_kurt=lambda_4/lambda_2.",
+            "signals": "lmom_skew/lmom_kurt over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
@@ -821,11 +853,11 @@ def main(argv: list[str] | None = None) -> int:
             "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "specfm_vectorization_note": "specfm/specent via sliding_window_view(log_return, 256) per-asset; "
-                        "np.fft.rfft along axis=1, power spectrum excluding DC, geometric/arithmetic mean ratio "
-                        "and normalized-power-shannon-entropy reductions along axis=1. Window-NaN enforced by "
-                        "finite-count over the W-bar trailing returns. No Python loop over bars x assets — "
-                        "validated against brute force with maxdiff < 1e-12 in tests.",
+            "lmom_vectorization_note": "lmom_skew/lmom_kurt via sliding_window_view(log_return, 256) per-asset; "
+                        "sort along axis=1, precomputed binomial weight matrix W_mat[i,r]=C(i-1,r), "
+                        "probability-weighted moments and L-moment reductions via matmul along axis=1. "
+                        "Window-NaN enforced by finite-count over the W-bar trailing returns; lambda_2<=0 -> NaN. "
+                        "No Python loop over bars x assets — validated against brute force with maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -846,10 +878,10 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign397_oos_sweep_{ts}.json"
+    op = reports / f"campaign398_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign397_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign398_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
@@ -867,12 +899,12 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign397_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign398_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
     summary = {
-        "generated_at_utc": ts, "campaign": 397, "part": "summary",
+        "generated_at_utc": ts, "campaign": 398, "part": "summary",
         "analysis": "validation_summary", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "universe": sweep_obj["universe"], "config": sweep_obj["config"],
@@ -886,21 +918,21 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C397 cross-sectional intraday SPECFM spectral flatness/spectral entropy stat-arb edge {verdict} "
+        f"C398 cross-sectional intraday LMOM L-moment skewness/kurtosis (tau3/tau4) stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C397 cross-sectional intraday SPECFM spectral flatness/spectral entropy stat-arb edge validated: "
+        else f"C398 cross-sectional intraday LMOM L-moment skewness/kurtosis (tau3/tau4) stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
     verdict_obj = {
-        "generated_at_utc": ts, "campaign": 397, "part": "verdict",
+        "generated_at_utc": ts, "campaign": 398, "part": "verdict",
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c397_specfm_xsec_stat_arb_costed_oos_5m",
+        "basis": "c398_lmom_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -921,7 +953,7 @@ def main(argv: list[str] | None = None) -> int:
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-    op_ver = reports / f"campaign397_verdict_{ts}.json"
+    op_ver = reports / f"campaign398_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 
@@ -929,7 +961,7 @@ def main(argv: list[str] | None = None) -> int:
     bind_path = None
     if binding is not None:
         binding_obj = {
-            "generated_at_utc": ts, "campaign": 397, "part": "binding_constraint",
+            "generated_at_utc": ts, "campaign": 398, "part": "binding_constraint",
             "analysis": "binding_constraint_diagnosis", "verdict": verdict,
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
             "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
@@ -941,11 +973,11 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C397 cross-sectional intraday SPECFM spectral flatness/spectral entropy stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
+                "C398 cross-sectional intraday LMOM L-moment skewness/kurtosis (tau3/tau4) stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }
-        op_bind = reports / f"campaign397_binding_constraint_{ts}.json"
+        op_bind = reports / f"campaign398_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
@@ -955,7 +987,7 @@ def main(argv: list[str] | None = None) -> int:
         ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 397, "verdict": verdict, "edge_proven": edge_proven,
+        "campaign": 398, "verdict": verdict, "edge_proven": edge_proven,
         "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
         "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
         "n_survive_both": n_survive_both,
