@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""C405 — rigorous costed out-of-sample test of the cross-sectional intraday
-COSKEW: CROSS-SECTIONAL CO-SKEWNESS / CO-KURTOSIS VS EQUAL-WEIGHT MARKET x
-SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear perps
-at native 5m (1296 pre-registered configs).
+"""C406 — rigorous costed out-of-sample test of the cross-sectional intraday
+BETAASYM: MARKET-BETA LEVEL & UPSIDE/DOWNSIDE BETA ASYMMETRY VS EQUAL-WEIGHT
+MARKET x SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear
+perps at native 5m (1296 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 -----------------------------------------------------------------
@@ -45,30 +45,35 @@ spectral entropy (SPECFM, C397), L-moment skewness / kurtosis (tau3, tau4)
 (LMOM, C398), window CUSUM break statistic & break-position tilt (CBREAK, C399),
 realized Kendall tau / Spearman rho trend (KTREND, C400), realized quarticity
 & quarticity-vol ratio (RVQUART, C401), multi-scale tail-exponent Hill profile
-(TSCALE, C402), and the immediately preceding campaign (dominant spectral
-frequency / spectral centroid, DOMFREQ, C404).
+(TSCALE, C402), conditional skewness / asymmetric curvature (ASYMCURV, C403),
+dominant spectral frequency / spectral centroid (DOMFREQ, C404), and the
+immediately preceding campaign's third/fourth co-moment family (not second-moment
+beta).
 
-C405 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of the cross-sectional co-skewness / co-kurtosis vs
-the equal-weight market profile:
+C406 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
+DOW) seasonal deviation of the systematic second-moment market-beta asymmetry
+profile:
 
     For each bar t, trailing asset log-returns X = r_i[t-W+1 .. t] and trailing
     equal-weight market returns M = m[t-W+1 .. t] (m[s] = (1/10) * sum_i r_i[s]),
-    W = 256. NaN if t<W or any NaN/non-finite in X or M, or sig_X <= 0 or
-    sig_M <= 0 or not finite:
+    W = 256. NaN if t<W or any NaN/non-finite in X or M or a denominator <= 0
+    or not finite:
         mu_X = mean(X),   sig_X = std(X)          (population, ddof=0)
         mu_M = mean(M),   sig_M = std(M)
-        coskew[t]  = mean((X - mu_X) * (M - mu_M)^2) / (sig_X * sig_M^2)
-        cokurt[t]  = mean((X - mu_X) * (M - mu_M)^3) / (sig_X * sig_M^3)
+        beta_level[t] = cov(X, M) / var(M)
+        beta_up[t]    = cov(X, M | M>0) / var(M | M>0)
+        beta_down[t]  = cov(X, M | M<0) / var(M | M<0)
+        beta_asym[t]  = beta_up[t] - beta_down[t]
     last_move_dir[t] = sign(r_i[t]).
 
-This is a cross-sectional co-moment (systematic skewness/kurtosis vs the
-equal-weight market), genuinely distinct from C361 RSKEK (own raw skew/kurt),
-C360 LVAC (leverage corr(r, |r|)), C391 XSKEW3 (lag-1 cross third moment),
-C380 SEMICOV (conditional covariance), C371 RSK/RKT (realized skew/kurt),
-C398 LMOM (L-moments), C404 DOMFREQ (dominant spectral frequency/spectral
-centroid), and every moment/tail family. Never used before. Price-only
-(perp_close), volume-free.
+This is a systematic second-moment (beta) asymmetry vs the equal-weight market,
+genuinely distinct from C361 RSKEK (own raw skew/kurt), C360 LVAC (leverage
+corr(r, |r|)), C380 SEMICOV (conditional covariance), C364 DSRV (same-bar
+semivariance split), and the immediately preceding campaign's third/fourth co-moment
+family (not second-moment beta), C375 ACOVK (unconditional autocovariance),
+C372 TIRV, C391 XSKEW3, and every univariate moment/tail/entropy family. This is the only
+systematic second-moment asymmetry family ever run. Never used before.
+Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -94,15 +99,15 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 cache_dir = ROOT / "data" / "cache"
 
-CACHE_DIR = cache_dir / "campaign405_coskew_5m"
-CACHE_META = cache_dir / "campaign405_coskew_5m.meta.json"
-CACHE_PROV = cache_dir / "campaign405_coskew_5m.provenance.json"
+CACHE_DIR = cache_dir / "campaign406_betaasym_5m"
+CACHE_META = cache_dir / "campaign406_betaasym_5m.meta.json"
+CACHE_PROV = cache_dir / "campaign406_betaasym_5m.provenance.json"
 REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "coskew_dev", "cokurt_dev",
-    "coskew_placebo", "cokurt_placebo",
+    "beta_asym_dev", "beta_level_dev",
+    "beta_asym_placebo", "beta_level_placebo",
 )
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
@@ -112,7 +117,7 @@ COST_VARIANTS = ("taker", "maker_blend")
 FRAC = 1.0 / 3.0
 ALPHA = 0.05
 MIN_PERIODS_BASELINE = 3
-PLACEBO_SEED = 20261269
+PLACEBO_SEED = 20261270
 TRAIN_M, TEST_M, ROLL_M = 12, 3, 3
 STABILITY_MIN_SIGN_CONSISTENCY = 0.70
 STABILITY_MIN_SHARPE_CORR = 0.50
@@ -124,15 +129,15 @@ N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "coskew_dev": ("coskew", "dev"),
-    "cokurt_dev": ("cokurt", "dev"),
-    "coskew_placebo": ("coskew", "placebo_dev"),
-    "cokurt_placebo": ("cokurt", "placebo_dev"),
+    "beta_asym_dev": ("beta_asym", "dev"),
+    "beta_level_dev": ("beta_level", "dev"),
+    "beta_asym_placebo": ("beta_asym", "placebo_dev"),
+    "beta_level_placebo": ("beta_level", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "coskew_dev": "coskew_dev",
-    "cokurt_dev": "cokurt_dev",
+    "beta_asym_dev": "beta_asym_dev",
+    "beta_level_dev": "beta_level_dev",
 }
 
 
@@ -305,22 +310,25 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- COSKEW: cross-sectional co-skewness / co-kurtosis vs equal-weight market
-COSKEW_W = 256
+# ------------------------------------------------------- BETAASYM: market-beta level & upside/downside beta asymmetry vs equal-weight market
+BETAASYM_W = 256
 
 
-def _coskew_bruteforce(log_return, market, W=COSKEW_W):
-    """Per-window reference cross-sectional co-skewness / co-kurtosis kernel.
-    X = trailing asset log-return window, M = trailing equal-weight market window.
-    NaN if t<W, any NaN/non-finite in X or M, or sig_X <= 0 or sig_M <= 0 or
-    not finite."""
+def _betaasym_bruteforce(log_return, market, W=BETAASYM_W):
+    """Per-window reference market-beta level & upside/downside beta asymmetry
+    kernel. X = trailing asset log-return window, M = trailing equal-weight
+    market window. NaN if t<W, any NaN/non-finite in X or M, or a denominator
+    <= 0 or not finite."""
     X = np.asarray(log_return, dtype=float)
     M = np.asarray(market, dtype=float)
     n = len(X)
-    coskew = np.full(n, np.nan, dtype=float)
-    cokurt = np.full(n, np.nan, dtype=float)
+    beta_level = np.full(n, np.nan, dtype=float)
+    beta_up = np.full(n, np.nan, dtype=float)
+    beta_down = np.full(n, np.nan, dtype=float)
+    beta_asym = np.full(n, np.nan, dtype=float)
     if n < W + 1:
-        return {"coskew": coskew, "cokurt": cokurt}
+        return {"beta_level": beta_level, "beta_up": beta_up,
+                "beta_down": beta_down, "beta_asym": beta_asym}
     for t in range(W, n):
         Xw = X[t - W + 1:t + 1]
         Mw = M[t - W + 1:t + 1]
@@ -328,34 +336,65 @@ def _coskew_bruteforce(log_return, market, W=COSKEW_W):
             continue
         mu_X = float(Xw.mean())
         mu_M = float(Mw.mean())
-        sig_X = float(Xw.std())
-        sig_M = float(Mw.std())
-        if not (sig_X > 0.0 and sig_M > 0.0
-                and np.isfinite(sig_X) and np.isfinite(sig_M)):
-            continue
         dX = Xw - mu_X
         dM = Mw - mu_M
-        coskew[t] = float((dX * dM * dM).mean() / (sig_X * sig_M * sig_M))
-        cokurt[t] = float((dX * dM * dM * dM).mean()
-                          / (sig_X * sig_M * sig_M * sig_M))
-    return {"coskew": coskew, "cokurt": cokurt}
+        var_M = float((dM * dM).mean())
+        if not (var_M > 0.0 and np.isfinite(var_M)):
+            continue
+        cov_XM = float((dX * dM).mean())
+        beta_level[t] = cov_XM / var_M
+        # upside leg: M > 0
+        mask_up = Mw > 0
+        cu = int(mask_up.sum())
+        if cu >= 3:
+            Xu = Xw[mask_up]
+            Mu = Mw[mask_up]
+            mu_Xu = float(Xu.mean())
+            mu_Mu = float(Mu.mean())
+            dXu = Xu - mu_Xu
+            dMu = Mu - mu_Mu
+            var_Mu = float((dMu * dMu).mean())
+            if var_Mu > 0.0 and np.isfinite(var_Mu):
+                beta_up[t] = float((dXu * dMu).mean() / var_Mu)
+        # downside leg: M < 0
+        mask_down = Mw < 0
+        cd = int(mask_down.sum())
+        if cd >= 3:
+            Xd = Xw[mask_down]
+            Md = Mw[mask_down]
+            mu_Xd = float(Xd.mean())
+            mu_Md = float(Md.mean())
+            dXd = Xd - mu_Xd
+            dMd = Md - mu_Md
+            var_Md = float((dMd * dMd).mean())
+            if var_Md > 0.0 and np.isfinite(var_Md):
+                beta_down[t] = float((dXd * dMd).mean() / var_Md)
+        if (np.isfinite(beta_up[t]) and np.isfinite(beta_down[t])
+                and np.isfinite(beta_level[t])):
+            beta_asym[t] = beta_up[t] - beta_down[t]
+    return {"beta_level": beta_level, "beta_up": beta_up,
+            "beta_down": beta_down, "beta_asym": beta_asym}
 
 
 def _compute_one_asset(args):
     log_return, market, W = args
-    return compute_coskew_metrics(log_return, market, W)
+    return compute_betaasym_metrics(log_return, market, W)
 
 
-def compute_coskew_metrics(log_return, market, W=COSKEW_W):
-    """Vectorized COSKEW/CO-KURTOSIS kernel via sliding_window_view plus
-    per-window mean/std. Matches _coskew_bruteforce (maxdiff < 1e-12)."""
+def compute_betaasym_metrics(log_return, market, W=BETAASYM_W):
+    """Vectorized market-beta level & upside/downside beta asymmetry kernel via
+    sliding_window_view plus sum-identity conditional moments. Matches
+    _betaasym_bruteforce (maxdiff < 1e-12)."""
     X = np.asarray(log_return, dtype=float)
     M = np.asarray(market, dtype=float)
     n = len(X)
-    coskew = np.full(n, np.nan, dtype=float)
-    cokurt = np.full(n, np.nan, dtype=float)
+    beta_level = np.full(n, np.nan, dtype=float)
+    beta_up = np.full(n, np.nan, dtype=float)
+    beta_down = np.full(n, np.nan, dtype=float)
+    beta_asym = np.full(n, np.nan, dtype=float)
     if n < W + 1:
-        return {"coskew": coskew, "cokurt": cokurt}
+        return {"beta_level": beta_level, "beta_up": beta_up,
+                "beta_down": beta_down, "beta_asym": beta_asym}
 
     swv_X = sliding_window_view(X, W)        # (n-W+1, W)
     swv_M = sliding_window_view(M, W)        # (n-W+1, W)
@@ -366,49 +405,87 @@ def compute_coskew_metrics(log_return, market, W=COSKEW_W):
 
     mu_X = window_mat_X.mean(axis=1, keepdims=True)   # (n-W, 1)
     mu_M = window_mat_M.mean(axis=1, keepdims=True)
-    sig_X = window_mat_X.std(axis=1, keepdims=True)   # population ddof=0
-    sig_M = window_mat_M.std(axis=1, keepdims=True)
+    mx = mu_X.squeeze(axis=1)
+    mm = mu_M.squeeze(axis=1)
 
-    dX = window_mat_X - mu_X
-    dM = window_mat_M - mu_M
-
-    coskew_num = (dX * dM * dM).mean(axis=1)          # (n-W,)
-    cokurt_num = (dX * dM * dM * dM).mean(axis=1)
-    denom_coskew = (sig_X * sig_M * sig_M).squeeze(axis=1)
-    denom_cokurt = (sig_X * sig_M * sig_M * sig_M).squeeze(axis=1)
-
-    valid = (row_ok
-             & np.isfinite(denom_coskew) & np.isfinite(denom_cokurt)
-             & (denom_coskew > 0.0) & (denom_cokurt > 0.0))
-
-    with np.errstate(divide="ignore", invalid="ignore"):
-        coskew_vals = np.where(valid,
-                               coskew_num / np.where(denom_coskew > 0, denom_coskew, 1.0),
+    # ---- beta_level: full window cov(X,M)/var(M) via sum identities
+    xm_mean = (window_mat_X * window_mat_M).mean(axis=1)
+    m2_mean = (window_mat_M * window_mat_M).mean(axis=1)
+    cov_XM = xm_mean - mx * mm
+    var_M = m2_mean - mm * mm
+    valid_level = (row_ok & np.isfinite(cov_XM) & np.isfinite(var_M)
+                   & (var_M > 0.0))
+    beta_level_vals = np.where(valid_level,
+                               cov_XM / np.where(var_M > 0.0, var_M, 1.0),
                                np.nan)
-        cokurt_vals = np.where(valid,
-                               cokurt_num / np.where(denom_cokurt > 0, denom_cokurt, 1.0),
-                               np.nan)
-    del dX, dM, window_mat_X, window_mat_M
+    del xm_mean, m2_mean
+
+    # ---- beta_up: cov(X,M | M>0) / var(M | M>0)
+    mask_up = window_mat_M > 0
+    count_up = mask_up.sum(axis=1)
+    Xu_sum = np.where(mask_up, window_mat_X, 0.0).sum(axis=1)
+    Mu_sum = np.where(mask_up, window_mat_M, 0.0).sum(axis=1)
+    XMu_sum = np.where(mask_up, window_mat_X * window_mat_M, 0.0).sum(axis=1)
+    M2u_sum = np.where(mask_up, window_mat_M * window_mat_M, 0.0).sum(axis=1)
+    c_u = np.maximum(count_up, 1.0)
+    mu_Xu = Xu_sum / c_u
+    mu_Mu = Mu_sum / c_u
+    cov_XMu = XMu_sum / c_u - mu_Xu * mu_Mu
+    var_Mu = M2u_sum / c_u - mu_Mu * mu_Mu
+    valid_up = (row_ok & (count_up >= 3) & np.isfinite(cov_XMu)
+                & np.isfinite(var_Mu) & (var_Mu > 0.0))
+    beta_up_vals = np.where(valid_up,
+                            cov_XMu / np.where(var_Mu > 0.0, var_Mu, 1.0),
+                            np.nan)
+    del mask_up, Xu_sum, Mu_sum, XMu_sum, M2u_sum
+
+    # ---- beta_down: cov(X,M | M<0) / var(M | M<0)
+    mask_down = window_mat_M < 0
+    count_down = mask_down.sum(axis=1)
+    Xd_sum = np.where(mask_down, window_mat_X, 0.0).sum(axis=1)
+    Md_sum = np.where(mask_down, window_mat_M, 0.0).sum(axis=1)
+    XMd_sum = np.where(mask_down, window_mat_X * window_mat_M, 0.0).sum(axis=1)
+    M2d_sum = np.where(mask_down, window_mat_M * window_mat_M, 0.0).sum(axis=1)
+    c_d = np.maximum(count_down, 1.0)
+    mu_Xd = Xd_sum / c_d
+    mu_Md = Md_sum / c_d
+    cov_XMd = XMd_sum / c_d - mu_Xd * mu_Md
+    var_Md = M2d_sum / c_d - mu_Md * mu_Md
+    valid_down = (row_ok & (count_down >= 3) & np.isfinite(cov_XMd)
+                  & np.isfinite(var_Md) & (var_Md > 0.0))
+    beta_down_vals = np.where(valid_down,
+                              cov_XMd / np.where(var_Md > 0.0, var_Md, 1.0),
+                              np.nan)
+    del mask_down, Xd_sum, Md_sum, XMd_sum, M2d_sum
 
     t_idx = np.arange(W, n)
-    coskew[t_idx] = coskew_vals
-    cokurt[t_idx] = cokurt_vals
-    return {"coskew": coskew, "cokurt": cokurt}
+    beta_level[t_idx] = beta_level_vals
+    beta_up[t_idx] = beta_up_vals
+    beta_down[t_idx] = beta_down_vals
+    asym_valid = np.isfinite(beta_up_vals) & np.isfinite(beta_down_vals)
+    beta_asym_vals = np.where(asym_valid, beta_up_vals - beta_down_vals, np.nan)
+    beta_asym[t_idx] = beta_asym_vals
+
+    del window_mat_X, window_mat_M, mu_X, mu_M, mx, mm
+    del cov_XM, var_M, cov_XMu, var_Mu, cov_XMd, var_Md
+    return {"beta_level": beta_level, "beta_up": beta_up,
+            "beta_down": beta_down, "beta_asym": beta_asym}
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar COSKEW metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): coskew, cokurt."""
+    """Compute the causal per-bar BETAASYM metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): beta_level, beta_up,
+    beta_down, beta_asym."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
     log_return = bs["log_return"]
     # Equal-weight market return m[s] = (1/10) * sum_i r_i[s] on the common grid.
     market = log_return.mean(axis=0)
     series: dict = {}
-    METRIC_KEYS = ("coskew", "cokurt")
+    METRIC_KEYS = ("beta_level", "beta_up", "beta_down", "beta_asym")
     mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
-    W = COSKEW_W
-    n_workers = min(8, os.cpu_count() or 1)
+    W = BETAASYM_W
+    n_workers = min(4, os.cpu_count() or 1)
     if n_assets > 1 and n_workers > 1:
         tasks = [(np.asarray(log_return[i], dtype=float), market, W)
                  for i in range(n_assets)]
@@ -419,8 +496,8 @@ def build_underlying(bs: dict) -> dict:
                 mats[k][i] = np.asarray(m[k], dtype=float)
     else:
         for i in range(n_assets):
-            m = compute_coskew_metrics(np.asarray(log_return[i], dtype=float),
-                                       market, W)
+            m = compute_betaasym_metrics(np.asarray(log_return[i], dtype=float),
+                                         market, W)
             for k in METRIC_KEYS:
                 mats[k][i] = np.asarray(m[k], dtype=float)
     for k in METRIC_KEYS:
@@ -453,9 +530,9 @@ def build_scores(series: dict, bucket: np.ndarray) -> dict:
 
 def verify_cache() -> tuple:
     if not CACHE_DIR.exists():
-        raise SystemExit(f"FATAL: C405 shard dir missing: {CACHE_DIR}")
+        raise SystemExit(f"FATAL: C406 shard dir missing: {CACHE_DIR}")
     if not CACHE_META.exists():
-        raise SystemExit(f"FATAL: C405 meta missing: {CACHE_META}")
+        raise SystemExit(f"FATAL: C406 meta missing: {CACHE_META}")
     meta_sha = sha256_file(CACHE_META)
     prov_sha = sha256_file(CACHE_PROV) if CACHE_PROV.exists() else None
     meta = json.loads(CACHE_META.read_text())
@@ -504,9 +581,9 @@ def build_series(payload: dict):
     index = pd.DatetimeIndex(pd.to_datetime(idx_ms, unit="ms", utc=True))
     n_b = len(index)
     if n_b == 0:
-        raise SystemExit("FATAL: C405 common grid is empty")
+        raise SystemExit("FATAL: C406 common grid is empty")
     if n_b % 288 != 0:
-        raise SystemExit("FATAL: C405 grid is not a whole number of 288-bar days")
+        raise SystemExit("FATAL: C406 grid is not a whole number of 288-bar days")
 
     def mat(key):
         out = np.zeros((n_assets, n_b), dtype=float)
@@ -646,7 +723,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="coskew_dev", L=240, H=4,
+    ref_cfg = dict(signal="beta_asym_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -769,29 +846,30 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     sweep_obj = {
-        "generated_at_utc": ts, "campaign": 405, "part": "oos_sweep",
-        "analysis": "c405_coskew_xsec_stat_arb_oos_5m",
+        "generated_at_utc": ts, "campaign": 406, "part": "oos_sweep",
+        "analysis": "c406_betaasym_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C405 — test the cross-sectional intraday COSKEW: CROSS-SECTIONAL "
-            "CO-SKEWNESS / CO-KURTOSIS VS EQUAL-WEIGHT MARKET x SEASONAL-DISLOCATION "
-            "mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m "
-            "(1296 pre-registered configs). Per-bar primitives: perp_close "
-            "real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
-            "abs_ret=|log_return|. Equal-weight market m[s] = (1/10) * sum_i "
-            "r_i[s]. COSKEW/CO-KURTOSIS scalars over fixed intrinsic window "
-            "W=256 trailing asset log-returns X=r_i[t-W+1..t] and market "
-            "returns M=m[t-W+1..t] ending at bar t: mu_X=mean(X), "
-            "sig_X=std(X) (population, ddof=0), mu_M=mean(M), sig_M=std(M); "
-            "coskew[t]=mean((X-mu_X)*(M-mu_M)^2)/(sig_X*sig_M^2) (systematic "
-            "co-skewness), cokurt[t]=mean((X-mu_X)*(M-mu_M)^3)/(sig_X*sig_M^3) "
-            "(systematic co-kurtosis). NaN if t<W or any NaN/non-finite in X "
-            "or M, or sig_X<=0 or sig_M<=0 or not finite. Seasonal baseline = "
+            "C406 — test the cross-sectional intraday BETAASYM: MARKET-BETA LEVEL "
+            "& UPSIDE/DOWNSIDE BETA ASYMMETRY VS EQUAL-WEIGHT MARKET x "
+            "SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M "
+            "linear perps at native 5m (1296 pre-registered configs). Per-bar "
+            "primitives: perp_close real 5m kline close; "
+            "log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. "
+            "Equal-weight market m[s] = (1/10) * sum_i r_i[s]. BETAASYM scalars "
+            "over fixed intrinsic window W=256 trailing asset log-returns "
+            "X=r_i[t-W+1..t] and market returns M=m[t-W+1..t] ending at bar t: "
+            "mu_X=mean(X), sig_X=std(X) (population, ddof=0), mu_M=mean(M), "
+            "sig_M=std(M); beta_level=cov(X,M)/var(M); "
+            "beta_up=cov(X,M|M>0)/var(M|M>0); "
+            "beta_down=cov(X,M|M<0)/var(M|M<0); "
+            "beta_asym=beta_up-beta_down. NaN if t<W or any NaN/non-finite in X "
+            "or M, or a denominator<=0 or not finite. Seasonal baseline = "
             "trailing mean/std at same (weekday,tod) bucket from history "
             "strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. "
-            "Signals: 2 real (coskew_dev, cokurt_dev) + 2 placebos "
+            "Signals: 2 real (beta_asym_dev, beta_level_dev) + 2 placebos "
             "(phase-randomized surrogates, never edges). "
             "Single-leg dollar-neutral perp PnL with costs on turnover "
             "(taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
@@ -815,15 +893,15 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "coskew_params": {"window_W": COSKEW_W},
+            "betaasym_params": {"window_W": BETAASYM_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "coskew_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                            "observed_mean_bps_per_split": obs_mean_bps},
+            "betaasym_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+                             "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -835,14 +913,14 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or sig_X<=0 or sig_M<=0 or not finite).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or a denominator<=0 or not finite).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 trailing asset log-returns X=r_i[t-W+1..t] and market returns M=m[t-W+1..t] ending at bar t; mu_X=mean(X), sig_X=std(X) (population, ddof=0), mu_M=mean(M), sig_M=std(M); coskew=mean((X-mu_X)*(M-mu_M)^2)/(sig_X*sig_M^2); cokurt=mean((X-mu_X)*(M-mu_M)^3)/(sig_X*sig_M^3).",
-            "signals": "coskew/cokurt over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+            "primitives": "fixed intrinsic window W=256 trailing asset log-returns X=r_i[t-W+1..t] and market returns M=m[t-W+1..t] ending at bar t; mu_X=mean(X), sig_X=std(X) (population, ddof=0), mu_M=mean(M), sig_M=std(M); beta_level=cov(X,M)/var(M); beta_up=cov(X,M|M>0)/var(M|M>0); beta_down=cov(X,M|M<0)/var(M|M<0); beta_asym=beta_up-beta_down.",
+            "signals": "beta_asym/beta_level over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
@@ -853,9 +931,8 @@ def main(argv: list[str] | None = None) -> int:
             "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "coskew_vectorization_note": "coskew/cokurt via sliding_window_view(X,256) and sliding_window_view(M,256) with per-window mean/std (population, ddof=0); "
-                          "coskew=mean((X-mu_X)*(M-mu_M)^2)/(sig_X*sig_M^2); cokurt=mean((X-mu_X)*(M-mu_M)^3)/(sig_X*sig_M^3); "
-                          "validated against brute-force per-window loop with explicit market series with maxdiff < 1e-12 in tests. "
+            "betaasym_vectorization_note": "beta_level/beta_up/beta_down/beta_asym via sliding_window_view(X,256) and sliding_window_view(M,256) with per-window sum-identity conditional moments (cov/var on M>0 and M<0 masks); "
+                          "validated against brute-force per-window loop with explicit market series and conditional masks with maxdiff < 1e-12 in tests. "
                           "Per-asset metric computation parallelized via ProcessPoolExecutor.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
@@ -877,15 +954,15 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign405_oos_sweep_{ts}.json"
+    op = reports / f"campaign406_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign405_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign406_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
     registry = {
-        "generated_at_utc": ts, "campaign": 405, "part": "registry",
+        "generated_at_utc": ts, "campaign": 406, "part": "registry",
         "analysis": "tradable_edge_registry",
         "n_tradable": len(surviving),
         "n_edge_proven_deterministic": int(n_edge),
@@ -898,12 +975,12 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign405_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign406_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
     summary = {
-        "generated_at_utc": ts, "campaign": 405, "part": "summary",
+        "generated_at_utc": ts, "campaign": 406, "part": "summary",
         "analysis": "validation_summary", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "universe": sweep_obj["universe"], "config": sweep_obj["config"],
@@ -912,26 +989,28 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign405_summary_{ts}.json"
+    op_sum = reports / f"campaign406_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C405 cross-sectional intraday COSKEW cross-sectional co-skewness / co-kurtosis stat-arb edge {verdict} "
+        f"C406 cross-sectional intraday BETAASYM market-beta level & upside/downside "
+        f"beta asymmetry stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C405 cross-sectional intraday COSKEW cross-sectional co-skewness / co-kurtosis stat-arb edge validated: "
+        else f"C406 cross-sectional intraday BETAASYM market-beta level & upside/downside "
+        f"beta asymmetry stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
     verdict_obj = {
-        "generated_at_utc": ts, "campaign": 405, "part": "verdict",
+        "generated_at_utc": ts, "campaign": 406, "part": "verdict",
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c405_coskew_xsec_stat_arb_costed_oos_5m",
+        "basis": "c406_betaasym_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -952,7 +1031,7 @@ def main(argv: list[str] | None = None) -> int:
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-    op_ver = reports / f"campaign405_verdict_{ts}.json"
+    op_ver = reports / f"campaign406_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 
@@ -960,7 +1039,7 @@ def main(argv: list[str] | None = None) -> int:
     bind_path = None
     if binding is not None:
         binding_obj = {
-            "generated_at_utc": ts, "campaign": 405, "part": "binding_constraint",
+            "generated_at_utc": ts, "campaign": 406, "part": "binding_constraint",
             "analysis": "binding_constraint_diagnosis", "verdict": verdict,
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
             "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
@@ -972,11 +1051,12 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C405 cross-sectional intraday COSKEW cross-sectional co-skewness / co-kurtosis stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
+                "C406 cross-sectional intraday BETAASYM market-beta level & upside/downside "
+                "beta asymmetry stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }
-        op_bind = reports / f"campaign405_binding_constraint_{ts}.json"
+        op_bind = reports / f"campaign406_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
@@ -986,7 +1066,7 @@ def main(argv: list[str] | None = None) -> int:
         ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 405, "verdict": verdict, "edge_proven": edge_proven,
+        "campaign": 406, "verdict": verdict, "edge_proven": edge_proven,
         "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
         "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
         "n_survive_both": n_survive_both,

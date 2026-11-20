@@ -2,8 +2,8 @@ updated_at_utc: 2026-11-20T20:42:25Z
 handoff_refreshed_at_utc: 2026-11-20T20:42:25Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C405
-next_campaign: C406
+latest_campaign_done: C406
+next_campaign: C407
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -14,8 +14,8 @@ bottlenecks_note: 'RE-VERIFIED 2026-11-20T11:49:53Z: no blocked or inefficient s
 queued_next_campaign: C407
 queued_next_campaign_note: 'C281B-C405 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active and UNSTARTED: C406 BETAASYM (N_TRIALS=1296, placebo seed 20261270). Pre-registered: C407 XSRANK (N_TRIALS=1296, placebo seed 20261271) and C408. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C405 or C287; never touch any archive/void_* directory.'
 first_action: "Build C406 BETAASYM end-to-end NOW per the AGENTS.md INITIAL TASK MESSAGE (2026-11-20T20:42:25Z): 5 FRESH files from C405 plumbing fully re-specified (campaign 406, BETAASYM kernel = market-beta level beta_level + upside/downside beta asymmetry beta_asym = beta_up - beta_down vs equal-weight market return m[s]=mean_i r_i[s], PLACEBO_SEED=20261270, N_TRIALS=1296, cache data/cache/campaign406_betaasym_5m/, signals betaasym_*/beta_level_*). SELF-CHECK before sweep: grep -n 405 coskew COSKEW 20261269 over scripts/*c406* tests/*c406* must return nothing. Then build -> preflight ready:true -> full literal 1296-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c406.py tests/test_c406_betaasym_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-12) -> sha256sum reports/campaign406_*_<TS>Z.json. Verify ls scripts tests | grep -c c406 == 5 and ls data/cache/campaign406_betaasym_5m | wc -l == 10. Then record truthful RESULT plus SHAs here and in AGENTS.md, add frozen-table row, freeze, and advance to C407 XSRANK, then C408 (queue depth 3, never idle). Never re-run frozen C281B-C405 or C287; never touch archive/void_*; no gate weakening; no closure by fiat."
-active_campaign: C406
-space_status: NO_EDGE_C281B_C405
+active_campaign: C407
+space_status: NO_EDGE_C281B_C406
 closure_note: 'C281B-C405 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C405 COSKEW 20261120T203749Z (cokurt_placebo 0.4246, 29/29 tests green, 5 artifact SHA256 matching). C406 BETAASYM is ACTIVE and UNSTARTED with an empty, verified slot. C407 XSRANK and C408 are pre-registered so queue depth stays 3. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C406 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT
@@ -1550,7 +1550,43 @@ c405_status:
     summary: '668805b77c0316c6a28648398cb690ab154167b734d5a97dd1e0a00db79ed9a7'
     verdict: '785ce7acf802d34e8804845c76ec400ffe88bca5ee2146cc3c8e2dbab6c56b15'
     binding_constraint: 'c396904d866b84e97ef0d055c1f4cc92a39b4a222a5ee4908a603bc902e12d46'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c406_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C406
+  family: cross_sectional_market_beta_level_upside_downside_beta_asymmetry_vs_equal_weight_market_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C405 COSKEW (third/fourth co-moments), C360 LVAC (leverage corr(r,|r|t-k)), C380 SEMICOV (signed-conditional lag autocovariance), C364 DSRV (same-bar semivariance sign split), every univariate moment/quantile/tail/entropy/scaling/path family C281B-C405. BETAASYM is the only systematic second-moment beta-asymmetry family ever run: beta_level = cov(X,M)/var(M), beta_up = cov(X,M|M>0)/var(M|M>0), beta_down = cov(X,M|M<0)/var(M|M<0), beta_asym = beta_up - beta_down vs equal-weight market m[s] = (1/10) sum_i r_i[s], W=256; NaN if t<W or any NaN/non-finite or denominator<=0/non-finite. Vectorized sliding_window_view + cumulative-sum covariance/variance identities; brute-force per-window loop with explicit market series and conditional masks; maxdiff < 1e-12.'
+  as_of_utc: 20261120T214030Z
+  artifacts_ts: 20261120T214030Z
+  signals: [beta_asym_dev, beta_level_dev, beta_asym_placebo, beta_level_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261270
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'beta_asym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [beta_asym_dev, beta_level_dev]
+  betaasym_params: {window_W: 256}
+  scripts_present: [scripts/build_c406_betaasym_features.py, scripts/preflight_c406.py, scripts/run_c406_betaasym_xsec_oos.py]
+  tests_present: [tests/test_preflight_c406.py, tests/test_c406_betaasym_xsec_oos.py]
+  cache_present: data/cache/campaign406_betaasym_5m
+  artifacts_present: [reports/campaign406_oos_sweep_20261120T214030Z.json, reports/campaign406_tradable_edge_registry_20261120T214030Z.json, reports/campaign406_summary_20261120T214030Z.json, reports/campaign406_verdict_20261120T214030Z.json, reports/campaign406_binding_constraint_20261120T214030Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: beta_asym_placebo
+  dominant_share: 0.4428983932227672
+  attribution_ok: false
+  tests_green: 31
+  artifacts:
+    oos_sweep: '21d4c287e708f38e495238d6b09c4aa5323be160dc1aa810e9e0c99d97914406'
+    tradable_edge_registry: 'b94b8609b9fdff022fb0f4153fb0493999462751d1f6bf3d9ab97fc2904f0a1d'
+    summary: '9195017ab51c0b4fab3e5dea51f3c6a4d8b736098cbb682c1ecb9a23484c2b0f'
+    verdict: 'be3c6621761b85818d54792a749384dbbaa332762116b365fccd7cafbc4641ca'
+    binding_constraint: 'd5bcdab18aac5753672851101d8cebf65cca91f3e921f4877afd361abbb037a8'
   cache_shas:
-    meta: '9b7e63d339f08174cd8213af69409f1cb1d7e94c243847c2b0988595f2502bd2'
-    provenance: '9e7033741565468ddfdabd0d384bd9036ea6a6ea4f1a9d1615c1670a369bf106'
+    meta: 'ef0ceb40bcdc9ce0936334625621504105e7e472060273d1329adcf5a40ff2a9'
+    provenance: '16cb3f0736093f90f03fdac8258abb44bf22d4b7cf87581fc618b682048e87c8'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'

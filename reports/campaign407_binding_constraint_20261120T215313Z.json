@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261120T215313Z",
+  "campaign": 407,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign407_oos_sweep_20261120T215313Z.json",
+  "oos_sweep_sha256": "b58a43b10bbb8cefcc61d132b8082d1c98fcf39b093fc4c0ca7582c59034433f",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rank_ac1_dev": 0.15897040722155178,
+    "rank_ac4_dev": 0.1742981027248454,
+    "rank_ac_decay_dev": 0.1651071277135658,
+    "rank_ac1_placebo": 0.157723899020177,
+    "rank_ac4_placebo": 0.18298107408087705,
+    "rank_ac_decay_placebo": 0.16091938923898302
+  },
+  "dominant_attribution": "rank_ac4_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rank_ac1_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9494986932358711,
+      -1.0971612308660452,
+      -0.9714895605724274,
+      -0.9349833763084343,
+      -0.9192451116212021,
+      -0.8547833792947044,
+      -0.8402127388955968,
+      -0.9264003854827644
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -15.396153867260171,
+    "second_half_sharpe": -23.234318057177955,
+    "sharpe_corr": 0.9985005670805749,
+    "stable": false
+  },
+  "diagnosis": "C407 cross-sectional intraday XSRANK cross-sectional rank-persistence profile stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

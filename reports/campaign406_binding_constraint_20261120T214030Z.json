@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T214030Z",
+  "campaign": 406,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign406_oos_sweep_20261120T214030Z.json",
+  "oos_sweep_sha256": "21d4c287e708f38e495238d6b09c4aa5323be160dc1aa810e9e0c99d97914406",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "beta_asym_dev": 0.28092532589761704,
+    "beta_level_dev": 0.09987798560404322,
+    "beta_asym_placebo": 0.4428983932227672,
+    "beta_level_placebo": 0.1762982952755725
+  },
+  "dominant_attribution": "beta_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "beta_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9736203898507705,
+      -0.8845745765389236,
+      -0.9527325490376559,
+      -0.7572370158412991,
+      -1.0592329832788963,
+      -0.6820639267952556,
+      -0.9303257668694311,
+      -0.832720766834708
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -10.555679315080054,
+    "second_half_sharpe": -6.355381843417241,
+    "sharpe_corr": 0.9972496298766259,
+    "stable": false
+  },
+  "diagnosis": "C406 cross-sectional intraday BETAASYM market-beta level & upside/downside beta asymmetry stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

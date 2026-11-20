@@ -1,52 +1,50 @@
 #!/usr/bin/env python3
-"""C405 feature build — real USDT-M linear perp cross-sectional intraday
-COSKEW: CROSS-SECTIONAL CO-SKEWNESS / CO-KURTOSIS VS EQUAL-WEIGHT MARKET raw
-inputs: trailing log-returns over a fixed intrinsic window W=256 from which the
-runner derives, per bar t:
+"""C406 feature build — real USDT-M linear perp cross-sectional intraday
+BETAASYM: MARKET-BETA LEVEL & UPSIDE/DOWNSIDE BETA ASYMMETRY VS EQUAL-WEIGHT
+MARKET raw inputs: trailing log-returns over a fixed intrinsic window W=256 from
+which the runner derives, per bar t:
 
     X      = r_i[t-W+1 .. t]              (trailing log returns of asset i)
     M      = m[t-W+1 .. t]                (trailing equal-weight market returns)
-    mu_X   = mean(X),   sig_X = std(X)
-    mu_M   = mean(M),   sig_M = std(M)
-    coskew[t] = mean((X-mu_X)(M-mu_M)^2) / (sig_X * sig_M^2)
-    cokurt[t] = mean((X-mu_X)(M-mu_M)^3) / (sig_X * sig_M^3)
+    beta_level[t] = cov(X, M) / var(M)                                     (full-window market beta; NaN if var(M) <= 0)
+    beta_up[t]    = cov(X, M | M>0) / var(M | M>0)                         (beta in market-up states; NaN if <3 up bars or var(M|M>0) <= 0)
+    beta_down[t]  = cov(X, M | M<0) / var(M | M<0)                         (beta in market-down states; NaN if <3 down bars or var(M|M<0) <= 0)
+    beta_asym[t]  = beta_up[t] - beta_down[t]                              (asymmetry of systematic exposure; NaN if either leg NaN/non-finite)
 
-NaN if t<W or any NaN/non-finite in X or M, or sig_X <= 0 or sig_M <= 0 or not
-finite. last_move_dir[t] = sign(r_i[t]).
+NaN if t<W or any NaN/non-finite in X or M or a denominator <= 0 or not finite.
+last_move_dir[t] = sign(r_i[t]).
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
 grid across all 10 perps, builds the equal-weight market return m[s]=(1/10)
-sum_i r_i[s], and stores genuinely-distinct per-bar raw inputs (real only):
+sum_i r_i[s] in the runner, and stores genuinely-distinct per-bar raw inputs
+(real only):
 
-    data/cache/campaign405_coskew_5m/<SYM>.npz
+    data/cache/campaign406_betaasym_5m/<SYM>.npz
         index_ms        int64   common 5m grid (ms)
         perp_close      float32 real 5m kline close (execution price)
         log_return      float32 causal log-return (r[t]=log(c[t]/c[t-1]), r[0]=0)
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner derives the causal per-bar COSKEW / CO-KURTOSIS scalars over W=256
-trailing log returns X=r_i[t-W+1..t] and M=m[t-W+1..t] ending at bar t:
-mu_X=mean(X), sig_X=std(X), mu_M=mean(M), sig_M=std(M);
-coskew[t]=mean((X-mu_X)(M-mu_M)^2)/(sig_X*sig_M^2) (systematic co-skewness);
-cokurt[t]=mean((X-mu_X)(M-mu_M)^3)/(sig_X*sig_M^3) (systematic co-kurtosis).
-NaN if t<W or any NaN/non-finite in window or sig_X<=0 or sig_M<=0 or not finite.
-Seasonal deviation of each COSKEW/CO-KURTOSIS scalar at the same (weekday,tod)
-bucket from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.
+The runner derives the causal per-bar BETAASYM scalars over W=256 trailing log
+returns X=r_i[t-W+1..t] and M=m[t-W+1..t] ending at bar t. Seasonal deviation
+of each BETAASYM scalar at the same (weekday,tod) bucket from history strictly
+before bar t (causal shift(1)), NaN-aware min_periods=3.
 
-COSKEW is genuinely distinct from all prior families C281B–C404: it is a
-cross-sectional co-moment (systematic skewness/kurtosis vs the equal-weight
-market) computed over a trailing window, distinct from C361 RSKEK (own raw
-skew/kurt), C362 Hill (tail-index EVT), C360 LVAC (leverage corr(r,|r|)),
-C391 XSKEW3 (lag-1 cross third moment), C380 SEMICOV (conditional covariance),
-C371 RSK/RKT (realized skew/kurt), C398 LMOM (L-moments), C404 DOMFREQ
-(dominant spectral frequency/spectral centroid), and every moment/tail family.
-Never used before. Price-only (perp_close), volume-free.
+BETAASYM is genuinely distinct from all prior families C281B–C404: it is a
+systematic second-moment (beta) asymmetry vs the equal-weight market computed
+over a trailing window, distinct from C361 RSKEK (own raw skew/kurt), C360 LVAC
+(leverage corr(r,|r|)), C380 SEMICOV (conditional covariance), C364 DSRV
+(same-bar semivariance split), and the immediately preceding campaign's
+third/fourth co-moment family (not second-moment beta), C375 ACOVK
+(unconditional autocovariance), C372 TIRV, C391 XSKEW3, and every univariate
+moment/tail/entropy family. This is the only systematic second-moment asymmetry
+family ever run. Never used before. Price-only (perp_close), volume-free.
 
-C405 is genuinely distinct from all prior families C281B–C404 and the
-immediately preceding campaign (DOMFREQ dominant spectral frequency/spectral
-centroid, C404).
+C406 is genuinely distinct from all prior families C281B–C404 and the
+immediately preceding campaign's third/fourth co-moment family
+(not second-moment beta).
 """
 
 from __future__ import annotations
@@ -63,9 +61,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 SRC_DIR = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m"
 SRC_META = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m.meta.json"
-DST_DIR = ROOT / "data" / "cache" / "campaign405_coskew_5m"
-DST_META = ROOT / "data" / "cache" / "campaign405_coskew_5m.meta.json"
-DST_PROV = ROOT / "data" / "cache" / "campaign405_coskew_5m.provenance.json"
+DST_DIR = ROOT / "data" / "cache" / "campaign406_betaasym_5m"
+DST_META = ROOT / "data" / "cache" / "campaign406_betaasym_5m.meta.json"
+DST_PROV = ROOT / "data" / "cache" / "campaign406_betaasym_5m.provenance.json"
 
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
@@ -124,7 +122,7 @@ def _verify_existing(symbols: list[str]) -> bool:
         meta = json.loads(DST_META.read_text())
     except Exception:  # noqa: BLE001
         return False
-    if int(meta.get("campaign") or 0) != 405:
+    if int(meta.get("campaign") or 0) != 406:
         return False
     if meta.get("real_data_only") is not True or meta.get("fabricated_data") is not False:
         return False
@@ -220,8 +218,8 @@ def main(argv: list[str] | None = None) -> int:
         summary = {
             "built": False,
             "verified": True,
-            "note": "C405 cache already present and faithful (SHA/size/content OK); left untouched.",
-            "campaign": 405,
+            "note": "C406 cache already present and faithful (SHA/size/content OK); left untouched.",
+            "campaign": 406,
             "part": "feature_build",
             "symbols": symbols,
             "n_symbols": len(symbols),
@@ -311,7 +309,7 @@ def main(argv: list[str] | None = None) -> int:
 
     meta = {
         "generated_at_utc": ts,
-        "campaign": 405,
+        "campaign": 406,
         "part": "feature_build",
         "interval": "5m",
         "bar_ms": BAR_MS,
@@ -341,25 +339,23 @@ def main(argv: list[str] | None = None) -> int:
         "under_push_limit": bool(total < PUSH_LIMIT_BYTES and max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total < CACHE_BUDGET_BYTES),
         "n_buckets_tod_dow": int(N_BUCKETS),
-        "coskew_params": {
+        "betaasym_params": {
             "window_W": 256,
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
-            "unreachable). Runner derives the causal per-bar COSKEW/CO-KURTOSIS "
-            "cross-sectional co-moments vs the equal-weight market m[s]=(1/10) "
-            "sum_i r_i[s] over fixed intrinsic window W=256 trailing log returns "
-            "X=r_i[t-W+1..t], M=m[t-W+1..t] ending at bar t: mu_X=mean(X), "
-            "sig_X=std(X), mu_M=mean(M), sig_M=std(M); "
-            "coskew[t]=mean((X-mu_X)(M-mu_M)^2)/(sig_X*sig_M^2) (systematic "
-            "co-skewness), cokurt[t]=mean((X-mu_X)(M-mu_M)^3)/(sig_X*sig_M^3) "
-            "(systematic co-kurtosis). NaN if t<W or any NaN/non-finite in window "
-            "or sig_X<=0 or sig_M<=0 or not finite. Seasonal deviation of each "
-            "COSKEW/CO-KURTOSIS scalar at the same (weekday,tod) bucket from "
-            "history strictly before bar t (causal shift(1)), NaN-aware "
-            "min_periods=3."
+            "unreachable). Runner derives the causal per-bar BETAASYM market-beta "
+            "level & upside/downside beta asymmetry vs the equal-weight market "
+            "m[s]=(1/10) sum_i r_i[s] over fixed intrinsic window W=256 trailing "
+            "asset log-returns X=r_i[t-W+1..t], M=m[t-W+1..t] ending at bar t: "
+            "beta_level=cov(X,M)/var(M); beta_up=cov(X,M|M>0)/var(M|M>0); "
+            "beta_down=cov(X,M|M<0)/var(M|M<0); beta_asym=beta_up-beta_down. "
+            "NaN if t<W or any NaN/non-finite in window or a denominator<=0 or "
+            "not finite. Seasonal deviation of each BETAASYM scalar at the same "
+            "(weekday,tod) bucket from history strictly before bar t (causal "
+            "shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
         "network_ingest": False,
@@ -374,7 +370,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; COSKEW scalars NaN where t<W or any NaN/non-finite in the W-bar trailing return window or sum_j P_j<=0 or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; BETAASYM scalars NaN where t<W or any NaN/non-finite in the W-bar trailing return window or a denominator<=0 or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }
@@ -382,10 +378,10 @@ def main(argv: list[str] | None = None) -> int:
 
     prov = {
         "generated_at_utc": ts,
-        "campaign": 405,
+        "campaign": 406,
         "part": "provenance",
         "source_host": "https://data.binance.vision",
-        "note": "C405 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
+        "note": "C406 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
         "interval": "5m",
         "bar_ms": BAR_MS,
         "window_start_month": WINDOW_START,
@@ -407,7 +403,7 @@ def main(argv: list[str] | None = None) -> int:
 
     summary = {
         "built": True,
-        "campaign": 405,
+        "campaign": 406,
         "part": "feature_build",
         "symbols": symbols,
         "n_symbols": len(symbols),

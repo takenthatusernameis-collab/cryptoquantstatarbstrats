@@ -1,8 +1,8 @@
-"""Tests for C405 runner (scripts/run_c405_coskew_xsec_oos.py): pure-function tests
-on synthetic arrays (including a brute-force equality test for the vectorized COSKEW
-dominant-spectral-frequency / spectral-centroid kernel vs the per-window reference)
-plus schema/flag validation of emitted real-data artifacts. No network, no fabricated
-market data."""
+"""Tests for C406 runner (scripts/run_c406_betaasym_xsec_oos.py): pure-function tests
+on synthetic arrays (including a brute-force equality test for the vectorized
+BETAASYM market-beta level & upside/downside beta asymmetry kernel vs the
+per-window reference) plus schema/flag validation of emitted real-data artifacts.
+No network, no fabricated market data."""
 from __future__ import annotations
 
 import json
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c405_coskew_xsec_oos as R  # noqa: E402
+import run_c406_betaasym_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -46,9 +46,9 @@ def test_n_trials_matches_pre_registered_grid_product():
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("coskew_placebo", "cokurt_placebo"):
+    for pb in ("beta_asym_placebo", "beta_level_placebo"):
         assert pb in R.SIGNALS
-    for real in ("coskew_dev", "cokurt_dev"):
+    for real in ("beta_asym_dev", "beta_level_dev"):
         assert real in R.SIGNALS
 
 
@@ -110,17 +110,17 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- COSKEW metric (brute-force equality)
-def test_coskew_matches_brute_force():
-    """The vectorized COSKEW/CO-KURTOSIS kernel MUST equal the brute-force
-    reference (per-window loop with explicit market series). Compared with
-    maxdiff < 1e-12 with matching NaN patterns."""
-    rng = np.random.default_rng(20261269)
+# ---------------------------------------------------------------- BETAASYM metric (brute-force equality)
+def test_betaasym_matches_brute_force():
+    """The vectorized BETAASYM kernel MUST equal the brute-force reference
+    (per-window loop with explicit market series and conditional masks). Compared
+    with maxdiff < 1e-12 with matching NaN patterns."""
+    rng = np.random.default_rng(20261270)
     log_return = rng.standard_normal(4000) * 0.001
     market = rng.standard_normal(4000) * 0.001
-    fast = R.compute_coskew_metrics(log_return, market, R.COSKEW_W)
-    brute = R._coskew_bruteforce(log_return, market, R.COSKEW_W)
-    for key in ("coskew", "cokurt"):
+    fast = R.compute_betaasym_metrics(log_return, market, R.BETAASYM_W)
+    brute = R._betaasym_bruteforce(log_return, market, R.BETAASYM_W)
+    for key in ("beta_level", "beta_up", "beta_down", "beta_asym"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
@@ -129,51 +129,49 @@ def test_coskew_matches_brute_force():
         assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
 
 
-def test_coskew_defined_after_window_nan_before():
+def test_betaasym_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     log_return = rng.standard_normal(4000) * 0.001
     market = rng.standard_normal(4000) * 0.001
-    m = R.compute_coskew_metrics(log_return, market, R.COSKEW_W)
-    W = R.COSKEW_W
-    for key in ("coskew", "cokurt"):
+    m = R.compute_betaasym_metrics(log_return, market, R.BETAASYM_W)
+    W = R.BETAASYM_W
+    for key in ("beta_level", "beta_up", "beta_down", "beta_asym"):
         assert np.isnan(m[key][:W]).all(), key
         assert np.isfinite(m[key][W:]).any(), key
 
 
-def test_coskew_non_finite_return_propagates():
-    """A non-finite return in the asset window -> NaN for all COSKEW outputs
+def test_betaasym_non_finite_return_propagates():
+    """A non-finite return in the asset window -> NaN for all BETAASYM outputs
     in affected bars (market stays finite)."""
     rng = np.random.default_rng(9)
     log_return = rng.standard_normal(600) * 0.001
     market = rng.standard_normal(600) * 0.001
     log_return[300] = np.inf
-    W = R.COSKEW_W
-    m = R.compute_coskew_metrics(log_return, market, W)
+    W = R.BETAASYM_W
+    m = R.compute_betaasym_metrics(log_return, market, W)
     for t in range(300, min(300 + W, 600)):
-        assert np.isnan(m["coskew"][t]), f"coskew t={t} should be NaN"
-        assert np.isnan(m["cokurt"][t]), f"cokurt t={t} should be NaN"
+        assert np.isnan(m["beta_level"][t]), f"beta_level t={t} should be NaN"
+        assert np.isnan(m["beta_asym"][t]), f"beta_asym t={t} should be NaN"
     for t in range(W, 300):
-        assert np.isfinite(m["coskew"][t]), f"coskew t={t} should be finite"
-    for t in range(300 + W, 600):
-        assert np.isfinite(m["coskew"][t]), f"coskew t={t} should be finite"
+        assert np.isfinite(m["beta_level"][t]), f"beta_level t={t} should be finite"
 
 
-def test_coskew_params():
-    assert R.COSKEW_W == 256
+def test_betaasym_params():
+    assert R.BETAASYM_W == 256
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "coskew_dev": "coskew_dev",
-        "cokurt_dev": "cokurt_dev",
+        "beta_asym_dev": "beta_asym_dev",
+        "beta_level_dev": "beta_level_dev",
     }
-    assert R.PLACEBO_SEED == 20261269
+    assert R.PLACEBO_SEED == 20261270
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.COSKEW_W == 256
-    assert R.SIGNALS[0] == "coskew_dev"
+    assert R.BETAASYM_W == 256
+    assert R.SIGNALS[0] == "beta_asym_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -202,8 +200,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"coskew", "cokurt"}
-    for k in ("coskew", "cokurt"):
+    assert set(series.keys()) == {"beta_level", "beta_up", "beta_down", "beta_asym"}
+    for k in ("beta_level", "beta_up", "beta_down", "beta_asym"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -220,157 +218,243 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_coskew_kernel_not_degenerate():
-    """Rewrite guard: COSKEW metrics are not degenerate (not allclose to 0 where defined)."""
+def test_betaasym_kernel_not_degenerate():
+    """Rewrite guard: BETAASYM metrics are not degenerate (not allclose to 0 where defined)."""
     rng = np.random.default_rng(55)
     log_return = rng.standard_normal(1600) * 0.001
     market = rng.standard_normal(1600) * 0.001
-    W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, market, W)
-    dp = mm["coskew"]
-    sc = mm["cokurt"]
-    fin = np.isfinite(dp) & np.isfinite(sc)
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"]
+    bl = mm["beta_level"]
+    fin = np.isfinite(dp) & np.isfinite(bl)
     assert fin.sum() > 0
-    for name, arr in (("coskew", dp), ("cokurt", sc)):
+    for name, arr in (("beta_asym", dp), ("beta_level", bl)):
         valid = arr[fin]
         assert not np.allclose(valid, 0.0, atol=1e-12), f"{name} collapses to 0"
 
 
-def _specfm_style_stat(X, W):
-    """Inline C397 SPECFM spectral flatness = geometric_mean(P)/arithmetic_mean(P)
-    on the detrended trailing window (no peak location, no centroid)."""
+def _third_moment_style_stat(log_return, market, W):
+    """Inline third/fourth co-moment style co-skewness = mean((X-mu_X)(M-mu_M)^2)/(sig_X*sig_M^2)."""
+    n = len(log_return)
+    out = np.full(n, np.nan)
+    for t in range(W, n):
+        Xw = log_return[t - W + 1:t + 1]
+        Mw = market[t - W + 1:t + 1]
+        if not (np.isfinite(Xw).all() and np.isfinite(Mw).all()):
+            continue
+        mu_X = Xw.mean(); mu_M = Mw.mean()
+        sig_X = Xw.std(); sig_M = Mw.std()
+        if not (sig_X > 0 and sig_M > 0):
+            continue
+        dX = Xw - mu_X; dM = Mw - mu_M
+        out[t] = (dX * dM * dM).mean() / (sig_X * sig_M * sig_M)
+    return out
+
+
+def _semicov_style_stat(X, W):
+    """Inline C380 SEMICOV signed-conditional lag covariance for k in {1,2,4}:
+    mean over k of [cov(r_t, r_{t-k}|r_{t-k}<0) - cov(r_t, r_{t-k}|r_{t-k}>0)]."""
     n = len(X)
     out = np.full(n, np.nan)
     for t in range(W, n):
         Xw = X[t - W + 1:t + 1]
         if not np.isfinite(Xw).all():
             continue
-        Y = Xw - Xw.mean()
-        F = np.fft.rfft(Y)
-        P = np.abs(F[1:]) ** 2          # DC excluded
-        s = float(P.sum())
-        if s <= 0 or not np.isfinite(s):
-            continue
-        p = P / s
-        nz = p > 0
-        gm = float(np.exp(np.mean(np.log(p[nz]))))
-        am = float(np.mean(p))
-        out[t] = gm / am if am > 0 else np.nan
+        vals = []
+        for k in (1, 2, 4):
+            a = Xw[k:]
+            b = Xw[:-k]
+            mask_pos = b > 0
+            mask_neg = b < 0
+            if int(mask_pos.sum()) < 3 or int(mask_neg.sum()) < 3:
+                vals.append(np.nan); continue
+            ap, bp = a[mask_pos], b[mask_pos]
+            cov_pos = ((ap - ap.mean()) * (bp - bp.mean())).mean()
+            an, bn = a[mask_neg], b[mask_neg]
+            cov_neg = ((an - an.mean()) * (bn - bn.mean())).mean()
+            vals.append(cov_neg - cov_pos)
+        if all(np.isfinite(v) for v in vals):
+            out[t] = float(np.mean(vals))
     return out
 
 
-def _vovr_style_stat(X, W):
-    """Inline C378 VOVR: cross-sub-block RV dispersion = std(block_RV)/mean(block_RV)
-    over 16 non-overlapping 16-bar blocks."""
+def _lvac_style_stat(X, W):
+    """Inline C360 LVAC mean of corr(r, |r|_k) over k in {1..5}."""
     n = len(X)
     out = np.full(n, np.nan)
-    n_blocks = 16
-    block_len = W // n_blocks
     for t in range(W, n):
         Xw = X[t - W + 1:t + 1]
         if not np.isfinite(Xw).all():
             continue
-        rv_blocks = []
-        for b in range(n_blocks):
-            seg = Xw[b * block_len:(b + 1) * block_len]
-            rv_blocks.append(float(np.sum(seg ** 2)))
-        rv_blocks = np.array(rv_blocks, dtype=float)
-        mean_rv = float(rv_blocks.mean())
-        if mean_rv <= 0 or not np.isfinite(mean_rv):
-            continue
-        out[t] = float(rv_blocks.std()) / mean_rv
+        absX = np.abs(Xw)
+        vals = []
+        for k in (1, 2, 3, 4, 5):
+            a = Xw[k:]; b = absX[:-k]
+            if a.std() <= 0 or b.std() <= 0:
+                vals.append(np.nan); continue
+            vals.append(np.corrcoef(a, b)[0, 1])
+        if all(np.isfinite(v) for v in vals):
+            out[t] = float(np.mean(vals))
     return out
 
 
-def test_coskew_kernel_distinct_from_specfm():
-    """Rewrite guard: COSKEW coskew is a different object from C397 SPECFM
-    spectral flatness (no peak location, no centroid)."""
+def _dsrv_style_stat(X, W):
+    """Inline C364 DSRV asymmetry log(rv_down/rv_up)."""
+    n = len(X)
+    out = np.full(n, np.nan)
+    for t in range(W, n):
+        Xw = X[t - W + 1:t + 1]
+        if not np.isfinite(Xw).all():
+            continue
+        rv_down = float(np.sum(Xw[Xw < 0] ** 2))
+        rv_up = float(np.sum(Xw[Xw > 0] ** 2))
+        if rv_down <= 0 or rv_up <= 0:
+            continue
+        out[t] = float(np.log(rv_down / rv_up))
+    return out
+
+
+def _acovk_style_stat(X, W):
+    """Inline C375 ACOVK sum of autocovariances gamma_k for k in {1,2,4,8}."""
+    n = len(X)
+    out = np.full(n, np.nan)
+    for t in range(W, n):
+        Xw = X[t - W + 1:t + 1]
+        if not np.isfinite(Xw).all():
+            continue
+        total = 0.0
+        ok = True
+        for k in (1, 2, 4, 8):
+            a = Xw[k:]; b = Xw[:-k]
+            if len(a) < 3 or a.std() <= 0 or b.std() <= 0:
+                ok = False; break
+            total += float(((a - a.mean()) * (b - b.mean())).mean())
+        if ok:
+            out[t] = total
+    return out
+
+
+def test_betaasym_kernel_distinct_from_third_moment():
+    """Rewrite guard: BETAASYM beta_asym is a different object from the
+    third/fourth co-moment family (third co-moment, not second-moment beta)."""
     rng = np.random.default_rng(123)
     log_return = rng.standard_normal(1200) * 0.001
     market = rng.standard_normal(1200) * 0.001
-    W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, market, W)
-    dp = mm["coskew"][W:]
-    specfm = _specfm_style_stat(log_return, W)[W:]
-    fin = np.isfinite(dp) & np.isfinite(specfm)
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"][W:]
+    third_moment = _third_moment_style_stat(log_return, market, W)[W:]
+    fin = np.isfinite(dp) & np.isfinite(third_moment)
     assert fin.sum() > 0
-    assert not np.allclose(dp[fin], specfm[fin], atol=1e-6), "COSKEW degenerates to SPECFM"
+    assert not np.allclose(dp[fin], third_moment[fin], atol=1e-6), "BETAASYM degenerates to third-moment co-moment"
 
 
-def test_coskew_centroid_distinct_from_specfm():
-    """Rewrite guard: cokurt is also distinct from C397 SPECFM flatness."""
+def test_betaasym_kernel_distinct_from_semicov():
+    """Rewrite guard: BETAASYM beta_asym is a different object from C380 SEMICOV
+    signed-conditional lag covariance."""
     rng = np.random.default_rng(124)
     log_return = rng.standard_normal(1200) * 0.001
     market = rng.standard_normal(1200) * 0.001
-    W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, market, W)
-    sc = mm["cokurt"][W:]
-    specfm = _specfm_style_stat(log_return, W)[W:]
-    fin = np.isfinite(sc) & np.isfinite(specfm)
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"][W:]
+    semicov = _semicov_style_stat(log_return, W)[W:]
+    fin = np.isfinite(dp) & np.isfinite(semicov)
     assert fin.sum() > 0
-    assert not np.allclose(sc[fin], specfm[fin], atol=1e-6), "cokurt degenerates to SPECFM"
+    assert not np.allclose(dp[fin], semicov[fin], atol=1e-6), "BETAASYM degenerates to SEMICOV"
 
 
-def test_coskew_kernel_distinct_from_vovr():
-    """Rewrite guard: COSKEW coskew is a different object from C378 VOVR
-    cross-sub-block RV dispersion."""
+def test_betaasym_kernel_distinct_from_lvac():
+    """Rewrite guard: BETAASYM beta_asym is a different object from C360 LVAC
+    leverage corr(r, |r|_k)."""
     rng = np.random.default_rng(125)
     log_return = rng.standard_normal(1200) * 0.001
     market = rng.standard_normal(1200) * 0.001
-    W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, market, W)
-    dp = mm["coskew"][W:]
-    vovr = _vovr_style_stat(log_return, W)[W:]
-    fin = np.isfinite(dp) & np.isfinite(vovr)
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"][W:]
+    lvac = _lvac_style_stat(log_return, W)[W:]
+    fin = np.isfinite(dp) & np.isfinite(lvac)
     assert fin.sum() > 0
-    assert not np.allclose(dp[fin], vovr[fin], atol=1e-6), "COSKEW degenerates to VOVR"
+    assert not np.allclose(dp[fin], lvac[fin], atol=1e-6), "BETAASYM degenerates to LVAC"
+
+
+def test_betaasym_kernel_distinct_from_dsrv():
+    """Rewrite guard: BETAASYM beta_asym is a different object from C364 DSRV
+    downside/upside semivariance log-ratio."""
+    rng = np.random.default_rng(126)
+    log_return = rng.standard_normal(1200) * 0.001
+    market = rng.standard_normal(1200) * 0.001
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"][W:]
+    dsrv = _dsrv_style_stat(log_return, W)[W:]
+    fin = np.isfinite(dp) & np.isfinite(dsrv)
+    assert fin.sum() > 0
+    assert not np.allclose(dp[fin], dsrv[fin], atol=1e-6), "BETAASYM degenerates to DSRV"
+
+
+def test_betaasym_kernel_distinct_from_acovk():
+    """Rewrite guard: BETAASYM beta_asym is a different object from C375 ACOVK
+    unconditional autocovariance profile."""
+    rng = np.random.default_rng(127)
+    log_return = rng.standard_normal(1200) * 0.001
+    market = rng.standard_normal(1200) * 0.001
+    W = R.BETAASYM_W
+    mm = R.compute_betaasym_metrics(log_return, market, W)
+    dp = mm["beta_asym"][W:]
+    acovk = _acovk_style_stat(log_return, W)[W:]
+    fin = np.isfinite(dp) & np.isfinite(acovk)
+    assert fin.sum() > 0
+    assert not np.allclose(dp[fin], acovk[fin], atol=1e-6), "BETAASYM degenerates to ACOVK"
 
 
 # ---------------------------------------------------------------- guard tests (rewrite guards)
-def test_artifact_campaign_is_405():
-    """Rewrite guard: every emitted artifact self-identifies campaign 405."""
+def test_artifact_campaign_is_406():
+    """Rewrite guard: every emitted artifact self-identifies campaign 406."""
     for part in ("verdict", "summary", "registry", "oos_sweep"):
-        files = sorted((ROOT / "reports").glob(f"campaign405_{part}_*.json"))
+        files = sorted((ROOT / "reports").glob(f"campaign406_{part}_*.json"))
         files = [f for f in files if ".full." not in f.name]
         if not files:
             continue
         obj = json.loads(files[-1].read_text())
-        assert obj["campaign"] == 405, f"{part} artifact campaign != 405: {obj.get('campaign')}"
+        assert obj["campaign"] == 406, f"{part} artifact campaign != 406: {obj.get('campaign')}"
 
 
-def test_mandate_contains_coskew():
-    """Rewrite guard: the C405 mandate names COSKEW dominant spectral frequency
-    (never ASYMCURV/SKEW/TSCALE/HILL/RVQUART/KTREND/CBREAK/SPECFM/MAGNET/
-    OUHALFLIFE/CTES/VTERM/DDRUN/XSKEW3/XCOEX/MINRV/MADR/BANDX/PRROUGH/
-    HALFRANGE/LMOM/SEMICOV/VOVR)."""
-    p = sorted((ROOT / "reports").glob("campaign405_oos_sweep_*.json"))
+def test_mandate_contains_betaasym():
+    """Rewrite guard: the C406 mandate names BETAASYM market-beta level &
+    upside/downside beta asymmetry vs equal-weight market (never prior
+    higher-co-moment or tail families)."""
+    p = sorted((ROOT / "reports").glob("campaign406_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "COSKEW" in mandate, "mandate missing COSKEW"
-    assert "CO-KURTOSIS" in mandate, "mandate missing CO-KURTOSIS"
+    assert "BETAASYM" in mandate, "mandate missing BETAASYM"
     assert "EQUAL-WEIGHT MARKET" in mandate, "mandate missing EQUAL-WEIGHT MARKET"
-    for bad in ("ASYMCURV", "TSCALE", "HILL", "RVQUART", "QUARTICITY", "KTREND",
-                "CBREAK", "SPECFM", "MAGNET", "OUHALFLIFE", "CTES", "VTERM", "DDRUN",
-                "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX", "PRROUGH", "HALFRANGE",
-                "LMOM", "KENDALL", "SPEARMAN", "SEMICOV", "VOVR", "DOMINANT", "SPECTRAL"):
+    assert "BETA" in mandate, "mandate missing BETA"
+    for bad in ("ASYMCURV", "TSCALE", "HILL",
+                "RVQUART", "QUARTICITY", "KTREND", "CBREAK", "SPECFM", "MAGNET",
+                "OUHALFLIFE", "CTES", "VTERM", "DDRUN", "XSKEW3", "XCOEX", "MINRV",
+                "MADR", "BANDX", "PRROUGH", "HALFRANGE", "LMOM", "KENDALL", "SPEARMAN",
+                "SEMICOV", "LVAC", "DSRV", "RSKEK", "DOMINANT", "SPECTRAL", "CENTROID"):
         assert bad not in mandate, f"mandate must not reference {bad} (prior campaign)"
 
 
-def test_placebo_seed_is_20261269():
-    assert R.PLACEBO_SEED == 20261269
+def test_placebo_seed_is_20261270():
+    assert R.PLACEBO_SEED == 20261270
 
 
 def test_placebo_seed_unique_not_reserved():
-    """Rewrite guard: C405 placebo seed 20261269 must not collide with reserved
-    seeds 20261224–20261267 used by prior campaigns (20261267 = C403)."""
-    assert not (20261224 <= R.PLACEBO_SEED <= 20261267), "placebo seed must be outside 20261224-20261267"
+    """Rewrite guard: C406 placebo seed 20261270 must not collide with reserved
+    seeds 20261224–20261268 used by prior campaigns."""
+    assert not (20261224 <= R.PLACEBO_SEED <= 20261268), "placebo seed must be outside 20261224-20261268"
 
 
 # ---------------------------------------------------------------- real artifacts schema (if present)
 def _find_latest(prefix: str):
-    files = sorted((ROOT / "reports").glob(f"campaign405_{prefix}_*.json"))
+    files = sorted((ROOT / "reports").glob(f"campaign406_{prefix}_*.json"))
     files = [f for f in files if ".full." not in f.name]
     return files[-1] if files else None
 
@@ -380,7 +464,7 @@ def test_artifacts_if_present_have_required_flags():
     if p is None:
         return
     v = json.loads(p.read_text())
-    assert v["campaign"] == 405
+    assert v["campaign"] == 406
     assert v["real_data_only"] is True and v["fabricated_data"] is False
     assert v["executed_fills"] is False
     assert v["verdict"] in ("EDGE_PROVEN", "RETRACTED")
@@ -394,7 +478,7 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["coskew_params"]["window_W"] == 256
+    assert sw["config"]["betaasym_params"]["window_W"] == 256
 
 
 if __name__ == "__main__":
@@ -407,21 +491,23 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_coskew_matches_brute_force()
-    test_coskew_defined_after_window_nan_before()
-    test_coskew_non_finite_return_propagates()
-    test_coskew_params()
+    test_betaasym_matches_brute_force()
+    test_betaasym_defined_after_window_nan_before()
+    test_betaasym_non_finite_return_propagates()
+    test_betaasym_params()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_coskew_kernel_not_degenerate()
-    test_coskew_kernel_distinct_from_specfm()
-    test_coskew_centroid_distinct_from_specfm()
-    test_coskew_kernel_distinct_from_vovr()
-    test_artifact_campaign_is_405()
-    test_mandate_contains_coskew()
-    test_placebo_seed_is_20261269()
+    test_betaasym_kernel_not_degenerate()
+    test_betaasym_kernel_distinct_from_third_moment()
+    test_betaasym_kernel_distinct_from_semicov()
+    test_betaasym_kernel_distinct_from_lvac()
+    test_betaasym_kernel_distinct_from_dsrv()
+    test_betaasym_kernel_distinct_from_acovk()
+    test_artifact_campaign_is_406()
+    test_mandate_contains_betaasym()
+    test_placebo_seed_is_20261270()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    print("All C405 COSKEW runner tests passed")
+    print("All C406 BETAASYM runner tests passed")
