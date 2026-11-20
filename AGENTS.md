@@ -1080,3 +1080,14 @@ C400 (KTREND, realized Kendall tau / Spearman rho trend × seasonal-dislocation 
 - verdict `79df33eaccba76c1e9a46edda66c09c72c50201f30c9a9e90044d4d0b8d42933`
 - binding_constraint `79df33eaccba76c1e9a46edda66c09c72c50201f30c9a9e90044d4d0b8d42933`
 - cache: meta `90c897ba2ded8b2602d49e02645a7ffba76d98cabf350ecbce44ce71839c332e`, provenance `85a718529d73f94d57c9943b9e4ca7c05afc5018bfb47d5a52f3b62a98ceda6f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C401 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T095554Z)
+
+C401 (RVQUART, realized quarticity & quarticity-to-variance-squared ratio × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `rq_placebo` 0.5504 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 32/32 tests green (incl. RVQUART brute-force equality, `maxdiff < 1e-12`, and kernel-distinctness guard vs RQV/VOVR/Hill). Cache `data/cache/campaign401_rvquart_5m/` (10 shards × 315,648 bars, 38.48 MB < 100 MB). NO EDGE through C401. Frozen — DO NOT re-run.
+
+- oos_sweep `f8b2717b792c943426abf1a85f712ae9e5856aac5f0b0041f75f2a3d095ad1e3`
+- tradable_edge_registry `d66008e2f521d668cee4b0578af73260788f45c37fb74f65b64c5c64949522da`
+- summary `bcef840c5d303720817fda6223217985b1116588ea54ba2e127f42a39ce405f7`
+- verdict `6623f2277092d98ddaacfb5132420e4c16309698997a40ec44982a2413f5cbec`
+- binding_constraint `0c4ee6702c5c1478c58d94e9815d17aa66b49781ba68d47f436292f2f525e89f`
+- cache: meta `5c737a961d5151111b1072fd45e81211cad1e46e7c83b10e869e47afcb0031f5`, provenance `d23be4d99b199065a161687596aae8913e97ac8678a6617d0a640b84de5a90c3`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
