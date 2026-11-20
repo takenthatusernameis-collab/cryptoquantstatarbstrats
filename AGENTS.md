@@ -1006,3 +1006,22 @@ C394 (CTES, conditional tail expectation / expected shortfall tail spread & asym
 - verdict `bfb8abcce576ee96dda7266c7ca43b5c31c36380bbc0a844e8241ea073ca7a89`
 - binding_constraint `ca7b1a7f1b5c7867f5f69d68b404c9131f112a4339ce0ad558ecf7bda55eea20`
 - cache: meta `10c5681cb9da0b6048cc93488dbeb03db044e3793e7c5dcf666a2e29cf44a317`, provenance `be4295425c039ba9d370e890f1a74e44d088a129bb7d98b66ea92d4d82e2b803`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (10 shards × 315,648 bars)
+
+---
+
+## C395 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T021655Z)
+
+C395 (OUHALFLIFE, OU mean-reversion half-life × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `ou_halflife_placebo` 0.5627 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 27/27 tests green (incl. OU half-life brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign395_ouhalflife_5m/` (10 shards × 315,648 bars, ~38.5 MB). NO EDGE through C395. Frozen — DO NOT re-run.
+
+- oos_sweep `1165487d33dff31f5e850bc0afb350934d3ff4eeedf4a6db84a04ec073fbde52`
+- tradable_edge_registry `770204f032b5f8da97808a4deaf263ecf50acb69c3faad31afd48f91b8bea90f`
+- summary `7ea8aa0919da4dbcbaba48dc6d1155b6d718008432e52b06042c62331ea08731`
+- verdict `e5966d58f482ab4f9495cdf652f04ff7a817723b73209e12166d3cce3f2d1312`
+- binding_constraint `535dd1cdece23138fec56f43cef4680b09ed6009d802c019a3a360b8ba0b63cd`
+- cache: meta/provenance/manifest under `data/cache/campaign395_ouhalflife_5m/` (10 shards × 315,648 bars)
+
+---
+
+## INITIAL TASK MESSAGE (written 2026-11-20T02:16:55Z) — C396 ACTIVE/UNSTARTED
+
+C395 OUHALFLIFE is FROZEN formal negative (frozen 20261120T021655Z): 0 Holm+BH survivors, verdict RETRACTED (multiple_testing), dominant attribution `ou_halflife_placebo` 0.5627, 27/27 tests green, cache `data/cache/campaign395_ouhalflife_5m/`, artifacts `reports/campaign395_*_20261120T021655Z.json`. C396 is the ACTIVE campaign and is UNSTARTED. Next genuinely-new price-only family (not in C377–C395). Build per the standard 6-deliverable pattern: build script → preflight → runner → 2 tests → record result → sweep. Queue depth 3 → C396 (ACTIVE) → C397 (next) → C398 (next). Bottlenecks: NONE.

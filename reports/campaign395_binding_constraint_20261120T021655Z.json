@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T021655Z",
+  "campaign": 395,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign395_oos_sweep_20261120T021655Z.json",
+  "oos_sweep_sha256": "1165487d33dff31f5e850bc0afb350934d3ff4eeedf4a6db84a04ec073fbde52",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ou_kappa_dev": 0.06720316287326875,
+    "ou_halflife_dev": 0.2753443221774257,
+    "ou_kappa_placebo": 0.09470371572460455,
+    "ou_halflife_placebo": 0.562748799224701
+  },
+  "dominant_attribution": "ou_halflife_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ou_kappa_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.2221582473471204,
+      -1.1682348744287223,
+      -1.3165610887224979,
+      -1.1277968666829392,
+      -1.2366274688937722,
+      -1.2956914076939532,
+      -1.2304581220331061,
+      -1.1958204864325679
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -17.09433167779664,
+    "second_half_sharpe": -34.53044917444389,
+    "sharpe_corr": 0.9994883186084664,
+    "stable": false
+  },
+  "diagnosis": "C395 cross-sectional intraday OU MEAN-REVERSION HALF-LIFE (OUHALFLIFE) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
