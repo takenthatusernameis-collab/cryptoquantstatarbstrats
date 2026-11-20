@@ -1047,4 +1047,17 @@ C397 (SPECFM, spectral flatness / spectral entropy of log-returns × seasonal-di
 - cache: meta `d8e822e352d879527f441eb9151efb774bc74ca2b419cb1ad8c51c610c1bc8e1`, provenance `a77d8b78d9f668a0c688a6126cea9a04fef7a59eb5123251531ca0b838952776`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 ---
+
+## C398 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T061812Z)
+
+C398 (LMOM, L-MOMENT SKEWNESS / KURTOSIS (τ3, τ4) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `lmom_skew_placebo` 0.3001 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 28/28 tests green (incl. LMOM brute-force equality, `maxdiff < 1e-12`, and kernel-distinctness guard vs all prior families). Cache `data/cache/campaign398_lmom_5m/` (10 shards × 315,648 bars, 38.48 MB < 100 MB). NO EDGE through C398. Frozen — DO NOT re-run.
+
+- oos_sweep `27a66670b583d5b5dc2ad4a75faf7868eaa279a70fd287ce9a993df2393a9936`
+- tradable_edge_registry `e53b95d71cc1dfd222b4e799e98b5417f76f9f41c810267f79bd4518ea1ffb32`
+- summary `1c87a99807c1d4a6c8acf705aa3996bdc525c598f9787169a3c633f4726b5304`
+- verdict `02854c9c8283148af284adfbf54e5fe18b32badaf030040a2a36e1d81e656531`
+- binding_constraint `f961f48b3cf2e5d419f8c142fbee60fe2d0b344221a1f131e9019fa46d1e344b`
+- cache: meta `8b3f70ca24ef389cb4c82f58928cbe4028f2ba1d4c47ff55d4c79a5d272f7c83`, provenance `3ae853bd659d0534e8430090e5945fc2e29ce0ee14bc7f04420d6405be9d9925`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+---
 6. Run sequence: build → preflight → full 1296-config costed-OOS sweep → pytest → capture 5 SHA256 artifacts. Verify `ls scripts tests | grep -c c397 == 5` and `ls data/cache/campaign397_specfm_5m/ | wc -l == 10` before freezing.

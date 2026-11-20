@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T061812Z",
+  "campaign": 398,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign398_oos_sweep_20261120T061812Z.json",
+  "oos_sweep_sha256": "27a66670b583d5b5dc2ad4a75faf7868eaa279a70fd287ce9a993df2393a9936",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "lmom_skew_dev": 0.22594606287397706,
+    "lmom_kurt_dev": 0.21207018321695448,
+    "lmom_skew_placebo": 0.30009449886250816,
+    "lmom_kurt_placebo": 0.2618892550465603
+  },
+  "dominant_attribution": "lmom_skew_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "lmom_skew_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.0110493264785818,
+      -0.8455219637677855,
+      -1.0509843001280144,
+      -0.8209645889155461,
+      -0.8460406016102994,
+      -0.7826751497918385,
+      -0.9731799869886889,
+      -0.7745417892491334
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.296545873346913,
+    "second_half_sharpe": -10.618617400419792,
+    "sharpe_corr": 0.9999908735567831,
+    "stable": false
+  },
+  "diagnosis": "C398 cross-sectional intraday LMOM L-moment skewness/kurtosis (tau3/tau4) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

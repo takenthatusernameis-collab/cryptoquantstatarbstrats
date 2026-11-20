@@ -886,7 +886,7 @@ def main(argv: list[str] | None = None) -> int:
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
     registry = {
-        "generated_at_utc": ts, "campaign": 397, "part": "registry",
+        "generated_at_utc": ts, "campaign": 398, "part": "registry",
         "analysis": "tradable_edge_registry",
         "n_tradable": len(surviving),
         "n_edge_proven_deterministic": int(n_edge),
@@ -913,7 +913,7 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign397_summary_{ts}.json"
+    op_sum = reports / f"campaign398_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
