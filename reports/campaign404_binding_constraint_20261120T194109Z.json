@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T194109Z",
+  "campaign": 404,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign404_oos_sweep_20261120T194109Z.json",
+  "oos_sweep_sha256": "1c4dc4626545e9d4956156d52e82908596fe199d7236639182c4d360d452dd19",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "dom_period_dev": 0.29860338702984734,
+    "spec_centroid_dev": 0.0821431713446739,
+    "dom_period_placebo": 0.5133134796863305,
+    "spec_centroid_placebo": 0.10593996193914837
+  },
+  "dominant_attribution": "dom_period_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "dom_period_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -3.3860120632514765,
+      -3.7354162129213924,
+      -3.6939442572875123,
+      -3.3902758522692085,
+      -3.484422907480807,
+      -3.6702526720667343,
+      -3.8042779776179536,
+      -3.876810832646404
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -21.663915326515298,
+    "second_half_sharpe": -24.84044628749648,
+    "sharpe_corr": 0.9994216597726279,
+    "stable": false
+  },
+  "diagnosis": "C404 cross-sectional intraday DOMFREQ dominant spectral frequency stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

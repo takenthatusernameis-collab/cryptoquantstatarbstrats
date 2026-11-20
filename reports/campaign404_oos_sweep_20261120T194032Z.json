@@ -1,0 +1,217 @@
+{
+  "generated_at_utc": "20261120T194032Z",
+  "campaign": 404,
+  "part": "oos_sweep",
+  "analysis": "c404_domfreq_xsec_stat_arb_oos_5m",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "fail_closed": true,
+  "mandate": "C404 \u2014 test the cross-sectional intraday DOMFREQ: DOMINANT SPECTRAL FREQUENCY / SPECTRAL CENTROID x SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296 pre-registered configs). Per-bar primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. DOMFREQ scalars over fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t: detrend Y=X-mean(X), one-sided power P_j=|rfft(Y)_j|^2 for j=1..W/2 (DC excluded), f_j=j/W cycles/bar; dom_period[t]=W/argmax_j P_j (dominant cycle length in bars), spec_centroid[t]=sum_j f_j P_j / sum_j P_j (power-weighted mean frequency). NaN if t<W or any NaN/non-finite in window or sum_j P_j<=0 or not finite. Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real (dom_period_dev, spec_centroid_dev) + 2 placebos (phase-randomized surrogates, never edges). Single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and valid denominators; seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0.",
+  "preflight": {
+    "cache": "data/cache/campaign404_domfreq_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign404_domfreq_5m.meta.json",
+    "cache_meta_sha256": "c1b9911620e93218a338201109667771b0dda8b9dfc9d01d4ee2354c46fc2ff2",
+    "cache_provenance": "data/cache/campaign404_domfreq_5m.provenance.json",
+    "cache_provenance_sha256": "7c752f164c97d31b4e08f839eba16542fdb6c47a1f507ed99de24acf351f8058",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "data_source": {
+    "cache": "data/cache/campaign404_domfreq_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign404_domfreq_5m.meta.json",
+    "cache_meta_sha256": "c1b9911620e93218a338201109667771b0dda8b9dfc9d01d4ee2354c46fc2ff2",
+    "cache_provenance": "data/cache/campaign404_domfreq_5m.provenance.json",
+    "cache_provenance_sha256": "7c752f164c97d31b4e08f839eba16542fdb6c47a1f507ed99de24acf351f8058",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "dom_period_dev",
+      "spec_centroid_dev",
+      "dom_period_placebo",
+      "spec_centroid_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261268,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 0,
+    "domfreq_params": {
+      "window_W": 256
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "domfreq_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "dom_period_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -3.3860120632514765,
+        -3.7354162129213924,
+        -3.6939442572875123,
+        -3.3902758522692085,
+        -3.484422907480807,
+        -3.6702526720667343,
+        -3.8042779776179536,
+        -3.876810832646404
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -21.663915326515298,
+      "second_half_sharpe": -24.84044628749648,
+      "sharpe_corr": 0.9994216597726279,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "dom_period_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "dom_period_dev_net": 0.0,
+      "spec_centroid_dev_net": 0.0,
+      "dom_period_placebo_net": 0.0,
+      "spec_centroid_placebo_net": 0.0,
+      "shares": {
+        "dom_period_dev": 0.0,
+        "spec_centroid_dev": 0.0,
+        "dom_period_placebo": 0.0,
+        "spec_centroid_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261268
+    },
+    "data_quality": {
+      "reference_signal": "dom_period_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019975732461476103,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or sum_j P_j<=0 or not finite)."
+    }
+  },
+  "methodology": {
+    "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
+    "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
+    "primitives": "fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t; detrend Y=X-mean(X); one-sided power P_j=|rfft(Y)_j|^2 for j=1..W/2 (DC excluded); f_j=j/W cycles/bar; dom_period=W/argmax_j P_j; spec_centroid=sum_j f_j P_j/sum_j P_j.",
+    "signals": "dom_period/spec_centroid over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std (min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; NaN-score assets weight 0.",
+    "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
+    "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
+    "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
+    "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
+    "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
+    "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+    "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
+    "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
+    "domfreq_vectorization_note": "dom_period/spec_centroid via sliding_window_view(X,256) detrended + np.fft.rfft(axis=1) one-sided power; argmax over j=1..W/2 for dominant period; dot(f,P)/sum(P) for centroid; validated against brute-force per-window rfft with maxdiff < 1e-9 in tests. Per-asset metric computation parallelized via ProcessPoolExecutor.",
+    "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "results": [],
+  "summary": {
+    "n_total_runs": 0,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  }
+}

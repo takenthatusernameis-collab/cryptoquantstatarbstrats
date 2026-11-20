@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-20T18:48:00Z
-handoff_refreshed_at_utc: 2026-11-20T18:48:00Z
+updated_at_utc: 2026-11-20T19:41:00Z
+handoff_refreshed_at_utc: 2026-11-20T19:41:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C403
-next_campaign: C404
+latest_campaign_done: C404
+next_campaign: C405
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-20T18:48:00Z: C281B-C403 ALL FROZEN formal negatives; C403 ASYMCURV boundary frozen 20261120T183921Z with all 5 artifact SHA256 recomputed and matching (oos_sweep e04c18c7..., registry c72ae24e..., summary 8d68f2fb..., verdict 3c78dfa3..., binding ae8ab9d0...), verdict RETRACTED, edge_proven:false, n_survive_both:0, dominant attribution skew_down_placebo 0.2380 (binding multiple_testing). C404 DOMFREQ is the ACTIVE campaign (N_TRIALS=1296, placebo seed 20261268) and is verified UNSTARTED (0 scripts/tests, 0 cache, 0 reports at 18:47:20Z re-verified). C405 COSKEW (N_TRIALS=1296, seed 20261269), C406 BETAASYM (N_TRIALS=1296, seed 20261270) and C407 XSRANK (N_TRIALS=1296, seed 20261271) are pre-registered. C312 source intact (10 x 315648, perp_close only). Priority fixed by repo name: cross-sectional dollar-neutral relative-value stat-arb is PRIMARY, causal seasonal-dislocation mean-reversion is the overlay, costed OOS with Holm AND BH is the only gate. Queue depth 4: C404 DOMFREQ ACTIVE -> C405 COSKEW -> C406 BETAASYM -> C407 XSRANK. Bottlenecks: NONE.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-20T19:41:00Z: C281B-C404 ALL FROZEN formal negatives; C404 DOMFREQ boundary frozen 20261120T194109Z with all 5 artifact SHA256 recomputed and matching (oos_sweep 1c4dc462..., registry ae211f01..., summary 5f6a3e4f..., verdict 85457f21..., binding_constraint 3f720bb3...), verdict RETRACTED, edge_proven:false, n_survive_both:0, dominant attribution dom_period_placebo 0.5133 (binding multiple_testing). C405 COSKEW is the ACTIVE campaign (N_TRIALS=1296, placebo seed 20261269) and is verified UNSTARTED (0 scripts/tests, 0 cache, 0 reports at 19:41:00Z re-verified). C406 BETAASYM (N_TRIALS=1296, seed 20261270) and C407 XSRANK (N_TRIALS=1296, seed 20261271) are pre-registered. C312 source intact (10 x 315648, perp_close only). Priority fixed by repo name: cross-sectional dollar-neutral relative-value stat-arb is PRIMARY, causal seasonal-dislocation mean-reversion is the overlay, costed OOS with Holm AND BH is the only gate. Queue depth 3: C405 COSKEW ACTIVE -> C406 BETAASYM -> C407 XSRANK. Bottlenecks: NONE.'
 bottlenecks_verified_removed_at_utc: "2026-11-20T10:53:23Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-20T11:49:53Z: no blocked or inefficient sessions; no external data fetches needed; C287 decoupled and NOT on the critical path. C281B-C401 ALL COMPLETE FORMAL NEGATIVES. Removed this session: the *c402* clone trap. Five tracked files (3 scripts, 2 tests) named *c402* existed but were verbatim-renamed C401 RVQUART code (campaign: 401, PLACEBO_SEED=20261265, CACHE_DIR=campaign401_rvquart_5m, report prefix campaign401_*), so running them would have overwritten frozen C401 artifacts and a naive session would have assumed C402 was built. They were moved read-only to archive/void_c402_clone/; the C402 slot is now verifiably empty (ls scripts tests | grep -c c402 == 0, cache 0, reports 0). Quarantined read-only: archive/void_c381/, archive/void_c398_clone/, archive/void_c402_clone/ (never copy, cite or re-run). Environment re-verified importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0; console scripts are at /home/runner/work/_temp/kilo-home/.local/bin (not on PATH) so tests must run as python3 -m pytest. C312 5m ready (10 x 315648). NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only or partial is a HARD VIOLATION. File existence never proves a campaign exists: verify campaign id, kernel, placebo seed, 10 cache shards and 5 reports.'
-queued_next_campaign: C405
-queued_next_campaign_note: 'C281B-C403 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active and UNSTARTED: C404 DOMFREQ (N_TRIALS=1296, placebo seed 20261268). Pre-registered: C405 COSKEW (N_TRIALS=1296, placebo seed 20261269), C406 BETAASYM (N_TRIALS=1296, placebo seed 20261270) and C407 XSRANK (N_TRIALS=1296, placebo seed 20261271). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C403 or C287; never touch any archive/void_* directory.'
-first_action: "Build C404 DOMFREQ end-to-end NOW per the AGENTS.md INITIAL TASK MESSAGE (2026-11-20T18:48:00Z): 5 FRESH files from C403 plumbing fully re-specified (campaign 404, DOMFREQ kernel = dominant spectral frequency dom_period + spectral centroid spec_centroid via detrended rfft, PLACEBO_SEED=20261268, N_TRIALS=1296, cache data/cache/campaign404_domfreq_5m/, signals dom_period_*/spec_centroid_*). SELF-CHECK before sweep: grep -n 403 asymcurv ASYMCURV over scripts/*c404* tests/*c404* must return nothing. Then build -> preflight ready:true -> full literal 1296-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c404.py tests/test_c404_domfreq_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-9) -> sha256sum reports/campaign404_*_<TS>Z.json. Verify ls scripts tests | grep -c c404 == 5 and ls data/cache/campaign404_domfreq_5m | wc -l == 10. Then record truthful RESULT plus SHAs here and in AGENTS.md, add frozen-table row, freeze, and advance to C405 COSKEW, then C406 BETAASYM, then C407 XSRANK (queue depth 4, never idle). Never re-run frozen C281B-C403 or C287; never touch archive/void_*; no gate weakening; no closure by fiat."
-active_campaign: C404
-space_status: NO_EDGE_C281B_C403
-closure_note: 'C281B-C403 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C403 ASYMCURV 20261120T183921Z (skew_down_placebo 0.2380, 32/32 tests green, 5 artifact SHA256 matching). C404 DOMFREQ is ACTIVE and UNSTARTED with an empty, verified slot at 2026-11-20T18:47:20Z. C405 COSKEW, C406 BETAASYM and C407 XSRANK are pre-registered so queue depth stays 4. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C404 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+queued_next_campaign: C406
+queued_next_campaign_note: 'C281B-C404 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active and UNSTARTED: C405 COSKEW (N_TRIALS=1296, placebo seed 20261269). Pre-registered: C406 BETAASYM (N_TRIALS=1296, placebo seed 20261270) and C407 XSRANK (N_TRIALS=1296, placebo seed 20261271). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C404 or C287; never touch any archive/void_* directory.'
+first_action: "Build C405 COSKEW end-to-end NOW per the AGENTS.md INITIAL TASK MESSAGE (2026-11-20T19:41:00Z): 5 FRESH files from C404 plumbing fully re-specified (campaign 405, COSKEW kernel = cross-sectional co-skewness coskew + co-kurtosis cokurt vs equal-weight market return m[s]=mean_i r_i[s], PLACEBO_SEED=20261269, N_TRIALS=1296, cache data/cache/campaign405_coskew_5m/, signals coskew_*/cokurt_*). SELF-CHECK before sweep: grep -n 404 domfreq DOMFREQ 20261268 over scripts/*c405* tests/*c405* must return nothing. Then build -> preflight ready:true -> full literal 1296-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c405.py tests/test_c405_coskew_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-12) -> sha256sum reports/campaign405_*_<TS>Z.json. Verify ls scripts tests | grep -c c405 == 5 and ls data/cache/campaign405_coskew_5m | wc -l == 10. Then record truthful RESULT plus SHAs here and in AGENTS.md, add frozen-table row, freeze, and advance to C406 BETAASYM, then C407 XSRANK (queue depth 3, never idle). Never re-run frozen C281B-C404 or C287; never touch archive/void_*; no gate weakening; no closure by fiat."
+active_campaign: C405
+space_status: NO_EDGE_C281B_C404
+closure_note: 'C281B-C404 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C404 DOMFREQ 20261120T194109Z (dom_period_placebo 0.5133, 29/29 tests green, 5 artifact SHA256 matching). C405 COSKEW is ACTIVE and UNSTARTED with an empty, verified slot at 2026-11-20T19:41:00Z. C406 BETAASYM and C407 XSRANK are pre-registered so queue depth stays 3. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C405 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT
   campaign: C381
@@ -31,6 +31,45 @@ c381_void:
   quarantined_at: 2026-11-19T05:30Z
   archived_to: 'archive/void_c381/ (scripts/build_c381_turningpt_features.py, scripts/run_c381_turningpt_xsec_oos.py, scripts/preflight_c381.py, tests/test_preflight_c381.py, tests/test_c381_turningpt_xsec_oos.py, 29 report files incl. the duplicate campaign380_*_20261119T043810Z set, README.md)'
   action: 'never freeze, never cite as a negative, never re-run, never copy/import/fix; archive is read-only evidence; TURNINGPT re-queued as C383 with corrected spec'
+
+c404_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C404
+  family: dominant_spectral_frequency_spectral_centroid_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C397 (SPECFM spectral flatness/entropy — no peak location, no centroid), C378 (VOVR cross-sub-block RV dispersion), C362 (Hill EVT tail index), C403 (ASYMCURV conditional skewness), every univariate moment/quantile/tail/entropy/scaling/path family C281B-C403. DOMFREQ is dominant-cycle/spectral-centroid of a detrended trailing window — never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261120T194109Z
+  artifacts_ts: 20261120T194109Z
+  signals: [dom_period_dev, spec_centroid_dev, dom_period_placebo, spec_centroid_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261268
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'dom_period_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [dom_period_dev, spec_centroid_dev]
+  domfreq_params: {window_W: 256}
+  scripts_present: [scripts/build_c404_domfreq_features.py, scripts/preflight_c404.py, scripts/run_c404_domfreq_xsec_oos.py]
+  tests_present: [tests/test_preflight_c404.py, tests/test_c404_domfreq_xsec_oos.py]
+  cache_present: data/cache/campaign404_domfreq_5m
+  artifacts_present: [reports/campaign404_oos_sweep_20261120T194109Z.json, reports/campaign404_tradable_edge_registry_20261120T194109Z.json, reports/campaign404_summary_20261120T194109Z.json, reports/campaign404_verdict_20261120T194109Z.json, reports/campaign404_binding_constraint_20261120T194109Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: dom_period_placebo
+  dominant_share: 0.5133134796863305
+  attribution_ok: false
+  tests_green: 29
+  artifacts:
+    oos_sweep: '1c4dc4626545e9d4956156d52e82908596fe199d7236639182c4d360d452dd19'
+    tradable_edge_registry: 'ae211f01dca232a80dc9ac28a793088c461b6c78bdbdfc3a4604d8e63e08e430'
+    summary: '5f6a3e4f4a59e4c2ef330173bff88f44f3455e49ba3295c44f5ffffacacb2926'
+    verdict: '85457f21963c041895be53a8d52b47c3e316ac58705acbf18309988fc33f7308'
+    binding_constraint: '3f720bb34336600364112ab5b8b4991c604de14c87cd4c1de46930a1b9f38054'
+  cache_shas:
+    meta: 'c1b9911620e93218a338201109667771b0dda8b9dfc9d01d4ee2354c46fc2ff2'
+    provenance: '7c752f164c97d31b4e08f839eba16542fdb6c47a1f507ed99de24acf351f8058'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
