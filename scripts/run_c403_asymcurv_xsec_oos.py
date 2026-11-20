@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""C402 — rigorous costed out-of-sample test of the cross-sectional intraday
-ASYMCURV: MULTI-SCALE TAIL-EXPONENT (HILL) x SEASONAL-DISLOCATION mean-reversion
-stat-arb family on 10 USDT-M linear perps at native 5m (2592 pre-registered
-configs).
+"""C403 — rigorous costed out-of-sample test of the cross-sectional intraday
+ASYMCURV: ASYMMETRIC CURVATURE / CONDITIONAL SKEWNESS x SEASONAL-DISLOCATION
+mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m
+(1944 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 -----------------------------------------------------------------
-C281B–C401 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
+C281B–C402 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
 premium/index/mark basis, quarterly term-structure, same-asset spot-perp
 lead-lag, autocorrelation/chop/vol-clustering/close-envelope/rescaled-range/
 drawdown-duration/realized-variance-concentration/permutation-entropy/DFA
@@ -43,29 +43,29 @@ conditional tail expectation / expected shortfall tail spread & asymmetry
 magnitude-distribution Shannon entropy (MAGNET, C396), spectral flatness /
 spectral entropy (SPECFM, C397), L-moment skewness / kurtosis (tau3, tau4)
 (LMOM, C398), window CUSUM break statistic & break-position tilt (CBREAK, C399),
-realized Kendall tau / Spearman rho trend (KTREND, C400), and the immediately
-preceding campaign (realized quarticity & quarticity-vol ratio, RVQUART, C401).
+realized Kendall tau / Spearman rho trend (KTREND, C400), realized quarticity
+& quarticity-vol ratio (RVQUART, C401), and the immediately preceding campaign
+(multi-scale tail-exponent Hill profile, TSCALE, C402).
 
-C402 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of the ASYMCURV multi-scale tail-exponent profile:
+C403 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
+DOW) seasonal deviation of the ASYMCURV conditional-skewness profile:
 
-    For each bar t, trailing log returns X = r[t-W+1 .. t] (W=256),
-    NaN if t<W or any NaN/non-finite:
-        sort |X| descending a_(1) >= ... >= a_(W);
-        for k in {12, 24, 48}: alpha_k = k / sum_{i=1..k} ln(a_(i) / a_(k+1))
-                              (Hill tail-index; smaller alpha = fatter tail)
-        asymcurv_slope = (alpha_12 - alpha_48) / ln(48/12)
-                      (scale-dependence of the tail exponent, i.e. departure
-                       from a pure Pareto / single-power-law tail)
+    For each bar t, trailing log returns X = r[t-W+1 .. t] (W=256), paired with
+    lagged returns L = r[t-W .. t-1] (the return preceding each element of X),
+    NaN if t<W or any NaN/non-finite in window:
+        up_sample   = {x in X : corresponding l > 0}
+        down_sample = {x in X : corresponding l < 0}
+        skew_up[t]   = population (ddof=0) skewness of up_sample
+        skew_down[t] = population (ddof=0) skewness of down_sample
+        asym_curv[t] = skew_up[t] - skew_down[t]
 
-NaN if a_(k+1) <= 0 or denominator <= 0 or not finite. last_move_dir[t] =
-sign(r[t]).
+    NaN if either conditional sample size < 3 or sigma = 0 or not finite.
+    last_move_dir[t] = sign(r[t]).
 
-This is a multi-scale tail-exponent profile (Hill at three thresholds plus the
-scale-dependence slope), genuinely distinct from C362 Hill (single n_exceed=12
-only), C366 RQV, C401 RVQUART, C396 MAGNET, C378 VOVR, and every moment/
-entropy/path family C281B–C401. Never used before. Price-only (perp_close),
-volume-free.
+This is conditional skewness / asymmetric curvature of up-moves vs down-moves,
+genuinely distinct from C361/C371 (raw skew/kurt central moments of the full
+window), C362 Hill (tail-index EVT), C391 XSKEW3, C380 SEMICOV, C364 DSRV,
+and C402 TSCALE. Never used before. Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -98,8 +98,8 @@ REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_r
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "asymcurv_alpha12_dev", "asymcurv_alpha24_dev", "asymcurv_alpha48_dev", "asymcurv_slope_dev",
-    "asymcurv_alpha12_placebo", "asymcurv_alpha24_placebo", "asymcurv_alpha48_placebo", "asymcurv_slope_placebo"
+    "asym_curv_dev", "skew_up_dev", "skew_down_dev",
+    "asym_curv_placebo", "skew_up_placebo", "skew_down_placebo",
 )
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
@@ -116,24 +116,23 @@ STABILITY_MIN_SHARPE_CORR = 0.50
 DOMINANT_SHARE_MIN = 0.50
 
 N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
-             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 2592
+             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 1944
 
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "asymcurv_alpha12_dev": ("asymcurv_alpha12", "dev"),
-    "asymcurv_alpha24_dev": ("asymcurv_alpha24", "dev"),
-    "asymcurv_alpha48_dev": ("asymcurv_alpha48", "dev"),
-    "asymcurv_slope_dev": ("asymcurv_slope", "dev"),
-    "asymcurv_alpha12_placebo": ("asymcurv_alpha12", "placebo_dev"),
-    "asymcurv_alpha24_placebo": ("asymcurv_alpha24", "placebo_dev"),
-    "asymcurv_alpha48_placebo": ("asymcurv_alpha48", "placebo_dev"),
-    "asymcurv_slope_placebo": ("asymcurv_slope", "placebo_dev"),
+    "asym_curv_dev": ("asym_curv", "dev"),
+    "skew_up_dev": ("skew_up", "dev"),
+    "skew_down_dev": ("skew_down", "dev"),
+    "asym_curv_placebo": ("asym_curv", "placebo_dev"),
+    "skew_up_placebo": ("skew_up", "placebo_dev"),
+    "skew_down_placebo": ("skew_down", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "asymcurv_alpha12_dev": "asymcurv_alpha12_dev",
-    "asymcurv_slope_dev": "asymcurv_slope_dev",
+    "asym_curv_dev": "asym_curv_dev",
+    "skew_up_dev": "skew_up_dev",
+    "skew_down_dev": "skew_down_dev",
 }
 
 
@@ -306,46 +305,52 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- ASYMCURV: multi-scale Hill tail-exponent profile
+# ------------------------------------------------------- ASYMCURV: conditional skewness / asymmetric curvature
 ASYMCURV_W = 256
-K_VALS = (12, 24, 48)
 
 
-def _asymcurv_bruteforce(log_return, W=ASYMCURV_W, k_vals=K_VALS):
-    """Per-window reference Hill tail-index profile. Used by the brute-force
-    equality test. NaN if t<W, any NaN/non-finite in window, a_(k+1)<=0, or
-    denominator<=0 or not finite."""
+def _sample_skew_pop(vals: np.ndarray) -> float:
+    """Population (ddof=0) sample skewness = mean(((x-mu)/sigma)^3). NaN if n<3 or sigma<=0."""
+    n = len(vals)
+    if n < 3:
+        return float("nan")
+    mu = float(np.mean(vals))
+    d = vals - mu
+    sigma2 = float(np.mean(d * d))
+    if sigma2 <= 0 or not np.isfinite(sigma2):
+        return float("nan")
+    sigma = math.sqrt(sigma2)
+    m3 = float(np.mean(d * d * d))
+    return float(m3 / (sigma ** 3))
+
+
+def _asymcurv_bruteforce(log_return, W=ASYMCURV_W):
+    """Per-window reference conditional-skewness kernel. Used by the brute-force
+    equality test. NaN if t<W, any NaN/non-finite in window, either conditional
+    sample size < 3, or sigma=0 / not finite."""
     X = np.asarray(log_return, dtype=float)
     n = len(X)
-    out = {}
-    for k in k_vals:
-        out[f"asymcurv_alpha{k}"] = np.full(n, np.nan, dtype=float)
-    out["asymcurv_slope"] = np.full(n, np.nan, dtype=float)
-    if n < W:
-        return out
+    skew_up = np.full(n, np.nan, dtype=float)
+    skew_down = np.full(n, np.nan, dtype=float)
+    asym_curv = np.full(n, np.nan, dtype=float)
+    if n < W + 1:
+        return {"skew_up": skew_up, "skew_down": skew_down, "asym_curv": asym_curv}
     for t in range(W, n):
         Xw = X[t - W + 1:t + 1]
+        lagged = X[t - W:t]
         if not np.isfinite(Xw).all():
             continue
-        a = np.sort(np.abs(Xw))[::-1]
-        alphas = {}
-        ok = True
-        for k in k_vals:
-            akp1 = a[k]
-            if not (akp1 > 0):
-                ok = False
-                break
-            denom = float(np.sum(np.log(a[:k] / akp1)))
-            if not np.isfinite(denom) or denom <= 0:
-                ok = False
-                break
-            alphas[k] = k / denom
-        if not ok:
-            continue
-        for k in k_vals:
-            out[f"asymcurv_alpha{k}"][t] = alphas[k]
-        out["asymcurv_slope"][t] = (alphas[12] - alphas[48]) / np.log(48 / 12)
-    return out
+        up_mask = lagged > 0
+        down_mask = lagged < 0
+        up_vals = Xw[up_mask]
+        down_vals = Xw[down_mask]
+        su = _sample_skew_pop(up_vals)
+        sd = _sample_skew_pop(down_vals)
+        skew_up[t] = su
+        skew_down[t] = sd
+        if np.isfinite(su) and np.isfinite(sd):
+            asym_curv[t] = su - sd
+    return {"skew_up": skew_up, "skew_down": skew_down, "asym_curv": asym_curv}
 
 
 def _compute_one_asset(args):
@@ -353,60 +358,72 @@ def _compute_one_asset(args):
     return compute_asymcurv_metrics(log_return, W)
 
 
-def compute_asymcurv_metrics(log_return, W=ASYMCURV_W, k_vals=K_VALS):
+def compute_asymcurv_metrics(log_return, W=ASYMCURV_W):
+    """Vectorized conditional-skewness kernel via sliding_window_view + boolean
+    masking of lagged-return sign. Matches _asymcurv_bruteforce exactly."""
     X = np.asarray(log_return, dtype=float)
     n = len(X)
-    out = {}
-    for k in k_vals:
-        out[f"asymcurv_alpha{k}"] = np.full(n, np.nan, dtype=float)
-    out["asymcurv_slope"] = np.full(n, np.nan, dtype=float)
-    if n < W:
-        return out
+    skew_up = np.full(n, np.nan, dtype=float)
+    skew_down = np.full(n, np.nan, dtype=float)
+    asym_curv = np.full(n, np.nan, dtype=float)
+    if n < W + 1:
+        return {"skew_up": skew_up, "skew_down": skew_down, "asym_curv": asym_curv}
 
-    windows = sliding_window_view(np.abs(X), W)[1:]
+    swv = sliding_window_view(X, W)  # (n-W+1, W), swv[j] = X[j:j+W]
+    window_mat = swv[1:]             # (n-W, W), row k = X[k+1:k+1+W], ends at t=k+W
+    lagged_mat = swv[:-1]            # (n-W, W), row k = X[k:k+W], lagged of row k
+    row_ok = np.isfinite(window_mat).all(axis=1)
+
+    up_mask = (lagged_mat > 0) & row_ok[:, None]
+    down_mask = (lagged_mat < 0) & row_ok[:, None]
+
+    w2 = window_mat * window_mat
+    w3 = w2 * window_mat
+
+    def masked_moments(mask):
+        n_s = mask.sum(axis=1)
+        s1 = np.where(mask, window_mat, 0.0).sum(axis=1)
+        s2 = np.where(mask, w2, 0.0).sum(axis=1)
+        s3 = np.where(mask, w3, 0.0).sum(axis=1)
+        return n_s, s1, s2, s3
+
+    n_up, s1_up, s2_up, s3_up = masked_moments(up_mask)
+    n_down, s1_down, s2_down, s3_down = masked_moments(down_mask)
+
+    def skewness(n_s, s1, s2, s3):
+        out = np.full(len(n_s), np.nan, dtype=float)
+        valid = (n_s >= 3)
+        cnt = np.maximum(n_s, 1.0)
+        mu = np.where(valid, s1 / cnt, 0.0)
+        mean2 = np.where(valid, s2 / cnt, 0.0)
+        sigma2 = mean2 - mu * mu
+        sigma2 = np.where(valid & (sigma2 > 0), sigma2, np.nan)
+        sigma = np.sqrt(np.where(np.isfinite(sigma2) & (sigma2 > 0), sigma2, 1.0))
+        mean3 = np.where(valid, s3 / cnt, 0.0)
+        m3 = mean3 - 3.0 * mu * mean2 + 2.0 * mu ** 3
+        skew = np.where(valid & np.isfinite(sigma2) & (sigma2 > 0), m3 / (sigma ** 3), np.nan)
+        return skew
+
+    sup = skewness(n_up, s1_up, s2_up, s3_up)
+    sdown = skewness(n_down, s1_down, s2_down, s3_down)
+
     t_idx = np.arange(W, n)
-    orig_windows = sliding_window_view(X, W)[1:]
-    win_finite = np.isfinite(orig_windows).all(axis=1)
+    skew_up[t_idx] = sup
+    skew_down[t_idx] = sdown
+    valid_both = np.isfinite(sup) & np.isfinite(sdown)
+    asym_curv[t_idx] = np.where(valid_both, sup - sdown, np.nan)
 
-    maxk = max(k_vals)
-    part = np.partition(windows, W - (maxk + 1), axis=1)
-    top = np.sort(part[:, -(maxk + 1):], axis=1)[:, ::-1]  # descending (n_ts, maxk+1)
-
-    alphas = {k: np.full(len(t_idx), np.nan, dtype=float) for k in k_vals}
-    valid_all = win_finite.copy()
-    for k in k_vals:
-        akp1 = top[:, k]
-        a_i = top[:, :k]
-        denom = np.sum(np.log(a_i / akp1[:, None]), axis=1)
-        alpha = k / denom
-        v = (win_finite & (akp1 > 0) & np.isfinite(denom) & (denom > 0) & np.isfinite(alpha))
-        alphas[k][v] = alpha[v]
-        valid_all = valid_all & v
-
-    for k in k_vals:
-        arr = np.full(n, np.nan, dtype=float)
-        arr[t_idx] = alphas[k]
-        arr[t_idx[~valid_all]] = np.nan
-        out[f"asymcurv_alpha{k}"] = arr
-
-    # slope
-    a12 = out["asymcurv_alpha12"]
-    a48 = out["asymcurv_alpha48"]
-    slope = np.full(n, np.nan, dtype=float)
-    mask = np.isfinite(a12) & np.isfinite(a48)
-    slope[mask] = (a12[mask] - a48[mask]) / np.log(48 / 12)
-    out["asymcurv_slope"] = slope
-    return out
+    return {"skew_up": skew_up, "skew_down": skew_down, "asym_curv": asym_curv}
 
 
 def build_underlying(bs: dict) -> dict:
     """Compute the causal per-bar ASYMCURV metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): asymcurv_alpha12/24/48, asymcurv_slope."""
+    Returns dict with matrices (n_assets, n_bars): skew_up, skew_down, asym_curv."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
     log_return = bs["log_return"]
     series: dict = {}
-    METRIC_KEYS = ("asymcurv_alpha12", "asymcurv_alpha24", "asymcurv_alpha48", "asymcurv_slope")
+    METRIC_KEYS = ("skew_up", "skew_down", "asym_curv")
     mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
     W = ASYMCURV_W
     n_workers = min(8, os.cpu_count() or 1)
@@ -452,9 +469,9 @@ def build_scores(series: dict, bucket: np.ndarray) -> dict:
 
 def verify_cache() -> tuple:
     if not CACHE_DIR.exists():
-        raise SystemExit(f"FATAL: C402 shard dir missing: {CACHE_DIR}")
+        raise SystemExit(f"FATAL: C403 shard dir missing: {CACHE_DIR}")
     if not CACHE_META.exists():
-        raise SystemExit(f"FATAL: C402 meta missing: {CACHE_META}")
+        raise SystemExit(f"FATAL: C403 meta missing: {CACHE_META}")
     meta_sha = sha256_file(CACHE_META)
     prov_sha = sha256_file(CACHE_PROV) if CACHE_PROV.exists() else None
     meta = json.loads(CACHE_META.read_text())
@@ -503,9 +520,9 @@ def build_series(payload: dict):
     index = pd.DatetimeIndex(pd.to_datetime(idx_ms, unit="ms", utc=True))
     n_b = len(index)
     if n_b == 0:
-        raise SystemExit("FATAL: C402 common grid is empty")
+        raise SystemExit("FATAL: C403 common grid is empty")
     if n_b % 288 != 0:
-        raise SystemExit("FATAL: C402 grid is not a whole number of 288-bar days")
+        raise SystemExit("FATAL: C403 grid is not a whole number of 288-bar days")
 
     def mat(key):
         out = np.zeros((n_assets, n_b), dtype=float)
@@ -645,7 +662,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="asymcurv_alpha12_dev", L=240, H=4,
+    ref_cfg = dict(signal="asym_curv_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -768,30 +785,27 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     sweep_obj = {
-        "generated_at_utc": ts, "campaign": 402, "part": "oos_sweep",
-        "analysis": "c402_asymcurv_xsec_stat_arb_oos_5m",
+        "generated_at_utc": ts, "campaign": 403, "part": "oos_sweep",
+        "analysis": "c403_asymcurv_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C402 — test the cross-sectional intraday ASYMCURV: MULTI-SCALE "
-            "TAIL-EXPONENT (HILL) x SEASONAL-DISLOCATION mean-reversion "
-            "stat-arb family on 10 USDT-M linear perps at native 5m "
-            "(2592 pre-registered configs). Per-bar primitives: perp_close "
+            "C403 — test the cross-sectional intraday ASYMCURV: ASYMMETRIC "
+            "CURVATURE / CONDITIONAL SKEWNESS x SEASONAL-DISLOCATION "
+            "mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m "
+            "(1944 pre-registered configs). Per-bar primitives: perp_close "
             "real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
             "abs_ret=|log_return|. ASYMCURV scalars over fixed intrinsic window "
-            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t: sort "
-            "|X| descending a_(1)>=...>=a_(W); for k in {12,24,48} fit the "
-            "Hill tail-index alpha_k = k / sum_{i=1..k} ln(a_(i)/a_(k+1)); "
-            "signals asymcurv_alpha12, asymcurv_alpha24, asymcurv_alpha48 (smaller "
-            "alpha = fatter tail) and asymcurv_slope = (alpha_12 - alpha_48) / "
-            "ln(48/12) (scale-dependence / departure from a pure Pareto law). "
-            "NaN if t<W or any NaN/non-finite in window, a_(k+1)<=0, "
-            "denominator<=0, or not finite. Seasonal baseline = trailing "
-            "mean/std at same (weekday,tod) bucket from history strictly "
-            "before bar t (causal shift(1)), NaN-aware, excluding NaN obs. "
-            "Signals: 4 real (asymcurv_alpha12/24/48_dev, asymcurv_slope_dev) + "
-            "4 placebos (phase-randomized surrogates, never edges). "
+            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t, paired with "
+            "lagged returns L=r[t-W..t-1]: skew_up[t] = population (ddof=0) skewness "
+            "of {x in X : l > 0}, skew_down[t] = population skewness of {x in X : l < 0}, "
+            "asym_curv[t] = skew_up - skew_down. NaN if t<W or any NaN/non-finite in "
+            "window, either conditional sample size < 3, sigma=0, or not finite. "
+            "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from "
+            "history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. "
+            "Signals: 3 real (asym_curv_dev, skew_up_dev, skew_down_dev) + 3 placebos "
+            "(phase-randomized surrogates, never edges). "
             "Single-leg dollar-neutral perp PnL with costs on turnover "
             "(taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
             "alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
@@ -814,7 +828,7 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "asymcurv_params": {"window_W": ASYMCURV_W, "k_vals": list(K_VALS)},
+            "asymcurv_params": {"window_W": ASYMCURV_W},
         },
         "gates": {
             "fail_closed": True,
@@ -834,28 +848,29 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or a_(k+1)<=0 or denominator<=0 or not finite).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or conditional sample size<3 or sigma=0 or not finite).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-                          "sort |X| descending; Hill alpha_k = k / sum(ln(a_i/a_(k+1))) for k in {12,24,48}; "
-                          "asymcurv_slope=(alpha_12-alpha_48)/ln(48/12).",
-            "signals": "asymcurv_alpha12/24/48/slope over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+            "primitives": "fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t, paired "
+                          "with lagged returns L=r[t-W..t-1]: skew_up=pop skew of {x:l>0}, "
+                          "skew_down=pop skew of {x:l<0}, asym_curv=skew_up-skew_down.",
+            "signals": "asym_curv/skew_up/skew_down over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
             "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
             "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
-            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
+            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1944 configs at alpha=0.05.",
             "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
-            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 6 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "asymcurv_vectorization_note": "asymcurv Hill scalars via sliding_window_view(abs(X), 256) + np.partition top-k + cumulative log-sums per-asset; "
-                         "validated against brute-force per-window Hill fit with maxdiff < 1e-12 in tests. "
+            "asymcurv_vectorization_note": "asymcurv conditional-skewness scalars via sliding_window_view(X,256) + boolean masking of lagged-return sign "
+                         "(l=r[t-W..t-1]) with population (ddof=0) third/second moments; "
+                         "validated against brute-force per-window conditional skewness with maxdiff < 1e-12 in tests. "
                          "Per-asset metric computation parallelized via ProcessPoolExecutor.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
@@ -877,15 +892,15 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign402_oos_sweep_{ts}.json"
+    op = reports / f"campaign403_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign402_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign403_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
     registry = {
-        "generated_at_utc": ts, "campaign": 402, "part": "registry",
+        "generated_at_utc": ts, "campaign": 403, "part": "registry",
         "analysis": "tradable_edge_registry",
         "n_tradable": len(surviving),
         "n_edge_proven_deterministic": int(n_edge),
@@ -898,12 +913,12 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign402_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign403_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
     summary = {
-        "generated_at_utc": ts, "campaign": 402, "part": "summary",
+        "generated_at_utc": ts, "campaign": 403, "part": "summary",
         "analysis": "validation_summary", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "universe": sweep_obj["universe"], "config": sweep_obj["config"],
@@ -912,26 +927,26 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign402_summary_{ts}.json"
+    op_sum = reports / f"campaign403_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C402 cross-sectional intraday ASYMCURV multi-scale tail-exponent (Hill) stat-arb edge {verdict} "
+        f"C403 cross-sectional intraday ASYMCURV conditional-skewness stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C402 cross-sectional intraday ASYMCURV multi-scale tail-exponent (Hill) stat-arb edge validated: "
+        else f"C403 cross-sectional intraday ASYMCURV conditional-skewness stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
     verdict_obj = {
-        "generated_at_utc": ts, "campaign": 402, "part": "verdict",
+        "generated_at_utc": ts, "campaign": 403, "part": "verdict",
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c402_asymcurv_xsec_stat_arb_costed_oos_5m",
+        "basis": "c403_asymcurv_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -946,13 +961,13 @@ def main(argv: list[str] | None = None) -> int:
         "hard_bans_honored": [
             "No synthetic/fabricated data; no relabeling existing caches as new",
             "No threshold/gate weakening; no cherry-picked windows/costs",
-            "No edge claim unless the costed OOS test survives Holm+BH over all 2592 configs",
+            "No edge claim unless the costed OOS test survives Holm+BH over all 1944 configs",
             "Real USDT-M linear 5m perp_close; funding excluded (control leg)",
             "Single-leg PnL with costs on turnover; executed_fills: false",
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-    op_ver = reports / f"campaign402_verdict_{ts}.json"
+    op_ver = reports / f"campaign403_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 
@@ -960,7 +975,7 @@ def main(argv: list[str] | None = None) -> int:
     bind_path = None
     if binding is not None:
         binding_obj = {
-            "generated_at_utc": ts, "campaign": 402, "part": "binding_constraint",
+            "generated_at_utc": ts, "campaign": 403, "part": "binding_constraint",
             "analysis": "binding_constraint_diagnosis", "verdict": verdict,
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
             "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
@@ -972,11 +987,11 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C402 cross-sectional intraday ASYMCURV multi-scale tail-exponent (Hill) stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
+                "C403 cross-sectional intraday ASYMCURV conditional-skewness stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }
-        op_bind = reports / f"campaign402_binding_constraint_{ts}.json"
+        op_bind = reports / f"campaign403_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
@@ -986,7 +1001,7 @@ def main(argv: list[str] | None = None) -> int:
         ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 402, "verdict": verdict, "edge_proven": edge_proven,
+        "campaign": 403, "verdict": verdict, "edge_proven": edge_proven,
         "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
         "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
         "n_survive_both": n_survive_both,

@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261120T183921Z",
+  "campaign": 403,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign403_oos_sweep_20261120T183921Z.json",
+  "oos_sweep_sha256": "e04c18c7adb5b36493c0960463c9ee138e96241efb1ac2b00fec4e80fbe71561",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "asym_curv_dev": 0.11842610744211199,
+    "skew_up_dev": 0.11353491034903768,
+    "skew_down_dev": 0.10500491126572122,
+    "asym_curv_placebo": 0.21520096880451817,
+    "skew_up_placebo": 0.2098774943183412,
+    "skew_down_placebo": 0.2379556078202697
+  },
+  "dominant_attribution": "skew_down_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "asym_curv_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9892742548587157,
+      -0.7537640828713736,
+      -0.8378534932065413,
+      -0.7095191927229664,
+      -0.7814728284859941,
+      -0.7759307165904265,
+      -0.7865979099750098,
+      -0.8356465726950713
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -7.70957045110338,
+    "second_half_sharpe": -33.373382770210256,
+    "sharpe_corr": 0.9990451733344743,
+    "stable": false
+  },
+  "diagnosis": "C403 cross-sectional intraday ASYMCURV conditional-skewness stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

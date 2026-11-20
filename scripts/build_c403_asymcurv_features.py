@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 """C403 feature build — real USDT-M linear perp cross-sectional intraday
-ASYMCURV: MULTI-SCALE TAIL-EXPONENT (HILL) PROFILE raw inputs: trailing log-returns
+ASYMCURV: ASYMMETRIC CURVATURE / CONDITIONAL SKEWNESS raw inputs: trailing log-returns
 over a fixed intrinsic window W=256 from which the runner derives, per bar t:
 
-    sort |X| descending a_(1)>=...>=a_(W); for k in {12,24,48} exceedances fit
-    the Hill tail-index alpha_k = k / sum_{i=1..k} ln(a_(i) / a_(k+1));
+    skew_up[t]   = skew(X | lagged_return > 0),  lagged = r[t-W .. t-1] paired with X = r[t-W+1 .. t]
+    skew_down[t] = skew(X | lagged_return < 0)
+    asym_curv[t] = skew_up[t] - skew_down[t]
 
-signals asymcurv_alpha12, asymcurv_alpha24, asymcurv_alpha48 (smaller alpha = fatter
-tail) and asymcurv_slope = (alpha_12 - alpha_48) / ln(48/12) (scale-dependence of
-the tail exponent — multi-scaling / departure from a pure Pareto law). NaN if
-t<W or any NaN in window or a_(k+1) <= 0 or denominator <= 0 or not finite.
-last_move_dir[t] = sign(r[t]).
+Population (ddof=0) sample skewness of the up-move / down-move conditional subsets.
+NaN if t<W or any NaN in window or either conditional sample size < 3 or sigma = 0
+or not finite. last_move_dir[t] = sign(r[t]).
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
@@ -24,22 +23,25 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner derives the causal per-bar ASYMCURV Hill scalars over W=256 trailing
-log returns X=r[t-W+1..t] ending at bar t, then applies the causal seasonal
-(weekday x tod) baseline (shift(1), min_periods=3) and the cross-sectional
-dollar-neutral single-leg perp PnL with costs on turnover.
+The runner derives the causal per-bar ASYMCURV conditional-skewness scalars over W=256 trailing
+log returns X=r[t-W+1..t] ending at bar t, paired with lagged returns L=r[t-W..t-1]:
 
-ASYMCURV is genuinely distinct from all prior families C281B–C401: it is the
-multi-scale tail-exponent profile (Hill at three thresholds plus the
-scale-dependence slope), distinct from C362 Hill (single n_exceed=12 only),
-C366 RQV (top-k concentration of squared returns), C401 RVQUART (quarticity /
-RV^2), C396 MAGNET (magnitude Shannon entropy), C378 VOVR (cross-sub-block RV
-dispersion), and C361/C371 (raw skew/kurt central moments). Price-only
-(perp_close), volume-free. Cache stays under the 100 MB budget. Read-only reuse
-of real on-disk data — no network, no fabrication, no resampling, no imputation.
+    skew_up[t]   = population skewness of {x in X : corresponding lagged l > 0}
+    skew_down[t] = population skewness of {x in X : corresponding lagged l < 0}
+    asym_curv[t] = skew_up[t] - skew_down[t]
 
-C403 is genuinely distinct from all prior families C281B–C401 and the
-immediately preceding campaign (RVQUART, C401).
+NaN if t<W or any NaN/non-finite in window or either conditional sample size < 3 or sigma = 0
+or not finite. Seasonal deviation of each ASYMCURV scalar at the same (weekday,tod) bucket
+from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.
+
+ASYMCURV is genuinely distinct from all prior families C281B–C402: it is conditional skewness
+of up-moves vs down-moves (asymmetric curvature), distinct from C361/C371 (raw skew/kurt central
+moments), C362 Hill (tail-index EVT), C391 XSKEW3 (lag-1 cross third moment), C380 SEMICOV
+(signed-conditional lag covariance), C364 DSRV (downside/upside semivariance), and C402 TSCALE
+(multi-scale Hill tail-exponent). Never used before. Price-only (perp_close), volume-free.
+
+C403 is genuinely distinct from all prior families C281B–C402 and the
+immediately preceding campaign (TSCALE multi-scale Hill tail-exponent, C402).
 """
 
 from __future__ import annotations
@@ -117,7 +119,7 @@ def _verify_existing(symbols: list[str]) -> bool:
         meta = json.loads(DST_META.read_text())
     except Exception:  # noqa: BLE001
         return False
-    if int(meta.get("campaign") or 0) != 402:
+    if int(meta.get("campaign") or 0) != 403:
         return False
     if meta.get("real_data_only") is not True or meta.get("fabricated_data") is not False:
         return False
@@ -336,23 +338,20 @@ def main(argv: list[str] | None = None) -> int:
         "n_buckets_tod_dow": int(N_BUCKETS),
         "asymcurv_params": {
             "window_W": 256,
-            "k_vals": [12, 24, 48],
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
-            "unreachable). Runner derives the causal per-bar ASYMCURV multi-scale "
-            "tail-exponent profile over fixed intrinsic window W=256 trailing log "
-            "returns X=r[t-W+1..t] ending at bar t: sort |X| descending "
-            "a_(1)>=...>=a_(W); for k in {12,24,48} fit the Hill tail-index "
-            "alpha_k = k / sum_{i=1..k} ln(a_(i)/a_(k+1)); signals "
-            "asymcurv_alpha12, asymcurv_alpha24, asymcurv_alpha48 (smaller alpha = "
-            "fatter tail) and asymcurv_slope = (alpha_12 - alpha_48)/ln(48/12) "
-            "(scale-dependence / departure from a pure Pareto law). NaN if "
-            "t<W or any NaN/non-finite in window or a_(k+1)<=0 or denominator "
-            "<=0 or not finite. Seasonal deviation of each ASYMCURV scalar at the "
-            "same (weekday,tod) bucket from history strictly before bar t "
+            "unreachable). Runner derives the causal per-bar ASYMCURV conditional "
+            "skewness over fixed intrinsic window W=256 trailing log returns "
+            "X=r[t-W+1..t] ending at bar t, paired with lagged returns "
+            "L=r[t-W..t-1]: skew_up[t] = population skewness of {x in X : l > 0}, "
+            "skew_down[t] = population skewness of {x in X : l < 0} (l = paired "
+            "lagged return), asym_curv[t] = skew_up - skew_down. NaN if t<W or any "
+            "NaN/non-finite in window, either conditional sample size < 3, or "
+            "sigma = 0 / not finite. Seasonal deviation of each ASYMCURV scalar at "
+            "the same (weekday,tod) bucket from history strictly before bar t "
             "(causal shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
@@ -368,7 +367,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; ASYMCURV Hill scalars NaN where t<W or any NaN/non-finite in the W-bar trailing return window or a_(k+1)<=0 or denominator<=0 or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; ASYMCURV conditional-skewness scalars NaN where t<W or any NaN/non-finite in the W-bar trailing return window or either conditional sample size < 3 or sigma=0 or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }
