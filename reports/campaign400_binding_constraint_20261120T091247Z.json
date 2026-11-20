@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T091247Z",
+  "campaign": 400,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign400_oos_sweep_20261120T091247Z.json",
+  "oos_sweep_sha256": "225e99ac6240a61136927ecbff547fc6a79280c137053140b83b58fdad09dde2",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ktrend_tau_dev": 0.24790028147004556,
+    "ktrend_rho_dev": 0.24941765553979178,
+    "ktrend_tau_placebo": 0.25092184359496456,
+    "ktrend_rho_placebo": 0.25176021939519816
+  },
+  "dominant_attribution": "ktrend_rho_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ktrend_tau_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.7677872209772876,
+      -1.8868397928093437,
+      -1.8466049597560952,
+      -1.9681133317370272,
+      -1.5964855866400842,
+      -1.8669103675126724,
+      -1.7597755134650808,
+      -1.7552030668911431
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -25.847989934967583,
+    "second_half_sharpe": -18.0807714194619,
+    "sharpe_corr": 0.9997190574683354,
+    "stable": false
+  },
+  "diagnosis": "C400 cross-sectional intraday KTREND Kendall tau / Spearman rho trend stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
