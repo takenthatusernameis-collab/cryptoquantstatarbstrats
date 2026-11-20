@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T17:39:12Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-20T17:51:40Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-20T17:37:57Z by this session)
+## DISK TRUTH (re-verified 2026-11-20T17:51:40Z by this session — command OUTPUTS quoted, not inferred)
 
 - **C281B–C402 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C402.
 - **Frozen boundary = C402 TSCALE** (`20261120T163611Z`): 2592 configs costed-OOS, dominant attribution `tscale_slope_placebo` 0.1611, 30/30 tests green, cache `data/cache/campaign402_tscale_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed and MATCH: oos_sweep `6e9dc436…63bae9`, registry `0245a836…fc2d7c`, summary `3f98f9c0…5823`, verdict `5fc98912…884d3`, binding_constraint `c177b528…fe42` (full digests in `research_state/state.yaml`).
@@ -13,9 +13,9 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 - **C405 COSKEW is pre-registered by this handoff** (N_TRIALS=1296, PLACEBO_SEED=20261269) so queue depth stays 3 and no future session can run dry.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
 - **Environment ready**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
-- **VERIFICATION COMMANDS THAT ACTUALLY WORK** (previous handoffs had a broken check): `ls data/cache` also contains `campaign402_tscale_5m.meta.json` and `.provenance.json` siblings, so `ls data/cache | grep -c campaign402` returns **3**, not 0/1. Use `ls data/cache/campaign402_tscale_5m | wc -l` (=10) and `test -d data/cache/campaign403_asymcurv_5m` instead. The shard-count proof is `ls data/cache/campaign403_asymcurv_5m | wc -l == 10`.
+- **VERIFICATION COMMANDS THAT ACTUALLY WORK** (previous handoffs had a broken check): `ls data/cache` also contains `campaign402_tscale_5m.meta.json` and `.provenance.json` siblings, so `ls data/cache | grep -c campaign402` returns **3** and `ls reports | grep -c campaign402` returns **6** (5 artifacts + `.full.json`). Use directory/shard counts instead: `ls data/cache/campaign402_tscale_5m | wc -l == 10`; `test -d data/cache/campaign403_asymcurv_5m` must be **false** today; `ls scripts tests | grep -c c403 == 0`; `ls reports | grep -c campaign403 == 0`.
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
-  - **NEW THIS SESSION — `archive/void_c403_clone/`**: 5 files named `*c403*` that are a rename-only clone of C402 TSCALE. Verified inside: `campaign: 402`, `PLACEBO_SEED = 20261266`, `CACHE_DIR = campaign402_tscale_5m`. Naïvely running it would overwrite the frozen C402 report set. The C403 slot is empty on purpose — build C403 fresh.
+  - **`archive/void_c403_clone/` (RE-CONFIRMED this session, 5 files)**: a rename-only clone of C402 TSCALE. Inside: `run_c403_asymcurv_xsec_oos.py` has `CACHE_DIR = campaign402_tscale_5m`, `PLACEBO_SEED = 20261266`; `preflight_c403.py` also points at `campaign402_tscale_5m`. Naïvely running it would overwrite the frozen C402 report set. The C403 slot is empty on purpose — build C403 fresh from the genuine C402 scripts.
   - `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`.
 - **Queue depth 3** → C403 (ACTIVE, 1944) → C404 DOMFREQ (1296) → C405 COSKEW (1296). The queue can never be empty.
 - **No blocking bottlenecks.** Only standing hazard is clone-and-rename; it is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below.
@@ -27,11 +27,11 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T17:39:12Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-20T17:46:30Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C403 ASYMCURV END-TO-END NOW.** C402 TSCALE is FROZEN (20261120T163611Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant tscale_slope_placebo 0.1611). C403 is UNSTARTED on disk (re-verified 17:37:57Z: `ls scripts tests | grep -c c403 == 0`, `test -d data/cache/campaign403_asymcurv_5m` false, `ls reports | grep -c campaign403 == 0`). C404 DOMFREQ (N_TRIALS=1296, PLACEBO_SEED=20261268) and C405 COSKEW (N_TRIALS=1296, PLACEBO_SEED=20261269) are pre-registered and must follow. Queue can NEVER sit idle.
+**FIRST ACTION — BUILD C403 ASYMCURV END-TO-END NOW. Do not plan, read history, or re-verify beyond one command batch.** C402 TSCALE is FROZEN (20261120T163611Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant tscale_slope_placebo 0.1611). C403 is UNSTARTED on disk (re-verified 17:46:30Z: `ls scripts tests | grep -c c403 == 0`, `test -d data/cache/campaign403_asymcurv_5m` false, `ls reports | grep -c campaign403 == 0`). C404 DOMFREQ (N_TRIALS=1296, PLACEBO_SEED=20261268) and C405 COSKEW (N_TRIALS=1296, PLACEBO_SEED=20261269) are pre-registered and must follow. Queue can NEVER sit idle.
 
-**Bottlenecks removed by this handoff (do not re-litigate):** (a) the `*c403*` rename-only clone of C402 was quarantined read-only at `archive/void_c403_clone/` — copy from the genuine C402 scripts, never from `archive/void_*`; (b) the broken cache-verification command was replaced with shard-count proofs (above); (c) `research_state/state.yaml` pointers were corrected (`active_campaign: C403`, `queued_next_campaign: C404`), so nothing is blocked.
+**Bottlenecks removed by this handoff (do not re-litigate):** (a) the `*c403*` rename-only clone of C402 was quarantined read-only at `archive/void_c403_clone/` and re-audited this session (its scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`) — copy from the genuine C402 scripts, never from `archive/void_*`; (b) the broken cache-verification command was replaced with shard-count proofs (above); (c) `research_state/state.yaml` pointers were corrected this session (`active_campaign: C403`, `queued_next_campaign: C404`, `space_status: NO_EDGE_C281B_C402`), so nothing is blocked.
 
 **Disk truth:** C281B–C402 all FROZEN formal negatives; C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). No bottlenecks.
 
@@ -62,6 +62,14 @@ sha256sum reports/campaign403_*_<TS>Z.json          # record all 5 artifact SHAs
 **Guard tests required:** artifact["campaign"]==403; mandate names ASYMCURV; N_TRIALS==1944; PLACEBO_SEED==20261267; ASYMCURV kernel not allclose 0 where defined; kernel-distinctness vs RSKEK/RSK/RKT/Hill/XSKEW3/SEMICOV/DSRV; brute-force equality maxdiff < 1e-12.
 
 **The moment C403 is frozen, immediately build C404 DOMFREQ** (N_TRIALS=1296, PLACEBO_SEED=20261268) per its pre-registered spec (dom_period, spec_centroid via rfft argmax/centroid; brute-force maxdiff < 1e-9), then **C405 COSKEW** (below), then the next genuinely-new family. Queue must never sit idle.
+
+**DEFINITION OF DONE for any session (checklist — all must be true before you stop):**
+1. `ls scripts tests | grep -c c403 == 5` and `grep -n "402\|tscale\|TSCALE\|20261266" scripts/*c403* tests/*c403*` returns **nothing**.
+2. `ls data/cache/campaign403_asymcurv_5m | wc -l == 10` (10 shards × 315,648 bars) and `python3 scripts/preflight_c403.py` printed `ready:true`.
+3. `python3 scripts/run_c403_asymcurv_xsec_oos.py` ran the **full literal 1944-config** costed OOS sweep (not a subset) and wrote `reports/campaign403_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+4. `python3 -m pytest tests/test_preflight_c403.py tests/test_c403_asymcurv_xsec_oos.py -q` → **≥21 green**, including brute-force equality (`maxdiff < 1e-12`) and kernel-distinctness vs RSKEK/RSK/RKT/Hill/XSKEW3/SEMICOV/DSRV.
+5. All 5 artifact SHA256 recorded in this file's C403 RESULT block + frozen-table row + `research_state/state.yaml` (`latest_campaign_done: C403`, `active_campaign: C404`, `queued_next_campaign: C405`, `queue_depth: 3`).
+6. If a step fails and cannot be finished, leave the queue non-empty and name the exact partial artifacts — never declare done on filenames alone and never terminal-close by fiat.
 
 ### C404 — PRE-REGISTERED SPEC (DOMFREQ: DOMINANT SPECTRAL FREQUENCY / SPECTRAL CENTROID)
 
