@@ -667,6 +667,9 @@ C281B–C392: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C392 | 20261119T212251Z | max drawdown vs max run-up asymmetry (DDRUN) | 1296 | dd_asym_placebo 0.3191 | `3c5aca2ec106b7727c8b80a6386d644de00d4284abd3c5b6d4217bae34195b67` | `4f504083d57b836d5a35c361779bfd8fd5f9e9b17e71c6d4c0274dec3a48ff0b` |
 | C393 | 20261119T221900Z | front-half vs back-half realized variance asymmetry (VTERM) | 1296 | vterm_level_placebo 0.2787 | `daaa8f3ee0957e1e69315791fc86149bc0ffaf9e9c45b9d63cda76d6bd8bb69b` | `93cdf8f6d75a32bbb0a0fdab101d38ab59b2afaa40a0c47c1d058d8ec8113cf9` |
 | C394 | 20261120T010830Z | conditional tail expectation / expected shortfall tail spread & asymmetry (CTES) | 1296 | ces_asym_placebo 0.4841 | `8c807f4afb3dc50969ebe1b003c4299d520422e5aa2be1cf6768b519c2c8f68b` | `bfb8abcce576ee96dda7266c7ca43b5c31c36380bbc0a844e8241ea073ca7a89` |
+| C395 | 20261120T021655Z | OU mean-reversion half-life (OUHALFLIFE) | 1296 | ou_halflife_placebo 0.5627 | `1165487d33dff31f5e850bc0afb350934d3ff4eeedf4a6db84a04ec073fbde52` | `e5966d58f482ab4f9495cdf652f04ff7a817723b73209e12166d3cce3f2d1312` |
+| C396 | 20261120T031545Z | magnitude-distribution Shannon entropy (MAGNET) | 1296 | magnet_conc_placebo 0.3215 | `871b300f393a22496b6e0d75d1aa7d5b1d7f4487adfaf112bf7c909507e51d2a` | `60a5530b60585483b459d40b8f1f123a65958c4e7151b7ab085a8078646908a6` |
+| C397 | 20261120T041857Z | spectral flatness / spectral entropy of log-returns (SPECFM) | 1296 | specfm_placebo 0.3172 | `0cad72b816570e296583f3bec5e031885e10c75fbfda3611f3f5010c672936e3` | `97eb550b6fa2f703d87bed2ebd7fb5794a804df8dec4f6ec8584dc27b8ff58c8` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -1047,51 +1050,16 @@ C396 (MAGNET, realized magnitude-distribution Shannon entropy × seasonal-disloc
 
 ---
 
-## C397 — ARCHIVED SPEC (UNSTARTED — next session executes) — SPECFM: SPECTRAL FLATNESS / SPECTRAL ENTROPY OF LOG-RETURNS × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 `perp_close`.
+## C397 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T041857Z)
 
-### Distinctness (pre-registered)
-SPECFM measures the **frequency-domain shape of the trailing-window log-return spectrum** via the Wiener-Khinchin spectral flatness measure (geometric mean ÷ arithmetic mean of the FFT power spectrum) and the Shannon entropy of the normalized power spectrum. This is a **spectral / frequency-domain** statistic — never used in any C377–C396 campaign (distinct from C355/C356 time-domain Sample/Multiscale Entropy over binary sign series, C357 Lempel-Ziv complexity, C359 ordinal-pattern transition entropy, C396 magnitude-distribution Shannon entropy, and all moment/tail/variance/path families). Price-only (`perp_close`), volume-free, deterministic, `O(n log n)` per window via vectorized FFT, brute-force testable.
+C397 (SPECFM, spectral flatness / spectral entropy of log-returns × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `specfm_placebo` 0.3172 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 28/28 tests green (incl. SPECFM brute-force equality, `maxdiff < 1e-12`, and kernel-distinctness guard vs all prior families). Cache `data/cache/campaign397_specfm_5m/` (10 shards × 315,648 bars, 38.5 MB < 100 MB). NO EDGE through C397. Frozen — DO NOT re-run.
 
-### Raw inputs (build)
-`data/cache/campaign397_specfm_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network/fabrication/resampling/imputation):
-```
-index_ms      int64    common 5m grid (intersection, 315,648 bars)
-perp_close    float32  real 5m kline close
-log_return    float32  r[t]=log(c[t]/c[t-1]), r[0]=0
-abs_ret       float32  |log_return_t|
-funding_rate  float32  all-NaN (control)
-```
-Cache < 100 MB; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest. (`specfm_params` = `{window_W:256}`.)
+- oos_sweep `0cad72b816570e296583f3bec5e031885e10c75fbfda3611f3f5010c672936e3`
+- tradable_edge_registry `b35b203d2aa5e7ff129838e7510d2f515061e76abfaf305b4fd2725851aee3fa`
+- summary `7c98ba484ef4df4f2ae4bd9d0414bc2cf1a31b4e5d625be5ee1021525fad3821`
+- verdict `97eb550b6fa2f703d87bed2ebd7fb5794a804df8dec4f6ec8584dc27b8ff58c8`
+- binding_constraint `be5459b21391e0e0d96dad95b47595683e6ad3453bf96431c299edf9d53ba08f`
+- cache: meta `d8e822e352d879527f441eb9151efb774bc74ca2b419cb1ad8c51c610c1bc8e1`, provenance `a77d8b78d9f668a0c688a6126cea9a04fef7a59eb5123251531ca0b838952776`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
-### Runner-derived causal metrics (per asset, per bar t)
-`W=256`, trailing log-returns `X=r[t-W+1..t]` (NaN if `t<W` or any NaN). Let `F = rfft(X)` (one-sided FFT, length `W//2+1`), power `P_k = |F_k|^2`, exclude DC (`k=0`) so `P = P_1..P_{W//2}`.
-- `specfm[t] = exp(mean(ln(P + eps))) / mean(P + eps)` (geometric mean ÷ arithmetic mean of power; ∈(0,1], `≈1` white/flat spectrum, `→0` tonal/peaky); NaN if `t<W`, any NaN, or not finite.
-- `specent[t] = -Σ_k p_k ln(p_k)` with `p_k = P_k / Σ_k P_k` (Shannon entropy of the normalized power spectrum, nats); NaN if `t<W`, any NaN, `ΣP<=0`, or not finite.
-- `last_move_dir[t] = sign(r[t])`.
-
-Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t] - seasonal_mean)/seasonal_std` for `v ∈ {specfm, specent}`.
-Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
-
-### Fast vectorized execution requirement
-Compute `specfm` and `specent` for all bars per asset with vectorized `sliding_window_view(log_return, 256)` → shape `(n_windows, 256)`, then `np.fft.rfft` along `axis=1`, power spectrum, and reductions along `axis=1` (no Python loop over 315,648 bars × 10 assets). **MUST pass brute-force equality** vs per-window reference (manual loop, explicit `np.fft.rfft` per window, explicit `specfm`/`specent`, `maxdiff < 1e-12`).
-
-### Pre-registered grid — 1296 configs
-- SIGNALS = `specfm_dev`, `specent_dev`, `specfm_placebo`, `specent_placebo` (2 real + 2 phase-randomized-surrogate placebos; placebos never edges).
-- LOOKBACKS = `(60,120,240,480,960,1920)`; REBALANCES = `(1,4,12)`; FEES = `(0.0004,0.0007,0.0010)`; SLIPS = `(0.0,0.0001,0.0002)`; COST_VARIANTS = `("taker","maker_blend")`.
-- 4×6×3×3×3×2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261261` (unique; not 20261224–20261259, not C396's 20261260). Selection frac=1/3, ALPHA=0.05.
-- Reference config: `specfm_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES={specfm_dev,specent_dev}`.
-
-### Gates (identical rigor — do NOT weaken)
-- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND BH over all 1296 configs at alpha=0.05; edge requires BOTH.
-- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
-- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config).
-- **Attribution**: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 4 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
-- **Verdict**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
-
-### Deliverables (ALL six, in order)
-1. `scripts/build_c397_specfm_features.py` → `data/cache/campaign397_specfm_5m/`
-2. `scripts/preflight_c397.py` → `ready:true`
-3. `scripts/run_c397_specfm_xsec_oos.py` → 5 SHA256 artifacts + `.full.json`: `oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint` (`reports/campaign397_*_<TS>Z.json`)
-4. `tests/test_preflight_c397.py` + `tests/test_c397_specfm_xsec_oos.py` — ≥21 green (incl. SPECFM brute-force equality test; guard tests: artifact["campaign"]==397; mandate names SPECFM; kernel distinctness vs all prior families; N_TRIALS==1296; placebo seed 20261261 unique).
-5. Record truthful RESULT + SHAs here and in `research_state/state.yaml`; add C397 to frozen table with 5 SHAs + cache SHAs; set C398 active with next genuinely-new price-only family spec placeholder.
+---
 6. Run sequence: build → preflight → full 1296-config costed-OOS sweep → pytest → capture 5 SHA256 artifacts. Verify `ls scripts tests | grep -c c397 == 5` and `ls data/cache/campaign397_specfm_5m/ | wc -l == 10` before freezing.
