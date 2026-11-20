@@ -1,0 +1,173 @@
+{
+  "generated_at_utc": "20261120T031545Z",
+  "campaign": 396,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "magnet_ent_dev",
+      "magnet_conc_dev",
+      "magnet_ent_placebo",
+      "magnet_conc_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261260,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 1296,
+    "magnet_params": {
+      "window_W": 256,
+      "n_bins": 10
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "magnet_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "magnet_ent_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -2.8878532976980438,
+        -2.817348594857365,
+        -3.1632143987168195,
+        -3.1475853871923176,
+        -2.686516732703557,
+        -2.8269401774379825,
+        -2.6319809509608136,
+        -3.0452638675402106
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -19.565282905369653,
+      "second_half_sharpe": -17.522525577328782,
+      "sharpe_corr": 0.9994178380354704,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "magnet_ent_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "magnet_ent_dev_net": -3.365837507268911,
+      "magnet_conc_dev_net": -4.480982039115835,
+      "magnet_ent_placebo_net": -4.48687681351083,
+      "magnet_conc_placebo_net": -5.844718332188748,
+      "shares": {
+        "magnet_ent_dev": 0.18515572255783908,
+        "magnet_conc_dev": 0.24650015499245104,
+        "magnet_ent_placebo": 0.24682442828552106,
+        "magnet_conc_placebo": 0.3215196941641888
+      },
+      "dominant": "magnet_conc_placebo",
+      "dominant_share": 0.3215196941641888,
+      "attribution_ok": false,
+      "placebo_seed": 20261260
+    },
+    "data_quality": {
+      "reference_signal": "magnet_ent_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.09927735959042983,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign396_oos_sweep_20261120T031545Z.json",
+      "sha256": "871b300f393a22496b6e0d75d1aa7d5b1d7f4487adfaf112bf7c909507e51d2a"
+    },
+    "registry": {
+      "path": "reports/campaign396_tradable_edge_registry_20261120T031545Z.json",
+      "sha256": "105efc53a5ca1e36bd4c9b9862ac07e7a5f66a542bb21c2c8b52c0cea9e78bdf"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1296,
+    "n_with_exposure": 1296,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T031545Z",
+  "campaign": 396,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign396_oos_sweep_20261120T031545Z.json",
+  "oos_sweep_sha256": "871b300f393a22496b6e0d75d1aa7d5b1d7f4487adfaf112bf7c909507e51d2a",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "magnet_ent_dev": 0.18515572255783908,
+    "magnet_conc_dev": 0.24650015499245104,
+    "magnet_ent_placebo": 0.24682442828552106,
+    "magnet_conc_placebo": 0.3215196941641888
+  },
+  "dominant_attribution": "magnet_conc_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "magnet_ent_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -2.8878532976980438,
+      -2.817348594857365,
+      -3.1632143987168195,
+      -3.1475853871923176,
+      -2.686516732703557,
+      -2.8269401774379825,
+      -2.6319809509608136,
+      -3.0452638675402106
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -19.565282905369653,
+    "second_half_sharpe": -17.522525577328782,
+    "sharpe_corr": 0.9994178380354704,
+    "stable": false
+  },
+  "diagnosis": "C396 cross-sectional intraday MAGNET magnitude-distribution Shannon entropy stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

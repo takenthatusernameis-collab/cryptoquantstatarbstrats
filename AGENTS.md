@@ -1029,47 +1029,23 @@ C395 (OUHALFLIFE, OU mean-reversion half-life × seasonal-dislocation mean-rever
 
 ---
 
-## INITIAL TASK MESSAGE (written 2026-11-20T02:25:29Z) — C396 ACTIVE/UNSTARTED (MAGNET, REALIZED MAGNITUDE-DISTRIBUTION SHANNON ENTROPY)
+## C396 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T031545Z)
 
-C395 OUHALFLIFE is FROZEN formal negative (frozen 20261120T021655Z): 0 Holm+BH survivors, verdict RETRACTED (multiple_testing), dominant attribution `ou_halflife_placebo` 0.5627, 27/27 tests green, cache `data/cache/campaign395_ouhalflife_5m/`, artifacts `reports/campaign395_*_20261120T021655Z.json`. C396 is the ACTIVE campaign and is UNSTARTED. Bottlenecks: NONE.
+C396 (MAGNET, realized magnitude-distribution Shannon entropy × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `magnet_conc_placebo` 0.3215 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 28/28 tests green (incl. MAGNET brute-force equality, `maxdiff < 1e-12`, and kernel-distinctness guard vs all prior families). Cache `data/cache/campaign396_magnet_5m/` (10 shards × 315,648 bars, 37 MB < 100 MB). NO EDGE through C396. Frozen — DO NOT re-run.
 
-**C396 — ACTIVE CAMPAIGN (MAGNET: REALIZED MAGNITUDE-DISTRIBUTION SHANNON ENTROPY × SEASONAL-DISLOCATION mean-reversion stat-arb).** PRE-REGISTERED SPEC (write at execution; do NOT reuse any C377–C395 kernel; never rename-only). Genuinely new family: Shannon entropy of the trailing-window distribution of absolute log-returns (magnitude distribution) — never used in C377–C395 (distinct from C355/C356 Sample/Multiscale Entropy over binary sign series, from C357 Lempel-Ziv complexity, from C359 ordinal-pattern transition entropy, and from all moment/tail/variance/path families C317–C395).
+- oos_sweep `871b300f393a22496b6e0d75d1aa7d5b1d7f4487adfaf112bf7c909507e51d2a`
+- tradable_edge_registry `105efc53a5ca1e36bd4c9b9862ac07e7a5f66a542bb21c2c8b52c0cea9e78bdf`
+- summary `9cdbf3ef61def443c84997bb80067cefc106c6956c8b6eeba81f9bf801298d66`
+- verdict `60a5530b60585483b459d40b8f1f123a65958c4e7151b7ab085a8078646908a6`
+- binding_constraint `c5f9a252dae2ca6b7fdc56576006bda01a9450f4ce057d0f6603ec7b1069fd91`
+- cache: meta `09e1c3a18f078225c51df84bbbc0549e01b2bfd1b4e707ed8c07e72c1d68bf81`, provenance `6a7d6b437a4f6e4a5d19b2dff01761a329b87a9ff1cf1807293d7c9e0a670b12`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
-For each bar t, trailing returns X = r[t-W+1..t], W=256 (NaN if t<W or any NaN/non-finite). Magnitudes A = |X|. Partition A into B=10 equal-frequency bins using the window's own decile thresholds q_b = quantile(A, b/10) for b=0..10 (q_0=min, q_10=max); bin b contains returns with q_{b-1} <= a < q_b (last bin inclusive). Counts n_b, p_b = n_b/W. Signals: `magnet_ent[t] = -Σ_b p_b ln(p_b)` (nats; 0·ln0=0; NaN if any p_b undefined) and `magnet_conc[t] = max_b p_b` (concentration of magnitude mass; NaN if t<W). Real scalars per window. Seasonal baseline: trailing mean/std of v[t] at same (weekday×tod) bucket (2016 buckets, shift(1), min_periods=3). Score s[t] = -(v[t] - seasonal_mean)/seasonal_std for v ∈ {magnet_ent, magnet_conc}. Phase-randomized-surrogate placebos `magnet_ent_placebo` / `magnet_conc_placebo`. Cross-sectional rank across 10 USDT-M perps → dollar-neutral long-top / short-bottom at gross 1.0 → single-leg costed perp PnL on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). executed_fills:false. Price-only (`perp_close`), volume-free, on real C312 5m.
+---
 
-Vectorized kernel: magnet_ent/conc for all bars per asset via `sliding_window_view` + per-window `np.quantile` + `np.searchsorted`/bincount (vectorized over the window axis via broadcasting; no Python loop over 315,648 bars × 10 assets). MUST pass brute-force equality test vs per-window reference (manual loop, explicit np.quantile deciles, explicit bin counts, explicit -Σ p ln p, maxdiff < 1e-12).
+## INITIAL TASK MESSAGE (written 2026-11-20T03:18:01Z) — C396 COMPLETE / C397 ACTIVE/UNSTARTED
 
-Pre-registered grid — 1296 configs (literal `N_TRIALS`): SIGNALS = {magnet_ent_dev, magnet_conc_dev, magnet_ent_placebo, magnet_conc_placebo} (2 real + 2 phase-randomized-surrogate placebos; placebos never edges); LOOKBACKS = (60,120,240,480,960,1920); REBALANCES = (1,4,12); FEES = (0.0004,0.0007,0.0010); SLIPS = (0.0,0.0001,0.0002); COST_VARIANTS = ("taker","maker_blend"). 4×6×3×3×3×2 = 1296. Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. PLACEBO_SEED = 20261260 (unique; not 20261224–20261259). Selection frac=1/3, ALPHA=0.05. Reference config: `magnet_ent_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES={magnet_ent_dev, magnet_conc_dev}`.
+C396 MAGNET is FROZEN formal negative (frozen 20261120T031545Z): 0 Holm+BH survivors, verdict RETRACTED (multiple_testing), dominant attribution `magnet_conc_placebo` 0.3215, 28/28 tests green, cache `data/cache/campaign396_magnet_5m/`, artifacts `reports/campaign396_*_20261120T031545Z.json`. C397 is the ACTIVE campaign and is UNSTARTED (next genuinely new price-only family, not in C377–C396). Bottlenecks: NONE.
 
-Gates (identical rigor — do NOT weaken): one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND BH over all 1296 configs at alpha=0.05; edge requires BOTH. MDE: two-sided alpha=0.05, power=0.80: (t_0.975+t_0.80)*s/sqrt(n_splits). Stability: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config). Attribution: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 4 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for attribution_ok. Verdict: n_survive_both==0 → RETRACTED (multiple_testing); >0 and not attribution_ok → RETRACTED (attribution); >0 and not stable → RETRACTED (stability); >0 and attribution_ok and stable → EDGE_PROVEN. edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN").
+Queue depth 3 → C397 (ACTIVE) → C398 (next new price-only family) → C399 (next new price-only family) — pre-seeded so the queue can never be empty.
 
-Deliverables (ALL six, in order): (1) scripts/build_c396_magnet_features.py -> data/cache/campaign396_magnet_5m/ (index_ms, perp_close, log_return, abs_ret, funding_rate all-NaN; magnet_params={window_W:256, n_bins:10}; real_data_only:true, source_campaign:312, SHA256 shard manifest; 10 shards × 315,648 bars, < 100 MB). (2) scripts/preflight_c396.py -> ready:true. (3) scripts/run_c396_magnet_xsec_oos.py -> 5 SHA256 artifacts + .full.json: oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint (reports/campaign396_*_<TS>Z.json). (4) tests/test_preflight_c396.py + tests/test_c396_magnet_xsec_oos.py — ≥21 green (incl. MAGNET brute-force equality test; guard tests: artifact["campaign"]==396; mandate names MAGNET; kernel distinctness vs all prior families; N_TRIALS==1296; placebo seed 20261260 unique). (5) Record truthful RESULT + SHAs here and in research_state/state.yaml; add C396 to frozen table with 5 SHAs + cache SHAs; set C397 active with next genuinely-new price-only family spec placeholder. (6) Run sequence: build -> preflight -> full 1296-config costed-OOS sweep -> pytest -> sha256sum all 5 artifacts. Verify `ls scripts tests | grep -c c396 == 5` and `ls data/cache/campaign396_magnet_5m/ | wc -l == 10` before freezing.
-
-ANTI-AVOIDANCE (hard violations): (1) output with no new test file, cache, preflight pass, running sweep, passing test, or recorded artifact; (2) planning/analysis/review without concurrent heavy execution; (3) stopping after tests but before build → preflight → sweep → artifacts; (4) re-running any frozen campaign C281B–C395 or the VOID C381 attempt; (5) a grid smaller than the literal N_TRIALS (1296); (6) skipping the brute-force equality tests; (7) freezing a campaign without its frozen-table row + SHAs and a research_state/state.yaml update; (8) shipping a clone whose mandate/kernel/campaign-id/signal names still describe the source campaign (the exact C381 defect); (9) copying, importing, fixing or citing anything under archive/void_c381/. This repo is STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else counts as progress.
-
-EXECUTION CARD for C396 MAGNET (clone C395 for plumbing, then RE-SPECIFY — never rename-only):
-```
-# CREATE the build + preflight + runner + 2 test files (clone C395, then RE-SPECIFY for MAGNET):
-cp scripts/build_c395_ouhalflife_features.py    scripts/build_c396_magnet_features.py
-cp scripts/preflight_c395.py                    scripts/preflight_c396.py
-cp scripts/run_c395_ouhalflife_xsec_oos.py     scripts/run_c396_magnet_xsec_oos.py
-cp tests/test_preflight_c395.py                 tests/test_preflight_c396.py
-cp tests/test_c395_ouhalflife_xsec_oos.py      tests/test_c396_magnet_xsec_oos.py
-# REQUIRED edits in ALL 5 new files: campaign integer 395 -> 396; every docstring/mandate string;
-# cache dir -> campaign396_magnet_5m; prefixes -> campaign396_*; signal names -> magnet_*;
-# metric kernel -> MAGNET (not OUHALFLIFE/CTES/VTERM/DDRUN/XSKEW3/XCOEX);
-# brute-force reference -> MAGNET entropy brute force; PLACEBO_SEED unique (not 20261224–20261259).
-# NEVER copy anything from archive/void_c381/ (void SEMICOV clone; read-only evidence).
-# Add guard tests: artifact["campaign"] == 396; mandate names MAGNET;
-# MAGNET kernel not allclose 0 where defined; N_TRIALS == 1296; placebo seed 20261260 unique.
-# SELF-CHECK before the sweep: `grep -n 395 ouhalflife OU` must return nothing over `scripts/*c396* tests/*c396*`.
-python3 scripts/build_c396_magnet_features.py      # -> data/cache/campaign396_magnet_5m/
-python3 scripts/preflight_c396.py                  # must print ready:true
-python3 scripts/run_c396_magnet_xsec_oos.py       # FULL 1296-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c396.py tests/test_c396_magnet_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign396_*_<TS>Z.json         # record all 5 artifact SHAs
-```
-Target artifacts: `reports/campaign396_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
-**NO-LIGHT-WORK RULE (applies to every session):** a session is only complete when it produces 3 scripts + 2 test files + cache + preflight `ready:true` + a FULL literal-`N_TRIALS` (1296) costed OOS sweep + 5 SHA256 reports + ≥21 green tests including the brute-force equality test, then records the truthful RESULT + SHAs in this file and `research_state/state.yaml` and moves the queue forward. If a session cannot finish, it must still leave the queue non-empty (C396–C398 above are pre-seeded) and the partial artifacts named.
-
-Queue depth 3 → C396 (ACTIVE) → C397 (next new price-only family) → C398 (next new price-only family) — pre-seeded so the queue can never be empty.
+Queue depth 3 → C397 (ACTIVE) → C398 (next new price-only family) → C399 (next new price-only family) — pre-seeded so the queue can never be empty.
