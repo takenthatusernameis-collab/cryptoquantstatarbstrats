@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261120T203749Z",
+  "campaign": 405,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign405_oos_sweep_20261120T203749Z.json",
+  "oos_sweep_sha256": "80dbda6e956a2b91f2dc3eda0e69904c12d530969b808fc0707bd60461b0d89e",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "coskew_dev": 0.14041458206445717,
+    "cokurt_dev": 0.10700035513096871,
+    "coskew_placebo": 0.3279451256054422,
+    "cokurt_placebo": 0.42463993719913184
+  },
+  "dominant_attribution": "cokurt_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "coskew_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.7538748665420579,
+      -0.8341090650359574,
+      -0.9119849285246905,
+      -0.8278707748614854,
+      -0.9321168033230817,
+      -0.5920375045908333,
+      -0.7314418328706143,
+      -0.9969966913682662
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -14.869105286811706,
+    "second_half_sharpe": -5.054617225156117,
+    "sharpe_corr": 0.9923415354520724,
+    "stable": false
+  },
+  "diagnosis": "C405 cross-sectional intraday COSKEW cross-sectional co-skewness / co-kurtosis stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

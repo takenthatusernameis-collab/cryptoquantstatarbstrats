@@ -287,8 +287,9 @@ def test_coskew_kernel_distinct_from_specfm():
     spectral flatness (no peak location, no centroid)."""
     rng = np.random.default_rng(123)
     log_return = rng.standard_normal(1200) * 0.001
+    market = rng.standard_normal(1200) * 0.001
     W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, W)
+    mm = R.compute_coskew_metrics(log_return, market, W)
     dp = mm["coskew"][W:]
     specfm = _specfm_style_stat(log_return, W)[W:]
     fin = np.isfinite(dp) & np.isfinite(specfm)
@@ -300,8 +301,9 @@ def test_coskew_centroid_distinct_from_specfm():
     """Rewrite guard: cokurt is also distinct from C397 SPECFM flatness."""
     rng = np.random.default_rng(124)
     log_return = rng.standard_normal(1200) * 0.001
+    market = rng.standard_normal(1200) * 0.001
     W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, W)
+    mm = R.compute_coskew_metrics(log_return, market, W)
     sc = mm["cokurt"][W:]
     specfm = _specfm_style_stat(log_return, W)[W:]
     fin = np.isfinite(sc) & np.isfinite(specfm)
@@ -314,8 +316,9 @@ def test_coskew_kernel_distinct_from_vovr():
     cross-sub-block RV dispersion."""
     rng = np.random.default_rng(125)
     log_return = rng.standard_normal(1200) * 0.001
+    market = rng.standard_normal(1200) * 0.001
     W = R.COSKEW_W
-    mm = R.compute_coskew_metrics(log_return, W)
+    mm = R.compute_coskew_metrics(log_return, market, W)
     dp = mm["coskew"][W:]
     vovr = _vovr_style_stat(log_return, W)[W:]
     fin = np.isfinite(dp) & np.isfinite(vovr)
@@ -346,12 +349,12 @@ def test_mandate_contains_coskew():
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
     assert "COSKEW" in mandate, "mandate missing COSKEW"
-    assert "DOMINANT" in mandate, "mandate missing DOMINANT"
-    assert "SPECTRAL" in mandate, "mandate missing SPECTRAL"
-    for bad in ("ASYMCURV", "SKEW", "TSCALE", "HILL", "RVQUART", "QUARTICITY", "KTREND",
+    assert "CO-KURTOSIS" in mandate, "mandate missing CO-KURTOSIS"
+    assert "EQUAL-WEIGHT MARKET" in mandate, "mandate missing EQUAL-WEIGHT MARKET"
+    for bad in ("ASYMCURV", "TSCALE", "HILL", "RVQUART", "QUARTICITY", "KTREND",
                 "CBREAK", "SPECFM", "MAGNET", "OUHALFLIFE", "CTES", "VTERM", "DDRUN",
                 "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX", "PRROUGH", "HALFRANGE",
-                "LMOM", "KENDALL", "SPEARMAN", "SEMICOV", "VOVR"):
+                "LMOM", "KENDALL", "SPEARMAN", "SEMICOV", "VOVR", "DOMINANT", "SPECTRAL"):
         assert bad not in mandate, f"mandate must not reference {bad} (prior campaign)"
 
 

@@ -6,13 +6,13 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 
 ## DISK TRUTH (re-verified 2026-11-20T19:44:44Z by this session — command OUTPUTS quoted, not inferred)
 
-- **C281B–C404 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C404.
-- **Frozen boundary = C404 DOMFREQ** (`20261120T194109Z`): 1296 configs costed-OOS, dominant attribution `dom_period_placebo` 0.5133, 29/29 tests green, cache `data/cache/campaign404_domfreq_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s verified MATCH on disk: oos_sweep `1c4dc462…52dd19`, registry `ae211f01…e08e430`, summary `5f6a3e4f…acacb2926`, verdict `85457f21…f33f7308`, binding_constraint `3f720bb3…1b9f38054` (full digests in `research_state/state.yaml`).
-- **C405 COSKEW is the ACTIVE campaign — verified UNSTARTED at 19:41:00Z**: `ls scripts tests | grep -c c405` → `0`; `ls data/cache | grep -c campaign405` → `0`; `ls reports | grep -c campaign405` → `0`. N_TRIALS=1296, PLACEBO_SEED=20261269. Build end-to-end, never rename-only.
-- **Queue depth 3 (can never run dry):** C405 COSKEW (ACTIVE, seed 20261269, 1296) → C406 BETAASYM (seed 20261270, 1296) → C407 XSRANK (seed 20261271, 1296). All three specs are fully pre-registered below. Never re-order, never reuse a kernel.
+- **C281B–C405 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C405.
+- **Frozen boundary = C405 COSKEW** (`20261120T203749Z`): 1296 configs costed-OOS, dominant attribution `cokurt_placebo` 0.4246, 29/29 tests green, cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s verified MATCH on disk: oos_sweep `80dbda6e…b0d89e`, registry `0fe0c370…1bf057`, summary `668805b7…ed9a7`, verdict `785ce7ac…b15c56`, binding_constraint `c396904d…12d46` (full digests in `research_state/state.yaml`).
+- **C406 BETAASYM is the ACTIVE campaign — verified UNSTARTED**: `ls scripts tests | grep -c c406` → `0`; `ls data/cache | grep -c campaign406` → `0`; `ls reports | grep -c campaign406` → `0`. N_TRIALS=1296, PLACEBO_SEED=20261270. Build end-to-end, never rename-only.
+- **Queue depth 3 (can never run dry):** C406 BETAASYM (ACTIVE, seed 20261270, 1296) → C407 XSRANK (seed 20261271, 1296) → C408 (pre-registered, seed TBD). All three specs are fully pre-registered below. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
 - **Environment ready (verified 19:41:00Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
-- **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign404_domfreq_5m | wc -l` → `10`; `ls scripts tests | grep -c c404` → `5`; `ls reports | grep -c campaign404` → `12` (5 artifacts + `.full.json` + 6 from smoke run); C405 slot must read 0 on all three greps above; `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `0`.
+- **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign404_domfreq_5m | wc -l` → `10`; `ls scripts tests | grep -c c404` → `5`; `ls reports | grep -c campaign404` → `12` (5 artifacts + `.full.json` + 6 from smoke run); `ls data/cache/campaign405_coskew_5m | wc -l` → `10`; `ls scripts tests | grep -c c405` → `5`; `ls reports | grep -c campaign405` → `6` (5 artifacts + `.full.json`); C406 slot must read 0 on all three greps above; `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `10` (cache shards only, meta+prov separate).
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
   - `archive/void_c403_clone/` (rename-only clone of C402 TSCALE — superseded by genuine C403 build; scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`). Never run.
   - `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`.
@@ -25,39 +25,46 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T19:44:44Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-20T20:37:49Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C405 COSKEW END-TO-END NOW.** Nothing is blocked and nothing is half-built: the C405 slot is empty on disk. C404 DOMFREQ is BUILT AND FROZEN (20261120T194109Z): RETRACTED formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution dom_period_placebo 0.5133. All 5 artifact SHA256 recorded in AGENTS.md + research_state/state.yaml, frozen-table row added. Disk re-verified at 19:44:44Z: C405 slot empty (0 scripts/tests, 0 cache, 0 reports), C404 intact (5 files, 10 cache shards, 12 reports), C312 intact (11 entries). Build C405 COSKEW end-to-end (N_TRIALS=1296, PLACEBO_SEED=20261269), then C406 BETAASYM (N_TRIALS=1296, PLACEBO_SEED=20261270), then C407 XSRANK (N_TRIALS=1296, PLACEBO_SEED=20261271) — the queue is depth-3 and must never sit idle.
+**FIRST ACTION — BUILD C406 BETAASYM END-TO-END NOW.** Nothing is blocked and nothing is half-built: the C406 slot is empty on disk. C405 COSKEW is BUILT AND FROZEN (20261120T203749Z): RETRACTED formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution cokurt_placebo 0.4246. All 5 artifact SHA256 recorded in AGENTS.md + research_state/state.yaml, frozen-table row added. Disk re-verified at 20:37:49Z: C405 frozen (5 scripts/tests, 10 cache shards, 6 reports), C406 slot empty (0 scripts/tests, 0 cache, 0 reports), C407 pre-registered, C312 intact (11 entries). Build C406 BETAASYM end-to-end (N_TRIALS=1296, PLACEBO_SEED=20261270), then C407 XSRANK (N_TRIALS=1296, PLACEBO_SEED=20261271), then C408 — the queue is depth-3 and must never sit idle.
 
-**Disk truth:** C281B–C404 all FROZEN formal negatives; C404 cache `data/cache/campaign404_domfreq_5m/` (10 shards × 315,648 bars) and 5 `reports/campaign404_*_20261120T194109Z.json` artifacts present; C405 slot empty and unstarted (`ls scripts tests | grep -c c405 == 0`, `ls data/cache | grep -c campaign405 == 0`, `ls reports | grep -c campaign405 == 0`); C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). No bottlenecks.
+**Disk truth:** C281B–C405 all FROZEN formal negatives; C405 cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars) and 5 `reports/campaign405_*_20261120T203749Z.json` artifacts present; C406 slot empty and unstarted (`ls scripts tests | grep -c c406 == 0`, `ls data/cache | grep -c campaign406 == 0`, `ls reports | grep -c campaign406 == 0`); C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). No bottlenecks.
 
-**C405 COSKEW (CROSS-SECTIONAL CO-SKEWNESS / CO-KURTOSIS vs EQUAL-WEIGHT MARKET) — pre-registered spec below.** Clone C404 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
+**C405 COSKEW — BUILT AND FROZEN (20261120T203749Z).** Build sequence already executed: cp from C404 plumbing → full re-specify → `python3 scripts/build_c405_coskew_features.py` → `python3 scripts/preflight_c405.py` (ready:true) → `python3 scripts/run_c405_coskew_xsec_oos.py` (1296-config sweep) → `python3 -m pytest tests/test_preflight_c405.py tests/test_c405_coskew_xsec_oos.py -q` (29 green) → `sha256sum reports/campaign405_*_20261120T203749Z.json` (5 SHAs recorded). Do NOT re-run.
+
+**C406 BETAASYM — PRE-REGISTERED SPEC (MARKET-BETA LEVEL & UPSIDE/DOWNSIDE BETA ASYMMETRY vs EQUAL-WEIGHT MARKET).** Clone C405 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
 
 ```
-cp scripts/build_c404_domfreq_features.py  scripts/build_c405_coskew_features.py
-cp scripts/preflight_c404.py              scripts/preflight_c405.py
-cp scripts/run_c404_domfreq_xsec_oos.py    scripts/run_c405_coskew_xsec_oos.py
-cp tests/test_preflight_c404.py           tests/test_preflight_c405.py
-cp tests/test_c404_domfreq_xsec_oos.py     tests/test_c405_coskew_xsec_oos.py
-grep -n "404\|domfreq\|DOMFREQ\|20261268" scripts/*c405* tests/*c405*   # must return NOTHING before proceeding
-python3 scripts/build_c405_coskew_features.py     # -> data/cache/campaign405_coskew_5m/ (10 shards)
-python3 scripts/preflight_c405.py                   # must print ready:true
-python3 scripts/run_c405_coskew_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c405.py tests/test_c405_coskew_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign405_*_<TS>Z.json          # record all 5 artifact SHAs
+cp scripts/build_c405_coskew_features.py  scripts/build_c406_betaasym_features.py
+cp scripts/preflight_c405.py              scripts/preflight_c406.py
+cp scripts/run_c405_coskew_xsec_oos.py    scripts/run_c406_betaasym_xsec_oos.py
+cp tests/test_preflight_c405.py           tests/test_preflight_c406.py
+cp tests/test_c405_coskew_xsec_oos.py     tests/test_c406_betaasym_xsec_oos.py
+grep -n "405\|coskew\|COSKEW\|20261269" scripts/*c406* tests/*c406*   # must return NOTHING before proceeding
+python3 scripts/build_c406_betaasym_features.py     # -> data/cache/campaign406_betaasym_5m/ (10 shards)
+python3 scripts/preflight_c406.py                   # must print ready:true
+python3 scripts/run_c406_betaasym_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c406.py tests/test_c406_betaasym_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign406_*_<TS>Z.json          # record all 5 artifact SHAs
 ```
 
-**C405 kernel (genuinely distinct):** On the common C312 grid, define the equal-weight market return `m[s] = (1/10) Σ_i r_i[s]`. For each asset i and bar t, window X = r_i[t-W+1..t], M = m[t-W+1..t], W=256 (NaN if t<W or any NaN). Compute `coskew[t] = mean((X−μ_X)(M−μ_M)²) / (σ_X·σ_M²)` and `cokurt[t] = mean((X−μ_X)(M−μ_M)³) / (σ_X·σ_M³)`. NaN if σ_X ≤ 0 or σ_M ≤ 0 or not finite. Distinct from every univariate moment family (RSKEK C361, RSK/RKT C371, LMOM C398), from SEMICOV (conditional covariance), LVAC (leverage), XSKEW3, TIRV, QSPREAD, CTES, and DOMFREQ. Kernel: `sliding_window_view` of X and M + cumulative-sum co-moment identities; brute-force reference = per-window loop with explicit market series; brute-force maxdiff < 1e-12.
+**C406 kernel (genuinely distinct):** On the common C312 grid, define the equal-weight market return `m[s] = (1/10) Σ_i r_i[s]`. For each asset i and bar t, window X = r_i[t-W+1..t], M = m[t-W+1..t], W=256 (NaN if t<W or any NaN):
+- `beta_level[t] = cov(X,M) / var(M)` (full-window market beta; NaN if var(M) ≤ 0)
+- `beta_up[t]   = cov(X,M | M>0) / var(M | M>0)` (beta in market-up states; NaN if fewer than 3 up bars or var(M|M>0) ≤ 0)
+- `beta_down[t] = cov(X,M | M<0) / var(M | M<0)` (beta in market-down states; NaN if fewer than 3 down bars or var(M|M<0) ≤ 0)
+- `beta_asym[t] = beta_up − beta_down` (asymmetry of systematic exposure; NaN if either leg NaN or not finite)
+NaN if any window element is NaN or a denominator ≤ 0. Genuinely distinct from every prior family: SEMICOV (C380 conditional autocovariance vs own lags), LVAC (C360 leverage corr(r,|r|_{t-k})), DSRV (C364 same-bar semivariance), COSKEW/C405 (third/fourth co-moments, not second-moment beta), SEMICOV/ACOVK (unconditional autocovariance), TIRV, QSPREAD, CTES, and every univariate moment/tail/entropy family. This is the only systematic second-moment asymmetry family ever run.
 
-**C405 grid (1296 = literal N_TRIALS):** SIGNALS={coskew_dev, cokurt_dev, coskew_placebo, cokurt_placebo} → 4×6×3×3×3×2 = 1296. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261269 (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Ref: coskew_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker. ATTR_REPRESENTATIVES={coskew_dev, cokurt_dev}. Cache data/cache/campaign405_coskew_5m/ with coskew_params={window_W:256}. Artifacts reports/campaign405_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + gitignored .full.json.
+**C406 grid (1296 = literal N_TRIALS):** SIGNALS={beta_asym_dev, beta_level_dev, beta_asym_placebo, beta_level_placebo} → 4×6×3×3×3×2 = 1296. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261270 (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Ref config: beta_asym_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker. ATTR_REPRESENTATIVES={beta_asym_dev, beta_level_dev}. Cache data/cache/campaign406_betaasym_5m/ with betaasym_params={window_W:256}. Artifacts reports/campaign406_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + gitignored .full.json.
 
 **Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all 1296 at α=0.05; edge requires BOTH. MDE two-sided α=0.05 power 0.80. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5 (ref config). Attribution mean|OOS net| per signal; shares = |mean|/Σ|means| over all 4 incl. placebos; dominant must be real non-placebo with share ≥0.5 for attribution_ok. Verdict: n_survive_both==0 → RETRACTED(multiple_testing); >0 and not attribution_ok → RETRACTED(attribution); >0 and not stable → RETRACTED(stability); >0 and attribution_ok and stable → EDGE_PROVEN. edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN").
 
-**MANDATORY edits in ALL 5 new files:** campaign integer 404→405; every docstring/mandate/analysis string; CACHE_DIR/DST_DIR→campaign405_coskew_5m (+ .meta.json/.provenance.json); report prefixes→campaign405_*; signal names→coskew_*/cokurt_*; metric kernel→cross-sectional co-skewness/co-kurtosis vs equal-weight market (NOT dominant spectral frequency/domfreq); brute-force reference→per-window co-moment manual loop with explicit market series; PLACEBO_SEED=20261269 (not 20261268). SELF-CHECK before sweep: `grep -n 404 domfreq DOMFREQ 20261268` must return nothing over scripts/*c405* tests/*c405*. NEVER copy anything from archive/void_*.
+**MANDATORY edits in ALL 5 new files:** campaign integer 405→406; every docstring/mandate/analysis string; CACHE_DIR/DST_DIR→campaign406_betaasym_5m (+ .meta.json/.provenance.json); report prefixes→campaign406_*; signal names→betaasym_*/beta_level_*; metric kernel→market-beta level & upside/downside beta asymmetry vs equal-weight market (NOT co-skewness/co-kurtosis/coskew/cokurt); brute-force reference→per-window covariance/variance manual loop with explicit market series and conditional masks; PLACEBO_SEED=20261270 (not 20261269). SELF-CHECK before sweep: `grep -n 405 coskew COSKEW 20261269` must return nothing over scripts/*c406* tests/*c406*. NEVER copy anything from archive/void_*.
 
-**Guard tests required:** artifact["campaign"]==405; mandate names COSKEW; N_TRIALS==1296; PLACEBO_SEED==20261269; COSKEW kernel not allclose 0 where defined; kernel-distinctness vs RSKEK/RSK/RKT/SEMICOV/LVAC/XSKEW3/LMOM/DOMFREQ; brute-force equality maxdiff < 1e-12.
+**Guard tests required:** artifact["campaign"]==406; mandate names BETAASYM; N_TRIALS==1296; PLACEBO_SEED==20261270; BETAASYM kernel not allclose 0 where defined; kernel-distinctness vs COSKEW/SEMICOV/LVAC/DSRV/ACOVK; brute-force equality maxdiff < 1e-12.
 
-**The moment C405 is frozen, immediately build C406 BETAASYM** (N_TRIALS=1296, PLACEBO_SEED=20261270) per its pre-registered spec below, then **C407 XSRANK** (N_TRIALS=1296, PLACEBO_SEED=20261271). Queue must never sit idle.
+**The moment C406 is frozen, immediately build C407 XSRANK** (N_TRIALS=1296, PLACEBO_SEED=20261271) per its pre-registered spec below, then C408 — the queue is depth-3 and must never sit idle.
 
 ### C405 — PRE-REGISTERED SPEC (COSKEW: CROSS-SECTIONAL CO-SKEWNESS / CO-KURTOSIS vs EQUAL-WEIGHT MARKET)
 
@@ -793,6 +800,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C402 | 20261120T163611Z | multi-scale tail-exponent Hill profile (TSCALE) | 2592 | tscale_slope_placebo 0.1611 | `6e9dc4368a978cec9f03e66b43f1e181bc88db6fda758c40697861f01663bae9` | `5fc98912e4f1c5219a487c4e2fc4af5cb166dea2b43475feac61efcfb34884d3` |
 | C403 | 20261120T183921Z | conditional skewness / asymmetric curvature (ASYMCURV) | 1944 | skew_down_placebo 0.2380 | `e04c18c7adb5b36493c0960463c9ee138e96241efb1ac2b00fec4e80fbe71561` | `3c78dfa30c004500c33e6ab514b9cfdf32b9718dbf3a4f7fefa94d3b19a65e2d` |
 | C404 | 20261120T194109Z | dominant spectral frequency / spectral centroid (DOMFREQ) | 1296 | dom_period_placebo 0.5133 | `1c4dc4626545e9d4956156d52e82908596fe199d7236639182c4d360d452dd19` | `85457f21963c041895be53a8d52b47c3e316ac58705acbf18309988fc33f7308` |
+| C405 | 20261120T203749Z | cross-sectional co-skewness / co-kurtosis vs equal-weight market (COSKEW) | 1296 | cokurt_placebo 0.4246 | `80dbda6e956a2b91f2dc3eda0e69904c12d530969b808fc0707bd60461b0d89e` | `785ce7acf802d34e8804845c76ec400ffe88bca5ee2146cc3c8e2dbab6c56b15` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -1256,3 +1264,14 @@ C404 (DOMFREQ: dominant spectral frequency / spectral centroid × seasonal-dislo
 - verdict `85457f21963c041895be53a8d52b47c3e316ac58705acbf18309988fc33f7308`
 - binding_constraint `3f720bb34336600364112ab5b8b4991c604de14c87cd4c1de46930a1b9f38054`
 - cache: meta `c1b9911620e93218a338201109667771b0dda8b9dfc9d01d4ee2354c46fc2ff2`, provenance `7c752f164c97d31b4e08f839eba16542fdb6c47a1f507ed99de24acf351f8058`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C405 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T203749Z)
+
+C405 (COSKEW: cross-sectional co-skewness / co-kurtosis vs equal-weight market × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `cokurt_placebo` 0.4246 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 29/29 tests green (incl. COSKEW brute-force equality `maxdiff < 1e-12` and kernel-distinctness guard vs RSKEK/RSK/RKT/SEMICOV/LVAC/XSKEW3/DOMFREQ). Cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars, ~38.5 MB). NO EDGE through C405. Frozen — DO NOT re-run.
+
+- oos_sweep `80dbda6e956a2b91f2dc3eda0e69904c12d530969b808fc0707bd60461b0d89e`
+- tradable_edge_registry `0fe0c37086491d4f78bdeafabf84dda4179dcbb209f5bbf4bbfafadf8d1bf057`
+- summary `668805b77c0316c6a28648398cb690ab154167b734d5a97dd1e0a00db79ed9a7`
+- verdict `785ce7acf802d34e8804845c76ec400ffe88bca5ee2146cc3c8e2dbab6c56b15`
+- binding_constraint `c396904d866b84e97ef0d055c1f4cc92a39b4a222a5ee4908a603bc902e12d46`
+- cache: meta `9b7e63d339f08174cd8213af69409f1cb1d7e94c243847c2b0988595f2502bd2`, provenance `9e7033741565468ddfdabd0d384bd9036ea6a6ea4f1a9d1615c1670a369bf106`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
