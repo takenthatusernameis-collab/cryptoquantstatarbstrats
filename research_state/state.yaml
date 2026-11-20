@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-20T11:56:48Z
-handoff_refreshed_at_utc: 2026-11-20T11:56:48Z
+updated_at_utc: 2026-11-20T16:40:01Z
+handoff_refreshed_at_utc: 2026-11-20T16:40:01Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C401
-next_campaign: C402
+latest_campaign_done: C402
+next_campaign: C403
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-20T11:49:53Z (disk verified): C281B-C401 ALL FROZEN formal negatives; C401 RVQUART boundary frozen 20261120T095554Z with all 5 artifact SHA256 recomputed and matching. C402 TSCALE is the ACTIVE campaign and is absent from disk (0 scripts, 0 tests, 0 campaign402 cache, 0 reports) after the five *c402* rename-only C401 clones were quarantined read-only at archive/void_c402_clone/ this session. C312 source intact (10 x 315648, perp_close only). Priority fixed by repo name: cross-sectional dollar-neutral relative-value stat-arb is PRIMARY, causal seasonal-dislocation mean-reversion is the overlay, costed OOS with Holm AND BH is the only gate. Queue depth 3: C402 ACTIVE (N_TRIALS=2592), C403 ASYMCURV pre-registered (N_TRIALS=1944), C404 DOMFREQ pre-registered (N_TRIALS=1296). Bottlenecks: NONE.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-20T16:40:01Z: C281B-C402 ALL FROZEN formal negatives; C402 TSCALE boundary frozen 20261120T163611Z with all 5 artifact SHA256 recomputed and matching, verdict RETRACTED, edge_proven:false, n_survive_both:0, dominant attribution tscale_slope_placebo 0.1611 (binding multiple_testing). C403 ASYMCURV is the ACTIVE campaign (N_TRIALS=1944), C404 DOMFREQ pre-registered (N_TRIALS=1296). C312 source intact (10 x 315648, perp_close only). Priority fixed by repo name: cross-sectional dollar-neutral relative-value stat-arb is PRIMARY, causal seasonal-dislocation mean-reversion is the overlay, costed OOS with Holm AND BH is the only gate. Queue depth 3: C403 ACTIVE (N_TRIALS=1944), C404 DOMFREQ pre-registered (N_TRIALS=1296). Bottlenecks: NONE.'
 bottlenecks_verified_removed_at_utc: "2026-11-20T10:53:23Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-20T11:49:53Z: no blocked or inefficient sessions; no external data fetches needed; C287 decoupled and NOT on the critical path. C281B-C401 ALL COMPLETE FORMAL NEGATIVES. Removed this session: the *c402* clone trap. Five tracked files (3 scripts, 2 tests) named *c402* existed but were verbatim-renamed C401 RVQUART code (campaign: 401, PLACEBO_SEED=20261265, CACHE_DIR=campaign401_rvquart_5m, report prefix campaign401_*), so running them would have overwritten frozen C401 artifacts and a naive session would have assumed C402 was built. They were moved read-only to archive/void_c402_clone/; the C402 slot is now verifiably empty (ls scripts tests | grep -c c402 == 0, cache 0, reports 0). Quarantined read-only: archive/void_c381/, archive/void_c398_clone/, archive/void_c402_clone/ (never copy, cite or re-run). Environment re-verified importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0; console scripts are at /home/runner/work/_temp/kilo-home/.local/bin (not on PATH) so tests must run as python3 -m pytest. C312 5m ready (10 x 315648). NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only or partial is a HARD VIOLATION. File existence never proves a campaign exists: verify campaign id, kernel, placebo seed, 10 cache shards and 5 reports.'
 queued_next_campaign: C403
 queued_next_campaign_note: 'C281B-C401 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active and UNSTARTED: C402 TSCALE (N_TRIALS=2592, placebo seed 20261266). Pre-registered: C403 ASYMCURV (N_TRIALS=1944, placebo seed 20261267) and C404 DOMFREQ (N_TRIALS=1296, placebo seed 20261268). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C401 or C287; never touch archive/void_c381/, archive/void_c398_clone/ or archive/void_c402_clone/.'
-first_action: "Build C402 TSCALE end-to-end now, per AGENTS.md INITIAL TASK MESSAGE. The C402 slot is empty (the *c402* files were a C401 clone and are quarantined at archive/void_c402_clone/); create 5 FRESH files from the C401 plumbing and FULLY re-specify them (never rename-only): campaign 401 -> 402, mandate TSCALE, cache data/cache/campaign402_tscale_5m/, signals tscale_*, Hill tail-index kernel at k=12,24,48 plus multi-scale slope, PLACEBO_SEED=20261266, N_TRIALS=2592. SELF-CHECK before the sweep: grep -n 401 rvquart RVQUART over scripts/*c402* tests/*c402* must return nothing. Then run build -> preflight ready:true -> full literal 2592-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c402.py tests/test_c402_tscale_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-12) -> sha256sum reports/campaign402_*_<TS>Z.json. Verify ls scripts tests | grep -c c402 == 5 and ls data/cache/campaign402_tscale_5m | wc -l == 10. Then record the truthful RESULT plus all SHAs here and in AGENTS.md, add the frozen-table row, and advance to C403. Never re-run frozen C281B-C401 or C287; never touch archive/void_c381/, archive/void_c398_clone/ or archive/void_c402_clone/; no gate weakening; no closure by fiat."
-active_campaign: C402
-space_status: NO_EDGE_C281B_C401
-closure_note: 'C281B-C401 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C401 RVQUART 20261120T095554Z (rq_placebo 0.5504, 32/32 tests green, 5 artifact SHA256 matching). C402 TSCALE is ACTIVE and UNSTARTED with an empty, verified slot. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C381 attempt is VOID and quarantined; archive/void_c398_clone/ and archive/void_c402_clone/ are quarantined. Next session must build C402 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+first_action: "C402 TSCALE is built end-to-end and frozen as a formal negative (2592 configs costed-OOS, 0 Holm+BH survivors, RETRACTED, binding multiple_testing). C403 ASYMCURV is now ACTIVE and UNSTARTED — build it end-to-end per AGENTS.md INITIAL TASK MESSAGE: 5 FRESH files from C401 plumbing fully re-specified (campaign 403, ASYMCURV kernel, conditional skewness skew_up/skew_down/asym_curv, PLACEBO_SEED=20261267, N_TRIALS=1944, cache data/cache/campaign403_asymcurv_5m/, signals asym_curv_*, placebos asym_curv_*_placebo). SELF-CHECK before sweep: grep -n 402 tscale TSCALE over scripts/*c403* tests/*c403* must return nothing. Then build -> preflight ready:true -> full literal 1944-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c403.py tests/test_c403_asymcurv_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-12) -> sha256sum reports/campaign403_*_<TS>Z.json. Verify ls scripts tests | grep -c c403 == 5 and ls data/cache/campaign403_asymcurv_5m | wc -l == 10. Then record truthful RESULT plus SHAs here and in AGENTS.md, add frozen-table row, freeze, and advance to C404 DOMFREQ. Never re-run frozen C281B-C402 or C287; never touch archive/void_c381/, archive/void_c398_clone/ or archive/void_c402_clone/; no gate weakening; no closure by fiat."
+active_campaign: C403
+space_status: NO_EDGE_C281B_C402
+closure_note: 'C281B-C402 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C402 TSCALE 20261120T163611Z (tscale_slope_placebo 0.1611, 30/30 tests green, 5 artifact SHA256 matching). C403 ASYMCURV is ACTIVE and UNSTARTED with an empty, verified slot. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C381 attempt is VOID and quarantined; archive/void_c398_clone/ and archive/void_c402_clone/ are quarantined. Next session must build C403 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c381_void:
   state: VOID_NOT_A_RESULT
   campaign: C381
@@ -1358,4 +1358,43 @@ c401_status:
   cache_shas:
     meta: '5c737a961d5151111b1072fd45e81211cad1e46e7c83b10e869e47afcb0031f5'
     provenance: 'd23be4d99b199065a161687596aae8913e97ac8678a6617d0a640b84de5a90c3'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c402_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C402
+  family: cross_sectional_multi_scale_tail_exponent_hill_profile_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C281B-C401. TSCALE is a multi-scale tail-exponent profile: Hill tail-index alpha_k at k=12,24,48 exceedances plus scale-dependence slope (alpha_12-alpha_48)/ln(48/12) over W=256 trailing log returns. Distinct from C362 Hill (single n_exceed=12 only), C401 RVQUART (quarticity/RV^2), C366 RQV (top-k concentration of squared returns), C378 VOVR (cross-sub-block RV dispersion), C396 MAGNET (magnitude Shannon entropy), C361/C371 (raw skew/kurt central moments), C364 (DSRV downside/upside sign split). Price-only (perp_close), volume-free, deterministic, O(n) vectorizable via sliding_window_view + np.partition + cumulative log-sums, brute-force testable.'
+  as_of_utc: 20261120T163611Z
+  artifacts_ts: 20261120T163611Z
+  signals: [tscale_alpha12_dev, tscale_alpha24_dev, tscale_alpha48_dev, tscale_slope_dev, tscale_alpha12_placebo, tscale_alpha24_placebo, tscale_alpha48_placebo, tscale_slope_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261266
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'tscale_alpha12_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [tscale_alpha12_dev, tscale_slope_dev]
+  tscale_params: {window_W: 256, k_vals: [12, 24, 48]}
+  scripts_present: [scripts/build_c402_tscale_features.py, scripts/preflight_c402.py, scripts/run_c402_tscale_xsec_oos.py]
+  tests_present: [tests/test_preflight_c402.py, tests/test_c402_tscale_xsec_oos.py]
+  cache_present: data/cache/campaign402_tscale_5m
+  artifacts_present: [reports/campaign402_oos_sweep_20261120T163611Z.json, reports/campaign402_tradable_edge_registry_20261120T163611Z.json, reports/campaign402_summary_20261120T163611Z.json, reports/campaign402_verdict_20261120T163611Z.json, reports/campaign402_binding_constraint_20261120T163611Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: tscale_slope_placebo
+  dominant_share: 0.1611
+  attribution_ok: false
+  tests_green: 30
+  artifacts:
+    oos_sweep: '6e9dc4368a978cec9f03e66b43f1e181bc88db6fda758c40697861f01663bae9'
+    tradable_edge_registry: '0245a8360e526e7163092b682b37c912614074a3808e3b3b3dab074449fc2d7c'
+    summary: '3f98f9c0e8672cf742dfd8f316415b62985d95eb02183d5eb7e5576be3305823'
+    verdict: '5fc98912e4f1c5219a487c4e2fc4af5cb166dea2b43475feac61efcfb34884d3'
+    binding_constraint: 'c177b528a2d35c24666773e5c0f6df8266b6594d5977681d629d280fe387fe42'
+  cache_shas:
+    meta: '6d0840148a78a8d0c96383571ba9f1a4e742f9927124ae82789c62ea834ebbd6'
+    provenance: '9433c27217c3e3e149eba81ed9d433b86b3e5a8d118b4bd05e57889d1f4f9909'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'

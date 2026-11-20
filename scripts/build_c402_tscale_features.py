@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """C402 feature build — real USDT-M linear perp cross-sectional intraday
-TSCALE: REALIZED QUARTICITY & QUARTICITY-VOL RATIO raw inputs: trailing
-log-return quarticity and quarticity-to-variance-squared ratio over trailing
-returns — never used in C281B–C400 or the immediately preceding campaign.
+TSCALE: MULTI-SCALE TAIL-EXPONENT (HILL) PROFILE raw inputs: trailing log-returns
+over a fixed intrinsic window W=256 from which the runner derives, per bar t:
+
+    sort |X| descending a_(1)>=...>=a_(W); for k in {12,24,48} exceedances fit
+    the Hill tail-index alpha_k = k / sum_{i=1..k} ln(a_(i) / a_(k+1));
+
+signals tscale_alpha12, tscale_alpha24, tscale_alpha48 (smaller alpha = fatter
+tail) and tscale_slope = (alpha_12 - alpha_48) / ln(48/12) (scale-dependence of
+the tail exponent — multi-scaling / departure from a pure Pareto law). NaN if
+t<W or any NaN in window or a_(k+1) <= 0 or denominator <= 0 or not finite.
+last_move_dir[t] = sign(r[t]).
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
@@ -16,27 +24,22 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner derives the causal per-bar TSCALE scalars over a fixed intrinsic
-window W=256 bars ending at bar t, over trailing log returns X = r[t-W+1 .. t]:
+The runner derives the causal per-bar TSCALE Hill scalars over W=256 trailing
+log returns X=r[t-W+1..t] ending at bar t, then applies the causal seasonal
+(weekday x tod) baseline (shift(1), min_periods=3) and the cross-sectional
+dollar-neutral single-leg perp PnL with costs on turnover.
 
-    rv[t]     = sum_i x_i^2                              (realized variance)
-    rq[t]     = (1/W) sum_i x_i^4                        (realized quarticity)
-    rvq_ratio[t] = rq[t] / max(rv[t]^2, 1e-12)           (quarticity / RV^2)
+TSCALE is genuinely distinct from all prior families C281B–C401: it is the
+multi-scale tail-exponent profile (Hill at three thresholds plus the
+scale-dependence slope), distinct from C362 Hill (single n_exceed=12 only),
+C366 RQV (top-k concentration of squared returns), C401 RVQUART (quarticity /
+RV^2), C396 MAGNET (magnitude Shannon entropy), C378 VOVR (cross-sub-block RV
+dispersion), and C361/C371 (raw skew/kurt central moments). Price-only
+(perp_close), volume-free. Cache stays under the 100 MB budget. Read-only reuse
+of real on-disk data — no network, no fabrication, no resampling, no imputation.
 
-NaN if t<W or any NaN/non-finite in window, or rv<=0 or not finite.
-last_move_dir[t] = sign(r[t]).
-
-TSCALE is genuinely distinct from all prior families C281B–C400: it is the
-quarticity / variance-squared ratio family (a direct estimator of the variance
-of realized variance, i.e. vol-of-vol squared), distinct from C366 RQV
-(top-k concentration of squared returns), C378 VOVR (cross-sub-block RV
-dispersion), C317 RV (total magnitude only), C362 Hill (EVT tail index),
-C361/C371 (raw skew/kurt central moments). Price-only (perp_close),
-volume-free. Cache stays under the 100 MB budget. Read-only reuse of real
-on-disk data — no network, no fabrication, no resampling, no imputation.
-
-C402 is genuinely distinct from all prior families C281B–C400 and the
-immediately preceding campaign (KTREND, C400).
+C402 is genuinely distinct from all prior families C281B–C401 and the
+immediately preceding campaign (RVQUART, C401).
 """
 
 from __future__ import annotations
@@ -338,18 +341,19 @@ def main(argv: list[str] | None = None) -> int:
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
-            "abs_ret=|log_return|; "
-            "funding_rate all-NaN control (USDT-M funding unreachable). "
-            "Runner derives TSCALE scalars over fixed intrinsic window W=256 trailing "
-            "log returns X=r[t-W+1..t] ending at bar t: "
-            "rv[t]=sum(x_i^2) (realized variance); "
-            "rq[t]=(1/W)*sum(x_i^4) (realized quarticity / raw 4th moment); "
-            "rvq_ratio[t]=rq[t]/max(rv[t]^2,1e-12) (quarticity-to-variance-squared "
-            "ratio, tail-weight / kurtosis concentration). "
-            "NaN if t<W or any NaN/non-finite in window or rv<=0 or not finite. "
-            "Seasonal deviation of rvq_ratio and rq at same (weekday,tod) bucket "
-            "from history strictly before bar t (causal shift(1)), NaN-aware "
-            "min_periods=3."
+            "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
+            "unreachable). Runner derives the causal per-bar TSCALE multi-scale "
+            "tail-exponent profile over fixed intrinsic window W=256 trailing log "
+            "returns X=r[t-W+1..t] ending at bar t: sort |X| descending "
+            "a_(1)>=...>=a_(W); for k in {12,24,48} fit the Hill tail-index "
+            "alpha_k = k / sum_{i=1..k} ln(a_(i)/a_(k+1)); signals "
+            "tscale_alpha12, tscale_alpha24, tscale_alpha48 (smaller alpha = "
+            "fatter tail) and tscale_slope = (alpha_12 - alpha_48)/ln(48/12) "
+            "(scale-dependence / departure from a pure Pareto law). NaN if "
+            "t<W or any NaN/non-finite in window or a_(k+1)<=0 or denominator "
+            "<=0 or not finite. Seasonal deviation of each TSCALE scalar at the "
+            "same (weekday,tod) bucket from history strictly before bar t "
+            "(causal shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
         "network_ingest": False,
@@ -364,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; rv/rq/rvq_ratio NaN where t<W or any NaN/non-finite in the W-bar trailing return window or rv<=0 or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; TSCALE Hill scalars NaN where t<W or any NaN/non-finite in the W-bar trailing return window or a_(k+1)<=0 or denominator<=0 or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }

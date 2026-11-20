@@ -1,6 +1,6 @@
-"""Tests for C401 runner (scripts/run_c401_rvquart_xsec_oos.py): pure-function tests on
-synthetic arrays (including a brute-force equality test for the vectorized RVQUART
-rv / rq / rvq_ratio kernels vs the per-window reference) plus schema/flag
+"""Tests for C402 runner (scripts/run_c402_tscale_xsec_oos.py): pure-function tests
+on synthetic arrays (including a brute-force equality test for the vectorized TSCALE
+multi-scale Hill tail-exponent kernel vs the per-window reference) plus schema/flag
 validation of emitted real-data artifacts. No network, no fabricated market data."""
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c401_rvquart_xsec_oos as R  # noqa: E402
+import run_c402_tscale_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -38,16 +38,18 @@ def test_holm_and_bh_monotone_and_bounded():
 
 
 def test_n_trials_matches_pre_registered_grid_product():
-    assert R.N_TRIALS == 1296
-    assert len(R.SIGNALS) == 4
+    assert R.N_TRIALS == 2592
+    assert len(R.SIGNALS) == 8
     assert len(R.LOOKBACKS) == 6
     assert len(R.REBALANCES) == 3
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("rvq_ratio_placebo", "rq_placebo"):
+    for pb in ("tscale_alpha12_placebo", "tscale_alpha24_placebo",
+               "tscale_alpha48_placebo", "tscale_slope_placebo"):
         assert pb in R.SIGNALS
-    for real in ("rvq_ratio_dev", "rq_dev"):
+    for real in ("tscale_alpha12_dev", "tscale_alpha24_dev",
+                 "tscale_alpha48_dev", "tscale_slope_dev"):
         assert real in R.SIGNALS
 
 
@@ -109,16 +111,17 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- RVQUART metric (brute-force equality)
-def test_rvquart_matches_brute_force():
-    """The vectorized RVQUART rv / rq / rvq_ratio kernels MUST equal the
-    brute-force reference (per-window sum(x^2), mean(x^4), rq/max(rv^2,1e-12)).
-    Compared strictly (maxdiff < 1e-12) with matching NaN patterns."""
-    rng = np.random.default_rng(20261265)
+# ---------------------------------------------------------------- TSCALE metric (brute-force equality)
+def test_tscale_matches_brute_force():
+    """The vectorized TSCALE multi-scale Hill kernel MUST equal the brute-force
+    reference (per-window sort |X|, Hill alpha_k = k/sum(ln(a_i/a_(k+1))) for
+    k in {12,24,48} + slope). Compared strictly (maxdiff < 1e-12) with matching
+    NaN patterns."""
+    rng = np.random.default_rng(20261266)
     log_return = rng.standard_normal(4000) * 0.001
-    fast = R.compute_rvquart_metrics(log_return, R.RVQUART_W)
-    brute = R._rvquart_bruteforce(log_return, R.RVQUART_W)
-    for key in ("rv", "rq", "rvq_ratio"):
+    fast = R.compute_tscale_metrics(log_return, R.TSCALE_W)
+    brute = R._tscale_bruteforce(log_return, R.TSCALE_W)
+    for key in ("tscale_alpha12", "tscale_alpha24", "tscale_alpha48", "tscale_slope"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
@@ -127,74 +130,49 @@ def test_rvquart_matches_brute_force():
         assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
 
 
-def test_rvquart_constant_returns():
-    """Constant nonzero returns: rv=W*c^2, rq=c^4, rvq_ratio=c^4/(W*c^2)^2=1/W^2."""
-    W = R.RVQUART_W
-    c = 0.001
-    log_return = np.concatenate([np.zeros(W - 1), np.full(W, c)])
-    m = R.compute_rvquart_metrics(log_return, W)
-    t = 2 * W - 2
-    assert np.isclose(m["rv"][t], W * c * c, atol=1e-15)
-    assert np.isclose(m["rq"][t], c ** 4, atol=1e-18)
-    assert np.isclose(m["rvq_ratio"][t], 1.0 / (W * W), atol=1e-15)
-
-
-def test_rvquart_defined_after_window_nan_before():
+def test_tscale_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     log_return = rng.standard_normal(4000) * 0.001
-    m = R.compute_rvquart_metrics(log_return, R.RVQUART_W)
-    W = R.RVQUART_W
-    for key in ("rv", "rq", "rvq_ratio"):
+    m = R.compute_tscale_metrics(log_return, R.TSCALE_W)
+    W = R.TSCALE_W
+    for key in ("tscale_alpha12", "tscale_alpha24", "tscale_alpha48", "tscale_slope"):
         assert np.isnan(m[key][:W]).all(), key
         assert np.isfinite(m[key][W:]).any(), key
 
 
-def test_rvquart_non_finite_return_propagates():
-    """A non-finite return in the window -> NaN for all RVQUART outputs in affected bars."""
+def test_tscale_non_finite_return_propagates():
+    """A non-finite return in the window -> NaN for all TSCALE outputs in affected bars."""
     rng = np.random.default_rng(9)
     log_return = rng.standard_normal(600) * 0.001
     log_return[300] = np.inf
-    W = R.RVQUART_W
-    m = R.compute_rvquart_metrics(log_return, W)
+    W = R.TSCALE_W
+    m = R.compute_tscale_metrics(log_return, W)
     for t in range(300, min(300 + W, 600)):
-        assert np.isnan(m["rv"][t]), f"rv t={t} should be NaN"
-        assert np.isnan(m["rq"][t]), f"rq t={t} should be NaN"
-        assert np.isnan(m["rvq_ratio"][t]), f"rvq_ratio t={t} should be NaN"
+        assert np.isnan(m["tscale_alpha12"][t]), f"tscale_alpha12 t={t} should be NaN"
+        assert np.isnan(m["tscale_slope"][t]), f"tscale_slope t={t} should be NaN"
     for t in range(W, 300):
-        assert np.isfinite(m["rv"][t]), f"rv t={t} should be finite"
+        assert np.isfinite(m["tscale_alpha12"][t]), f"tscale_alpha12 t={t} should be finite"
     for t in range(300 + W, 600):
-        assert np.isfinite(m["rv"][t]), f"rv t={t} should be finite"
+        assert np.isfinite(m["tscale_alpha12"][t]), f"tscale_alpha12 t={t} should be finite"
 
 
-def test_rvquart_params():
-    assert R.RVQUART_W == 256
-
-
-def test_rvquart_constant_returns_edge_case():
-    """Constant returns -> rv>0, rq=c^4, rvq_ratio=1/W^2 (matches brute force)."""
-    log_return = np.ones(600) * 0.001
-    fast = R.compute_rvquart_metrics(log_return, R.RVQUART_W)
-    brute = R._rvquart_bruteforce(log_return, R.RVQUART_W)
-    for key in ("rv", "rq", "rvq_ratio"):
-        fv, fb = fast[key], brute[key]
-        assert np.array_equal(np.isnan(fv), np.isnan(fb)), key
-        fin = np.isfinite(fv) & np.isfinite(fb)
-        maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
-        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
+def test_tscale_params():
+    assert R.TSCALE_W == 256
+    assert tuple(R.K_VALS) == (12, 24, 48)
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "rvq_ratio_dev": "rvq_ratio_dev",
-        "rq_dev": "rq_dev",
+        "tscale_alpha12_dev": "tscale_alpha12_dev",
+        "tscale_slope_dev": "tscale_slope_dev",
     }
-    assert R.PLACEBO_SEED == 20261265
+    assert R.PLACEBO_SEED == 20261266
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.RVQUART_W == 256
-    assert R.SIGNALS[0] == "rvq_ratio_dev"
+    assert R.TSCALE_W == 256
+    assert R.SIGNALS[0] == "tscale_alpha12_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -223,8 +201,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"rv", "rq", "rvq_ratio"}
-    for k in ("rv", "rq", "rvq_ratio"):
+    assert set(series.keys()) == {"tscale_alpha12", "tscale_alpha24", "tscale_alpha48", "tscale_slope"}
+    for k in ("tscale_alpha12", "tscale_alpha24", "tscale_alpha48", "tscale_slope"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -241,63 +219,26 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_rvquart_kernel_not_degenerate():
-    """Rewrite guard: RVQUART metrics are not degenerate (not allclose to 0 where defined)."""
+def test_tscale_kernel_not_degenerate():
+    """Rewrite guard: TSCALE metrics are not degenerate (not allclose to 0 where defined)."""
     rng = np.random.default_rng(55)
     log_return = rng.standard_normal(1600) * 0.001
-    W = R.RVQUART_W
-    mm = R.compute_rvquart_metrics(log_return, W)
-    rv = mm["rv"]
-    rq = mm["rq"]
-    rvq = mm["rvq_ratio"]
-    rv_valid = rv[W:]
-    rq_valid = rq[W:]
-    rvq_valid = rvq[W:]
-    fin = np.isfinite(rv_valid) & np.isfinite(rq_valid) & np.isfinite(rvq_valid)
+    W = R.TSCALE_W
+    mm = R.compute_tscale_metrics(log_return, W)
+    a12 = mm["tscale_alpha12"]
+    a24 = mm["tscale_alpha24"]
+    a48 = mm["tscale_alpha48"]
+    slope = mm["tscale_slope"]
+    fin = np.isfinite(a12) & np.isfinite(a24) & np.isfinite(a48) & np.isfinite(slope)
     assert fin.sum() > 0
-    assert not np.allclose(rv_valid[fin], 0.0, atol=1e-12), "RV collapses to 0"
-    assert not np.allclose(rq_valid[fin], 0.0, atol=1e-18), "RQ collapses to 0"
-    assert not np.allclose(rvq_valid[fin], 0.0, atol=1e-12), "RVQ_RATIO collapses to 0"
+    for name, arr in (("tscale_alpha12", a12), ("tscale_alpha24", a24),
+                      ("tscale_alpha48", a48), ("tscale_slope", slope)):
+        valid = arr[fin]
+        assert not np.allclose(valid, 0.0, atol=1e-12), f"{name} collapses to 0"
 
 
-def _rvq_style_stat(X, W):
-    """Inline RQV-style stat: top-k concentration of squared returns (C366 RQV)."""
-    n = len(X)
-    out = np.full(n, np.nan)
-    top_k = 16
-    for t in range(W, n):
-        Xw = X[t - W + 1:t + 1]
-        if not np.isfinite(Xw).all():
-            continue
-        s2 = Xw ** 2
-        total = float(np.sum(s2))
-        if total <= 0:
-            continue
-        top_share = float(np.sum(np.sort(s2)[-top_k:])) / total
-        out[t] = top_share
-    return out
-
-
-def _vovr_style_stat(X, W):
-    """Inline VOVR-style stat: std of sub-block RV / mean sub-block RV (C378 VOVR)."""
-    n = len(X)
-    out = np.full(n, np.nan)
-    n_blocks = 16
-    blk = W // n_blocks
-    for t in range(W, n):
-        Xw = X[t - W + 1:t + 1]
-        if not np.isfinite(Xw).all():
-            continue
-        block_rvs = [float(np.sum(Xw[i * blk:(i + 1) * blk] ** 2)) for i in range(n_blocks)]
-        mean_rv = float(np.mean(block_rvs))
-        if mean_rv <= 0:
-            continue
-        out[t] = float(np.std(block_rvs)) / mean_rv
-    return out
-
-
-def _hill_style_stat(X, W, n_exceed=12):
-    """Inline Hill tail-index stat (C362 Hill)."""
+def _hill_single_style_stat(X, W, n_exceed=12):
+    """Inline C362 Hill single-scale tail-index (n_exceed=12 only)."""
     n = len(X)
     out = np.full(n, np.nan)
     for t in range(W, n):
@@ -318,89 +259,155 @@ def _hill_style_stat(X, W, n_exceed=12):
     return out
 
 
-def test_rvquart_kernel_distinct_from_rqv():
-    """Rewrite guard: RVQUART rvq_ratio is a different object from RQV top-k
-    concentration of squared returns on the same random data."""
+def _rqv_style_stat(X, W):
+    """Inline C366 RQV: top-k concentration of squared returns."""
+    n = len(X)
+    out = np.full(n, np.nan)
+    top_k = 16
+    for t in range(W, n):
+        Xw = X[t - W + 1:t + 1]
+        if not np.isfinite(Xw).all():
+            continue
+        s2 = Xw ** 2
+        total = float(np.sum(s2))
+        if total <= 0:
+            continue
+        top_share = float(np.sum(np.sort(s2)[-top_k:])) / total
+        out[t] = top_share
+    return out
+
+
+def _vovr_style_stat(X, W):
+    """Inline C378 VOVR: std of sub-block RV / mean sub-block RV."""
+    n = len(X)
+    out = np.full(n, np.nan)
+    n_blocks = 16
+    blk = W // n_blocks
+    for t in range(W, n):
+        Xw = X[t - W + 1:t + 1]
+        if not np.isfinite(Xw).all():
+            continue
+        block_rvs = [float(np.sum(Xw[i * blk:(i + 1) * blk] ** 2)) for i in range(n_blocks)]
+        mean_rv = float(np.mean(block_rvs))
+        if mean_rv <= 0:
+            continue
+        out[t] = float(np.std(block_rvs)) / mean_rv
+    return out
+
+
+def _magnet_style_stat(X, W):
+    """Inline C396 MAGNET: Shannon entropy of |return| magnitude histogram."""
+    n = len(X)
+    out = np.full(n, np.nan)
+    for t in range(W, n):
+        Xw = np.abs(X[t - W + 1:t + 1])
+        if not np.isfinite(Xw).all():
+            continue
+        hist, _ = np.histogram(Xw, bins=10)
+        p = hist / hist.sum()
+        p = p[p > 0]
+        out[t] = -float(np.sum(p * np.log(p)))
+    return out
+
+
+def test_tscale_kernel_distinct_from_hill_single():
+    """Rewrite guard: TSCALE multi-scale Hill profile is a different object from
+    C362 Hill single-scale (n_exceed=12) on the same random data."""
     rng = np.random.default_rng(123)
     log_return = rng.standard_normal(1200) * 0.001
-    W = R.RVQUART_W
-    mm = R.compute_rvquart_metrics(log_return, W)
-    rvq = mm["rvq_ratio"][W:]
-    rqv = _rvq_style_stat(log_return, W)[W:]
-    fin = np.isfinite(rvq) & np.isfinite(rqv)
+    W = R.TSCALE_W
+    mm = R.compute_tscale_metrics(log_return, W)
+    slope = mm["tscale_slope"][W:]
+    hill12 = _hill_single_style_stat(log_return, W)[W:]
+    fin = np.isfinite(slope) & np.isfinite(hill12)
     assert fin.sum() > 0
-    assert not np.allclose(rvq[fin], rqv[fin], atol=1e-6), "RVQ_RATIO degenerates to RQV stat"
+    assert not np.allclose(slope[fin], hill12[fin], atol=1e-6), "TSCALE slope degenerates to single-scale Hill"
 
 
-def test_rvquart_kernel_distinct_from_vovr():
-    """Rewrite guard: RVQUART rvq_ratio is a different object from VOVR
-    cross-sub-block RV dispersion on the same random data."""
+def test_tscale_kernel_distinct_from_rqv():
+    """Rewrite guard: TSCALE is a different object from C366 RQV top-k
+    concentration of squared returns on the same random data."""
     rng = np.random.default_rng(124)
     log_return = rng.standard_normal(1200) * 0.001
-    W = R.RVQUART_W
-    mm = R.compute_rvquart_metrics(log_return, W)
-    rvq = mm["rvq_ratio"][W:]
-    vovr = _vovr_style_stat(log_return, W)[W:]
-    fin = np.isfinite(rvq) & np.isfinite(vovr)
+    W = R.TSCALE_W
+    mm = R.compute_tscale_metrics(log_return, W)
+    slope = mm["tscale_slope"][W:]
+    rqv = _rqv_style_stat(log_return, W)[W:]
+    fin = np.isfinite(slope) & np.isfinite(rqv)
     assert fin.sum() > 0
-    assert not np.allclose(rvq[fin], vovr[fin], atol=1e-6), "RVQ_RATIO degenerates to VOVR stat"
+    assert not np.allclose(slope[fin], rqv[fin], atol=1e-6), "TSCALE degenerates to RQV stat"
 
 
-def test_rvquart_kernel_distinct_from_hill():
-    """Rewrite guard: RVQUART rvq_ratio is a different object from Hill tail-index
-    on the same random data."""
+def test_tscale_kernel_distinct_from_vovr():
+    """Rewrite guard: TSCALE is a different object from C378 VOVR
+    cross-sub-block RV dispersion on the same random data."""
     rng = np.random.default_rng(125)
     log_return = rng.standard_normal(1200) * 0.001
-    W = R.RVQUART_W
-    mm = R.compute_rvquart_metrics(log_return, W)
-    rvq = mm["rvq_ratio"][W:]
-    hill = _hill_style_stat(log_return, W)[W:]
-    fin = np.isfinite(rvq) & np.isfinite(hill)
+    W = R.TSCALE_W
+    mm = R.compute_tscale_metrics(log_return, W)
+    slope = mm["tscale_slope"][W:]
+    vovr = _vovr_style_stat(log_return, W)[W:]
+    fin = np.isfinite(slope) & np.isfinite(vovr)
     assert fin.sum() > 0
-    assert not np.allclose(rvq[fin], hill[fin], atol=1e-6), "RVQ_RATIO degenerates to Hill stat"
+    assert not np.allclose(slope[fin], vovr[fin], atol=1e-6), "TSCALE degenerates to VOVR stat"
+
+
+def test_tscale_kernel_distinct_from_magnet():
+    """Rewrite guard: TSCALE is a different object from C396 MAGNET magnitude
+    Shannon entropy on the same random data."""
+    rng = np.random.default_rng(126)
+    log_return = rng.standard_normal(1200) * 0.001
+    W = R.TSCALE_W
+    mm = R.compute_tscale_metrics(log_return, W)
+    a12 = mm["tscale_alpha12"][W:]
+    magnet = _magnet_style_stat(log_return, W)[W:]
+    fin = np.isfinite(a12) & np.isfinite(magnet)
+    assert fin.sum() > 0
+    assert not np.allclose(a12[fin], magnet[fin], atol=1e-6), "TSCALE alpha12 degenerates to MAGNET stat"
 
 
 # ---------------------------------------------------------------- guard tests (rewrite guards)
-def test_artifact_campaign_is_401():
-    """Rewrite guard: every emitted artifact self-identifies campaign 401 (never 400/401)."""
+def test_artifact_campaign_is_402():
+    """Rewrite guard: every emitted artifact self-identifies campaign 402."""
     for part in ("verdict", "summary", "registry", "oos_sweep"):
-        files = sorted((ROOT / "reports").glob(f"campaign401_{part}_*.json"))
+        files = sorted((ROOT / "reports").glob(f"campaign402_{part}_*.json"))
         files = [f for f in files if ".full." not in f.name]
         if not files:
             continue
         obj = json.loads(files[-1].read_text())
-        assert obj["campaign"] == 401, f"{part} artifact campaign != 401: {obj.get('campaign')}"
+        assert obj["campaign"] == 402, f"{part} artifact campaign != 402: {obj.get('campaign')}"
 
 
-def test_mandate_contains_rvquart():
-    """Rewrite guard: the C401 mandate names RVQUART realized quarticity / RV^2 ratio
-    (never KTREND/CBREAK/SPECFM/MAGNET/OUHALFLIFE/CTES/VTERM/DDRUN/XSKEW3/XCOEX/MINRV/MADR/BANDX/PRROUGH/HALFRANGE/LMOM)."""
-    p = sorted((ROOT / "reports").glob("campaign401_oos_sweep_*.json"))
+def test_mandate_contains_tscale():
+    """Rewrite guard: the C402 mandate names TSCALE multi-scale Hill tail-exponent
+    (never RVQUART/KTREND/CBREAK/SPECFM/MAGNET/OUHALFLIFE/CTES/VTERM/DDRUN/
+    XSKEW3/XCOEX/MINRV/MADR/BANDX/PRROUGH/HALFRANGE/LMOM/SEMICOV)."""
+    p = sorted((ROOT / "reports").glob("campaign402_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "RVQUART" in mandate, "mandate missing RVQUART"
-    assert "QUARTICITY" in mandate, "mandate missing QUARTICITY"
-    for bad in ("KTREND", "CBREAK", "SPECFM", "MAGNET", "OUHALFLIFE", "CTES", "VTERM",
-                "DDRUN", "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX",
-                "PRROUGH", "HALFRANGE", "LMOM", "KENDALL", "SPEARMAN"):
+    assert "TSCALE" in mandate, "mandate missing TSCALE"
+    assert "HILL" in mandate, "mandate missing HILL"
+    for bad in ("RVQUART", "QUARTICITY", "KTREND", "CBREAK", "SPECFM", "MAGNET", "OUHALFLIFE",
+                "CTES", "VTERM", "DDRUN", "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX",
+                "PRROUGH", "HALFRANGE", "LMOM", "KENDALL", "SPEARMAN", "SEMICOV"):
         assert bad not in mandate, f"mandate must not reference {bad} (prior campaign)"
 
 
-def test_placebo_seed_is_20261265():
-    assert R.PLACEBO_SEED == 20261265
+def test_placebo_seed_is_20261266():
+    assert R.PLACEBO_SEED == 20261266
 
 
 def test_placebo_seed_unique_not_reserved():
-    """Rewrite guard: C401 placebo seed 20261265 must not collide with reserved
-    seeds 20261224–20261264 used by prior campaigns (20261264 = C400)."""
-    assert not (20261224 <= R.PLACEBO_SEED <= 20261264), "placebo seed must be outside 20261224-20261264"
+    """Rewrite guard: C402 placebo seed 20261266 must not collide with reserved
+    seeds 20261224–20261265 used by prior campaigns (20261265 = C401)."""
+    assert not (20261224 <= R.PLACEBO_SEED <= 20261265), "placebo seed must be outside 20261224-20261265"
 
 
 # ---------------------------------------------------------------- real artifacts schema (if present)
 def _find_latest(prefix: str):
-    files = sorted((ROOT / "reports").glob(f"campaign401_{prefix}_*.json"))
+    files = sorted((ROOT / "reports").glob(f"campaign402_{prefix}_*.json"))
     files = [f for f in files if ".full." not in f.name]
     return files[-1] if files else None
 
@@ -410,7 +417,7 @@ def test_artifacts_if_present_have_required_flags():
     if p is None:
         return
     v = json.loads(p.read_text())
-    assert v["campaign"] == 401
+    assert v["campaign"] == 402
     assert v["real_data_only"] is True and v["fabricated_data"] is False
     assert v["executed_fills"] is False
     assert v["verdict"] in ("EDGE_PROVEN", "RETRACTED")
@@ -424,30 +431,8 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["rvquart_params"]["window_W"] == 256
-
-
-def test_cache_meta_rvquart_params_distinct():
-    meta_path = ROOT / "data" / "cache" / "campaign401_rvquart_5m.meta.json"
-    if not meta_path.exists():
-        return
-    meta = json.loads(meta_path.read_text())
-    assert meta["campaign"] == 401
-    assert meta["source_campaign"] == 312
-    assert "rvquart_params" in meta
-    assert meta["rvquart_params"]["window_W"] == 256
-    for other in ("ktrend_params", "cbreak_params", "specfm_params", "magnet_params", "ces_params",
-                  "vterm_params", "ddrun_params", "semicov_params", "qspread_params",
-                  "rar_params", "lvac_params", "hill_params", "rskek_params",
-                  "opte_params", "qatm_params", "dsrv_params", "ker_params",
-                  "rqv_params", "bpv_params", "rmad_params", "gmd_params",
-                  "rskrkt_params", "tirv_params", "rlrv_params", "signrun_params",
-                  "acovk_params", "pslope_params", "vovr_params", "curv_params",
-                  "tailmem_params", "turningpt_params", "extpos_params",
-                  "prrough_params", "halfrange_params", "bandx_params",
-                  "madr_params", "minrv_params", "xcoex_params", "xskew3_params",
-                  "ou_params", "ou_halflife_params", "lmom_params"):
-        assert other not in meta
+    assert sw["config"]["tscale_params"]["window_W"] == 256
+    assert list(sw["config"]["tscale_params"]["k_vals"]) == [12, 24, 48]
 
 
 if __name__ == "__main__":
@@ -460,24 +445,22 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_rvquart_matches_brute_force()
-    test_rvquart_constant_returns()
-    test_rvquart_defined_after_window_nan_before()
-    test_rvquart_non_finite_return_propagates()
-    test_rvquart_params()
-    test_rvquart_constant_returns_edge_case()
+    test_tscale_matches_brute_force()
+    test_tscale_defined_after_window_nan_before()
+    test_tscale_non_finite_return_propagates()
+    test_tscale_params()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_rvquart_kernel_not_degenerate()
-    test_rvquart_kernel_distinct_from_rqv()
-    test_rvquart_kernel_distinct_from_vovr()
-    test_rvquart_kernel_distinct_from_hill()
-    test_artifact_campaign_is_401()
-    test_mandate_contains_rvquart()
-    test_placebo_seed_is_20261265()
+    test_tscale_kernel_not_degenerate()
+    test_tscale_kernel_distinct_from_hill_single()
+    test_tscale_kernel_distinct_from_rqv()
+    test_tscale_kernel_distinct_from_vovr()
+    test_tscale_kernel_distinct_from_magnet()
+    test_artifact_campaign_is_402()
+    test_mandate_contains_tscale()
+    test_placebo_seed_is_20261266()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    test_cache_meta_rvquart_params_distinct()
-    print("All C401 RVQUART runner tests passed")
+    print("All C402 TSCALE runner tests passed")

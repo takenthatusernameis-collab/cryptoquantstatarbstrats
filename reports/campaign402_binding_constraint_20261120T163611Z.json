@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261120T163611Z",
+  "campaign": 402,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign402_oos_sweep_20261120T163611Z.json",
+  "oos_sweep_sha256": "6e9dc4368a978cec9f03e66b43f1e181bc88db6fda758c40697861f01663bae9",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "tscale_alpha12_dev": 0.08777535224638823,
+    "tscale_alpha24_dev": 0.09921878375616634,
+    "tscale_alpha48_dev": 0.10890135427169076,
+    "tscale_slope_dev": 0.10316257747158945,
+    "tscale_alpha12_placebo": 0.14402646023227544,
+    "tscale_alpha24_placebo": 0.14169140638376523,
+    "tscale_alpha48_placebo": 0.15416230222696412,
+    "tscale_slope_placebo": 0.16106176341116044
+  },
+  "dominant_attribution": "tscale_slope_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "tscale_alpha12_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.459395413714934,
+      -1.2644221304613759,
+      -1.1723331444531864,
+      -1.042623536838857,
+      -1.2888711086574258,
+      -1.2056070344270735,
+      -1.215008895652813,
+      -1.1209271845295303
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.134504011764719,
+    "second_half_sharpe": -20.285093378745216,
+    "sharpe_corr": 0.9996284868567906,
+    "stable": false
+  },
+  "diagnosis": "C402 cross-sectional intraday TSCALE multi-scale tail-exponent (Hill) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C402 preflight: fail-closed verification of the real C402 USDT-M
-cross-sectional intraday TSCALE: REALIZED QUARTICITY & QUARTICITY-VOL RATIO
-feature cache before the C402 runner sweeps the pre-registered costed OOS grid.
+cross-sectional intraday TSCALE multi-scale tail-exponent (Hill) feature cache
+before the C402 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
@@ -134,6 +134,7 @@ def main() -> int:
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
         and meta.get("tscale_params", {}).get("window_W") == 256
+        and list(meta.get("tscale_params", {}).get("k_vals") or []) == [12, 24, 48]
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -236,7 +237,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where TSCALE scalars t<W or any NaN/non-finite in window or rv<=0 or not finite. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where TSCALE Hill scalars t<W or any NaN/non-finite in window or a_(k+1)<=0 or denominator<=0 or not finite. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:

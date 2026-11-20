@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
 """C402 — rigorous costed out-of-sample test of the cross-sectional intraday
-TSCALE: REALIZED QUARTICITY & QUARTICITY-VOL RATIO x SEASONAL-DISLOCATION
-mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296
-pre-registered configs).
+TSCALE: MULTI-SCALE TAIL-EXPONENT (HILL) x SEASONAL-DISLOCATION mean-reversion
+stat-arb family on 10 USDT-M linear perps at native 5m (2592 pre-registered
+configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 -----------------------------------------------------------------
-C281B–C400 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
+C281B–C401 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
 premium/index/mark basis, quarterly term-structure, same-asset spot-perp
 lead-lag, autocorrelation/chop/vol-clustering/close-envelope/rescaled-range/
 drawdown-duration/realized-variance-concentration/permutation-entropy/DFA
 alpha/GPH d/local-Whittle d/variance-ratio/Higuchi/SampEn/MSE/LZC/MF-DFA h(q)/
 ordinal-pattern-transition-entropy families, leverage/volatility-asymmetry
 coupling (LVAC, C360), raw return skewness & excess kurtosis (RSKEK, C361),
-Hill tail-index / tail asymmetry (Hill, C362), quantile asymmetry & tail-mass
-(QATM, C363), realized semivariance / downside-upside decomposition (DSRV,
-C364), Kaufman efficiency ratio / path-straightness (KER, C365), realized
-quartic variation / kurtosis-concentration of squared returns (RQV, C366),
-bipower variation / jump-activity ratio (BPV/JAR, C367), median-based robust
-dispersion (RMAD/RABS, C368), robust-dispersion L-estimator / quantile-spread
-(GMD/IQR, C369), realized absolute return & mean absolute deviation (RAR/MADM,
-C370), realized skewness & realized kurtosis (RSK/RKT, C371), realized
-time-irreversibility / lagged-product cumulants (TIRV, C372), realized
-Lévy/jump-robust MedRV (RLRV, C373), signed run-length asymmetry (SIGNRUN,
-C374), multi-lag realized autocovariance profile (ACOVK, C375), realized
-quantile spread profile (QSPREAD, C376), window OLS trend-slope t-statistic
-(PSLOPE, C377), volatility-of-volatility ratio (VOVR, C378), window
+Hill tail-index / tail asymmetry (single n_exceed=12, C362), quantile
+asymmetry & tail-mass (QATM, C363), realized semivariance / downside-upside
+decomposition (DSRV, C364), Kaufman efficiency ratio / path-straightness (KER,
+C365), realized quartic variation / kurtosis-concentration of squared returns
+(RQV, C366), bipower variation / jump-activity ratio (BPV/JAR, C367), median-
+based robust dispersion (RMAD/RABS, C368), robust-dispersion L-estimator /
+quantile-spread (GMD/IQR, C369), realized absolute return & mean absolute
+deviation (RAR/MADM, C370), realized skewness & realized kurtosis (RSK/RKT,
+C371), realized time-irreversibility / lagged-product cumulants (TIRV, C372),
+realized Levee/jump-robust MedRV (RLRV, C373), signed run-length asymmetry
+(SIGNRUN, C374), multi-lag realized autocovariance profile (ACOVK, C375),
+realized quantile spread profile (QSPREAD, C376), window OLS trend-slope
+t-statistic (PSLOPE, C377), volatility-of-volatility ratio (VOVR, C378), window
 quadratic-trend curvature (CURV, C379), signed-conditional lag covariance
 family (SEMICOV, C380), extreme-indicator persistence (TAILMEM, C382),
-second-difference turning-point rate (TURNINGPT, C383), extremum-timing
+second-difference turning-point rate (TURNINGPT-R, C383), extremum-timing
 asymmetry (EXTPOS, C384), window amplitude half-life asymmetry (HALFRANGE,
 C385), price-path second-difference roughness (PRROUGH, C386),
 normalized-band crossing intensity asymmetry (BANDX, C387),
@@ -38,32 +38,34 @@ extreme co-exceedance probability profile (XCOEX, C390),
 lag-1 cross third-moment time-irreversibility (XSKEW3, C391),
 max drawdown vs max run-up asymmetry (DDRUN, C392),
 front-half vs back-half realized variance asymmetry (VTERM, C393),
-conditional tail expectation / expected shortfall tail spread & asymmetry (CTES, C394),
-OU mean-reversion half-life (OUHALFLIFE, C395), magnitude-distribution Shannon
-entropy (MAGNET, C396), spectral flatness / spectral entropy (SPECFM, C397),
-L-moment skewness / kurtosis (LMOM, C398), window CUSUM break statistic &
-break-position tilt (CBREAK, C399), and the immediately preceding campaign
-(realized Kendall tau / Spearman rho trend, KTREND, C400).
+conditional tail expectation / expected shortfall tail spread & asymmetry
+(CTES, C394), OU mean-reversion half-life (OUHALFLIFE, C395),
+magnitude-distribution Shannon entropy (MAGNET, C396), spectral flatness /
+spectral entropy (SPECFM, C397), L-moment skewness / kurtosis (tau3, tau4)
+(LMOM, C398), window CUSUM break statistic & break-position tilt (CBREAK, C399),
+realized Kendall tau / Spearman rho trend (KTREND, C400), and the immediately
+preceding campaign (realized quarticity & quarticity-vol ratio, RVQUART, C401).
 
 C402 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of TSCALE quarticity / quarticity-vol-ratio scalars:
+DOW) seasonal deviation of the TSCALE multi-scale tail-exponent profile:
 
     For each bar t, trailing log returns X = r[t-W+1 .. t] (W=256),
     NaN if t<W or any NaN/non-finite:
-        rv[t]     = sum_i x_i^2                              (realized variance)
-        rq[t]     = (1/W) sum_i x_i^4                        (realized quarticity)
-        rvq_ratio[t] = rq[t] / max(rv[t]^2, 1e-12)           (quarticity / RV^2)
+        sort |X| descending a_(1) >= ... >= a_(W);
+        for k in {12, 24, 48}: alpha_k = k / sum_{i=1..k} ln(a_(i) / a_(k+1))
+                              (Hill tail-index; smaller alpha = fatter tail)
+        tscale_slope = (alpha_12 - alpha_48) / ln(48/12)
+                      (scale-dependence of the tail exponent, i.e. departure
+                       from a pure Pareto / single-power-law tail)
 
-i.e. rvq_ratio measures the tail-weight / kurtosis concentration of the
-squared-return distribution — a direct estimator of the variance of realized
-variance (vol-of-vol squared). NaN if rv<=0 or not finite.
+NaN if a_(k+1) <= 0 or denominator <= 0 or not finite. last_move_dir[t] =
+sign(r[t]).
 
-Distinct from every moment/tail/entropy/path family C281B–C400: TSCALE is
-the quarticity / variance-squared ratio family, never used before. It differs
-from C366 RQV (top-k concentration of squared returns), C378 VOVR
-(cross-sub-block RV dispersion), C317 RV (total magnitude only), C362 Hill
-(EVT tail index), C361/C371 (raw skew/kurt central moments), and C400 KTREND
-(rank-based monotonic trend). Price-only (perp_close), volume-free.
+This is a multi-scale tail-exponent profile (Hill at three thresholds plus the
+scale-dependence slope), genuinely distinct from C362 Hill (single n_exceed=12
+only), C366 RQV, C401 RVQUART, C396 MAGNET, C378 VOVR, and every moment/
+entropy/path family C281B–C401. Never used before. Price-only (perp_close),
+volume-free.
 """
 
 from __future__ import annotations
@@ -114,7 +116,7 @@ STABILITY_MIN_SHARPE_CORR = 0.50
 DOMINANT_SHARE_MIN = 0.50
 
 N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
-             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 1296
+             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 2592
 
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
@@ -304,14 +306,15 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- TSCALE: realized quarticity / RV^2 ratio
+# ------------------------------------------------------- TSCALE: multi-scale Hill tail-exponent profile
 TSCALE_W = 256
-
-
 K_VALS = (12, 24, 48)
 
 
 def _tscale_bruteforce(log_return, W=TSCALE_W, k_vals=K_VALS):
+    """Per-window reference Hill tail-index profile. Used by the brute-force
+    equality test. NaN if t<W, any NaN/non-finite in window, a_(k+1)<=0, or
+    denominator<=0 or not finite."""
     X = np.asarray(log_return, dtype=float)
     n = len(X)
     out = {}
@@ -362,8 +365,6 @@ def compute_tscale_metrics(log_return, W=TSCALE_W, k_vals=K_VALS):
 
     windows = sliding_window_view(np.abs(X), W)[1:]
     t_idx = np.arange(W, n)
-    win_finite = np.isfinite(windows).all(axis=1) & np.isfinite(X[:n]).all()  # approx
-    # proper finite check on original window
     orig_windows = sliding_window_view(X, W)[1:]
     win_finite = np.isfinite(orig_windows).all(axis=1)
 
@@ -385,10 +386,7 @@ def compute_tscale_metrics(log_return, W=TSCALE_W, k_vals=K_VALS):
     for k in k_vals:
         arr = np.full(n, np.nan, dtype=float)
         arr[t_idx] = alphas[k]
-        # mask invalid
         arr[t_idx[~valid_all]] = np.nan
-        # per-k validity already encoded via nan where invalid; but alphas[k] has nan only where v False? we set only v. good.
-        # ensure bars where this k invalid -> nan (already nan)
         out[f"tscale_alpha{k}"] = arr
 
     # slope
@@ -403,7 +401,7 @@ def compute_tscale_metrics(log_return, W=TSCALE_W, k_vals=K_VALS):
 
 def build_underlying(bs: dict) -> dict:
     """Compute the causal per-bar TSCALE metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): rv, rq, rvq_ratio."""
+    Returns dict with matrices (n_assets, n_bars): tscale_alpha12/24/48, tscale_slope."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
     log_return = bs["log_return"]
@@ -647,7 +645,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="rvq_ratio_dev", L=240, H=4,
+    ref_cfg = dict(signal="tscale_alpha12_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -776,29 +774,30 @@ def main(argv: list[str] | None = None) -> int:
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C402 — test the cross-sectional intraday TSCALE: REALIZED QUARTICITY "
-            "& QUARTICITY-VOL RATIO x SEASONAL-DISLOCATION "
-            "mean-reversion stat-arb family on 10 USDT-M linear perps at native "
-            "5m (1296 pre-registered configs). Per-bar primitives: perp_close "
+            "C402 — test the cross-sectional intraday TSCALE: MULTI-SCALE "
+            "TAIL-EXPONENT (HILL) x SEASONAL-DISLOCATION mean-reversion "
+            "stat-arb family on 10 USDT-M linear perps at native 5m "
+            "(2592 pre-registered configs). Per-bar primitives: perp_close "
             "real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
             "abs_ret=|log_return|. TSCALE scalars over fixed intrinsic window "
-            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-            "rv[t]=sum(x_i^2) (realized variance); "
-            "rq[t]=(1/W)*sum(x_i^4) (realized quarticity / raw 4th moment); "
-            "rvq_ratio[t]=rq[t]/max(rv[t]^2,1e-12) (quarticity-to-variance-squared "
-            "ratio, tail-weight / kurtosis concentration of the squared-return "
-            "distribution). NaN if t<W or any NaN/non-finite in window, rv<=0, "
-            "or not finite. Seasonal baseline = trailing mean/std at same "
-            "(weekday,tod) bucket from history strictly before bar t (causal "
-            "shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real "
-            "(rvq_ratio_dev, rq_dev) + 2 placebos (phase-randomized surrogates, "
-            "never edges). Single-leg dollar-neutral perp PnL with costs on "
-            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). "
-            "Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, "
-            "signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric "
-            "NaN unless sufficient finite obs and valid denominators; seasonal "
-            "stats NaN-aware min_periods excluding NaN obs; NaN-score bars "
-            "weight 0."
+            "W=256 trailing log returns X=r[t-W+1..t] ending at bar t: sort "
+            "|X| descending a_(1)>=...>=a_(W); for k in {12,24,48} fit the "
+            "Hill tail-index alpha_k = k / sum_{i=1..k} ln(a_(i)/a_(k+1)); "
+            "signals tscale_alpha12, tscale_alpha24, tscale_alpha48 (smaller "
+            "alpha = fatter tail) and tscale_slope = (alpha_12 - alpha_48) / "
+            "ln(48/12) (scale-dependence / departure from a pure Pareto law). "
+            "NaN if t<W or any NaN/non-finite in window, a_(k+1)<=0, "
+            "denominator<=0, or not finite. Seasonal baseline = trailing "
+            "mean/std at same (weekday,tod) bucket from history strictly "
+            "before bar t (causal shift(1)), NaN-aware, excluding NaN obs. "
+            "Signals: 4 real (tscale_alpha12/24/48_dev, tscale_slope_dev) + "
+            "4 placebos (phase-randomized surrogates, never edges). "
+            "Single-leg dollar-neutral perp PnL with costs on turnover "
+            "(taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
+            "alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
+            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs "
+            "and valid denominators; seasonal stats NaN-aware min_periods "
+            "excluding NaN obs; NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
@@ -815,7 +814,7 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "tscale_params": {"window_W": TSCALE_W},
+            "tscale_params": {"window_W": TSCALE_W, "k_vals": list(K_VALS)},
         },
         "gates": {
             "fail_closed": True,
@@ -835,30 +834,29 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or rv<=0 or not finite).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar return window or a_(k+1)<=0 or denominator<=0 or not finite).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
             "primitives": "fixed intrinsic window W=256 trailing log returns X=r[t-W+1..t] ending at bar t: "
-                          "rv=sum(x_i^2); rq=(1/W)*sum(x_i^4); rvq_ratio=rq/max(rv^2,1e-12).",
-            "signals": "rvq_ratio/rq over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+                          "sort |X| descending; Hill alpha_k = k / sum(ln(a_i/a_(k+1))) for k in {12,24,48}; "
+                          "tscale_slope=(alpha_12-alpha_48)/ln(48/12).",
+            "signals": "tscale_alpha12/24/48/slope over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
             "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
             "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
-            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
+            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
             "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
-            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "tscale_vectorization_note": "rv/rq/rvq_ratio via sliding_window_view(log_return, 256) per-asset; "
-                        "rv=sum(x^2), rq=mean(x^4), rvq_ratio=rq/max(rv^2,1e-12) over each W-bar trailing return window. "
-                        "Window-NaN enforced by finite-count and rv>0 over the W-bar trailing returns. "
-                        "Per-asset metric computation parallelized via ProcessPoolExecutor. "
-                        "Validated against brute-force per-window rv/rq/rvq_ratio with maxdiff < 1e-12 in tests.",
+            "tscale_vectorization_note": "tscale Hill scalars via sliding_window_view(abs(X), 256) + np.partition top-k + cumulative log-sums per-asset; "
+                         "validated against brute-force per-window Hill fit with maxdiff < 1e-12 in tests. "
+                         "Per-asset metric computation parallelized via ProcessPoolExecutor.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -919,12 +917,12 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C402 cross-sectional intraday TSCALE realized quarticity / RV^2 ratio stat-arb edge {verdict} "
+        f"C402 cross-sectional intraday TSCALE multi-scale tail-exponent (Hill) stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C402 cross-sectional intraday TSCALE realized quarticity / RV^2 ratio stat-arb edge validated: "
+        else f"C402 cross-sectional intraday TSCALE multi-scale tail-exponent (Hill) stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
@@ -948,7 +946,7 @@ def main(argv: list[str] | None = None) -> int:
         "hard_bans_honored": [
             "No synthetic/fabricated data; no relabeling existing caches as new",
             "No threshold/gate weakening; no cherry-picked windows/costs",
-            "No edge claim unless the costed OOS test survives Holm+BH over all 1296 configs",
+            "No edge claim unless the costed OOS test survives Holm+BH over all 2592 configs",
             "Real USDT-M linear 5m perp_close; funding excluded (control leg)",
             "Single-leg PnL with costs on turnover; executed_fills: false",
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
@@ -974,7 +972,7 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C402 cross-sectional intraday TSCALE realized quarticity / RV^2 ratio stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
+                "C402 cross-sectional intraday TSCALE multi-scale tail-exponent (Hill) stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }

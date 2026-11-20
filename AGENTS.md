@@ -4,10 +4,10 @@
 
 ## DISK TRUTH (re-verified 2026-11-20T12:55:00Z)
 
-- **C281B–C401 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C401.
-- **Frozen boundary = C401 RVQUART** (`20261120T095554Z`): 1296 configs costed-OOS, dominant attribution `rq_placebo` 0.5504, 32/32 tests green, cache `data/cache/campaign401_rvquart_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed this session and MATCH: oos_sweep `f8b2717b…a1e3`, registry `d66008e2…22da`, summary `bcef840c…05f7`, verdict `6623f227…cbec`, binding_constraint `0c4ee670…e89f` (full digests in `research_state/state.yaml`).
-- **C402 TSCALE is absent from disk** — re-verified `ls scripts tests | grep -c c402 == 0`, `ls data/cache | grep -c campaign402 == 0`, `ls reports | grep -c campaign402 == 0`. It is the ACTIVE campaign and is UNSTARTED.
-- **C402 VOID CLONE QUARANTINED THIS SESSION (2026-11-20T11:49:53Z).** Five files named `*c402*` were found on disk, but they were a rename-only clone of C401: `campaign: 401`, docstrings "C401 … RVQUART", `SIGNALS=(rvq_ratio_dev, rq_dev, …)`, `PLACEBO_SEED=20261265`, `CACHE_DIR=data/cache/campaign401_rvquart_5m`, report prefix `campaign401_*`. Running them would have overwritten frozen C401 artifacts. They were moved read-only to **`archive/void_c402_clone/`** (3 scripts, 2 tests). That quarantine is the ONLY reason the C402 slot is empty again. Evidence preserved for audit; never copy, import, fix, cite or re-run it.
+- **C281B–C402 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C402.
+- **Frozen boundary = C402 TSCALE** (`20261120T163611Z`): 2592 configs costed-OOS, dominant attribution `tscale_slope_placebo` 0.1611, 30/30 tests green, cache `data/cache/campaign402_tscale_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s were recomputed this session and MATCH: oos_sweep `6e9dc436…63bae9`, registry `0245a836…fc2d7c`, summary `3f98f9c0…5823`, verdict `5fc98912…884d3`, binding_constraint `c177b528…fe42` (full digests in `research_state/state.yaml`).
+- **C403 ASYMCURV is the ACTIVE campaign** — UNSTARTED (N_TRIALS=1944, PLACEBO_SEED=20261267). Build end-to-end per C403 spec, never rename-only.
+- **C404 DOMFREQ is pre-registered** (N_TRIALS=1296, PLACEBO_SEED=20261268). Queue must never sit idle.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
 - **Environment ready**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **Quarantine**: `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/` and `archive/void_c402_clone/` (C401 RVQUART clone-and-rename) are read-only evidence. Never copy, import, cite, fix, freeze or re-run anything in them.
@@ -24,26 +24,9 @@
 
 **RE-CLONE TRAP REMOVED THIS SESSION (2026-11-20T12:53:36Z).** A second `*c402*` rename-only clone of C401 RVQUART was found on disk (campaign: 401, PLACEBO_SEED 20261265, CACHE_DIR campaign401_rvquart_5m, report prefix campaign401_*) and quarantined read-only to `archive/void_c402_reclone/` (5 files). The C402 slot is empty again: `ls scripts tests | grep -c c402 == 0`. Do NOT copy/import/cite anything under `archive/void_c402_clone/` or `archive/void_c402_reclone/`. Re-verify before building: `ls scripts tests | grep -c c402 == 0`, `ls data/cache | grep -c campaign402 == 0`, `ls reports | grep -c campaign402 == 0`.
 
-**FIRST ACTION — build C402 TSCALE end-to-end from C401 plumbing, FULLY re-specified (never rename-only).** Sequence, no stopping in between:
+**FIRST ACTION — C402 TSCALE is BUILT AND FROZEN (20261120T163611Z): RETRACTED formal negative, 2592 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution tscale_slope_placebo 0.1611. All 5 artifact SHA256 recorded in AGENTS.md + research_state/state.yaml, frozen-table row added. Queue advanced: C403 (ACTIVE) → C404 (pre-registered). Build C403 ASYMCURV end-to-end next (N_TRIALS=1944, PLACEBO_SEED=20261267), then C404 DOMFREQ (N_TRIALS=1296) — queue must never sit idle.**
 
-```
-cp scripts/build_c401_rvquart_features.py  scripts/build_c402_tscale_features.py
-cp scripts/preflight_c401.py              scripts/preflight_c402.py
-cp scripts/run_c401_rvquart_xsec_oos.py   scripts/run_c402_tscale_xsec_oos.py
-cp tests/test_preflight_c401.py           tests/test_preflight_c402.py
-cp tests/test_c401_rvquart_xsec_oos.py    tests/test_c402_tscale_xsec_oos.py
-# then MANDATORY rewrite per the C402 FULL SPEC below (campaign 402, TSCALE kernel,
-# PLACEBO_SEED 20261266, 2592 configs, tscale_params={window_W:256,k_vals:[12,24,48]})
-python3 scripts/build_c402_tscale_features.py
-python3 scripts/preflight_c402.py                 # must print ready:true
-python3 scripts/run_c402_tscale_xsec_oos.py       # FULL literal 2592-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c402.py tests/test_c402_tscale_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign402_*_<TS>Z.json        # record all 5 artifact SHAs
-```
-
-SELF-CHECK before the sweep: `grep -n "401\|rvquart\|RVQUART" scripts/*c402* tests/*c402*` must return nothing. Then record truthful RESULT + SHAs in AGENTS.md + research_state/state.yaml, add frozen-table row, freeze. Verify `ls scripts tests | grep -c c402 == 5` and `ls data/cache/campaign402_tscale_5m/ | wc -l == 10` before freezing. The moment C402 is frozen, immediately build C403 (ASYMCURV, N_TRIALS=1944), then C404 (DOMFREQ, 1296) — queue must never sit idle.
-
-Priority unchanged: PRIMARY axis = cross-sectional dollar-neutral long-top/short-bottom across all 10 USDT-M perps (gross 1.0, never directional); signal overlay = causal seasonal-dislocation mean-reversion; ONLY gate = costed OOS PnL with Holm AND BH at alpha=0.05. C281B–C401 all FROZEN formal negatives — do NOT re-run.
+Priority unchanged: PRIMARY axis = cross-sectional dollar-neutral long-top/short-bottom across all 10 USDT-M perps (gross 1.0, never directional); signal overlay = causal seasonal-dislocation mean-reversion; ONLY gate = costed OOS PnL with Holm AND BH at alpha=0.05. C281B–C402 all FROZEN formal negatives — do NOT re-run.
 
 ---
 
@@ -728,6 +711,7 @@ C281B–C392: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C397 | 20261120T041857Z | spectral flatness / spectral entropy of log-returns (SPECFM) | 1296 | specfm_placebo 0.3172 | `0cad72b816570e296583f3bec5e031885e10c75fbfda3611f3f5010c672936e3` | `97eb550b6fa2f703d87bed2ebd7fb5794a804df8dec4f6ec8584dc27b8ff58c8` |
 | C398 | 20261120T061812Z | L-moment skewness / kurtosis (τ3, τ4) (LMOM) | 1296 | lmom_skew_placebo 0.3001 | `27a66670b583d5b5dc2ad4a75faf7868eaa279a70fd287ce9a993df2393a9936` | `02854c9c8283148af284adfbf54e5fe18b32badaf030040a2a36e1d81e656531` |
 | C399 | 20261120T074632Z | window CUSUM break statistic & break-position tilt (CBREAK) | 1296 | cbreak_pos_placebo 0.3674 | `81e0e465d232a2b4ff49ae91511e15290eb714d082027641e89c5d7144ae7c61` | `e15c04a52ff187063c00bb744f455347bd4e58945c6b4124115cf166141ba813` |
+| C402 | 20261120T163611Z | multi-scale tail-exponent Hill profile (TSCALE) | 2592 | tscale_slope_placebo 0.1611 | `6e9dc4368a978cec9f03e66b43f1e181bc88db6fda758c40697861f01663bae9` | `5fc98912e4f1c5219a487c4e2fc4af5cb166dea2b43475feac61efcfb34884d3` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -1158,3 +1142,14 @@ C401 (RVQUART, realized quarticity & quarticity-to-variance-squared ratio × sea
 - verdict `6623f2277092d98ddaacfb5132420e4c16309698997a40ec44982a2413f5cbec`
 - binding_constraint `0c4ee6702c5c1478c58d94e9815d17aa66b49781ba68d47f436292f2f525e89f`
 - cache: meta `5c737a961d5151111b1072fd45e81211cad1e46e7c83b10e869e47afcb0031f5`, provenance `d23be4d99b199065a161687596aae8913e97ac8678a6617d0a640b84de5a90c3`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C402 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261120T163611Z)
+
+C402 (TSCALE: multi-scale tail-exponent (Hill) profile × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 2592 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `tscale_slope_placebo` 0.1611 (placebo dominates — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 30/30 tests green (incl. Hill brute-force equality `maxdiff < 1e-12` and kernel-distinctness guard vs Hill(single)/RQV/MAGNET/VOVR). Cache `data/cache/campaign402_tscale_5m/` (10 shards × 315,648 bars, ~38 MB < 100 MB). NO EDGE through C402. Frozen — DO NOT re-run.
+
+- oos_sweep `6e9dc4368a978cec9f03e66b43f1e181bc88db6fda758c40697861f01663bae9`
+- tradable_edge_registry `0245a8360e526e7163092b682b37c912614074a3808e3b3b3dab074449fc2d7c`
+- summary `3f98f9c0e8672cf742dfd8f316415b62985d95eb02183d5eb7e5576be3305823`
+- verdict `5fc98912e4f1c5219a487c4e2fc4af5cb166dea2b43475feac61efcfb34884d3`
+- binding_constraint `c177b528a2d35c24666773e5c0f6df8266b6594d5977681d629d280fe387fe42`
+- cache: meta `6d0840148a78a8d0c96383571ba9f1a4e742f9927124ae82789c62ea834ebbd6`, provenance `9433c27217c3e3e149eba81ed9d433b86b3e5a8d118b4bd05e57889d1f4f9909`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
