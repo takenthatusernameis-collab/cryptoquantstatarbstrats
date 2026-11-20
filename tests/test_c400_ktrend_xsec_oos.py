@@ -135,10 +135,10 @@ def test_ktrend_perfect_monotonic_trend():
     dec = inc[::-1]
     m_inc = R.compute_ktrend_metrics(np.concatenate([np.zeros(W - 1), inc]), W)
     m_dec = R.compute_ktrend_metrics(np.concatenate([np.zeros(W - 1), dec]), W)
-    assert np.isclose(m_inc["ktrend_tau"][W - 1], 1.0, atol=1e-12)
-    assert np.isclose(m_inc["ktrend_rho"][W - 1], 1.0, atol=1e-12)
-    assert np.isclose(m_dec["ktrend_tau"][W - 1], -1.0, atol=1e-12)
-    assert np.isclose(m_dec["ktrend_rho"][W - 1], -1.0, atol=1e-12)
+    assert np.isclose(m_inc["ktrend_tau"][2 * W - 2], 1.0, atol=1e-12)
+    assert np.isclose(m_inc["ktrend_rho"][2 * W - 2], 1.0, atol=1e-12)
+    assert np.isclose(m_dec["ktrend_tau"][2 * W - 2], -1.0, atol=1e-12)
+    assert np.isclose(m_dec["ktrend_rho"][2 * W - 2], -1.0, atol=1e-12)
 
 
 def test_ktrend_defined_after_window_nan_before():

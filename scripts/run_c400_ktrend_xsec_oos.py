@@ -335,7 +335,7 @@ def compute_ktrend_metrics(log_return, W=KTREND_W):
     if n < W:
         return out
 
-    windows = sliding_window_view(X, W)
+    windows = sliding_window_view(X, W)[1:]
     n_ts = n - W
     t_idx = np.arange(W, n)
 
