@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-21T23:36:07Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-21T23:37:13Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-21T23:36:07Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-21T23:37:13Z; supersedes every earlier session message; the ONLY active directive)
 
 **FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.** A prior clone-and-rename trap (verbatim C408 LEADLAG rename, 0 reports) was found in the C409 slot and quarantined read-only to `archive/void_c409_leadlag_clone/` — never copy/import/cite from it; build C409 RESIDVOL FRESH from C408 plumbing with the mandatory rewrite guards (`grep` self-check + kernel-distinctness tests + N_TRIALS==1296 + PLACEBO_SEED==20261273).
 
@@ -41,7 +41,7 @@ NaN if t<W, any NaN/non-finite, var(M) ≤ 0, or residual std ≤ 0. Distinct fr
 
 **C405–C408 are all BUILT AND FROZEN formal negatives — do NOT re-run any of them** (C405 COSKEW frozen 20261120T203749Z; C406 BETAASYM frozen 20261120T214030Z; C407 XSRANK frozen 20261120T215313Z; C408 LEADLAG frozen 20261120T230651Z). Full per-campaign SHAs live in `research_state/state.yaml` and the frozen table below; the C408 artifact set is listed in the C408 RESULT block below.
 
-## DISK TRUTH (re-verified 2026-11-21T23:36:07Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-21T23:37:13Z by this session — command OUTPUTS quoted, not inferred)
 
 - **No blocking bottlenecks, no blocked sessions.** The two prior bottlenecks (bare-`python3` env regression; C409 clone-and-rename trap) were removed in the 23:30Z pass and remain removed: env re-verified this session — `python3 -c "import numpy,pandas,scipy,pytest"` → `numpy 2.5.5 pandas 3.1.1 scipy 1.18.1 pytest 9.2.0`. If a future session ever sees `ModuleNotFoundError: numpy`, re-run `python3 -m pip install --break-system-packages numpy pandas scipy pytest` first (recurring hazard); console scripts are at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **C281B–C408 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C408. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and the frozen table below; do NOT re-run any of them.
@@ -59,7 +59,7 @@ NaN if t<W, any NaN/non-finite, var(M) ≤ 0, or residual std ≤ 0. Distinct fr
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-21T23:34:09Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-21T23:37:13Z; supersedes every earlier session message; the ONLY active directive)
 
 **FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.** A prior clone-and-rename trap (verbatim C408 LEADLAG rename, 0 reports) was found in the C409 slot this session and quarantined read-only to `archive/void_c409_leadlag_clone/` — never copy/import/cite from it; build C409 RESIDVOL FRESH from C408 plumbing with the mandatory rewrite guards (`grep` self-check + kernel-distinctness tests + N_TRIALS==1296 + PLACEBO_SEED==20261273).
 
