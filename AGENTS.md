@@ -1,11 +1,12 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-20T23:11:51Z — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-21T11:45:50Z (refreshed this session; env re-verified + repaired) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-20T20:47:48Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-21T11:45:50Z by this session — command OUTPUTS quoted, not inferred)
 
+- **BOTTLENECK FOUND AND REMOVED THIS SESSION (2026-11-21T11:45:50Z):** bare `python3` had **NO numpy/pandas/scipy/pytest** (`ModuleNotFoundError: No module named 'numpy'`). Reinstalled with `python3 -m pip install --break-system-packages numpy pandas scipy pytest`; verified `numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0`. Console scripts land in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. If a future session sees `ModuleNotFoundError: numpy`, re-run that exact pip command first — do NOT attempt a sweep without deps.
 - **C281B–C408 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C408.
 - **Frozen boundary = C408 LEADLAG** (`20261120T230651Z`): 1944 configs costed-OOS, dominant attribution `leadlag_asym_placebo` 0.2509, 31/31 tests green, cache `data/cache/campaign408_leadlag_5m/` (10 shards × 315,648 bars). Its 5 artifact SHA256s verified MATCH on disk: oos_sweep `48bd6a61…71fa3`, registry `d63bfc06…759d`, summary `1499e28d…50a4`, verdict `34273074…b640`, binding_constraint `273490a6…f646` (full digests in `research_state/state.yaml`).
 - **C406 BETAASYM is BUILT AND FROZEN** (`20261120T214030Z`): RETRACTED formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, binding `multiple_testing`, dominant attribution `beta_asym_placebo` 0.4429. All 5 artifact SHA256 verified MATCH on disk: oos_sweep `21d4c287…4406`, registry `b94b8609…40a1d`, summary `9195017a…2b0f`, verdict `be3c6621…41ca`, binding_constraint `d5bcdab1…a37a8` (full digests in `research_state/state.yaml`). Cache `data/cache/campaign406_betaasym_5m/` (10 shards × 315,648 bars). Scripts/tests: 5. Reports: 5 artifacts + `.full.json`.
@@ -13,12 +14,12 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 - **C408 LEADLAG BUILT AND FROZEN** (`20261120T230651Z`): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, binding `multiple_testing`, dominant attribution `leadlag_asym_placebo` 0.2509. All 5 artifact SHA256 verified MATCH on disk: oos_sweep `48bd6a61…71fa3`, registry `d63bfc06…759d`, summary `1499e28d…50a4`, verdict `34273074…b640`, binding_constraint `273490a6…f646` (full digests in `research_state/state.yaml`). Cache `data/cache/campaign408_leadlag_5m/` (10 shards × 315,648 bars). Scripts/tests: 5. Reports: 5 artifacts + `.full.json`.
 - **Queue depth 4 (can never run dry):** C408 LEADLAG (BUILT AND FROZEN, seed 20261272, 1944) → C409 RESIDVOL (ACTIVE, pre-registered, seed 20261273, 1296) → C410 (pre-registered, seed TBD). All specs fully pre-registered below. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
-- **Environment ready (verified 20:44:16Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
+- **Environment ready (re-verified 2026-11-21T11:45:50Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable after reinstall this session. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign404_domfreq_5m | wc -l` → `10`; `ls scripts tests | grep -c c404` → `5`; `ls reports | grep -c campaign404` → `12` (5 artifacts + `.full.json` + 6 from smoke run); `ls data/cache/campaign405_coskew_5m | wc -l` → `10`; `ls scripts tests | grep -c c405` → `5`; `ls reports | grep -c campaign405` → `6` (5 artifacts + `.full.json`); `ls scripts tests | grep -c c406` → `5`; `ls data/cache/campaign406_betaasym_5m | wc -l` → `10`; `ls reports | grep -c campaign406` → `6` (5 artifacts + `.full.json`); `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `10` (cache shards only, meta+prov separate).
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
   - `archive/void_c403_clone/` (rename-only clone of C402 TSCALE — superseded by genuine C403 build; scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`). Never run.
   - `archive/void_c381/` (SEMICOV clone-and-rename), `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`.
-- **No blocking bottlenecks, no blocked sessions.** The only standing hazard is clone-and-rename; it is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below. Clone the C404 plumbing structurally, then rewrite every identifier — a `grep` self-check that returns nothing is the gate to a sweep.
+- **No blocking bottlenecks, no blocked sessions.** The one live environment bottleneck found this session — a bare `python3` with **no** numpy/pandas/scipy/pytest — was removed by reinstalling all four and verifying imports. The only standing hazard is clone-and-rename; it is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below. Clone the C404 plumbing structurally, then rewrite every identifier — a `grep` self-check that returns nothing is the gate to a sweep.
 
 ## PRIORITY (fixed by the repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE)
 
@@ -27,7 +28,7 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-20T23:49:18Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-21T11:45:50Z; supersedes every earlier session message; the ONLY active directive)
 
 **FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.**
 
@@ -41,7 +42,7 @@ cp scripts/preflight_c408.py               scripts/preflight_c409.py
 cp scripts/run_c408_leadlag_xsec_oos.py    scripts/run_c409_residvol_xsec_oos.py
 cp tests/test_preflight_c408.py            tests/test_preflight_c409.py
 cp tests/test_c408_leadlag_xsec_oos.py     tests/test_c409_residvol_xsec_oos.py
-grep -n "408\|leadlag\|LEADLAG\|20261272" scripts/*c409* tests/*c409*   # must return NOTHING before proceeding
+grep -n "408\|leadlag\|LEADLAG\|coskew\|COSKEW\|betaasym\|BETAASYM\|20261272\|20261271" scripts/*c409* tests/*c409*   # must return NOTHING before proceeding
 python3 scripts/build_c409_residvol_features.py     # -> data/cache/campaign409_residvol_5m/ (10 shards)
 python3 scripts/preflight_c409.py                   # must print ready:true
 python3 scripts/run_c409_residvol_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
@@ -62,7 +63,7 @@ NaN if t<W, any NaN/non-finite, var(M) ≤ 0, or residual std ≤ 0. Distinct fr
 
 **The moment C409 is frozen, immediately build C410** (pre-registered, seed TBD) — queue depth 3 must never run dry. No prose-only sessions; no re-running frozen C281B–C408; no clone-and-rename.
 
-**Disk truth:** C281B–C405 all FROZEN formal negatives; C405 cache `data/cache/campaign405_coskew_5m/` (10 shards × 315,648 bars) and 5 `reports/campaign405_*_20261120T203749Z.json` artifacts present; C406 has 5 clone scripts/tests but 0 cache shards and 0 reports — the clone references 405/coskew/20261269 so the grep gate FAILS (this is the active bottleneck; rewrite all 5 files COSKEW→BETAASYM before sweeping); C312 source intact (10 × 315,648 bars); env ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); always `python3 -m pytest`; quarantine read-only (`archive/void_c381/`, `void_c398_clone/`, `void_c402_clone/`, `void_c402_reclone/`, `void_c402_clone_cache_meta/`, `void_c403_clone/`). Bottleneck = C406 rename-only clone; must be fully rewritten before the sweep.
+**Disk truth:** C281B–C408 all FROZEN formal negatives; C408 cache `data/cache/campaign408_leadlag_5m/` (10 shards × 315,648 bars) and 5 `reports/campaign408_*_20261120T230651Z.json` artifacts present with SHAs MATCH-verified this session. C409 slot is empty and unstarted (`ls scripts tests | grep -c c409 == 0`, `ls data/cache | grep -c campaign409 == 0`, `ls reports | grep -c campaign409 == 0`). C312 source intact (10 × 315,648 bars, perp_close only). Environment re-verified AND repaired this session: bare `python3` had no numpy/pandas/scipy/pytest, reinstalled to numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0. Always run `python3 -m pytest`, never bare `pytest`. Quarantine read-only — never copy/import/cite/fix/freeze/re-run anything under `archive/void_*` (void_c381, void_c398_clone, void_c402_clone, void_c402_reclone, void_c402_clone_cache_meta, void_c403_clone). No blocking bottlenecks; no blocked sessions.
 
 **C405 COSKEW — BUILT AND FROZEN (20261120T203749Z).** Build sequence already executed: cp from C404 plumbing → full re-specify → `python3 scripts/build_c405_coskew_features.py` → `python3 scripts/preflight_c405.py` (ready:true) → `python3 scripts/run_c405_coskew_xsec_oos.py` (1296-config sweep) → `python3 -m pytest tests/test_preflight_c405.py tests/test_c405_coskew_xsec_oos.py -q` (29 green) → `sha256sum reports/campaign405_*_20261120T203749Z.json` (5 SHAs recorded). Do NOT re-run.
 
