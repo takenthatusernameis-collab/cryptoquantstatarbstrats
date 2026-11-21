@@ -30,7 +30,7 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-21T18:18:04Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-21T23:31:50Z; supersedes every earlier session message; the ONLY active directive)
 
 **FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.** A prior clone-and-rename trap (verbatim C408 LEADLAG rename, 0 reports) was found in the C409 slot this session and quarantined read-only to `archive/void_c409_leadlag_clone/` — never copy/import/cite from it; build C409 RESIDVOL FRESH from C408 plumbing with the mandatory rewrite guards (`grep` self-check + kernel-distinctness tests + N_TRIALS==1296 + PLACEBO_SEED==20261273).
 
