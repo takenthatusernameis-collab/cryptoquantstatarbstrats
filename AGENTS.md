@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-21T11:45:50Z (refreshed this session; env re-verified + repaired) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-21T11:47:43Z (refreshed this session; env re-verified + repaired) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-21T11:45:50Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-21T11:47:43Z by this session — command OUTPUTS quoted, not inferred)
 
 - **BOTTLENECK FOUND AND REMOVED THIS SESSION (2026-11-21T11:45:50Z):** bare `python3` had **NO numpy/pandas/scipy/pytest** (`ModuleNotFoundError: No module named 'numpy'`). Reinstalled with `python3 -m pip install --break-system-packages numpy pandas scipy pytest`; verified `numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0`. Console scripts land in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. If a future session sees `ModuleNotFoundError: numpy`, re-run that exact pip command first — do NOT attempt a sweep without deps.
 - **C281B–C408 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C408.
@@ -14,7 +14,7 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 - **C408 LEADLAG BUILT AND FROZEN** (`20261120T230651Z`): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, binding `multiple_testing`, dominant attribution `leadlag_asym_placebo` 0.2509. All 5 artifact SHA256 verified MATCH on disk: oos_sweep `48bd6a61…71fa3`, registry `d63bfc06…759d`, summary `1499e28d…50a4`, verdict `34273074…b640`, binding_constraint `273490a6…f646` (full digests in `research_state/state.yaml`). Cache `data/cache/campaign408_leadlag_5m/` (10 shards × 315,648 bars). Scripts/tests: 5. Reports: 5 artifacts + `.full.json`.
 - **Queue depth 4 (can never run dry):** C408 LEADLAG (BUILT AND FROZEN, seed 20261272, 1944) → C409 RESIDVOL (ACTIVE, pre-registered, seed 20261273, 1296) → C410 (pre-registered, seed TBD). All specs fully pre-registered below. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only). No network fetch, no fabrication, no resampling, no imputation.
-- **Environment ready (re-verified 2026-11-21T11:45:50Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable after reinstall this session. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
+- **Environment ready (re-verified 2026-11-21T11:47:43Z)**: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable after reinstall this session. Console scripts live in `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **VERIFICATION COMMANDS THAT ACTUALLY WORK**: `ls data/cache/campaign404_domfreq_5m | wc -l` → `10`; `ls scripts tests | grep -c c404` → `5`; `ls reports | grep -c campaign404` → `12` (5 artifacts + `.full.json` + 6 from smoke run); `ls data/cache/campaign405_coskew_5m | wc -l` → `10`; `ls scripts tests | grep -c c405` → `5`; `ls reports | grep -c campaign405` → `6` (5 artifacts + `.full.json`); `ls scripts tests | grep -c c406` → `5`; `ls data/cache/campaign406_betaasym_5m | wc -l` → `10`; `ls reports | grep -c campaign406` → `6` (5 artifacts + `.full.json`); `ls data/cache/campaign312_usdt_m_ofi_5m | wc -l` → `11`; `ls data/cache | grep -c campaign405` → `10` (cache shards only, meta+prov separate).
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**:
   - `archive/void_c403_clone/` (rename-only clone of C402 TSCALE — superseded by genuine C403 build; scripts still carry `campaign402_tscale_5m` + `PLACEBO_SEED=20261266`). Never run.
@@ -28,7 +28,7 @@ This block is the SINGLE active directive. Everything below the `---` under it i
 3. **ONLY acceptance gate — costed out-of-sample PnL with Holm AND BH multiplicity control at α=0.05**. Never weakened.
 4. Economic progress = a real-data costed OOS run, a passing test, or a durable artifact. Prose-only, re-reading, re-planning, or re-running a frozen campaign is a HARD VIOLATION.
 
-## INITIAL TASK MESSAGE (2026-11-21T11:45:50Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-21T11:47:43Z; supersedes every earlier session message; the ONLY active directive)
 
 **FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.**
 
