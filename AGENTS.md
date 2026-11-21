@@ -1,10 +1,47 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-21T23:34:09Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-21T23:36:07Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## DISK TRUTH (re-verified 2026-11-21T23:34:09Z by this session — command OUTPUTS quoted, not inferred)
+## INITIAL TASK MESSAGE (2026-11-21T23:36:07Z; supersedes every earlier session message; the ONLY active directive)
+
+**FIRST ACTION — C408 LEADLAG BUILT AND FROZEN (20261120T230651Z): RETRACTED formal negative, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution leadlag_asym_placebo 0.2509. All 5 artifact SHA256 on disk (reports/campaign408_*_20261120T230651Z.json) + .full.json; 31/31 tests green; cache data/cache/campaign408_leadlag_5m/ (10 shards). C409 RESIDVOL is ACTIVE, pre-registered (seed 20261273, N_TRIALS=1296), and does NOT exist on disk (0 scripts, 0 cache, 0 reports). Build C409 end-to-end next — queue must never sit idle.** A prior clone-and-rename trap (verbatim C408 LEADLAG rename, 0 reports) was found in the C409 slot and quarantined read-only to `archive/void_c409_leadlag_clone/` — never copy/import/cite from it; build C409 RESIDVOL FRESH from C408 plumbing with the mandatory rewrite guards (`grep` self-check + kernel-distinctness tests + N_TRIALS==1296 + PLACEBO_SEED==20261273).
+
+**Disk truth:** C281B–C408 all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Always run `python3 -m pytest`, never bare `pytest`. Quarantine read-only — never copy/import/cite/fix/freeze/re-run anything under `archive/void_*`. No blocking bottlenecks; no blocked sessions.
+
+**C409 RESIDVOL — PRE-REGISTERED SPEC (IDIOSYNCRATIC / RESIDUAL VOLATILITY vs EQUAL-WEIGHT MARKET).** Clone C408 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
+
+```
+cp scripts/build_c408_leadlag_features.py  scripts/build_c409_residvol_features.py
+cp scripts/preflight_c408.py               scripts/preflight_c409.py
+cp scripts/run_c408_leadlag_xsec_oos.py    scripts/run_c409_residvol_xsec_oos.py
+cp tests/test_preflight_c408.py            tests/test_preflight_c409.py
+cp tests/test_c408_leadlag_xsec_oos.py     tests/test_c409_residvol_xsec_oos.py
+grep -n "408\|leadlag\|LEADLAG\|coskew\|COSKEW\|betaasym\|BETAASYM\|20261272\|20261271" scripts/*c409* tests/*c409*   # must return NOTHING before proceeding
+python3 scripts/build_c409_residvol_features.py     # -> data/cache/campaign409_residvol_5m/ (10 shards)
+python3 scripts/preflight_c409.py                   # must print ready:true
+python3 scripts/run_c409_residvol_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c409.py tests/test_c409_residvol_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign409_*_<TS>Z.json          # record all 5 artifact SHAs
+```
+
+**C409 kernel (genuinely distinct):** On the common C312 grid define the equal-weight market return `m[s] = (1/10) Σ_i r_i[s]`. For each asset i and bar t, window X = r_i[t-W+1..t], M = m[t-W+1..t], W=256 (NaN if t<W or any NaN):
+- `residvol[t] = std(X − β·M − α)` where β = cov(X,M)/var(M), α = μ_X − β·μ_M (OLS residual std over window)
+- `idioskew[t] = mean(((resid − μ_resid)/σ_resid)^3)` (residual skewness)
+NaN if t<W, any NaN/non-finite, var(M) ≤ 0, or residual std ≤ 0. Distinct from C406 BETAASYM (regression coefficient, not residual dispersion), C364 DSRV (same-bar semivariance sign split), C366 RQV (4th moment/top-k concentration), C317 RV (total volatility), C405 COSKEW (third/fourth co-moments), and every univariate moment/tail/entropy family. First idiosyncratic-volatility family ever run. Price-only (perp_close), volume-free. Vectorized kernel: `sliding_window_view` + sum-identity OLS + residual std/skew; brute-force reference = per-window loop with explicit market series; brute-force equality maxdiff < 1e-12. Kernel-distinctness guards vs BETAASYM/RV/DSRV/RQV/COSKEW.
+
+**C409 grid (1296 = literal N_TRIALS):** SIGNALS={residvol_dev, idioskew_dev, residvol_placebo, idioskew_placebo} → 4×6×3×3×3×2 = 1296. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261273 (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Ref config: `residvol_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={residvol_dev, idioskew_dev}`. Cache `data/cache/campaign409_residvol_5m/` with `residvol_params={window_W:256}`. Artifacts `reports/campaign409_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+
+**Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all 1296 at α=0.05; edge requires BOTH. MDE two-sided α=0.05 power 0.80: `(t_0.975+t_0.80)·s/√n_splits`. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5 (ref config). Attribution mean|OOS net| per signal; shares = |mean|/Σ|means| over all 4 incl. placebos; dominant must be a real non-placebo with share ≥0.5 for attribution_ok. `n_survive_both==0 → RETRACTED(multiple_testing)`; `>0 and not attribution_ok → RETRACTED(attribution)`; `>0 and not stable → RETRACTED(stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`; `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+**Guard tests required:** artifact["campaign"]==409; mandate names RESIDVOL; N_TRIALS==1296; PLACEBO_SEED==20261273; RESIDVOL kernel not allclose 0 where defined; kernel-distinctness vs BETAASYM/RV/DSRV/RQV/COSKEW; brute-force equality maxdiff < 1e-12.
+
+**The moment C409 is frozen, immediately build C410** (pre-registered, seed 20261274) — queue depth 3 must never run dry. No prose-only sessions; no re-running frozen C281B–C408; no clone-and-rename.
+
+**C405–C408 are all BUILT AND FROZEN formal negatives — do NOT re-run any of them** (C405 COSKEW frozen 20261120T203749Z; C406 BETAASYM frozen 20261120T214030Z; C407 XSRANK frozen 20261120T215313Z; C408 LEADLAG frozen 20261120T230651Z). Full per-campaign SHAs live in `research_state/state.yaml` and the frozen table below; the C408 artifact set is listed in the C408 RESULT block below.
+
+## DISK TRUTH (re-verified 2026-11-21T23:36:07Z by this session — command OUTPUTS quoted, not inferred)
 
 - **No blocking bottlenecks, no blocked sessions.** The two prior bottlenecks (bare-`python3` env regression; C409 clone-and-rename trap) were removed in the 23:30Z pass and remain removed: env re-verified this session — `python3 -c "import numpy,pandas,scipy,pytest"` → `numpy 2.5.5 pandas 3.1.1 scipy 1.18.1 pytest 9.2.0`. If a future session ever sees `ModuleNotFoundError: numpy`, re-run `python3 -m pip install --break-system-packages numpy pandas scipy pytest` first (recurring hazard); console scripts are at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`.
 - **C281B–C408 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C408. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and the frozen table below; do NOT re-run any of them.
