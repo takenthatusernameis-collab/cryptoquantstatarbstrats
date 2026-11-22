@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261122T120106Z",
+  "campaign": 409,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign409_oos_sweep_20261122T120106Z.json",
+  "oos_sweep_sha256": "b3285dd50734b2ea1e5a62d3a2e0b2df39a0fea580b855f88b0e5c945c87939a",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "residvol_dev": 0.09277362490938565,
+    "idioskew_dev": 0.23034702041680308,
+    "residvol_placebo": 0.17735990331371732,
+    "idioskew_placebo": 0.499519451360094
+  },
+  "dominant_attribution": "idioskew_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "residvol_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.3317124866578621,
+      -0.27010635673010397,
+      -0.25296295651939193,
+      -0.4821046457115058,
+      -0.36762402334287103,
+      -0.12117847184315811,
+      -0.3029763900617961,
+      -0.22615447740955724
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -3.7027653641491174,
+    "second_half_sharpe": -2.7714861587228667,
+    "sharpe_corr": 0.981564526394558,
+    "stable": false
+  },
+  "diagnosis": "C409 cross-sectional intraday RESIDVOL idiosyncratic/residual volatility stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
