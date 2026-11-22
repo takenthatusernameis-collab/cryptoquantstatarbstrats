@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """C410 — rigorous costed out-of-sample test of the cross-sectional intraday
-RESIDVOL: IDIOSYNCRATIC / RESIDUAL VOLATILITY (AND RESIDUAL SKEWNESS)
-VS EQUAL-WEIGHT MARKET x SEASONAL-DISLOCATION mean-reversion stat-arb family on
-10 USDT-M linear perps at native 5m (1296 pre-registered configs).
+XCORR: AVERAGE PAIRWISE CO-MOVEMENT / CROSS-SECTIONAL CORRELATION PROFILE
+x SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear perps
+at native 5m (1296 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 -----------------------------------------------------------------
-C281B–C408 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
+C281B–C409 (all FROZEN formal negatives) exhausted carry, OFI/microstructure,
 premium/index/mark basis, quarterly term-structure, same-asset spot-perp
 lead-lag, autocorrelation/chop/vol-clustering/close-envelope/rescaled-range/
 drawdown-duration/realized-variance-concentration/permutation-entropy/DFA
@@ -37,32 +37,34 @@ realized quarticity (RVQUART, C401), multi-scale Hill tail profile (TSCALE,
 C402), conditional skewness/asymmetric curvature (ASYMCURV, C403), dominant
 spectral frequency/centroid (DOMFREQ, C404), cross-sectional co-skewness/co-
 kurtosis vs market (COSKEW, C405), market-beta level/asymmetry vs market
-(BETAASYM, C406), cross-sectional rank persistence (XSRANK, C407), and
-leader-follower regression-coefficient asymmetry vs market (LEADLAG, C408).
+(BETAASYM, C406), cross-sectional rank persistence (XSRANK, C407), leader-
+follower regression-coefficient asymmetry vs market (LEADLAG, C408), and
+idiosyncratic/residual volatility & residual skewness vs market (RESIDVOL,
+C409).
 
-C410 is the first campaign whose primitive is the idiosyncratic (residual)
-volatility — the dispersion of an asset's return around its best-fit linear
-relationship with the equal-weight market — plus its residual skewness:
+C410 is the first campaign whose primitive is the AVERAGE PAIRWISE PEARSON
+CORRELATION of an asset's return with every other asset's return over a
+trailing window — a direct measure of how tightly coupled an asset is to the
+panel and how uneven that coupling is across counterparties:
 
-    For every bar s, equal-weight market return m[s] = (1/10) * sum_i r_i[s].
+    R = (T, 10) return matrix (rows = bars, cols = assets).
     For each asset i and bar t, W = 256, needing indices t-W+1 .. t (W bars):
-        beta[t]      = cov(r_i[t-W+1..t], m[t-W+1..t]) / var(m[t-W+1..t])
-        alpha[t]     = mu_{r_i} - beta[t] * mu_m
-        resid[t]     = r_i[t-W+1..t] - beta[t]*m[t-W+1..t] - alpha[t]
-        residvol[t]  = std(resid[t])                       (idiosyncratic vol)
-        idioskew[t]  = mean(((resid[t] - mu_resid)/sigma_resid)^3)  (residual skew)
-    NaN if t<W, any NaN/non-finite in the W-bar span, var(M)<=0, residual
-    std<=0, or not finite. last_move_dir[t] = sign(r_i[t]).
+        corr_j(t)    = Pearson corr(X_i, X_j) over X_i=r_i[t-W+1..t],
+                       X_j=r_j[t-W+1..t], for each j != i   (9 pairwise legs)
+        xcorr_mean[t] = (1/9) * sum_{j != i} corr_j(t)   (avg coupling, in [-1,1])
+        xcorr_disp[t] = std_{j != i}( corr_j(t) )        (unevenness of coupling)
+    NaN if t<W, any NaN/non-finite in the W-bar panel span, any pairwise leg
+    has zero variance, or not finite. last_move_dir[t] = sign(r_i[t]).
 
-This is a cross-sectional relative-value family — no prior kernel measures the
-residual dispersion (or residual skewness) of an asset's return around its
-best-fit linear relationship with the equal-weight market. Genuinely distinct
-from C406 BETAASYM (the market-beta regression *coefficient* level/asymmetry,
-not residual dispersion), C405 COSKEW (third/fourth *co-moments* vs market,
-not residual dispersion), C364 DSRV (same-bar semivariance sign split), C366
-RQV (4th moment/top-k concentration of squared returns), C317 RV (total
-realized volatility), and every univariate moment/tail/entropy family. Never
-used before. Price-only (perp_close), volume-free.
+This is a cross-sectional co-movement family — no prior kernel measures the
+average (or dispersion) of an asset's pairwise Pearson correlations with the
+rest of the panel. Genuinely distinct from C405 COSKEW (third/fourth *co-moments*
+vs market, not correlation), C406 BETAASYM (the market-beta regression
+*coefficient* level/asymmetry, not average pairwise corr), C380 SEMICOV /
+C375 ACOVK (own-lag covariance), C407 XSRANK (rank *persistence*), C408
+LEADLAG (lead-lag *regression*), C409 RESIDVOL (residual *dispersion vs
+market*), and every univariate moment/tail/entropy family. Never used before.
+Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -125,8 +127,8 @@ SIGNAL_FAMILY = {
 }
 
 ATTR_REPRESENTATIVES = {
-    "residvol_dev": "residvol_dev",
-    "idioskew_dev": "idioskew_dev",
+    "xcorr_mean_dev": "xcorr_mean_dev",
+    "xcorr_disp_dev": "xcorr_disp_dev",
 }
 
 
@@ -299,127 +301,123 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- RESIDVOL: idiosyncratic residual volatility
-RESIDVOL_W = 256
+# ------------------------------------------------------- XCORR: average pairwise co-movement
+XCORR_W = 256
+XCORR_CHUNK = 4096
 
 
-def _residvol_one_asset(x, m, W=RESIDVOL_W):
-    """Vectorized RESIDVOL for a single asset return series x against the shared
-    equal-weight market return m. For each bar t (t=W..n-1), window X=x[t-W+1..t],
-    M=m[t-W+1..t] (W bars):
-        beta  = cov(X,M)/var(M); alpha = mean(X) - beta*mean(M)
-        resid = (X-mean(X)) - beta*(M-mean(M))
-        residvol = sqrt(mean(resid^2)); idioskew = mean(resid^3)/residvol^3
-    NaN if t<W, any non-finite in the W-bar span, var(M)<=0, or resid std<=0.
-    Uses sliding_window_view (per-asset loop keeps peak memory low) and matches
-    the brute-force reference to maxdiff < 1e-12."""
-    n = len(x)
-    rv = np.full(n, np.nan, dtype=float)
-    sk = np.full(n, np.nan, dtype=float)
-    if n < W:
-        return rv, sk
-    xw = sliding_window_view(np.asarray(x, dtype=float), W)   # (n-W+1, W)
-    mw = sliding_window_view(np.asarray(m, dtype=float), W)   # (n-W+1, W)
-    mx = xw.mean(axis=1)                                       # (n-W+1,)
-    mm = mw.mean(axis=1)
-    xc = xw - mx[:, None]                                      # (n-W+1, W)
-    mc = mw - mm[:, None]
-    var_b = (mc * mc).mean(axis=1)                             # (n-W+1,)
-    cov = (xc * mc).mean(axis=1)
-    with np.errstate(divide="ignore", invalid="ignore"):
-        beta = np.where(var_b > 0.0, cov / np.where(var_b > 0.0, var_b, 1.0), np.nan)
-    resid = xc - beta[:, None] * mc                            # (n-W+1, W), mean ~ 0
-    del xc, mc
-    sigma = np.sqrt((resid * resid).mean(axis=1))
-    with np.errstate(divide="ignore", invalid="ignore"):
-        idio = (resid ** 3).mean(axis=1) / (sigma ** 3)
-    del resid
-    finite_win = np.isfinite(xw).all(axis=1) & np.isfinite(mw).all(axis=1)
-    valid = finite_win & (var_b > 0.0) & np.isfinite(sigma) & (sigma > 0.0) & np.isfinite(idio)
-    t_idx = np.arange(W, n)                                    # t = W .. n-1
-    j_idx = t_idx - W + 1                                      # window start index 1 .. n-W
-    rv[t_idx] = np.where(valid[j_idx], sigma[j_idx], np.nan)
-    sk[t_idx] = np.where(valid[j_idx], idio[j_idx], np.nan)
-    return rv, sk
+def _xcorr_pass(R, W=XCORR_W, chunk=XCORR_CHUNK):
+    """Vectorized XCORR for the full (n_assets, T) return matrix R. For each bar
+    t (t=W..T-1) and asset i, window X_i = R[i, t-W+1..t]:
+        corr_ij      = Pearson corr(X_i, X_j) for each j != i   (9 pairwise legs)
+        xcorr_mean[i,t] = (1/9) sum_{j!=i} corr_ij   (avg coupling to the panel)
+        xcorr_disp[i,t] = std_{j!=i}( corr_ij )       (unevenness of coupling)
+    NaN if t<W, any NaN/non-finite in the W-bar panel span, any pairwise leg has
+    zero variance, or not finite. Uses a zero-copy sliding_window_view processed
+    in chunks to keep peak memory low; matches the brute-force reference to
+    maxdiff < 1e-12."""
+    R = np.asarray(R, dtype=float)
+    n_assets, T = R.shape
+    mean_out = np.full((n_assets, T), np.nan, dtype=float)
+    disp_out = np.full((n_assets, T), np.nan, dtype=float)
+    if T < W or n_assets < 2:
+        return mean_out, disp_out
+    rw = sliding_window_view(R, W, axis=1)               # (n_assets, K, W) view, K=T-W+1
+    K = rw.shape[1]
+    denom_df = float(n_assets - 1)
+    for start in range(0, K, chunk):
+        end = min(start + chunk, K)
+        rc = np.array(rw[:, start:end, :], dtype=float)   # (n_assets, c, W) contiguous copy
+        mu = rc.mean(axis=2)                              # (n_assets, c)
+        with np.errstate(invalid="ignore"):
+            Ac = rc - mu[:, :, None]
+        var = (Ac * Ac).mean(axis=2)                      # (n_assets, c)
+        std = np.sqrt(np.where(var > 0.0, var, np.nan))   # (n_assets, c)
+        cov = np.einsum("ikw,jkw->kij", Ac, Ac) / float(W)   # (c, n_assets, n_assets)
+        std_k = std.T                                     # (c, n_assets)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            corr = cov / (std_k[:, :, None] * std_k[:, None, :])
+        finite_win = np.isfinite(rc).all(axis=(0, 2))     # (c,)
+        pos_var = (var > 0.0).all(axis=0)                 # (c,)
+        valid = finite_win & pos_var
+        diag = np.einsum("kii->ki", corr)                 # (c, n_assets)
+        mean_corr = (corr.sum(axis=2) - diag) / denom_df  # (c, n_assets)
+        sumsq = (corr * corr).sum(axis=2) - diag * diag
+        with np.errstate(divide="ignore", invalid="ignore"):
+            var_ij = sumsq / denom_df - mean_corr * mean_corr
+        disp = np.sqrt(np.maximum(var_ij, 0.0))
+        good = valid[:, None] & np.isfinite(mean_corr) & np.isfinite(disp)
+        col0 = start + W - 1
+        col1 = end + W - 1
+        mean_out[:, col0:col1] = np.where(good.T, mean_corr.T, np.nan)
+        disp_out[:, col0:col1] = np.where(good.T, disp.T, np.nan)
+    mean_out[:, :W] = np.nan
+    disp_out[:, :W] = np.nan
+    return mean_out, disp_out
 
 
-def _residvol_bruteforce(log_return, market_return, W=RESIDVOL_W):
-    """Per-window reference RESIDVOL kernel. For each asset i and bar t
-    (t=W..n-1), needing indices t-W+1..t (W bars):
-        beta=cov(r_i,m)/var(m); alpha=mean(r_i)-beta*mean(m);
-        resid=(r_i-mean(r_i))-beta*(m-mean(m));
-        residvol=std(resid); idioskew=mean(resid^3)/std(resid)^3.
-    NaN if t<W, any NaN/non-finite in the W-bar span, var(M)<=0, resid std<=0."""
+def _xcorr_bruteforce(log_return, W=XCORR_W):
+    """Per-window reference XCORR kernel. For each asset i and bar t
+    (t=W..n-1), window X_i=r_i[t-W+1..t]; for each j != i, corr_ij = Pearson
+    corr(X_i, X_j); xcorr_mean = mean_{j!=i} corr_ij; xcorr_disp =
+    std_{j!=i}(corr_ij) (ddof=0). NaN if t<W, any NaN/non-finite in the W-bar
+    panel span, any pairwise leg has zero variance, or not finite."""
     X = np.asarray(log_return, dtype=float)
-    M = np.asarray(market_return, dtype=float)
     n_assets, n = X.shape
-    residvol = np.full((n_assets, n), np.nan, dtype=float)
-    idioskew = np.full((n_assets, n), np.nan, dtype=float)
-    for i in range(n_assets):
-        for t in range(W, n):
-            Xw = X[i, t - W + 1:t + 1]
-            Mw = M[t - W + 1:t + 1]
-            if not (np.isfinite(Xw).all() and np.isfinite(Mw).all()):
+    mean = np.full((n_assets, n), np.nan, dtype=float)
+    disp = np.full((n_assets, n), np.nan, dtype=float)
+    for t in range(W, n):
+        span = X[:, t - W + 1:t + 1]                      # (n_assets, W)
+        if not np.isfinite(span).all():
+            continue
+        sd = span.std(axis=1)
+        if not (sd > 0.0).all():
+            continue
+        for i in range(n_assets):
+            xi = span[i]
+            corrs = np.empty(n_assets - 1, dtype=float)
+            k = 0
+            for j in range(n_assets):
+                if j == i:
+                    continue
+                corrs[k] = float(np.corrcoef(xi, span[j])[0, 1])
+                k += 1
+            if not np.isfinite(corrs).all():
                 continue
-            mx = float(Xw.mean())
-            mm = float(Mw.mean())
-            xc = Xw - mx
-            mc = Mw - mm
-            var_b = float((mc * mc).mean())
-            if not (var_b > 0.0 and np.isfinite(var_b)):
-                continue
-            cov = float((xc * mc).mean())
-            beta = cov / var_b
-            resid = xc - beta * mc
-            sigma = float(np.sqrt((resid * resid).mean()))
-            if not (sigma > 0.0 and np.isfinite(sigma)):
-                continue
-            residvol[i, t] = sigma
-            idioskew[i, t] = float((resid ** 3).mean() / (sigma ** 3))
-    return {"residvol": residvol, "idioskew": idioskew}
+            mean[i, t] = float(corrs.mean())
+            disp[i, t] = float(corrs.std())
+    return {"xcorr_mean": mean, "xcorr_disp": disp}
 
 
-def compute_residvol_metrics(log_return, market_return, W=RESIDVOL_W):
-    """Vectorized RESIDVOL kernel. For each asset i and bar t (t=W..n-1),
-    W=256, needing indices t-W+1..t (W bars):
-        beta=cov(r_i,m)/var(m); alpha=mean(r_i)-beta*mean(m);
-        resid=(r_i-mean(r_i))-beta*(m-mean(m));
-        residvol=std(resid); idioskew=mean(resid^3)/std(resid)^3.
-    Matches _residvol_bruteforce (maxdiff < 1e-12)."""
+def compute_xcorr_metrics(log_return, W=XCORR_W):
+    """Vectorized XCORR kernel. For each asset i and bar t (t=W..n-1),
+    W=256, needing indices t-W+1..t (W bars) across the full panel:
+        corr_j(t) = Pearson corr(X_i, X_j) for each j != i
+        xcorr_mean = (1/9) sum_{j!=i} corr_j ; xcorr_disp = std_{j!=i}(corr_j)
+    Matches _xcorr_bruteforce (maxdiff < 1e-12)."""
     X = np.asarray(log_return, dtype=float)
-    M = np.asarray(market_return, dtype=float)
     n_assets, n = X.shape
-    residvol = np.full((n_assets, n), np.nan, dtype=float)
-    idioskew = np.full((n_assets, n), np.nan, dtype=float)
     if n < W:
-        return {"residvol": residvol, "idioskew": idioskew}
-    for i in range(n_assets):
-        rv, sk = _residvol_one_asset(X[i], M, W)
-        residvol[i] = rv
-        idioskew[i] = sk
-    return {"residvol": residvol, "idioskew": idioskew}
+        return {"xcorr_mean": np.full((n_assets, n), np.nan, dtype=float),
+                "xcorr_disp": np.full((n_assets, n), np.nan, dtype=float)}
+    m, d = _xcorr_pass(X, W)
+    return {"xcorr_mean": m, "xcorr_disp": d}
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar RESIDVOL metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): residvol, idioskew. The
-    equal-weight market return m[s]=(1/10)*sum_i r_i[s] is built once from the
-    full 2D log-return matrix, then residual volatility / residual skewness are
-    computed per asset over trailing W-bar windows."""
+    """Compute the causal per-bar XCORR metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): xcorr_mean, xcorr_disp. The
+    full (T, 10) return matrix R is used directly; for every asset i and bar t
+    the average and dispersion of its 9 pairwise Pearson correlations with the
+    other assets are computed over trailing W-bar windows."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
-    log_return = bs["log_return"]
+    log_return = np.asarray(bs["log_return"], dtype=float)
     series: dict = {}
-    METRIC_KEYS = ("residvol", "idioskew")
-    mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
-    W = RESIDVOL_W
-    market_return = np.asarray(log_return, dtype=float).mean(axis=0)
-    result = compute_residvol_metrics(np.asarray(log_return, dtype=float),
-                                      market_return, W=W)
+    METRIC_KEYS = ("xcorr_mean", "xcorr_disp")
+    result = compute_xcorr_metrics(log_return, W=XCORR_W)
     for k in METRIC_KEYS:
-        mats[k] = np.asarray(result[k], dtype=float)
-    for k in METRIC_KEYS:
-        series[k] = mats[k]
+        series[k] = np.asarray(result[k], dtype=float)
     return series
 
 
@@ -641,7 +639,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="residvol_dev", L=240, H=4,
+    ref_cfg = dict(signal="xcorr_mean_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -765,29 +763,29 @@ def main(argv: list[str] | None = None) -> int:
 
     sweep_obj = {
         "generated_at_utc": ts, "campaign": 410, "part": "oos_sweep",
-        "analysis": "c410_residvol_xsec_stat_arb_oos_5m",
+        "analysis": "c410_xcorr_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
-            "mandate": (
-            "C410 — test the cross-sectional intraday RESIDVOL: IDIOSYNCRATIC / "
-            "RESIDUAL VOLATILITY (AND RESIDUAL SKEWNESS) VS EQUAL-WEIGHT MARKET x "
+                "mandate": (
+            "C410 — test the cross-sectional intraday XCORR: AVERAGE PAIRWISE "
+            "CO-MOVEMENT / CROSS-SECTIONAL CORRELATION PROFILE x "
             "SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M "
             "linear perps at native 5m (1296 pre-registered configs). Per-bar "
             "primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) "
-            "(r[0]=0); abs_ret=|log_return|. Equal-weight market return "
-            "m[s]=(1/10)*sum_i r_i[s]. RESIDVOL scalars over fixed intrinsic "
-            "window W=256 trailing returns: beta=cov(r_i[t-W+1..t], m[t-W+1..t])/"
-            "var(m[t-W+1..t]); alpha=mu_{r_i}-beta*mu_m; "
-            "resid=r_i[t-W+1..t]-beta*m[t-W+1..t]-alpha; "
-            "residvol=std(resid) (idiosyncratic volatility); "
-            "idioskew=mean(((resid-mu_resid)/sigma_resid)^3) (residual skewness). "
-            "Needs indices t-W+1..t (W bars). NaN if t<W or any NaN/non-finite "
-            "in the W-bar span, var(M)<=0, residual std<=0, or not finite. "
+            "(r[0]=0); abs_ret=|log_return|. Return matrix R=(T,10). XCORR scalars "
+            "over fixed intrinsic window W=256 trailing returns: for each asset i "
+            "and bar t, corr_j(t)=Pearson corr(X_i, X_j) over X_i=r_i[t-W+1..t], "
+            "X_j=r_j[t-W+1..t] for each j!=i (9 pairwise legs); "
+            "xcorr_mean=(1/9)*sum_{j!=i} corr_j(t) (avg coupling to panel, in "
+            "[-1,1]); xcorr_disp=std_{j!=i}(corr_j(t)) (unevenness of coupling). "
+            "Needs indices t-W+1..t (W bars) across the full panel. NaN if t<W or "
+            "any NaN/non-finite in the W-bar panel span, any pairwise leg has zero "
+            "variance, or not finite. "
             "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket "
             "from history strictly before bar t (causal shift(1)), NaN-aware, "
             "excluding NaN obs. Signals: 2 real "
-            "(residvol_dev, idioskew_dev) + 2 placebos "
+            "(xcorr_mean_dev, xcorr_disp_dev) + 2 placebos "
             "(phase-randomized surrogates, never edges). "
             "Single-leg dollar-neutral perp PnL with costs on turnover "
             "(taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
@@ -811,15 +809,15 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "xcorr_params": {"window_W": RESIDVOL_W},
+            "xcorr_params": {"window_W": XCORR_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "residvol_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                             "observed_mean_bps_per_split": obs_mean_bps},
+            "xcorr_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+                          "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -831,18 +829,19 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar span or var(M)<=0 or residual std<=0 or not finite).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar panel span or any pairwise leg has zero variance or not finite).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
             "primitives": "fixed intrinsic window W=256 trailing returns; "
-                          "equal-weight market return m[s]=(1/10)*sum_i r_i[s]; "
-                          "beta=cov(r_i[t-W+1..t], m[t-W+1..t])/var(m[t-W+1..t]); "
-                          "alpha=mu_{r_i}-beta*mu_m; resid=r_i-beta*m-alpha; "
-                          "residvol=std(resid); idioskew=mean(((resid-mu_resid)/sigma_resid)^3).",
-            "signals": "residvol/idioskew over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
+                          "return matrix R=(T,10) built once; "
+                          "corr_j(t)=Pearson corr(X_i, X_j) over X_i=r_i[t-W+1..t], "
+                          "X_j=r_j[t-W+1..t] for j!=i; "
+                          "xcorr_mean=(1/9)*sum_{j!=i} corr_j; "
+                          "xcorr_disp=std_{j!=i}(corr_j).",
+            "signals": "xcorr_mean/xcorr_disp over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
@@ -853,12 +852,13 @@ def main(argv: list[str] | None = None) -> int:
             "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "residvol_vectorization_note": "equal-weight market return m[s]=(1/10)*sum_i r_i[s] built once; "
-                          "per-asset sliding_window_view(x,256) and sliding_window_view(m,256) with "
-                          "centered sum-identity covariance/variance for beta; resid=xc-beta*mc; "
-                          "residvol=sqrt(mean(resid^2)); idioskew=mean(resid^3)/residvol^3; "
-                          "validated against brute-force per-window loop with explicit market series "
-                          "with maxdiff < 1e-12 in tests. Per-asset loop keeps peak memory low.",
+            "xcorr_vectorization_note": "return matrix R=(T,10) built once; "
+                          "zero-copy sliding_window_view(R,256) processed in chunks; per-chunk "
+                          "centered sum-identity covariance/correlation (10x10 corr per bar); "
+                          "xcorr_mean=off-diagonal row mean of corr; "
+                          "xcorr_disp=off-diagonal row std (ddof=0) of corr; "
+                          "validated against brute-force per-window loop with explicit np.corrcoef "
+                          "with maxdiff < 1e-12 in tests. Chunking keeps peak memory low.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -919,13 +919,13 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C410 cross-sectional intraday RESIDVOL idiosyncratic/residual volatility "
+        f"C410 cross-sectional intraday XCORR average pairwise co-movement "
         f"stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C410 cross-sectional intraday RESIDVOL idiosyncratic/residual volatility "
+        else f"C410 cross-sectional intraday XCORR average pairwise co-movement "
         f"stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
@@ -935,7 +935,7 @@ def main(argv: list[str] | None = None) -> int:
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c410_residvol_xsec_stat_arb_costed_oos_5m",
+        "basis": "c410_xcorr_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -976,7 +976,7 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C410 cross-sectional intraday RESIDVOL idiosyncratic/residual volatility "
+                "C410 cross-sectional intraday XCORR average pairwise co-movement "
                 "stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",
