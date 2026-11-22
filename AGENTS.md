@@ -1,20 +1,20 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T23:43:00Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; C416 QREG cache BUILT 20261122T192035Z (10 shards), preflight `ready:true`, 5 scripts/tests present + rewrite-guard grep clean; **C416 kernel is now FINAL + OPTIMIZED + VALIDATED (raw CSC `_highs_wrapper` + `presolve=False`, bit-exact, 35/35 tests green in 740 s)**; the ~3.0 h 2592-config sweep fits a FRESH 4.2 h session with ~0.9 h margin — this session (started 20:50:04, cap 01:01:51) had only ~1 h 19 m left and could not finish it; see bottleneck note) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T23:48:58Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; C416 QREG cache BUILT 20261122T192035Z (10 shards), preflight `ready:true`, 5 scripts/tests present + rewrite-guard grep clean; **C416 kernel FINAL + OPTIMIZED + VALIDATED (raw CSC `_highs_wrapper` + `presolve=False`, bit-exact, 35/35 tests green in 740 s)**; **FULL literal-2592-config costed OOS sweep STARTED at 2026-11-22T23:48:58Z (PID 24145, log /tmp/c416_sweep.log)** — reports/campaign416_* written only at full completion; this session (~4.2 h cap) can finish the ~3.0 h sweep if polled every ≤12 min — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T23:43:56Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-22T23:48:58Z; supersedes every earlier session message; the ONLY active directive)
 
 **C415 TAILDEP FROZEN (20261122T162624Z):** formal negative, 1944 configs, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false. NO EDGE through C415. DO NOT re-run.
 
-**C416 QREG (ACTIVE, seed 20261280):** cache `data/cache/campaign416_qreg_5m/` BUILT (10 shards), preflight `ready:true` verified, kernel FINAL + OPTIMIZED + VALIDATED (35/35 tests green). The FULL literal-2592-config costed OOS sweep has NOT been run — `reports/campaign416_*` is empty. THIS IS THE ONLY LIVE WORK.
+**C416 QREG (ACTIVE, seed 20261280):** cache `data/cache/campaign416_qreg_5m/` BUILT (10 shards), preflight `ready:true` verified, kernel FINAL + OPTIMIZED + VALIDATED (35/35 tests green). **FULL literal-2592-config costed OOS sweep STARTED (PID 24145, log /tmp/c416_sweep.log); `reports/campaign416_*` not yet written.** THIS IS THE ONLY LIVE WORK.
 
-**NEXT ACTION — RUN C416 SWEEP FRESH AT SESSION START (no stopping, do NOT re-benchmark):**
+**NEXT ACTION — POLL C416 SWEEP TO COMPLETION (no stopping, do NOT re-benchmark):**
 ```
-cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-nohup python3 -u scripts/run_c416_qreg_xsec_oos.py > /tmp/c416_sweep.log 2>&1 &
-# poll /tmp/c416_sweep.log every ≤12 min; expect "[qreg] N/210 tasks done" every 10 tasks, final "[qreg] 210/210 tasks done" (~3.0 h wall)
+# sweep running: nohup python3 -u scripts/run_c416_qreg_xsec_oos.py > /tmp/c416_sweep.log 2>&1 &  (PID 24145)
+# poll /tmp/c416_sweep.log every ≤12 min (never bare sleep 1500); expect "[qreg] N/210 tasks done" every 10 tasks
+# wait for final "[qreg] 210/210 tasks done" (~3.0 h wall) then:
 ls reports/campaign416_*        # 5 reports + .full.json must exist when done
 python3 -m pytest tests/test_preflight_c416.py tests/test_c416_qreg_xsec_oos.py -q   # expect 35 passed incl brute-force maxdiff < 1e-12
 sha256sum reports/campaign416_*_<TS>Z.json          # record all 5 artifact SHAs
