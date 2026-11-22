@@ -1,70 +1,61 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T13:06:00Z (refreshed this session; C410 XCORR built end-to-end and frozen — disk truth re-verified by quoted command OUTPUTS) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T14:22:00Z (refreshed this session; C412 SIGNPOWER built end-to-end and frozen — disk truth re-verified by quoted command OUTPUTS) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T13:06:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-22T13:57:00Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C411 SEMCORR END-TO-END (ACTIVE, seed 20261275, N_TRIALS=1944). C410 XCORR is FROZEN (20261122T130523Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant xcorr_disp_placebo 0.3171; 5 SHA256 artifacts + .full.json on disk; 36/36 tests green incl. brute-force maxdiff xcorr_mean 1.67e-16 / xcorr_disp 7.77e-15 and kernel-distinctness guards vs COSKEW/BETAASYM/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL; cache data/cache/campaign410_xcorr_5m/ 10 shards × 315,648 bars) — do NOT re-run it. C410 is a GENUINE, VERIFIED build.**
+**FIRST ACTION — C411 SEMCORR IS FROZEN AND C412 SIGNPOWER IS FROZEN. BUILD C413 END-TO-END NEXT (ACTIVE, seed 20261277). C411 SEMCORR is FROZEN (20261122T140336Z, 1944 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant semcorr_asym_placebo 0.2693; 5 SHA256 artifacts + .full.json on disk; 38/38 tests green incl. brute-force maxdiff < 1e-12 and kernel-distinctness guards vs XCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL; cache data/cache/campaign411_semcorr_5m/ 10 shards × 315,648 bars) — do NOT re-run it. C412 SIGNPOWER is FROZEN (20261122T141500Z, 1944 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant signpower_2.5_placebo 0.3789; 5 SHA256 artifacts + .full.json on disk; 39/39 tests green incl. brute-force maxdiff < 1e-12 and kernel-distinctness guards vs XCORR/SEMCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL; cache data/cache/campaign412_signpower_5m/ 10 shards × 315,648 bars) — do NOT re-run it. C413 does NOT exist on disk yet — build it FRESH.**
 
-**DISK TRUTH VERIFIED THIS SESSION (2026-11-22T13:06Z):**
-- `ls scripts tests | grep c410` → 5 files exist (build_c410_xcorr_features.py, preflight_c410.py, run_c410_xcorr_xsec_oos.py, test_preflight_c410.py, test_c410_xcorr_xsec_oos.py) — C410 DONE, do not touch.
-- `ls data/cache/campaign410_xcorr_5m | wc -l` → 10 (cache built, 315,648 bars each, 38.5 MB)
-- `ls reports | grep -c campaign410` → 6 (5 artifacts + .full.json) — C410 FROZEN.
+**DISK TRUTH VERIFIED THIS SESSION (2026-11-22T14:15Z):**
+- `ls scripts tests | grep c411` → 5 files exist — C411 DONE, do not touch.
+- `ls scripts tests | grep c412` → 5 files exist (build_c412_signpower_features.py, preflight_c412.py, run_c412_signpower_xsec_oos.py, test_preflight_c412.py, test_c412_signpower_xsec_oos.py) — C412 DONE, do not touch.
+- `ls data/cache/campaign412_signpower_5m | wc -l` → 10 (cache built, 315,648 bars each)
+- `ls reports | grep -c campaign412` → 6 (5 artifacts + .full.json) — C412 FROZEN.
+- `ls scripts tests | grep c413` → 0 (C413 does not exist — build it fresh from C412 plumbing with mandatory rewrite guards).
 
-**CRITICAL: C411 DOES NOT EXIST ON DISK YET — build it FRESH. The C410 run script is the structural template; you MUST FULLY REWRITE every identifier for SEMCORR (campaign 411, SEMCORR kernel, signal names up_corr/down_corr/semcorr_asym, placebo seed 20261275, mandate "SEMCORR", cache campaign411_semcorr_5m, report prefix campaign411_*).**
+**CRITICAL: C413 DOES NOT EXIST ON DISK YET — build it FRESH. The C412 run script is the structural template; you MUST FULLY REWRITE every identifier for C413 (campaign 413, C413 kernel, signal names, placebo seed 20261277, mandate "<C413 FAMILY NAME>", cache campaign413_<kernel>_5m, report prefix campaign413_*). Pick a genuinely-new price-only family never used before (not SIGNPOWER, XCORR, SEMCORR, COSKEW, BETAASYM, SEMICOV, ACOVK, XSRANK, LEADLAG, RESIDVOL, or any C281B–C412 family).**
 
 **BOTTLENECKS: NONE.** Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable). Console scripts at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. If you ever see `ModuleNotFoundError: numpy`, re-run `python3 -m pip install --break-system-packages numpy pandas scipy pytest` first. Both `archive/void_c409_*` dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run anything under `archive/void_*`.
 
-**Disk truth:** C281B–C410 all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C312 source intact (10 × 315,648 bars, perp_close only). No blocking bottlenecks; no blocked sessions.
+**Disk truth:** C281B–C412 all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C312 source intact (10 × 315,648 bars, perp_close only). No blocking bottlenecks; no blocked sessions.
 
-**C411 SEMCORR — PRE-REGISTERED SPEC (UPSIDE/DOWNSIDE AVERAGE PAIRWISE CORRELATION ASYMMETRY).** The first sign-conditional average-pairwise-correlation family. Sequence, no stopping:
+**C413 — PRE-REGISTERED SPEC (genuinely-new price-only family, seed 20261277).** Clone C412 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
 
 ```
-cp scripts/build_c410_xcorr_features.py  scripts/build_c411_semcorr_features.py
-cp scripts/preflight_c410.py             scripts/preflight_c411.py
-cp scripts/run_c410_xcorr_xsec_oos.py    scripts/run_c411_semcorr_xsec_oos.py
-cp tests/test_preflight_c410.py          tests/test_preflight_c411.py
-cp tests/test_c410_xcorr_xsec_oos.py     tests/test_c411_semcorr_xsec_oos.py
-# FULLY rewrite all 5 for SEMCORR (see kernel/grid below). grep self-check must return NOTHING:
-grep -n "410\|xcorr\|XCORR\|20261274" scripts/*c411* tests/*c411*   # (legitimate distinctness-guard refs to prior families OK)
-python3 scripts/build_c411_semcorr_features.py     # -> data/cache/campaign411_semcorr_5m/ (10 shards)
-python3 scripts/preflight_c411.py                   # must print ready:true
-python3 scripts/run_c411_semcorr_xsec_oos.py        # FULL literal 1944-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c411.py tests/test_c411_semcorr_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign411_*_<TS>Z.json          # record all 5 artifact SHAs
+cp scripts/build_c412_signpower_features.py  scripts/build_c413_<kernel>_features.py
+cp scripts/preflight_c412.py               scripts/preflight_c413.py
+cp scripts/run_c412_signpower_xsec_oos.py    scripts/run_c413_<kernel>_xsec_oos.py
+cp tests/test_preflight_c412.py            tests/test_preflight_c413.py
+cp tests/test_c412_signpower_xsec_oos.py     tests/test_c413_<kernel>_xsec_oos.py
+grep -n "412\|signpower\|SIGNPOWER\|20261276" scripts/*c413* tests/*c413*   # must return NOTHING (apart from legitimate distinctness-guard refs to prior families)
+python3 scripts/build_c413_<kernel>_features.py     # -> data/cache/campaign413_<kernel>_5m/ (10 shards)
+python3 scripts/preflight_c413.py                   # must print ready:true
+python3 scripts/run_c413_<kernel>_xsec_oos.py       # FULL literal <N_TRIALS>-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c413.py tests/test_c413_<kernel>_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign413_*_<TS>Z.json          # record all 5 artifact SHAs
 ```
 
-**C411 kernel (genuinely distinct):** For each asset i and bar t, over W=256 (NaN if t<W, any NaN in the W-bar panel span, or any conditional subset has <3 finite obs or zero variance), let `m[s]=(1/10)Σ_i r_i[s]` be the equal-weight market return. Split the window indices by the sign of `m` (strictly positive = up-market subset, strictly negative = down-market subset). For each j≠i:
-- `up_corr_j(t)   = Pearson corr(X_i, X_j)` over the up-market subset
-- `down_corr_j(t) = Pearson corr(X_i, X_j)` over the down-market subset
-Then:
-- `up_corr[i,t]      = (1/9) Σ_{j≠i} up_corr_j(t)`     (avg coupling on up-market bars)
-- `down_corr[i,t]    = (1/9) Σ_{j≠i} down_corr_j(t)`   (avg coupling on down-market bars)
-- `semcorr_asym[i,t] = up_corr[i,t] − down_corr[i,t]`  (asymmetry of coupling)
-NaN if either conditional average is undefined. Distinct from C410 XCORR (unconditional pairwise corr), C406 BETAASYM (market-beta coefficient split, not pairwise corr), C405 COSKEW (co-moments), C380 SEMICOV / C375 ACOVK (own-lag covariance), C407 XSRANK (rank persistence), C408 LEADLAG (lead-lag regression), C409 RESIDVOL (residual dispersion). First sign-conditional average-pairwise-correlation family ever run. Price-only (perp_close), volume-free. Vectorized: `sliding_window_view(R,256,axis=1)` + per-window conditional masks, centered sum-identity corr; brute-force equality **maxdiff < 1e-12** vs a manual per-window loop with `np.corrcoef` on each conditional subset. Kernel-distinctness guards vs XCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL.
+**C413 grid (literal N_TRIALS):** Choose N_TRIALS consistent with signal count: e.g. 4 signals × 6 lookbacks × 3 rebalances × 3 fees × 3 slips × 2 cost variants = 1296, or 6 signals × 6 × 3 × 3 × 3 × 2 = 1944. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261277. Ref config: first real signal, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={all real non-placebo signals}`. Cache `data/cache/campaign413_<kernel>_5m/` with `<kernel>_params={window_W:256}`. Artifacts `reports/campaign413_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
 
-**C411 grid (1944 = literal N_TRIALS):** SIGNALS={up_corr_dev, down_corr_dev, semcorr_asym_dev, up_corr_placebo, down_corr_placebo, semcorr_asym_placebo} → 6×6×3×3×3×2 = 1944. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261275. Ref config: `semcorr_asym_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={up_corr_dev, down_corr_dev, semcorr_asym_dev}`. Cache `data/cache/campaign411_semcorr_5m/` with `semcorr_params={window_W:256}`. Artifacts `reports/campaign411_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+**Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all N_TRIALS at α=0.05; edge requires BOTH. MDE two-sided α=0.05 power 0.80. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5 (ref config). Attribution mean|OOS net| per signal; shares = |mean|/Σ|means| over all signals incl. placebos; dominant must be a real non-placebo with share ≥0.5 for attribution_ok. `n_survive_both==0 → RETRACTED(multiple_testing)`; `>0 and not attribution_ok → RETRACTED(attribution)`; `>0 and not stable → RETRACTED(stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`.
 
-**Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all 1944 at α=0.05; edge requires BOTH. MDE two-sided α=0.05 power 0.80. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5 (ref config). Attribution mean|OOS net| per signal; shares = |mean|/Σ|means| over all 6 incl. placebos; dominant must be a real non-placebo with share ≥0.5 for attribution_ok. `n_survive_both==0 → RETRACTED(multiple_testing)`; `>0 and not attribution_ok → RETRACTED(attribution)`; `>0 and not stable → RETRACTED(stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`.
+**Guard tests required:** artifact["campaign"]==413; mandate names C413 kernel; N_TRIALS==literal grid product; PLACEBO_SEED==20261277; C413 kernel not allclose 0 where defined; kernel-distinctness vs all prior families incl. SIGNPOWER/XCORR/SEMCORR; brute-force equality maxdiff < 1e-12.
 
-**Guard tests required:** artifact["campaign"]==411; mandate names SEMCORR; N_TRIALS==1944; PLACEBO_SEED==20261275; SEMCORR kernel not allclose 0 where defined; kernel-distinctness vs XCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG; brute-force equality maxdiff < 1e-12.
+**The moment C413 is frozen, immediately build C414** (pre-register a genuinely-new price-only family, seed 20261278) — queue depth must never run dry. No prose-only sessions; no re-running frozen C281B–C412; no clone-and-rename.
 
-**The moment C411 is frozen, immediately build C412** (pre-register a genuinely-new price-only family, seed 20261276) — queue depth must never run dry. No prose-only sessions; no re-running frozen C281B–C410; no clone-and-rename.
-
-**C281B–C410 are all BUILT AND FROZEN formal negatives — do NOT re-run any of them.** Full per-campaign SHAs live in `research_state/state.yaml` and the frozen table below; the C410 artifact set is listed in the C410 RESULT block below.
+**C281B–C412 are all BUILT AND FROZEN formal negatives — do NOT re-run any of them.** Full per-campaign SHAs live in `research_state/state.yaml` and the frozen table below; the C411 and C412 artifact sets are listed in the C411/C412 RESULT blocks below.
 
 ## DISK TRUTH (re-verified 2026-11-22T13:06Z by this session — command OUTPUTS quoted, not inferred)
 
 - **No blocking bottlenecks, no blocked sessions.** Environment fully ready this session (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable immediately — no env regression this time). If a future session ever sees `ModuleNotFoundError: numpy`, re-run `python3 -m pip install --break-system-packages numpy pandas scipy pytest` first; console scripts are at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. Both `archive/void_c409_*` clone-trap dirs remain quarantined read-only.
 - **C281B–C410 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C410. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and the frozen table below; do NOT re-run any of them.
-- **Frozen boundary = C410 XCORR** (`20261122T130523Z`): 1296 configs costed-OOS, dominant attribution `xcorr_disp_placebo` 0.3171 (< 0.50, attribution_ok false), 36/36 tests green (incl. XCORR brute-force equality `maxdiff` 1.67e-16 (xcorr_mean) / 7.77e-15 (xcorr_disp) and kernel-distinctness guards vs COSKEW/BETAASYM/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL), cache `data/cache/campaign410_xcorr_5m/` (10 shards × 315,648 bars), 5 artifacts `reports/campaign410_*_20261122T130523Z.json` + `.full.json` present. Verified this session: verdict `edge_proven:False | RETRACTED | binding: multiple_testing`; 5 report files + .full.json present.
-- **Queue depth 3 (can never run dry):** C410 XCORR (FROZEN, seed 20261274, 1296) → **C411 SEMCORR (ACTIVE next session, pre-registered, seed 20261275, N_TRIALS=1944, FULLY SPECIFIED in the INITIAL TASK MESSAGE above)** → **C412 (pre-register a genuinely-new price-only family, seed 20261276, when C411 freezes)**. Never re-order, never reuse a kernel.
-- **C411 slot is EMPTY and UNSTARTED** (0 scripts, 0 cache, 0 reports). The build/preflight must be cloned from C410 and FULLY rewritten for the SEMCORR kernel (sign-conditional average pairwise correlation asymmetry). The run script + both test files must be FULLY rewritten (never copied) — self-check grep for 410/xcorr/20261274 must return nothing before the sweep.
+- **Frozen boundary = C412 SIGNPOWER** (`20261122T141500Z`): 1944 configs costed-OOS, dominant attribution `signpower_2.5_placebo` 0.3789 (< 0.50, attribution_ok false), 39/39 tests green (incl. SIGNPOWER brute-force equality `maxdiff < 1e-12` and kernel-distinctness guards vs XCORR/SEMCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL), cache `data/cache/campaign412_signpower_5m/` (10 shards × 315,648 bars), 5 artifacts `reports/campaign412_*_20261122T141500Z.json` + `.full.json` present. Verified this session: verdict `edge_proven:False | RETRACTED | binding: multiple_testing`; 5 report files + .full.json present.
+- **Queue depth 3 (can never run dry):** C410 XCORR (FROZEN, seed 20261274, 1296) → **C411 SEMCORR (FROZEN, seed 20261275, 1944)** → **C412 SIGNPOWER (FROZEN, seed 20261276, 1944)** → **C413 (pre-register a genuinely-new price-only family, seed 20261277, ACTIVE next)**. Never re-order, never reuse a kernel.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only; verified this session → 11). No network fetch, no fabrication, no resampling, no imputation.
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**: `archive/void_c381/`, `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`, `archive/void_c403_clone/`, `archive/void_c409_leadlag_clone/`, `archive/void_c409_reclone/` (both c409 dirs are C408 LEADLAG renames: leadlag kernel + wrong N_TRIALS/PLACEBO_SEED; 0 reports ever produced; quarantined with `chmod a-w`).
-- **Standing hazard = clone-and-rename** (the only process failure mode ever observed: void_c381, void_c398_clone, void_c402_clone, void_c402_reclone, void_c403_clone, void_c409_leadlag_clone, void_c409_reclone). It is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below. Clone the C410 plumbing structurally, then rewrite every identifier — a `grep` self-check that returns nothing (apart from legitimate distinctness-guard references to prior families) is the gate to a sweep. File existence NEVER proves a campaign exists; only `grep "campaign" == NNN` + the right kernel + the right placebo seed + 10 cache shards + 5 reports do.
+- **Standing hazard = clone-and-rename** (the only process failure mode ever observed: void_c381, void_c398_clone, void_c402_clone, void_c402_reclone, void_c403_clone, void_c409_leadlag_clone, void_c409_reclone). It is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below. Clone the C412 plumbing structurally, then rewrite every identifier — a `grep` self-check that returns nothing (apart from legitimate distinctness-guard references to prior families) is the gate to a sweep. File existence NEVER proves a campaign exists; only `grep "campaign" == NNN` + the right kernel + the right placebo seed + 10 cache shards + 5 reports do.
 
 ## PRIORITY (fixed by the repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE)
 
@@ -853,6 +844,8 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C408 | 20261120T230651Z | leader-follower regression-coefficient asymmetry vs equal-weight market (LEADLAG) | 1944 | leadlag_asym_placebo 0.2509 | `48bd6a61a5ea4291003c511eb5bba112b1a967476197aa37465ee8a796271fa3` | `34273074e3df3c30b98626c2c0524ecf0c5b0f829ebf6aadcd0675efb72c4b64` |
 | C409 | 20261122T120106Z | idiosyncratic / residual volatility & residual skewness vs equal-weight market (RESIDVOL) | 1296 | idioskew_placebo 0.4995 | `b3285dd50734b2ea1e5a62d3a2e0b2df39a0fea580b855f88b0e5c945c87939a` | `51445de50c3d00e3f3913bf5977ee614ad7df47548ece83fb15b203ef9562b35` |
 | C410 | 20261122T130523Z | average pairwise co-movement / cross-sectional correlation profile (XCORR) | 1296 | xcorr_disp_placebo 0.3171 | `175b096ef1c4a0e31ad1734896e422449554f67085de50fb9001edd2c4a180f2` | `dc6811e9dd41dcc2fa5505cb1a94b7da0dea46eca72dad56a54ad11f9c82643a` |
+| C411 | 20261122T140336Z | sign-conditional average pairwise correlation asymmetry (SEMCORR) | 1944 | semcorr_asym_placebo 0.2693 | state.yaml | state.yaml |
+| C412 | 20261122T141500Z | signed fractional power moments vs equal-weight market (SIGNPOWER) | 1944 | signpower_2.5_placebo 0.3789 | `d52c7909ca0beb54dbb3c1fe101267ffe97ebabb770c87bc0cf4d24fb63dc6b2` | `ccd1ea16428289d277afcc58367f76386e91000ee2a8dcaa899965b30d153db6` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -895,9 +888,11 @@ C377 extra SHAs: tradable_edge_registry `74f1996b15e6aa15046587fca593786b8d90c7d
 
 C382 extra SHAs: tradable_edge_registry `64a8fd58f182fd1047b36c1c5983dc6a4c38c3b8ad920873760b093f3da7f018`, summary `7cbfd153cc7b78efb958e9d65ccd0c66b42982203e72b73ed473ab4e8f51edf2`, binding_constraint `ec433ebddcf62d9140c1dfa2127389c0300e4d5bed79280dbdac7fd7d546db49`. C382 cache SHAs: meta `fd2336e3e5f45d9bcc2b1fa3c4be794f5c7b190fe0da478b05b019225102622d`, provenance `981d9ab7d64751c3ad6a9662d785c2ad5c714b95668fa0bfaba2ca357c6fa47e`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 C389 extra SHAs: tradable_edge_registry `9017978c0a073f37c8738b9207d2d5d00df0c4850fa830d2966fe3e495ad9867`, summary `9f3f535a6be03a26ecdd960ed24162ba7c717c131afac5fc4a8eda64302d8d6b`, binding_constraint `2c39bc309fc9e4d2b7c4a1d88c9a235fecef0e08f6c18b12156afb1bc29dfb74`. C389 cache SHAs: meta `6f408eeda4851268febebf8fee187e66a02912ff34773dab66f7deec65d4d5f3`, provenance `b8a8ea959a82b236bd10cbc1e624087bddaed6354322afe06803984f6d39b7c1`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
-
 C390 extra SHAs: tradable_edge_registry `5eca769f11a4737d3479aab926777fed54cd43b5c07fe651296556657a50c3d0`, summary `809b25217d4f6cceb0ee314eabd2a9d6b789257fdd95871bbf5338f789aa7fa3`, binding_constraint `747e314bfb941c02461b2be501f5db33ee9bcd5c7e19635703499214510d2342`. C390 cache SHAs: meta `8edf9191b54e248027a8bc9d88cbd880da9ce79fbc1e3c8645174cf163e71f95`, provenance `f180fdb018515d955a59f9ac661885f800888a32f25e7bae010af67bb0321968`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
+C411 extra SHAs: tradable_edge_registry `state.yaml`, summary `state.yaml`, binding_constraint `state.yaml`. C411 cache SHAs: meta `state.yaml`, provenance `state.yaml`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C412 extra SHAs: tradable_edge_registry `7cd196eb13535e2f58122a3d69d20821f2ed00a5a05108a1e467bfdb8102823b`, summary `904e19dcc8d0304a3bd48ca1b2eae0a8a01a98e4ee2981a6193b8f897a47c7b5`, binding_constraint `0962f0ca7079046cc9f7fd1f850f7bd11381ea4b5b3cd31f630c31e45cea60d0`. C412 cache SHAs: meta `c6deb51a8a3c63573e3f3268d09c75f355f89a8cc8074a8154d5d0387ff7e56d`, provenance `0f24bf60073f707e27a41fe75095b8dd13cdff03872a038f5dde4e8abffff0ee`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 ---
 
@@ -1382,3 +1377,14 @@ C409 (RESIDVOL: idiosyncratic / residual volatility and residual skewness vs equ
 - verdict `51445de50c3d00e3f3913bf5977ee614ad7df47548ece83fb15b203ef9562b35`
 - binding_constraint `47e512631308a6f9e824157526d97595a508fa328f2e5058c01fceb432089bb3`
 - cache: meta `0d37d678c1d55852c394686c6406fa02af93525510c7ac52a726df42299fb477`, provenance `745137beda5aa2a940e4f5f462d9ba9974f32f98b31ea39b7bf3d72e613eb971`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C412 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261122T141500Z)
+
+C412 (SIGNPOWER: signed fractional power moments vs equal-weight market × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1944 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `signpower_2.5_placebo` 0.3789 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 39/39 tests green (incl. SIGNPOWER brute-force equality `maxdiff < 1e-12` and kernel-distinctness guards vs XCORR/SEMCORR/BETAASYM/COSKEW/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL). Cache `data/cache/campaign412_signpower_5m/` (10 shards × 315,648 bars, ~38.5 MB < 100 MB). NO EDGE through C412. Frozen — DO NOT re-run.
+
+- oos_sweep `d52c7909ca0beb54dbb3c1fe101267ffe97ebabb770c87bc0cf4d24fb63dc6b2`
+- tradable_edge_registry `7cd196eb13535e2f58122a3d69d20821f2ed00a5a05108a1e467bfdb8102823b`
+- summary `904e19dcc8d0304a3bd48ca1b2eae0a8a01a98e4ee2981a6193b8f897a47c7b5`
+- verdict `ccd1ea16428289d277afcc58367f76386e91000ee2a8dcaa899965b30d153db6`
+- binding_constraint `0962f0ca7079046cc9f7fd1f850f7bd11381ea4b5b3cd31f630c31e45cea60d0`
+- cache: meta `c6deb51a8a3c63573e3f3268d09c75f355f89a8cc8074a8154d5d0387ff7e56d`, provenance `0f24bf60073f707e27a41fe75095b8dd13cdff03872a038f5dde4e8abffff0ee`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`

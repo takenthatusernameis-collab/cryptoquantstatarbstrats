@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261122T141500Z",
+  "campaign": 412,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign412_oos_sweep_20261122T141500Z.json",
+  "oos_sweep_sha256": "d52c7909ca0beb54dbb3c1fe101267ffe97ebabb770c87bc0cf4d24fb63dc6b2",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "signpower_0.5_dev": 0.1220179364685549,
+    "signpower_1.5_dev": 0.10018564571415751,
+    "signpower_2.5_dev": 0.06809356181907238,
+    "signpower_0.5_placebo": 0.11850566902105115,
+    "signpower_1.5_placebo": 0.21227745082381147,
+    "signpower_2.5_placebo": 0.37891973615335256
+  },
+  "dominant_attribution": "signpower_2.5_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "signpower_0.5_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.2807058750072144,
+      -1.281388717792682,
+      -1.11343534744555,
+      -1.5764957818171357,
+      -1.181478833628749,
+      -0.9339882780324233,
+      -1.166489851590212,
+      -1.0412857455659552
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -7.8714122662645485,
+    "second_half_sharpe": -10.728734721304315,
+    "sharpe_corr": 0.9962424202319408,
+    "stable": false
+  },
+  "diagnosis": "C412 cross-sectional intraday SIGNPOWER signed fractional power moments stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
