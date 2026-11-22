@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261122T151436Z",
+  "campaign": 413,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign413_oos_sweep_20261122T151436Z.json",
+  "oos_sweep_sha256": "3e5a3878f9b61f84788ff209fe03f8a91e2f0f2462b76bbb7573bda76a061ab9",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "tailbeta_low_dev": 0.09546691555687349,
+    "tailbeta_high_dev": 0.11459818160871642,
+    "tailbeta_asym_dev": 0.16000360530160107,
+    "tailbeta_mag_dev": 0.1154738551009279,
+    "tailbeta_low_placebo": 0.2594637131618821,
+    "tailbeta_high_placebo": 0.254993729269999
+  },
+  "dominant_attribution": "tailbeta_low_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "tailbeta_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.2938068537433018,
+      -1.254437622980435,
+      -0.9980602842328492,
+      -1.1646963276250024,
+      -1.383955297185079,
+      -0.933255943720361,
+      -0.9968388590459673,
+      -1.020238888195556
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -10.348578535613745,
+    "second_half_sharpe": -6.1453931564147295,
+    "sharpe_corr": 0.9984267392715267,
+    "stable": false
+  },
+  "diagnosis": "C413 cross-sectional intraday TAILBETA tail beta / extreme dependence stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
