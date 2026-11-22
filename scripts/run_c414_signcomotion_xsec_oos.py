@@ -339,15 +339,16 @@ def _signcomotion_pass(R, W=SIGNCO_W, chunk=SIGNCO_CHUNK):
         down = (mc < 0)[None, :, :]                        # (1, c, W)
         up_sum = (same & up).sum(axis=2)                   # (n_assets, c)
         down_sum = (same & down).sum(axis=2)
-        up_cnt = up.sum(axis=2)                            # (c,)
-        down_cnt = down.sum(axis=2)                        # (c,)
+        up_cnt = (mc > 0).sum(axis=1)                      # (c,)
+        down_cnt = (mc < 0).sum(axis=1)                    # (c,)
         with np.errstate(divide="ignore", invalid="ignore"):
             up_agree = np.where(up_cnt > 0, up_sum / np.maximum(up_cnt, 1.0), np.nan)
             down_agree = np.where(down_cnt > 0, down_sum / np.maximum(down_cnt, 1.0), np.nan)
         asym = up_agree - down_agree
         valid = (up_cnt > 0) & (down_cnt > 0)              # (c,)
-        agree = np.where(valid[None, :], agree, np.nan)
-        asym = np.where(valid[None, :], asym, np.nan)
+        win_ok = np.isfinite(rc).all(axis=2) & np.isfinite(mc).all(axis=1)[None, :]  # (n_assets, c)
+        agree = np.where(win_ok & valid[None, :], agree, np.nan)
+        asym = np.where(win_ok & valid[None, :], asym, np.nan)
         col0 = start + W - 1
         col1 = end + W - 1
         j0 = start

@@ -432,10 +432,13 @@ def _assert_distinct(sa, ref, name):
 
 
 def test_signcomotion_kernel_distinct_from_tailbeta():
-    """C413 TAILBETA (joint-tail conditional beta): legitimate distinctness-guard ref."""
+    """C413 TAILBETA (joint-tail conditional beta): legitimate distinctness-guard ref.
+    Factor-model data (large common market move + small idiosyncratic noise) populates
+    the joint tails so the inline TAILBETA reference is defined over most bars."""
     rng = np.random.default_rng(211)
     n_assets, n_bars = 5, 1200
-    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
+    market = rng.standard_normal(n_bars) * 0.02
+    log_return = market[None, :] + rng.standard_normal((n_assets, n_bars)) * 0.001
     W = R.SIGNCO_W
     mm = R.compute_signcomotion_metrics(log_return, W)
     sa = mm["sign_agree_asym"][0, W:]

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261122T160908Z",
+  "campaign": 414,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign414_oos_sweep_20261122T160908Z.json",
+  "oos_sweep_sha256": "2bfdd4c5bbfb3a761100c5a2aa559834801a46c382ced13374c6222610944822",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "sign_agree_dev": 0.17175737936774454,
+    "sign_agree_asym_dev": 0.29162294465096394,
+    "sign_agree_placebo": 0.23359294716993126,
+    "sign_agree_asym_placebo": 0.30302672881136034
+  },
+  "dominant_attribution": "sign_agree_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "sign_agree_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.4600846787617205,
+      -0.6466777696136949,
+      -0.7968433091422132,
+      -0.8159367344098022,
+      -0.4701436336442636,
+      -0.616317927613024,
+      -0.5882920415810161,
+      -0.7201836862192693
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -4.7600283491390405,
+    "second_half_sharpe": -6.725257505740233,
+    "sharpe_corr": 0.9990114250563613,
+    "stable": false
+  },
+  "diagnosis": "C414 cross-sectional intraday SIGNCO-MOTION same-sign co-motion vs equal-weight market stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
