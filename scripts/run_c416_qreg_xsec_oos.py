@@ -191,33 +191,47 @@ def _qreg_solve_asset_tau_chunk(asset_i: int, tau: float, k_start: int, k_end: i
     lb = np.full(n_var, -np.inf, dtype=float)
     ub = np.full(n_var, np.inf, dtype=float)
     lb[2 * n:] = 0.0
-    bounds = list(zip(lb, ub))
     from scipy.sparse import coo_matrix
+    import scipy.optimize._linprog_highs as _lh
     data = np.empty(n_con * 4, dtype=float)
     data[0::4] = 1.0
     data[2::4] = -1.0
     data[3::4] = 1.0
-    d0 = data.copy()
-    d0[1::4] = np.zeros(W)
-    A = coo_matrix((d0, (rows, cols)), shape=(n_con, n_var)).tocsr()
+    data[1::4] = 0.0
+    # CSC: for n=1 all M-coefficients sit in the single beta column (col n),
+    # a contiguous CSC data slice updated in place per window (no rebuild).
+    A_csc = coo_matrix((data, (rows, cols)), shape=(n_con, n_var)).tocsc()
+    indptr = A_csc.indptr
+    indices = A_csc.indices
+    Adata = A_csc.data.copy()
+    beta0 = int(indptr[int(beta_col[0])])
+    beta1 = int(indptr[int(beta_col[0]) + 1])
+    BIG = 1e30
+    lbb = lb.copy()
+    ubb = ub.copy()
+    lbb[~np.isfinite(lbb)] = -BIG
+    ubb[~np.isfinite(ubb)] = BIG
+    options = {"output_flag": False, "presolve": False,
+               "primal_feasibility_tolerance": 1e-7, "dual_feasibility_tolerance": 1e-7}
     c = np.zeros(n_var, dtype=float)
     c[2 * n:2 * n + n_con] = tau
     c[2 * n + n_con:] = 1.0 - tau
     out = np.full(k_end - k_start, np.nan, dtype=float)
+    empty_int = np.empty(0, dtype=np.uint8)
     for idx in range(k_end - k_start):
         k = k_start + idx
-        Xw = R[asset_i, k:k + W]
-        Mw = M[k:k + W]
+        Xw = np.ascontiguousarray(R[asset_i, k:k + W], dtype=float)
+        Mw = np.asarray(M[k:k + W], dtype=float)
         if not (np.isfinite(Xw).all() and np.isfinite(Mw).all()):
             continue
-        A.data[1::4] = np.tile(Mw, n)
-        b = Xw.reshape(-1)
+        Adata[beta0:beta1] = Mw
         try:
-            res = _opt.linprog(c, A_eq=A, b_eq=b, bounds=bounds, method="highs")
+            res = _lh._highs_wrapper(c, indptr, indices, Adata, Xw, Xw, lbb, ubb, empty_int, options)
         except Exception:  # noqa: BLE001
             continue
-        if res.success and res.x is not None and np.isfinite(res.x[n:2 * n]).all():
-            out[idx] = float(res.x[n:2 * n][0])
+        x = res.get("x") if isinstance(res, dict) else None
+        if x is not None and np.isfinite(x[n:2 * n]).all():
+            out[idx] = float(x[n])
     return (asset_i, tau, k_start, out)
 
 
