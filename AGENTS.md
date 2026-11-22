@@ -1,16 +1,29 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T19:14:16Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; stray C416 DCBETA cache+scripts quarantined read-only to archive/void_c416_dcbeta_stray/; C416 slot now EMPTY and unstarted — build C416 QREG seed 20261280 next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T20:45:29Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; C416 QREG cache BUILT 20261122T192035Z (10 shards), preflight READY, 5 scripts/tests EXIST — RUN FULL 2592-CONFIG SWEEP NEXT) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T19:14:16Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-22T20:45:29Z; supersedes every earlier session message; the ONLY active directive)
 
 **C415 TAILDEP FROZEN (20261122T162624Z):** formal negative, 1944 configs, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false. NO EDGE through C415. DO NOT re-run.
 
-**STRAY DCBETA QUARANTINED THIS SESSION:** the C416 slot held a clone-and-rename DCBETA cache (campaign416_dcbeta_5m + meta/provenance + 5 scripts/tests) that self-identified as DCBETA, not QREG. All moved read-only to `archive/void_c416_dcbeta_stray/`. Verified: `ls scripts tests | grep -c c416 == 0`, `ls data/cache | grep -c campaign416 == 0`. The C416 slot is now empty and unambiguous.
+**C416 QREG STATUS (ACTIVE, seed 20261280):** cache `data/cache/campaign416_qreg_5m/` BUILT (10 shards × 315,648 bars, generated 20261122T192035Z), preflight `ready:true` verified, 5 scripts/tests present (`build_c416_qreg_features.py`, `preflight_c416.py`, `run_c416_qreg_xsec_oos.py`, `test_preflight_c416.py`, `test_c416_qreg_xsec_oos.py`). **SWEEP NOT RUN — NO REPORTS EXIST.** Kernel: quantile-regression slope of asset return on equal-weight market at τ∈{0.1,0.5,0.9} + quantile-slope spread (qreg_spread = slope_0.9 − slope_0.1), first quantile-regression family ever run. W=256, vectorized `sliding_window_view` + per-window `scipy.optimize.linprog` LP, brute-force reference = per-window loop identical LP, maxdiff < 1e-12.
 
-**BUILD C416 NEXT (ACTIVE, seed 20261280):** pre-register QREG (quantile-regression slope of asset return on equal-weight market at τ∈{0.1,0.5,0.9} + quantile-slope spread), the first quantile-regression family ever run. seed 20261280, cache campaign416_qreg_5m, report prefix campaign416_*. Clone C415 plumbing structurally then FULLY rewrite every identifier (campaign 416, kernel, signal names, placebo seed 20261280, mandate, cache, report prefixes). Mandatory rewrite guards: `grep` self-check returns nothing for 415/taildep/TAILDEP/20261279 in C416 files (apart from legitimate distinctness-guard refs to prior families); kernel-distinctness tests vs all prior families incl. TAILBETA/TAILDEP/BETAASYM; brute-force equality maxdiff < 1e-12; artifact campaign==416; PLACEBO_SEED==20261280; N_TRIALS == grid product (2592).
+**NEXT ACTION — RUN C416 QREG END-TO-END SWEEP (no stopping):**
+```
+python3 scripts/run_c416_qreg_xsec_oos.py       # FULL literal 2592-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c416.py tests/test_c416_qreg_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign416_*_<TS>Z.json          # record all 5 artifact SHAs
+```
+
+**C416 grid (2592 = literal N_TRIALS):** SIGNALS={qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev, qreg_slope_0.1_placebo, qreg_slope_0.5_placebo, qreg_slope_0.9_placebo, qreg_spread_placebo} → 8×6×3×3×3×2=2592. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261280. Ref config: qreg_spread_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker. ATTR_REPRESENTATIVES={qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev}. Artifacts `reports/campaign416_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+
+**Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all 2592 at α=0.05; edge requires BOTH. MDE power 0.80. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5. Attribution mean|OOS net| per signal; shares over all 8 incl. placebos; dominant must be real non-placebo share ≥0.5. n_survive_both==0 → RETRACTED(multiple_testing); >0 and not attribution_ok → RETRACTED(attribution); >0 and not stable → RETRACTED(stability); >0 and attribution_ok and stable → EDGE_PROVEN. edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN").
+
+**Guard tests required:** artifact["campaign"]==416; mandate names QREG; N_TRIALS==2592; PLACEBO_SEED==20261280; QREG kernel not allclose 0 where defined; kernel-distinctness vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA/TAILDEP; brute-force equality maxdiff < 1e-12.
+
+**C417 placeholder (keeps queue depth 3):** pre-register a genuinely-new price-only family, seed 20261281; build when C416 freezes. Never re-order, never reuse a kernel, never clone-and-rename.
 
 **C416 kernel (QREG):** on common C312 grid, m[s]=(1/10)Σ_i r_i[s]. For asset i, bar t, trailing W=256, X=r_i[t-W+1..t], M=m[t-W+1..t]. Fit quantile regression of X on M with intercept at τ via scipy.optimize.linprog method='highs' (ρ_τ(u)=u·(τ−1{u<0})): qreg_slope_0.1/0.5/0.9[t], qreg_spread[t]=slope_0.9−slope_0.1. NaN if t<W, non-finite in window, or fit not finite. Distinct from BETAASYM (OLS single τ=0.5), TAILBETA (tail covariance beta), TAILDEP (tail exceedance). Price-only, volume-free. Vectorized kernel: sliding_window_view + per-window LP; brute-force reference = per-window loop identical LP; maxdiff < 1e-12.
 
