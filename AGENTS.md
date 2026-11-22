@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T14:22:00Z (refreshed this session; C412 SIGNPOWER built end-to-end and frozen — disk truth re-verified by quoted command OUTPUTS) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T14:20:00Z (refreshed this session; C411 SEMCORR + C412 SIGNPOWER verified FROZEN on disk; stale `research_state/state.yaml` pointers corrected; **C413 ULCER pre-registered CONCRETELY below** — the specific kernel is named, not left to a future agent to pick, so heavy work is unavoidable) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
