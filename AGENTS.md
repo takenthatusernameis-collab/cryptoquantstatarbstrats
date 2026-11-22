@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T16:26:24Z (C415 TAILDEP FROZEN 20261122T162624Z — formal negative; C416 QREG seed 20261280 ACTIVE next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T19:12:05Z (C415 TAILDEP FROZEN 20261122T162624Z — formal negative; C416 slot contains stray DCBETA files not QREG — quarantine then build QREG seed 20261280) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T17:00:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-22T19:12:05Z; supersedes every earlier session message; the ONLY active directive)
 
 **C415 TAILDEP IS BUILT AND FROZEN (20261122T162624Z): FORMAL NEGATIVE, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution taildep_low_placebo 0.2592 (< 0.50, attribution_ok false). 5 SHA256 artifacts + gitignored .full.json on disk at reports/campaign415_*_20261122T162624Z.json; 34/34 tests green (incl. TAILDEP brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA); cache data/cache/campaign415_taildep_5m/ (10 shards × 315,648 bars). NO EDGE through C415. DO NOT re-run it.**
 
