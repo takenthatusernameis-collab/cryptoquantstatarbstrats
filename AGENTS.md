@@ -1,5 +1,48 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
+**Handoff written:** 2026-11-22T19:14:16Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; stray C416 DCBETA cache+scripts quarantined read-only to archive/void_c416_dcbeta_stray/; C416 slot now EMPTY and unstarted — build C416 QREG seed 20261280 next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+
+This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
+
+## INITIAL TASK MESSAGE (2026-11-22T19:14:16Z; supersedes every earlier session message; the ONLY active directive)
+
+**C415 TAILDEP FROZEN (20261122T162624Z):** formal negative, 1944 configs, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false. NO EDGE through C415. DO NOT re-run.
+
+**STRAY DCBETA QUARANTINED THIS SESSION:** the C416 slot held a clone-and-rename DCBETA cache (campaign416_dcbeta_5m + meta/provenance + 5 scripts/tests) that self-identified as DCBETA, not QREG. All moved read-only to `archive/void_c416_dcbeta_stray/`. Verified: `ls scripts tests | grep -c c416 == 0`, `ls data/cache | grep -c campaign416 == 0`. The C416 slot is now empty and unambiguous.
+
+**BUILD C416 NEXT (ACTIVE, seed 20261280):** pre-register QREG (quantile-regression slope of asset return on equal-weight market at τ∈{0.1,0.5,0.9} + quantile-slope spread), the first quantile-regression family ever run. seed 20261280, cache campaign416_qreg_5m, report prefix campaign416_*. Clone C415 plumbing structurally then FULLY rewrite every identifier (campaign 416, kernel, signal names, placebo seed 20261280, mandate, cache, report prefixes). Mandatory rewrite guards: `grep` self-check returns nothing for 415/taildep/TAILDEP/20261279 in C416 files (apart from legitimate distinctness-guard refs to prior families); kernel-distinctness tests vs all prior families incl. TAILBETA/TAILDEP/BETAASYM; brute-force equality maxdiff < 1e-12; artifact campaign==416; PLACEBO_SEED==20261280; N_TRIALS == grid product (2592).
+
+**C416 kernel (QREG):** on common C312 grid, m[s]=(1/10)Σ_i r_i[s]. For asset i, bar t, trailing W=256, X=r_i[t-W+1..t], M=m[t-W+1..t]. Fit quantile regression of X on M with intercept at τ via scipy.optimize.linprog method='highs' (ρ_τ(u)=u·(τ−1{u<0})): qreg_slope_0.1/0.5/0.9[t], qreg_spread[t]=slope_0.9−slope_0.1. NaN if t<W, non-finite in window, or fit not finite. Distinct from BETAASYM (OLS single τ=0.5), TAILBETA (tail covariance beta), TAILDEP (tail exceedance). Price-only, volume-free. Vectorized kernel: sliding_window_view + per-window LP; brute-force reference = per-window loop identical LP; maxdiff < 1e-12.
+
+**C416 grid (2592 = literal N_TRIALS):** SIGNALS={qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev, qreg_slope_0.1_placebo, qreg_slope_0.5_placebo, qreg_slope_0.9_placebo, qreg_spread_placebo} → 8×6×3×3×3×2=2592. LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"). WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed 20261280. Ref config: qreg_spread_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker. ATTR_REPRESENTATIVES={qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev}. Cache data/cache/campaign416_qreg_5m/ with qreg_params={window_W:256, taus:[0.1,0.5,0.9]}. Artifacts reports/campaign416_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + gitignored .full.json.
+
+**Gates/verdict (identical rigor — do NOT weaken):** one-sided paired t-test per split OOS net vs 0; Holm AND BH over all 2592 at α=0.05; edge requires BOTH. MDE power 0.80. Stability sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5. Attribution mean|OOS net| per signal; shares over all 8 incl. placebos; dominant must be real non-placebo share ≥0.5. n_survive_both==0 → RETRACTED(multiple_testing); >0 and not attribution_ok → RETRACTED(attribution); >0 and not stable → RETRACTED(stability); >0 and attribution_ok and stable → EDGE_PROVEN. edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN").
+
+**Sequence, no stopping:**
+```
+cp scripts/build_c415_taildep_features.py  scripts/build_c416_qreg_features.py
+cp scripts/preflight_c415.py               scripts/preflight_c416.py
+cp scripts/run_c415_taildep_xsec_oos.py    scripts/run_c416_qreg_xsec_oos.py
+cp tests/test_preflight_c415.py            tests/test_preflight_c416.py
+cp tests/test_c415_taildep_xsec_oos.py     tests/test_c416_qreg_xsec_oos.py
+grep -n "415\|taildep\|TAILDEP\|20261279" scripts/*c416* tests/*c416*   # must return NOTHING (apart from legitimate distinctness-guard refs)
+python3 scripts/build_c416_qreg_features.py     # -> data/cache/campaign416_qreg_5m/ (10 shards)
+python3 scripts/preflight_c416.py                   # must print ready:true
+python3 scripts/run_c416_qreg_xsec_oos.py       # FULL literal 2592-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c416.py tests/test_c416_qreg_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign416_*_<TS>Z.json          # record all 5 artifact SHAs
+```
+
+**Guard tests required:** artifact["campaign"]==416; mandate names QREG; N_TRIALS==2592; PLACEBO_SEED==20261280; QREG kernel not allclose 0 where defined; kernel-distinctness vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA/TAILDEP; brute-force equality maxdiff < 1e-12.
+
+**C417 placeholder (keeps queue depth 3):** pre-register a genuinely-new price-only family, seed 20261281; build when C416 freezes. Never re-order, never reuse a kernel, never clone-and-rename.
+
+**DISK TRUTH:** C281B–C415 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest. Stray DCBETA quarantined read-only at archive/void_c416_dcbeta_stray/. Both archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE (stray DCBETA removed this session). No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
+
+**NO-LIGHT-WORK RULE:** a session is complete only when it produces 3 scripts + 2 test files + cache + preflight ready:true + the FULL literal-N_TRIALS costed OOS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality, then records the truthful RESULT + SHAs in this file and research_state/state.yaml and moves the queue forward. If a session cannot finish, it must leave the queue non-empty and name the partial artifacts. Terminal closure by fiat is PROHIBITED.
+
+# Durable Handoff — cryptoquantstatarbstrats (single authoritative)
+
 **Handoff written:** 2026-11-22T19:12:05Z (C415 TAILDEP FROZEN 20261122T162624Z — formal negative; C416 slot contains stray DCBETA files not QREG — quarantine then build QREG seed 20261280) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
