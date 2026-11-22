@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-22T16:15:00Z
-handoff_refreshed_at_utc: 2026-11-22T16:15:00Z
+updated_at_utc: 2026-11-22T16:26:24Z
+handoff_refreshed_at_utc: 2026-11-22T16:26:24Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C414
-next_campaign: C415
+latest_campaign_done: C415
+next_campaign: C416
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-22T16:15:00Z: C413 TAILBETA (20261122T151436Z) and C414 SIGNCO-MOTION (20261122T160908Z) are BOTH FROZEN formal negatives (C413 1944 configs; C414 1296 configs; 0 Holm+BH survivors each, edge_proven:false, binding multiple_testing; dominant tailbeta_low_placebo 0.2595 / sign_agree_asym_placebo 0.3030; 5 SHA256 artifacts + .full.json on disk; 32/32 and 34/34 tests green incl brute-force maxdiff<1e-12 and kernel-distinctness guards; caches data/cache/campaign413_tailbeta_5m + data/cache/campaign414_signcomotion_5m, 10 shards x 315648 bars each). C281B-C414 ALL FROZEN formal negatives, NO EDGE through C414. Queue depth 3: C414 SIGNCO-MOTION (FROZEN) -> C415 TAILDEP (ACTIVE next session, seed 20261279, N_TRIALS=1944, FULLY PRE-REGISTERED in AGENTS.md INITIAL TASK MESSAGE) -> C416 QREG placeholder. Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-22T16:26:24Z: C415 TAILDEP (20261122T162624Z) is now FROZEN formal negative (1944 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant taildep_low_placebo 0.2592, attribution_ok false, 34/34 tests green incl brute-force maxdiff<1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA; 5 SHA256 artifacts + .full.json on disk at reports/campaign415_*_20261122T162624Z.json; cache data/cache/campaign415_taildep_5m/, 10 shards x 315648 bars). C281B-C415 ALL FROZEN formal negatives, NO EDGE through C415. Queue depth 3: C415 TAILDEP (FROZEN) -> C416 QREG (ACTIVE next session, seed 20261280) -> C417 placeholder. Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
 bottlenecks_verified_removed_at_utc: "2026-11-22T16:15:00Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-22T16:15:00Z: no blocked or inefficient sessions; no external data fetches needed; C287 decoupled and NOT on the critical path. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable). If a future session hits ModuleNotFoundError: numpy, re-run python3 -m pip install --break-system-packages numpy pandas scipy pytest. Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest. C281B-C414 ALL COMPLETE FORMAL NEGATIVES. C312 5m ready (11 entries = 10 shards + manifest, 315648 bars each). NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only or partial is a HARD VIOLATION. File existence never proves a campaign exists: verify campaign id, kernel, placebo seed, 10 cache shards and 5 reports.'
 queued_next_campaign: C416
-queued_next_campaign_note: 'C281B-C414 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C415 TAILDEP (tail dependence coefficient / extremal dependence vs equal-weight market, conditional tail exceedance probability distinct from C413 TAILBETA conditional tail-covariance beta; seed 20261279, N_TRIALS=1944, FULLY PRE-REGISTERED in AGENTS.md INITIAL TASK MESSAGE). Pre-registered next: C416 QREG (quantile-regression slope of asset return on equal-weight market at tau in {0.1,0.5,0.9} plus quantile-slope spread, seed 20261280). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C414 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
+queued_next_campaign_note: 'C281B-C415 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C416 QREG (quantile-regression slope of asset return on equal-weight market at tau in {0.1,0.5,0.9} plus quantile-slope spread, seed 20261280). Pre-registered next: C417 placeholder. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C415 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
 first_action: "Build C415 TAILDEP end-to-end NOW per AGENTS.md INITIAL TASK MESSAGE: 5 FRESH files (build_c415_taildep_features.py, preflight_c415.py, run_c415_taildep_xsec_oos.py, test_preflight_c415.py, test_c415_taildep_xsec_oos.py) fully re-specified (campaign 415, TAILDEP kernel = conditional tail exceedance probability vs equal-weight market: m[s]=(1/10)*sum_i r_i[s]; for each asset i and bar t over trailing window W=256, X=r_i[t-W+1..t], M=m[t-W+1..t], q=0.10; taildep_low[t]=count(X<=q_X and M<=q_M)/count(M<=q_M), taildep_high[t]=count(X>=q^X and M>=q^M)/count(M>=q^M), taildep_asym[t]=taildep_high-taildep_low, taildep_mag[t]=(taildep_high+taildep_low)/2; NaN if t<W, any NaN/non-finite, conditional sample size<10, or non-finite; vectorized sliding_window_view + per-window quantile masking + conditional counts; brute-force per-window loop reference; maxdiff<1e-12). Distinct from C413 TAILBETA (conditional tail covariance/beta regression slope) — TAILDEP estimates conditional tail EXCEEDANCE PROBABILITY (tail-copula object), first tail-dependence-probability family ever run; distinct from C406 BETAASYM/C409 RESIDVOL/C410 XCORR/C411 SEMCORR/C412 SIGNPOWER/C414 SIGNCO-MOTION and every earlier family. signals taildep_low_dev, taildep_high_dev, taildep_asym_dev, taildep_mag_dev, taildep_low_placebo, taildep_high_placebo -> 6 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost_variants = 1944 = N_TRIALS; PLACEBO_SEED=20261279; cache data/cache/campaign415_taildep_5m/ with taildep_params={window_W:256,tail_q:0.10}; ref taildep_asym_dev L=240 H=4 fee 0.0007 slip 0.0001 taker; ATTR_REPRESENTATIVES={taildep_low_dev,taildep_high_dev,taildep_asym_dev,taildep_mag_dev}). Verify C415 does NOT exist on disk first (0 scripts, 0 cache, 0 reports). SELF-CHECK before sweep: grep for 414/signcomotion/SIGNCO-MOTION/20261278 over scripts/*c415* tests/*c415* must return nothing (legitimate distinctness-guard refs to prior families OK, but NO signcomotion kernel leakage). Then build -> preflight ready:true -> full literal 1944-config costed OOS sweep -> python3 -m pytest tests/test_preflight_c415.py tests/test_c415_taildep_xsec_oos.py -q (>=21 green incl brute-force equality maxdiff < 1e-12) -> sha256sum reports/campaign415_*_<TS>Z.json. Verify ls scripts tests | grep -c c415 == 5 and ls data/cache/campaign415_taildep_5m | wc -l == 10. Then record truthful RESULT plus SHAs here and in AGENTS.md, add frozen-table row, freeze, and advance to C416 QREG."
-active_campaign: C415
-space_status: NO_EDGE_C281B_C414
-closure_note: 'C281B-C414 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~155k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C414 SIGNCO-MOTION 20261122T160908Z (sign_agree_asym_placebo 0.3030, attribution_ok false, 34/34 tests green incl brute-force maxdiff=0.0<1e-12, 5 artifact SHA256 matching). C413 TAILBETA 20261122T151436Z also frozen (tailbeta_low_placebo 0.2595, 32/32 tests green). C415 TAILDEP is ACTIVE and FULLY PRE-REGISTERED (N_TRIALS=1944) so the next session has an unavoidable, fully-specified heavy task. C416 QREG is the queue depth-2 placeholder. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C415 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+active_campaign: C416
+space_status: NO_EDGE_C281B_C415
+closure_note: 'C281B-C415 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~155k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C415 TAILDEP 20261122T162624Z (taildep_low_placebo 0.2592, attribution_ok false, 34/34 tests green incl brute-force maxdiff<1e-12, 5 artifact SHA256 matching). C416 QREG is ACTIVE and FULLY PRE-REGISTERED (seed 20261280) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C416 QREG end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c409_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C409
@@ -81,6 +81,45 @@ c410_status:
   cache_shas:
     meta: '3e03363561225e6fb15bebbe8a315349c4f2ff471c0b9af640454625d9b22f44'
     provenance: '449577793e726f88331b230b74dcf77e15c020156121606f0d45eaf07fde3892'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c415_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C415
+  family: tail_dependence_coefficient_extremal_dependence_vs_equal_weight_market_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C413 TAILBETA (conditional tail covariance/beta regression slope over joint extremes); C414 SIGNCO-MOTION (same-sign co-motion fraction); C412 SIGNPOWER; C411 SEMCORR; C410 XCORR; C406 BETAASYM; C409 RESIDVOL; every moment/tail/spectral family C281B-C414. TAILDEP is the first tail-dependence EXCEEDANCE PROBABILITY (tail-copula / asymptotic tail dependence) family ever run — conditional tail exceedance probability, not a regression slope. taildep_low=|{X<=q_X,M<=q_M}|/|{M<=q_M}|; taildep_high=|{X>=q^X,M>=q^M}|/|{M>=q^M}|; taildep_asym=high-low; taildep_mag=(high+low)/2 over W=256, q=0.10. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261122T162624Z
+  artifacts_ts: 20261122T162624Z
+  signals: [taildep_low_dev, taildep_high_dev, taildep_asym_dev, taildep_mag_dev, taildep_low_placebo, taildep_high_placebo]
+  n_configs: 1944
+  grid_arithmetic: '6 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1944'
+  placebo_seed: 20261279
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'taildep_asym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [taildep_low_dev, taildep_high_dev, taildep_asym_dev, taildep_mag_dev]
+  taildep_params: {window_W: 256, tail_q: 0.10}
+  scripts_present: [scripts/build_c415_taildep_features.py, scripts/preflight_c415.py, scripts/run_c415_taildep_xsec_oos.py]
+  tests_present: [tests/test_preflight_c415.py, tests/test_c415_taildep_xsec_oos.py]
+  cache_present: data/cache/campaign415_taildep_5m
+  artifacts_present: [reports/campaign415_oos_sweep_20261122T162624Z.json, reports/campaign415_tradable_edge_registry_20261122T162624Z.json, reports/campaign415_summary_20261122T162624Z.json, reports/campaign415_verdict_20261122T162624Z.json, reports/campaign415_binding_constraint_20261122T162624Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: taildep_low_placebo
+  dominant_share: 0.2591817132208773
+  attribution_ok: false
+  tests_green: 34
+  brute_force_maxdiff: 'taildep_low/high/asym/mag < 1e-12; NaN patterns identical; 10-asset panel also maxdiff < 1e-12'
+  artifacts:
+    oos_sweep: '5a5ad81406a92fe5b4880f912d161f7d66895de849f5facda836b6d6802fd79d'
+    tradable_edge_registry: '4fbf1d6dc94583606aa5a9484eeb5670c31c191207de389cac1eb60b05770b51'
+    summary: '62d7fabd17aaaa6b85d40d99c73001add19beccccca292c933a2ec5b4b9739b7'
+    verdict: '981557cec35b8f813cbe6c4c05b13819f50acc8c4170d4ef26417b3199b9e9b2'
+    binding_constraint: '5b42d42761f147d3378f9b0429dc08c2d92917ce36f754a76741b56e312e80e3'
+  cache_shas:
+    meta: 'a75954b88e8d02f89bfae9f8cb2c16279da8eeb7c79a045336ea8b824d80fd0d'
+    provenance: '345ee0f333f1576bee16a2f9157bab691c2c2a99c67c09ec9d28e5db9dfb6afe'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c381_void:
   state: VOID_NOT_A_RESULT

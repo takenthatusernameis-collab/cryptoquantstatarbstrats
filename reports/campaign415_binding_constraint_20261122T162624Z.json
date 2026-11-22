@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261122T162624Z",
+  "campaign": 415,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign415_oos_sweep_20261122T162624Z.json",
+  "oos_sweep_sha256": "5a5ad81406a92fe5b4880f912d161f7d66895de849f5facda836b6d6802fd79d",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "taildep_low_dev": 0.1095482122360973,
+    "taildep_high_dev": 0.1099901157154088,
+    "taildep_asym_dev": 0.1614069791545867,
+    "taildep_mag_dev": 0.11275538676467445,
+    "taildep_low_placebo": 0.2591817132208773,
+    "taildep_high_placebo": 0.24711759290835553
+  },
+  "dominant_attribution": "taildep_low_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "taildep_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.7705077731945837,
+      -1.7384242288106242,
+      -1.8580572133352093,
+      -1.7819070347172186,
+      -1.754472245765336,
+      -1.8399686659660026,
+      -1.8586786810372509,
+      -2.0919446736779963
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -40.71752931978533,
+    "second_half_sharpe": -15.080743537353648,
+    "sharpe_corr": 0.9994720531699589,
+    "stable": false
+  },
+  "diagnosis": "C415 cross-sectional intraday TAILDEP tail dependence vs equal-weight market stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

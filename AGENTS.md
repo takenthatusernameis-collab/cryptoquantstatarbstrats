@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T16:00:00Z (C414 SIGNCO-MOTION FROZEN 20261122T160908Z — formal negative; C415 TAILDEP seed 20261279 ACTIVE next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T16:26:24Z (C415 TAILDEP FROZEN 20261122T162624Z — formal negative; C416 QREG seed 20261280 ACTIVE next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
@@ -880,6 +880,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C412 | 20261122T141500Z | signed fractional power moments vs equal-weight market (SIGNPOWER) | 1944 | signpower_2.5_placebo 0.3789 | `d52c7909ca0beb54dbb3c1fe101267ffe97ebabb770c87bc0cf4d24fb63dc6b2` | `ccd1ea16428289d277afcc58367f76386e91000ee2a8dcaa899965b30d153db6` |
 | C413 | 20261122T151436Z | tail beta / extreme dependence vs equal-weight market (TAILBETA) | 1944 | tailbeta_low_placebo 0.2595 | `3e5a3878f9b61f84788ff209fe03f8a91e2f0f2462b76bbb7573bda76a061ab9` | `84e67920449f12c0442da91ed4d1454c95a3095d4561ec8fb2560c754b31e255` |
 | C414 | 20261122T160908Z | sign-agreement cross-sectional motion vs equal-weight market (SIGNCO-MOTION) | 1296 | sign_agree_asym_placebo 0.3030 | `2bfdd4c5bbfb3a761100c5a2aa559834801a46c382ced13374c6222610944822` | `7efbe29dd2cde30f57d39765771307e13fbb6e01586472abd21b70ad8dc82134` |
+| C415 | 20261122T162624Z | tail dependence coefficient / extremal dependence vs equal-weight market (TAILDEP) | 1944 | taildep_low_placebo 0.2592 | `5a5ad81406a92fe5b4880f912d161f7d66895de849f5facda836b6d6802fd79d` | `981557cec35b8f813cbe6c4c05b13819f50acc8c4170d4ef26417b3199b9e9b2` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -927,6 +928,8 @@ C390 extra SHAs: tradable_edge_registry `5eca769f11a4737d3479aab926777fed54cd43b
 C411 extra SHAs: tradable_edge_registry `state.yaml`, summary `state.yaml`, binding_constraint `state.yaml`. C411 cache SHAs: meta `state.yaml`, provenance `state.yaml`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C412 extra SHAs: tradable_edge_registry `7cd196eb13535e2f58122a3d69d20821f2ed00a5a05108a1e467bfdb8102823b`, summary `904e19dcc8d0304a3bd48ca1b2eae0a8a01a98e4ee2981a6193b8f897a47c7b5`, binding_constraint `0962f0ca7079046cc9f7fd1f850f7bd11381ea4b5b3cd31f630c31e45cea60d0`. C412 cache SHAs: meta `c6deb51a8a3c63573e3f3268d09c75f355f89a8cc8074a8154d5d0387ff7e56d`, provenance `0f24bf60073f707e27a41fe75095b8dd13cdff03872a038f5dde4e8abffff0ee`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C415 extra SHAs: tradable_edge_registry `4fbf1d6dc94583606aa5a9484eeb5670c31c191207de389cac1eb60b05770b51`, summary `62d7fabd17aaaa6b85d40d99c73001add19beccccca292c933a2ec5b4b9739b7`, binding_constraint `5b42d42761f147d3378f9b0429dc08c2d92917ce36f754a76741b56e312e80e3`. C415 cache SHAs: meta `a75954b88e8d02f89bfae9f8cb2c16279da8eeb7c79a045336ea8b824d80fd0d`, provenance `345ee0f333f1576bee16a2f9157bab691c2c2a99c67c09ec9d28e5db9dfb6afe`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 ---
 
