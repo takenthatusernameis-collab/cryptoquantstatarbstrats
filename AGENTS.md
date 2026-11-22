@@ -1,31 +1,60 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T12:02:00Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-22T12:55:48Z (refreshed this session; disk truth re-verified by quoted command OUTPUTS — see below) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T12:02:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-22T12:55:48Z; supersedes every earlier session message; the ONLY active directive)
 
-**FIRST ACTION — BUILD C410 XCORR FRESH END-TO-END (ACTIVE, seed 20261274, N_TRIALS=1296). The C410 slot is EMPTY and verified this session (2026-11-22T~12:02Z): `ls scripts tests | grep -c c410` → 0, `ls data/cache | grep -c campaign410` → 0, `ls reports | grep -c campaign410` → 0. Build C410 from C409 plumbing — queue must never sit idle.** C409 RESIDVOL is FROZEN (20261122T120106Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant idioskew_placebo 0.4995; 5 SHA256 artifacts + .full.json on disk; 31/31 tests green incl. brute-force maxdiff 0.0/1.11e-16; cache data/cache/campaign409_residvol_5m/ 10 shards) — do NOT re-run it. **C409 is now a GENUINE, VERIFIED build (not a clone): `compute_residvol_metrics` returns `residvol`/`idioskew` keys, no `lead_beta`/`lag_beta`/`leadlag_asym` in any c409 script, N_TRIALS=1296, PLACEBO_SEED=20261273, campaign==409 everywhere.**
+**FIRST ACTION — COMPLETE C410 XCORR END-TO-END (ACTIVE, seed 20261274, N_TRIALS=1296). C409 RESIDVOL is FROZEN (20261122T120106Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant idioskew_placebo 0.4995; 5 SHA256 artifacts + .full.json on disk; 31/31 tests green incl. brute-force maxdiff 0.0/1.11e-16; cache data/cache/campaign409_residvol_5m/ 10 shards) — do NOT re-run it. C409 is a GENUINE, VERIFIED build.**
+
+**DISK TRUTH VERIFIED THIS SESSION (2026-11-22T12:55Z):**
+- `ls scripts tests | grep c410` → **5 files exist** (build_c410_xcorr_features.py, preflight_c410.py, run_c410_xcorr_xsec_oos.py, test_preflight_c410.py, test_c410_xcorr_xsec_oos.py)
+- `ls data/cache | grep -c campaign410` → **0** (cache NOT built)
+- `ls reports | grep -c campaign410` → **0** (reports NOT produced)
+
+**CRITICAL: The run script and both test files are C409 RESIDVOL CLONES — they still contain RESIDVOL kernel code, signal names (residvol_dev/idioskew_dev), placebo seed 20261273, mandate "RESIDVOL", etc. They MUST be FULLY REWRITTEN for XCORR.** The build script and preflight script are correctly implemented for XCORR.
 
 **BOTTLENECK REMOVED THIS SESSION — ENV REGRESSION (recurring).** Bare `python3` again had NO numpy/pandas/scipy/pytest (`ModuleNotFoundError: numpy`). Removed via `python3 -m pip install --break-system-packages numpy pandas scipy pytest` → verified `numpy 2.5.5 pandas 3.1.1 scipy 1.18.1 pytest 9.2.0`. Console scripts at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. **If a future session ever sees `ModuleNotFoundError: numpy`, re-run that exact pip command first.** No blocked sessions; no clone traps outstanding (both `archive/void_c409_*` dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run anything under them).
 
 **Disk truth:** C281B–C409 all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Always run `python3 -m pytest`, never bare `pytest`. Quarantine read-only — never copy/import/cite/fix/freeze/re-run anything under `archive/void_*`. No blocking bottlenecks; no blocked sessions.
 
-**C410 XCORR — PRE-REGISTERED SPEC (AVERAGE PAIRWISE CO-MOVEMENT / CROSS-SECTIONAL CORRELATION PROFILE).** Clone C409 plumbing as the structural template but FULLY re-specify kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
+**C410 XCORR — PRE-REGISTERED SPEC (AVERAGE PAIRWISE CO-MOVEMENT / CROSS-SECTIONAL CORRELATION PROFILE).** The build/preflight scripts are DONE. The run script and tests must be FULLY REWRITTEN (not copied) from C409 plumbing with the XCORR kernel/mandate/campaign-id/signal names/cache/report prefixes. Sequence, no stopping:
 
 ```
-cp scripts/build_c409_residvol_features.py  scripts/build_c410_xcorr_features.py
-cp scripts/preflight_c409.py                scripts/preflight_c410.py
-cp scripts/run_c409_residvol_xsec_oos.py    scripts/run_c410_xcorr_xsec_oos.py
-cp tests/test_preflight_c409.py             tests/test_preflight_c410.py
-cp tests/test_c409_residvol_xsec_oos.py     tests/test_c410_xcorr_xsec_oos.py
-grep -n "409\|residvol\|RESDIVOL\|idioskew\|IDIOSKEW\|20261273" scripts/*c410* tests/*c410*   # must return NOTHING before proceeding (legitimate distinctness-guard refs to prior families are OK, but NO residvol/idioskew kernel leakage)
+# 1. REWRITE the run script (currently a C409 clone) for XCORR kernel
+#    - Replace RESIDVOL kernel with XCORR kernel (average pairwise correlation)
+#    - Signals: xcorr_mean_dev, xcorr_disp_dev, xcorr_mean_placebo, xcorr_disp_placebo
+#    - Placebo seed: 20261274 (NOT 20261273)
+#    - Mandate: XCORR (NOT RESIDVOL)
+#    - campaign: 410 everywhere
+#    - Cache dir: campaign410_xcorr_5m
+#    - xcorr_params: {window_W: 256}
+#    - ATTR_REPRESENTATIVES: {xcorr_mean_dev, xcorr_disp_dev}
+
+# 2. REWRITE both test files (currently C409 clones) for XCORR
+#    - test_preflight_c410.py: test C410 preflight, xcorr_params, campaign 410
+#    - test_c410_xcorr_xsec_oos.py: brute-force equality for XCORR kernel (maxdiff < 1e-12)
+#      kernel-distinctness guards vs COSKEW/BETAASYM/SEMICOV/ACOVK/XSRANK/LEADLAG/RESIDVOL
+#      artifact campaign==410, mandate XCORR, N_TRIALS==1296, PLACEBO_SEED==20261274
+
+# 3. SELF-CHECK before sweep (must return NOTHING):
+grep -n "409\|residvol\|RESDIVOL\|idioskew\|IDIOSKEW\|20261273" scripts/*c410* tests/*c410*
+
+# 4. BUILD CACHE (build script is ready):
 python3 scripts/build_c410_xcorr_features.py     # -> data/cache/campaign410_xcorr_5m/ (10 shards)
+
+# 5. PREFLIGHT (preflight script is ready):
 python3 scripts/preflight_c410.py                # must print ready:true
-python3 scripts/run_c410_xcorr_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c410.py tests/test_c410_xcorr_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign410_*_<TS>Z.json        # record all 5 artifact SHAs
+
+# 6. FULL LITERAL 1296-CONFIG COSTED OOS SWEEP:
+python3 scripts/run_c410_xcorr_xsec_oos.py
+
+# 7. TESTS (>=21 green):
+python3 -m pytest tests/test_preflight_c410.py tests/test_c410_xcorr_xsec_oos.py -q
+
+# 8. RECORD ALL 5 ARTIFACT SHAs:
+sha256sum reports/campaign410_*_<TS>Z.json
 ```
 
 **C410 kernel (genuinely distinct — first average-pairwise-correlation family):** On the common C312 grid define the (T,10) return matrix `R` (rows = bars, cols = assets). For each asset i and bar t, window W=256 (NaN if t<W or any NaN in the needed window): compute the Pearson correlation of asset i's return with each of the OTHER 9 assets' returns over the same trailing window, then take the mean and the dispersion (std) across those 9 pairwise correlations:
@@ -43,13 +72,13 @@ NaN if t<W, any NaN in the needed window, any pairwise leg has zero variance, or
 
 **C405–C409 are all BUILT AND FROZEN formal negatives — do NOT re-run any of them** (C405 COSKEW frozen 20261120T203749Z; C406 BETAASYM frozen 20261120T214030Z; C407 XSRANK frozen 20261120T215313Z; C408 LEADLAG frozen 20261120T230651Z; C409 RESIDVOL frozen 20261122T120106Z). Full per-campaign SHAs live in `research_state/state.yaml` and the frozen table below; the C409 artifact set is listed in the C409 RESULT block below.
 
-## DISK TRUTH (re-verified 2026-11-22T12:02Z by this session — command OUTPUTS quoted, not inferred)
+## DISK TRUTH (re-verified 2026-11-22T12:55Z by this session — command OUTPUTS quoted, not inferred)
 
 - **No blocking bottlenecks, no blocked sessions.** The one live environment bottleneck (bare-`python3` had NO numpy/pandas/scipy/pytest → `ModuleNotFoundError: numpy`) was removed this session by `python3 -m pip install --break-system-packages numpy pandas scipy pytest` → re-verified `numpy 2.5.5 pandas 3.1.1 scipy 1.18.1 pytest 9.2.0`. **If a future session ever sees `ModuleNotFoundError: numpy`, re-run that exact pip command first** (recurring hazard); console scripts are at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. Both `archive/void_c409_*` clone-trap dirs remain quarantined read-only.
 - **C281B–C409 are ALL FROZEN formal negatives** — 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`. NO EDGE through C409. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and the frozen table below; do NOT re-run any of them.
 - **Frozen boundary = C409 RESIDVOL** (`20261122T120106Z`): 1296 configs costed-OOS, dominant attribution `idioskew_placebo` 0.4995, 31/31 tests green (incl. RESIDVOL brute-force equality `maxdiff < 1e-12` and kernel-distinctness guard vs BETAASYM/RV/DSRV/RQV/COSKEW), cache `data/cache/campaign409_residvol_5m/` (10 shards × 315,648 bars), 5 artifacts `reports/campaign409_*_20261122T120106Z.json` present. Verified this session: verdict `edge_proven:False | RETRACTED | binding: multiple_testing`; 5 report files present.
-- **Queue depth 4 (can never run dry):** C409 RESIDVOL (FROZEN, seed 20261273, 1296) → **C410 XCORR (ACTIVE, pre-registered, seed 20261274, 1296, UNSTARTED, slot verified empty)** → **C411 (pre-register a genuinely-new price-only family, seed 20261275, when C410 freezes)**. Both live specs are fully written above. Never re-order, never reuse a kernel.
-- **C410 slot is empty and unambiguous** (verified this session: `ls scripts tests | grep -c c410` → 0, `ls data/cache | grep -c campaign410` → 0, `ls reports | grep -c campaign410` → 0). Build C410 XCORR FRESH from C409 plumbing with the mandatory rewrite guards — **NEVER copy from `archive/void_c409_leadlag_clone/` or `archive/void_c409_reclone/`.**
+- **Queue depth 4 (can never run dry):** C409 RESIDVOL (FROZEN, seed 20261273, 1296) → **C410 XCORR (ACTIVE, pre-registered, seed 20261274, 1296, UNSTARTED)** → **C411 (pre-register a genuinely-new price-only family, seed 20261275, when C410 freezes)**. Both live specs are fully written above. Never re-order, never reuse a kernel.
+- **C410 slot has 5 files but run+tests are C409 CLONES** (verified this session: `ls scripts tests | grep c410` → 5 files exist: build_c410_xcorr_features.py, preflight_c410.py, run_c410_xcorr_xsec_oos.py, test_preflight_c410.py, test_c410_xcorr_xsec_oos.py). `ls data/cache | grep -c campaign410` → 0 (cache NOT built). `ls reports | grep -c campaign410` → 0 (reports NOT produced). The build and preflight scripts are correctly implemented for XCORR. **The run script and both test files MUST be FULLY REWRITTEN for XCORR kernel** — they currently contain RESIDVOL kernel code, signal names (residvol_dev/idioskew_dev), placebo seed 20261273, mandate "RESIDVOL", etc.
 - **C312 source intact**: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 symbol shards + manifest, 315,648 bars each, `perp_close` only; verified this session → 11). No network fetch, no fabrication, no resampling, no imputation.
 - **Quarantine (read-only evidence — never copy, import, cite, fix, freeze or re-run)**: `archive/void_c381/`, `archive/void_c398_clone/`, `archive/void_c402_clone/`, `archive/void_c402_reclone/`, `archive/void_c402_clone_cache_meta/`, `archive/void_c403_clone/`, `archive/void_c409_leadlag_clone/`, `archive/void_c409_reclone/` (both c409 dirs are C408 LEADLAG renames: leadlag kernel + wrong N_TRIALS/PLACEBO_SEED; 0 reports ever produced; quarantined with `chmod a-w`).
 - **Standing hazard = clone-and-rename** (the only process failure mode ever observed: void_c381, void_c398_clone, void_c402_clone, void_c402_reclone, void_c403_clone, void_c409_leadlag_clone, void_c409_reclone). It is neutralised by the mandatory rewrite guards + `grep` self-check + kernel-distinctness tests below. Clone the C409 plumbing structurally, then rewrite every identifier — a `grep` self-check that returns nothing (apart from legitimate distinctness-guard references to prior families) is the gate to a sweep. File existence NEVER proves a campaign exists; only `grep "campaign" == NNN` + the right kernel + the right placebo seed + 10 cache shards + 5 reports do.
