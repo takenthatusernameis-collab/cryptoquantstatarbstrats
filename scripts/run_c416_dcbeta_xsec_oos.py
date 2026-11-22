@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C416 — rigorous costed out-of-sample test of the cross-sectional intraday
-QREG: QUANTILE REGRESSION SLOPE vs EQUAL-WEIGHT MARKET stat-arb family on
-10 USDT-M linear perps at native 5m (2592 pre-registered configs).
+DCBETA: DISPERSION CO-BETA vs EQUAL-WEIGHT MARKET stat-arb family on
+10 USDT-M linear perps at native 5m (1296 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen modern campaign)
 -----------------------------------------------------------------
@@ -42,31 +42,24 @@ correlation asymmetry (SEMCORR), signed fractional power moments vs market
 and tail dependence coefficient / extremal dependence vs equal-weight market
 (TAILDEP).
 
-C416 is the first campaign whose primitive is the QUANTILE REGRESSION SLOPE
-vs the equal-weight market: the conditional quantile slope at tau in
-{0.1, 0.5, 0.9} rather than a conditional mean (OLS beta) or tail
-covariance/exceedance. Over a trailing window:
+C416 is the first campaign whose primitive is the DISPERSION CO-BETA vs the
+equal-weight market: how strongly an asset's return co-moves with the MARKET-
+WIDE CROSS-SECTIONAL DISPERSION (a scalar per bar = std across the 10 assets),
+rather than with the market return level (C406 BETAASYM), another asset's return
+(C410 XCORR pairwise), a residual (C409 RESIDVOL), or a tail object
+(C413 TAILBETA / C415 TAILDEP). Over a trailing window W=256:
 
-    X = r_i[t-W+1 .. t]   (W trailing log-returns of asset i, W=256)
-    M = m[t-W+1 .. t]     (W trailing log-returns of the equal-weight market)
-    taus = (0.1, 0.5, 0.9)
+    X  = r_i[t-W+1 .. t]        (W trailing log-returns of asset i)
+    D  = std_j( r_j[s] )        (market-wide cross-sectional dispersion, per bar s)
+    DD = D[t-W+1 .. t]
 
-For each tau, fit quantile regression of X on M with intercept (linear program
-minimizing sum rho_tau(residual), rho_tau(u) = u * (tau - 1{u < 0}), solved
-via scipy.optimize.linprog method='highs'):
+    dcbeta[t] = cov(X, DD) / var(DD)      (asset sensitivity to market-wide dispersion)
+    dcrho[t]  = corr(X, DD)               (asset co-movement with market-wide dispersion)
 
-    qreg_slope_0.1[t]  = b(0.1)
-    qreg_slope_0.5[t]  = b(0.5)
-    qreg_slope_0.9[t]  = b(0.9)
-    qreg_spread[t]     = qreg_slope_0.9[t] - qreg_slope_0.1[t]
-
-NaN if t<W, any NaN/non-finite, or fit not finite. This estimates a
-conditional quantile slope (a different primitive from C406 BETAASYM = OLS
-beta = conditional mean at tau=0.5 only; C413 TAILBETA = OLS regression
-slope over joint extremes; C415 TAILDEP = conditional tail exceedance
-probability / tail-copula object). First quantile-regression family ever run.
-Genuinely distinct from every prior family. Never used before. Price-only
-(perp_close), volume-free.
+NaN if t<W, any NaN/non-finite in the window, or var(DD)<=0 (var(X)<=0 for dcrho).
+First dispersion co-movement family ever run. Genuinely distinct from every prior
+family. Never used before. Price-only (perp_close), volume-free, exact O(n),
+vectorized via sliding_window_view + axis reductions; brute-force maxdiff < 1e-12.
 """
 
 from __future__ import annotations
@@ -77,7 +70,6 @@ import json
 import math
 import os
 import sys
-from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -85,7 +77,6 @@ import numpy as np
 from numpy.lib.stride_tricks import sliding_window_view
 import pandas as pd
 from scipy import stats
-from scipy.optimize import linprog
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -93,17 +84,17 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 cache_dir = ROOT / "data" / "cache"
 
-CACHE_DIR = cache_dir / "campaign416_qreg_5m"
-CACHE_META = cache_dir / "campaign416_qreg_5m.meta.json"
-CACHE_PROV = cache_dir / "campaign416_qreg_5m.provenance.json"
+CACHE_DIR = cache_dir / "campaign416_dcbeta_5m"
+CACHE_META = cache_dir / "campaign416_dcbeta_5m.meta.json"
+CACHE_PROV = cache_dir / "campaign416_dcbeta_5m.provenance.json"
 REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "qreg_slope_0.1_dev", "qreg_slope_0.5_dev", "qreg_slope_0.9_dev", "qreg_spread_dev",
-    "qreg_slope_0.1_placebo", "qreg_slope_0.5_placebo", "qreg_slope_0.9_placebo", "qreg_spread_placebo",
+    "dcbeta_dev", "dcrho_dev",
+    "dcbeta_placebo", "dcrho_placebo",
 )
-# 8 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost = 2592 = N_TRIALS
+# 4 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost = 1296 = N_TRIALS
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
 FEES = (0.0004, 0.0007, 0.0010)
@@ -119,31 +110,23 @@ STABILITY_MIN_SHARPE_CORR = 0.50
 DOMINANT_SHARE_MIN = 0.50
 
 N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
-             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 2592
+             len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 1296
 
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "qreg_slope_0.1_dev": ("qreg_slope_0.1", "dev"),
-    "qreg_slope_0.5_dev": ("qreg_slope_0.5", "dev"),
-    "qreg_slope_0.9_dev": ("qreg_slope_0.9", "dev"),
-    "qreg_spread_dev": ("qreg_spread", "dev"),
-    "qreg_slope_0.1_placebo": ("qreg_slope_0.1", "placebo_dev"),
-    "qreg_slope_0.5_placebo": ("qreg_slope_0.5", "placebo_dev"),
-    "qreg_slope_0.9_placebo": ("qreg_slope_0.9", "placebo_dev"),
-    "qreg_spread_placebo": ("qreg_spread", "placebo_dev"),
+    "dcbeta_dev": ("dcbeta", "dev"),
+    "dcrho_dev": ("dcrho", "dev"),
+    "dcbeta_placebo": ("dcbeta", "placebo_dev"),
+    "dcrho_placebo": ("dcrho", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "qreg_slope_0.1_dev": "qreg_slope_0.1_dev",
-    "qreg_slope_0.5_dev": "qreg_slope_0.5_dev",
-    "qreg_slope_0.9_dev": "qreg_slope_0.9_dev",
-    "qreg_spread_dev": "qreg_spread_dev",
+    "dcbeta_dev": "dcbeta_dev",
+    "dcrho_dev": "dcrho_dev",
 }
 
-QREG_W = 256
-QREG_TAUS = (0.1, 0.5, 0.9)
-QREG_CHUNK = 4096
+DCBETA_W = 256
 
 
 def sha256_file(p: Path) -> str:
@@ -315,174 +298,95 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- QREG: quantile regression vs market
-def _qreg_solve(X, M, tau):
-    """Solve quantile regression of X on M with intercept via LP.
-    Minimize sum rho_tau(X - alpha - beta * M) where rho_tau(u) = u * (tau - 1{u < 0}).
-    Returns (beta, alpha) or (nan, nan) if not finite.
-    """
-    X = np.asarray(X, dtype=float)
-    M = np.asarray(M, dtype=float)
-    if not (np.isfinite(X).all() and np.isfinite(M).all()):
-        return np.nan, np.nan
-    n = len(X)
-    if n < 3:
-        return np.nan, np.nan
-    # LP variables: [beta, alpha, u_pos, u_neg] where residual = u_pos - u_neg, u_pos, u_neg >= 0
-    # Objective: tau * sum(u_pos) + (1-tau) * sum(u_neg)
-    # Constraints: X - alpha - beta * M = u_pos - u_neg
-    # In standard form: beta * M + alpha + u_pos - u_neg = X
-    # Variables order: [beta, alpha, u_pos_1..u_pos_n, u_neg_1..u_neg_n] = 2 + 2n
-    c = np.zeros(2 + 2 * n)
-    c[2:2 + n] = tau
-    c[2 + n:] = 1.0 - tau
-
-    A_eq = np.zeros((n, 2 + 2 * n))
-    A_eq[:, 0] = M  # beta coefficient
-    A_eq[:, 1] = 1.0  # alpha coefficient
-    A_eq[:, 2:2 + n] = np.eye(n)  # u_pos
-    A_eq[:, 2 + n:] = -np.eye(n)  # u_neg
-    b_eq = X
-
-    bounds = [(None, None), (None, None)] + [(0.0, None)] * (2 * n)
-
-    res = linprog(c, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='highs')
-    if not res.success:
-        return np.nan, np.nan
-    beta = res.x[0]
-    alpha = res.x[1]
-    if not (np.isfinite(beta) and np.isfinite(alpha)):
-        return np.nan, np.nan
-    return float(beta), float(alpha)
-
-
-def _qreg_pass(R, W=QREG_W, taus=QREG_TAUS, chunk=QREG_CHUNK):
-    """Vectorized QREG for the full (n_assets, T) return matrix R. For each
-    bar t (t=W..T-1) and asset i, window X_i = R[i, t-W+1..t], market window
-    M = m[t-W+1..t] with m[s] = mean across assets of R[:, s]:
-    For each tau in taus:
-        qreg_slope_tau[t] = quantile regression slope b(tau)
-    qreg_spread[t] = qreg_slope_0.9[t] - qreg_slope_0.1[t]
-    NaN if t<W, any NaN/non-finite, or fit not finite.
-    Uses sliding_window_view processed in chunks; matches the brute-force reference
-    to maxdiff < 1e-12."""
+# ------------------------------------------------------- DCBETA: dispersion co-beta vs market
+def _dcbeta_pass(R, W=DCBETA_W):
+    """Vectorized DCBETA kernel for the full (n_assets, T) return matrix R.
+    Market-wide dispersion D[s] = nanstd across assets of R[:, s] (per bar).
+    For each asset i and bar t (t=W..T-1), over the trailing window W:
+        X = R[i, t-W+1..t], DD = D[t-W+1..t]
+        dcbeta[t] = cov(X, DD) / var(DD)   (asset sensitivity to market-wide dispersion)
+        dcrho[t]  = corr(X, DD)            (asset co-movement with market-wide dispersion)
+    NaN if t<W, any NaN/non-finite in the window, or var(DD)<=0 (var(X)<=0 for dcrho).
+    Uses sliding_window_view + axis reductions; matches _dcbeta_bruteforce maxdiff < 1e-12."""
     R = np.asarray(R, dtype=float)
     n_assets, T = R.shape
-    m = np.nanmean(R, axis=0)
-
-    out_slope_01 = np.full((n_assets, T), np.nan, dtype=float)
-    out_slope_05 = np.full((n_assets, T), np.nan, dtype=float)
-    out_slope_09 = np.full((n_assets, T), np.nan, dtype=float)
-    out_spread = np.full((n_assets, T), np.nan, dtype=float)
-
+    D = np.nanstd(R, axis=0)
+    out_beta = np.full((n_assets, T), np.nan, dtype=float)
+    out_rho = np.full((n_assets, T), np.nan, dtype=float)
     if T < W:
-        return {"qreg_slope_0.1": out_slope_01, "qreg_slope_0.5": out_slope_05,
-                "qreg_slope_0.9": out_slope_09, "qreg_spread": out_spread}
-
-    rw = sliding_window_view(R, W, axis=1)   # (n_assets, K, W) view, K=T-W+1
-    mw = sliding_window_view(m, W)           # (K, W)
-    K = rw.shape[1]
-
-    for start in range(0, K, chunk):
-        end = min(start + chunk, K)
-        rc = np.array(rw[:, start:end, :], dtype=float)   # (n_assets, c, W)
-        mc = np.array(mw[start:end, :], dtype=float)      # (c, W)
-        ccount = end - start
-
-        # For each asset and window, solve QREG at three taus
-        for j in range(ccount):
-            t = start + j + W - 1
-            if t >= T:
-                continue
-            Mw = mc[j]
-            if not np.isfinite(Mw).all():
-                continue
-            for i in range(n_assets):
-                Xw = rc[i, j]
-                if not np.isfinite(Xw).all():
-                    continue
-                b1, _ = _qreg_solve(Xw, Mw, 0.1)
-                b5, _ = _qreg_solve(Xw, Mw, 0.5)
-                b9, _ = _qreg_solve(Xw, Mw, 0.9)
-                if np.isfinite(b1):
-                    out_slope_01[i, t] = b1
-                if np.isfinite(b5):
-                    out_slope_05[i, t] = b5
-                if np.isfinite(b9):
-                    out_slope_09[i, t] = b9
-                if np.isfinite(b1) and np.isfinite(b9):
-                    out_spread[i, t] = b9 - b1
-
-    return {"qreg_slope_0.1": out_slope_01, "qreg_slope_0.5": out_slope_05,
-            "qreg_slope_0.9": out_slope_09, "qreg_spread": out_spread}
+        return {"dcbeta": out_beta, "dcrho": out_rho}
+    rw = sliding_window_view(R, W, axis=1)     # (n_assets, K, W), K=T-W+1
+    Dw = sliding_window_view(D, W)             # (K, W)
+    Xbar = rw.mean(axis=2)                     # (n_assets, K)
+    Dbar = Dw.mean(axis=1)                     # (K,)
+    Xc = rw - Xbar[:, :, None]
+    Dc = Dw - Dbar[:, None]
+    cov = np.einsum('nkw,kw->nk', Xc, Dc) / W
+    varD = (Dc * Dc).mean(axis=1)              # (K,)
+    varX = (Xc * Xc).mean(axis=2)              # (n_assets, K)
+    beta = cov / np.where(varD > 0, varD, np.nan)[None, :]
+    rho = cov / np.where((varD > 0) & (varX > 0), np.sqrt(varD * varX), np.nan)[None, :]
+    nanmask = np.isnan(rw).any(axis=2)         # (n_assets, K)
+    beta = np.where(nanmask, np.nan, beta)
+    rho = np.where(nanmask, np.nan, rho)
+    # window j covers indices j..j+W-1 (end index j+W-1); the metric at bar t uses
+    # the window ending at t and is NaN for t<W, so drop j=0 (end index W-1 < W)
+    # and align out[:, W:] with beta[:, 1:] (end indices W..T-1).
+    out_beta[:, W:] = beta[:, 1:]
+    out_rho[:, W:] = rho[:, 1:]
+    return {"dcbeta": out_beta, "dcrho": out_rho}
 
 
-def _qreg_bruteforce(log_return, W=QREG_W, taus=QREG_TAUS):
-    """Per-window reference QREG kernel. For each asset i and bar t
-    (t=W..n-1), window X=r[t-W+1..t], market M=m[t-W+1..t]:
-    For each tau: qreg_slope_tau[t] = quantile regression slope b(tau)
-    qreg_spread[t] = qreg_slope_0.9[t] - qreg_slope_0.1[t]
-    NaN if t<W, any NaN/non-finite, or fit not finite."""
-    X = np.asarray(log_return, dtype=float)
-    n_assets, n = X.shape
-    m = np.nanmean(X, axis=0)
-    out_slope_01 = np.full((n_assets, n), np.nan, dtype=float)
-    out_slope_05 = np.full((n_assets, n), np.nan, dtype=float)
-    out_slope_09 = np.full((n_assets, n), np.nan, dtype=float)
-    out_spread = np.full((n_assets, n), np.nan, dtype=float)
+def _dcbeta_bruteforce(log_return, W=DCBETA_W):
+    """Per-window reference DCBETA kernel. For each asset i and bar t (t=W..n-1):
+    X=R[i,t-W+1..t], DD=D[t-W+1..t] with D[s]=nanstd across assets:
+        dcbeta = cov(X,DD)/var(DD); dcrho = corr(X,DD)
+    NaN if t<W, any NaN/non-finite, or denominator<=0."""
+    R = np.asarray(log_return, dtype=float)
+    n_assets, n = R.shape
+    D = np.nanstd(R, axis=0)
+    out_beta = np.full((n_assets, n), np.nan, dtype=float)
+    out_rho = np.full((n_assets, n), np.nan, dtype=float)
     if n < W:
-        return {"qreg_slope_0.1": out_slope_01, "qreg_slope_0.5": out_slope_05,
-                "qreg_slope_0.9": out_slope_09, "qreg_spread": out_spread}
+        return {"dcbeta": out_beta, "dcrho": out_rho}
     for t in range(W, n):
-        Mw = m[t - W + 1:t + 1]
-        if not np.isfinite(Mw).all():
+        DD = D[t - W + 1:t + 1]
+        if not np.isfinite(DD).all():
             continue
+        vD = float(np.var(DD))
+        if vD <= 0:
+            continue
+        Dc = DD - DD.mean()
         for i in range(n_assets):
-            Xw = X[i, t - W + 1:t + 1]
+            Xw = R[i, t - W + 1:t + 1]
             if not np.isfinite(Xw).all():
                 continue
-            b1, _ = _qreg_solve(Xw, Mw, 0.1)
-            b5, _ = _qreg_solve(Xw, Mw, 0.5)
-            b9, _ = _qreg_solve(Xw, Mw, 0.9)
-            if np.isfinite(b1):
-                out_slope_01[i, t] = b1
-            if np.isfinite(b5):
-                out_slope_05[i, t] = b5
-            if np.isfinite(b9):
-                out_slope_09[i, t] = b9
-            if np.isfinite(b1) and np.isfinite(b9):
-                out_spread[i, t] = b9 - b1
-    return {"qreg_slope_0.1": out_slope_01, "qreg_slope_0.5": out_slope_05,
-            "qreg_slope_0.9": out_slope_09, "qreg_spread": out_spread}
+            Xc = Xw - Xw.mean()
+            c = float(np.mean(Xc * Dc))
+            out_beta[i, t] = c / vD
+            vX = float(np.var(Xw))
+            if vX > 0:
+                out_rho[i, t] = c / np.sqrt(vX * vD)
+    return {"dcbeta": out_beta, "dcrho": out_rho}
 
 
-def compute_qreg_metrics(log_return, W=QREG_W, taus=QREG_TAUS):
-    """Vectorized QREG kernel. For each asset i and bar t (t=W..n-1),
-    W=256, taus={0.1,0.5,0.9}:
-        qreg_slope_0.1 = quantile regression slope b(0.1)
-        qreg_slope_0.5 = quantile regression slope b(0.5)
-        qreg_slope_0.9 = quantile regression slope b(0.9)
-        qreg_spread    = qreg_slope_0.9 - qreg_slope_0.1
-    Matches _qreg_bruteforce (maxdiff < 1e-12)."""
+def compute_dcbeta_metrics(log_return, W=DCBETA_W):
+    """Vectorized DCBETA kernel. Matches _dcbeta_bruteforce (maxdiff < 1e-12)."""
     X = np.asarray(log_return, dtype=float)
     n_assets, n = X.shape
     if n < W:
-        nan_m = {k: np.full((n_assets, n), np.nan, dtype=float)
-                 for k in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread")}
+        nan_m = {k: np.full((n_assets, n), np.nan, dtype=float) for k in ("dcbeta", "dcrho")}
         return nan_m
-    return _qreg_pass(X, W=W, taus=taus)
+    return _dcbeta_pass(X, W=W)
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar QREG metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): qreg_slope_0.1, qreg_slope_0.5,
-    qreg_slope_0.9, qreg_spread."""
-    n_assets = int(bs["n_assets"])
-    n_bars = int(bs["n_bars"])
+    """Compute the causal per-bar DCBETA metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): dcbeta, dcrho."""
     log_return = np.asarray(bs["log_return"], dtype=float)
     series: dict = {}
-    METRIC_KEYS = ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread")
-    result = compute_qreg_metrics(log_return, W=QREG_W, taus=QREG_TAUS)
+    METRIC_KEYS = ("dcbeta", "dcrho")
+    result = compute_dcbeta_metrics(log_return, W=DCBETA_W)
     for k in METRIC_KEYS:
         series[k] = np.asarray(result[k], dtype=float)
     return series
@@ -706,7 +610,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="qreg_spread_dev", L=240, H=4,
+    ref_cfg = dict(signal="dcbeta_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -830,35 +734,32 @@ def main(argv: list[str] | None = None) -> int:
 
     sweep_obj = {
         "generated_at_utc": ts, "campaign": 416, "part": "oos_sweep",
-        "analysis": "c416_qreg_xsec_stat_arb_oos_5m",
+        "analysis": "c416_dcbeta_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C416 — test the cross-sectional intraday QREG: QUANTILE REGRESSION "
-            "SLOPE vs EQUAL-WEIGHT MARKET stat-arb family on 10 USDT-M linear "
-            "perps at native 5m (2592 pre-registered configs). Per-bar primitives: "
+            "C416 — test the cross-sectional intraday DCBETA: DISPERSION CO-BETA "
+            "vs EQUAL-WEIGHT MARKET stat-arb family on 10 USDT-M linear "
+            "perps at native 5m (1296 pre-registered configs). Per-bar primitives: "
             "perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
-            "abs_ret=|log_return|; equal-weight market return m[s]=(1/10)*sum_i r_i[s]. "
-            "QREG scalars over fixed intrinsic window W=256 trailing returns, "
-            "taus={0.1,0.5,0.9}: for each bar t, X=r_i[t-W+1..t], M=m[t-W+1..t], "
-            "qreg_slope_tau[t] = quantile regression slope b(tau) of X on M with "
-            "intercept (LP minimizing sum rho_tau(residual), "
-            "rho_tau(u)=u*(tau-1{u<0}), scipy.optimize.linprog method='highs'); "
-            "qreg_spread[t] = qreg_slope_0.9[t] - qreg_slope_0.1[t] (quantile-slope "
-            "spread, conditional-tail slope dispersion). Needs indices t-W+1..t "
-            "(W bars). NaN if t<W, any NaN/non-finite in the W-bar trailing panel "
-            "span, or fit not finite. Seasonal baseline = trailing mean/std at same "
-            "(weekday,tod) bucket from history strictly before bar t (causal "
-            "shift(1)), NaN-aware, excluding NaN obs. Signals: 4 real "
-            "(qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, "
-            "qreg_spread_dev) + 4 placebos (phase-randomized surrogates, never "
-            "edges). Single-leg dollar-neutral perp PnL with costs on turnover "
-            "(taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
+            "abs_ret=|log_return|; equal-weight market return m[s]=(1/10)*sum_i r_i[s]; "
+            "market-wide cross-sectional dispersion D[s]=std across the 10 assets of "
+            "r_j[s] (per bar). DCBETA scalars over fixed intrinsic window W=256 trailing "
+            "returns: for each bar t, X=r_i[t-W+1..t], DD=D[t-W+1..t], "
+            "dcbeta[t]=cov(X,DD)/var(DD) (asset sensitivity to market-wide dispersion), "
+            "dcrho[t]=corr(X,DD) (asset co-movement with market-wide dispersion). "
+            "Needs indices t-W+1..t (W bars). NaN if t<W, any NaN/non-finite in the "
+            "W-bar trailing span, var(DD)<=0 (or var(X)<=0 for dcrho). Seasonal "
+            "baseline = trailing mean/std at same (weekday,tod) bucket from history "
+            "strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. "
+            "Signals: 2 real (dcbeta_dev, dcrho_dev) + 2 placebos (phase-randomized "
+            "surrogates, never edges). Single-leg dollar-neutral perp PnL with costs on "
+            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
             "alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
-            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs "
-            "and valid fit; seasonal stats NaN-aware min_periods excluding NaN "
-            "obs; NaN-score bars weight 0."
+            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and "
+            "valid fit; seasonal stats NaN-aware min_periods excluding NaN obs; "
+            "NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
@@ -875,14 +776,14 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "qreg_params": {"window_W": QREG_W, "taus": list(QREG_TAUS)},
+            "dcbeta_params": {"window_W": DCBETA_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "qreg_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+            "dcbeta_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
                          "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
@@ -901,11 +802,11 @@ def main(argv: list[str] | None = None) -> int:
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|; market m[s]=mean across assets.",
-            "primitives": "fixed intrinsic window W=256 trailing returns, taus={0.1,0.5,0.9}; "
-                          "qreg_slope_tau=quantile regression slope b(tau) of X on M with "
-                          "intercept (LP min sum rho_tau, rho_tau(u)=u*(tau-1{u<0})); "
-                          "qreg_spread=qreg_slope_0.9 - qreg_slope_0.1.",
-            "signals": "qreg_slope_0.1/qreg_slope_0.5/qreg_slope_0.9/qreg_spread over fixed W=256; "
+            "primitives": "fixed intrinsic window W=256 trailing returns; market-wide "
+                          "cross-sectional dispersion D[s]=std across the 10 assets of r_j[s] (per bar); "
+                          "dcbeta=cov(X,DD)/var(DD) (asset sensitivity to market-wide dispersion); "
+                          "dcrho=corr(X,DD) (asset co-movement with market-wide dispersion).",
+            "signals": "dcbeta/dcrho over fixed W=256; "
                        "score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); "
                        "cross-sectional rank, dollar-neutral gross 1.0; "
@@ -913,16 +814,16 @@ def main(argv: list[str] | None = None) -> int:
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
             "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
             "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
-            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
+            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
             "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
-            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "qreg_vectorization_note": "return matrix R=(T,10) built once; market m[s]=mean across assets; "
-                                       "zero-copy sliding_window_view(R,256) and sliding_window_view(m,256) processed in "
-                                       "chunks; per-window quantile regression LP solve (scipy.optimize.linprog method='highs') "
-                                       "at tau=0.1,0.5,0.9; validated against brute-force per-window loop with maxdiff < 1e-12 "
-                                       "in tests. Chunking keeps peak memory low.",
+            "dcbeta_vectorization_note": "return matrix R=(T,10) built once; market-wide dispersion "
+                                       "D[s]=nanstd across assets of R[:,s] (per bar); zero-copy sliding_window_view(R,256) "
+                                       "and sliding_window_view(D,256) reduced via axis means + einsum; "
+                                       "dcbeta=cov/var and dcrho=corr computed in closed form; validated against brute-force "
+                                       "per-window loop with maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -983,13 +884,13 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C416 cross-sectional intraday QREG quantile regression vs equal-weight "
+        f"C416 cross-sectional intraday DCBETA dispersion co-beta vs equal-weight "
         f"market stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C416 cross-sectional intraday QREG quantile regression vs equal-weight "
+        else f"C416 cross-sectional intraday DCBETA dispersion co-beta vs equal-weight "
         f"market stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
@@ -999,7 +900,7 @@ def main(argv: list[str] | None = None) -> int:
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c416_qreg_xsec_stat_arb_costed_oos_5m",
+        "basis": "c416_dcbeta_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -1014,7 +915,7 @@ def main(argv: list[str] | None = None) -> int:
         "hard_bans_honored": [
             "No synthetic/fabricated data; no relabeling existing caches as new",
             "No threshold/gate weakening; no cherry-picked windows/costs",
-            "No edge claim unless the costed OOS test survives Holm+BH over all 2592 configs",
+            "No edge claim unless the costed OOS test survives Holm+BH over all 1296 configs",
             "Real USDT-M linear 5m perp_close; funding excluded (control leg)",
             "Single-leg PnL with costs on turnover; executed_fills: false",
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
@@ -1041,7 +942,7 @@ def main(argv: list[str] | None = None) -> int:
             "attribution_ok": attribution_ok,
             "stability": stability_ref,
             "diagnosis": (
-                "C416 cross-sectional intraday QREG quantile regression vs equal-weight "
+                "C416 cross-sectional intraday DCBETA dispersion co-beta vs equal-weight "
                 "market stat-arb does not survive validation; formal negative. Binding constraint: {binding}."
             ).format(binding=binding),
             "note": "Diagnosis only; never an edge claim. No threshold weakening.",

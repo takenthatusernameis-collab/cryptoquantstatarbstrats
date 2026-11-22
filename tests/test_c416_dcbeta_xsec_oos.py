@@ -1,6 +1,6 @@
-"""Tests for C416 runner (scripts/run_c416_qreg_xsec_oos.py): pure-function
+"""Tests for C416 runner (scripts/run_c416_dcbeta_xsec_oos.py): pure-function
 tests on synthetic arrays (including a brute-force equality test for the
-vectorized QREG quantile regression kernel vs the per-window reference)
+vectorized DCBETA dispersion co-beta kernel vs the per-window reference)
 plus schema/flag validation of emitted real-data artifacts.
 No network, no fabricated market data."""
 from __future__ import annotations
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c416_qreg_xsec_oos as R  # noqa: E402
+import run_c416_dcbeta_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -39,18 +39,16 @@ def test_holm_and_bh_monotone_and_bounded():
 
 
 def test_n_trials_matches_pre_registered_grid_product():
-    assert R.N_TRIALS == 2592
-    assert len(R.SIGNALS) == 8
+    assert R.N_TRIALS == 1296
+    assert len(R.SIGNALS) == 4
     assert len(R.LOOKBACKS) == 6
     assert len(R.REBALANCES) == 3
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("qreg_slope_0.1_placebo", "qreg_slope_0.5_placebo",
-               "qreg_slope_0.9_placebo", "qreg_spread_placebo"):
+    for pb in ("dcbeta_placebo", "dcrho_placebo"):
         assert pb in R.SIGNALS
-    for real in ("qreg_slope_0.1_dev", "qreg_slope_0.5_dev",
-                 "qreg_slope_0.9_dev", "qreg_spread_dev"):
+    for real in ("dcbeta_dev", "dcrho_dev"):
         assert real in R.SIGNALS
 
 
@@ -112,17 +110,17 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- QREG kernel (brute-force equality)
-def test_qreg_matches_brute_force():
-    """The vectorized QREG kernel MUST equal the brute-force reference
+# ---------------------------------------------------------------- DCBETA kernel (brute-force equality)
+def test_dcbeta_matches_brute_force():
+    """The vectorized DCBETA kernel MUST equal the brute-force reference
     (per-window loop with identical LP solve). Compared with maxdiff < 1e-12
     with matching NaN patterns."""
     rng = np.random.default_rng(20261280)
     n_assets, n_bars = 5, 4000
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    fast = R.compute_qreg_metrics(log_return, R.QREG_W, R.QREG_TAUS)
-    brute = R._qreg_bruteforce(log_return, R.QREG_W, R.QREG_TAUS)
-    for key in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
+    fast = R.compute_dcbeta_metrics(log_return, R.DCBETA_W)
+    brute = R._dcbeta_bruteforce(log_return, R.DCBETA_W)
+    for key in ("dcbeta", "dcrho"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
@@ -131,70 +129,67 @@ def test_qreg_matches_brute_force():
         assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
 
 
-def test_qreg_matches_brute_force_10_assets():
+def test_dcbeta_matches_brute_force_10_assets():
     """Brute-force equality with the full 10-asset panel (the real universe width)."""
     rng = np.random.default_rng(4162)
     n_assets, n_bars = 10, 1500
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    fast = R.compute_qreg_metrics(log_return, R.QREG_W, R.QREG_TAUS)
-    brute = R._qreg_bruteforce(log_return, R.QREG_W, R.QREG_TAUS)
-    for key in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
+    fast = R.compute_dcbeta_metrics(log_return, R.DCBETA_W)
+    brute = R._dcbeta_bruteforce(log_return, R.DCBETA_W)
+    for key in ("dcbeta", "dcrho"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, key
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin])))
-        assert maxdiff < 1e-12, f"qreg_{key}: maxdiff={maxdiff}"
+        assert maxdiff < 1e-12, f"dcbeta_{key}: maxdiff={maxdiff}"
 
 
-def test_qreg_defined_after_window_nan_before():
+def test_dcbeta_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     n_assets, n_bars = 3, 600
     common = rng.standard_normal(n_bars) * 0.005
     log_return = common[None, :] + rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    m = R.compute_qreg_metrics(log_return, W)
-    for key in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
+    W = R.DCBETA_W
+    m = R.compute_dcbeta_metrics(log_return, W)
+    for key in ("dcbeta", "dcrho"):
         assert np.isnan(m[key][:, :W]).all(), key
         assert np.isfinite(m[key][:, W:]).any(), key
 
 
-def test_qreg_non_finite_return_propagates():
-    """A non-finite return in any asset's window -> NaN for all QREG
+def test_dcbeta_non_finite_return_propagates():
+    """A non-finite return in any asset's window -> NaN for all DCBETA
     outputs in affected bars (the whole panel window is non-finite)."""
     rng = np.random.default_rng(9)
     n_assets, n_bars = 4, 600
     common = rng.standard_normal(n_bars) * 0.005
     log_return = common[None, :] + rng.standard_normal((n_assets, n_bars)) * 0.001
     log_return[0, 300] = np.inf
-    W = R.QREG_W
-    m = R.compute_qreg_metrics(log_return, W)
+    W = R.DCBETA_W
+    m = R.compute_dcbeta_metrics(log_return, W)
     for t in range(300, min(300 + W, n_bars)):
-        for key in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
-            assert np.isnan(m[key][:, t]).all(), f"qreg_{key} t={t} should be NaN"
+        for key in ("dcbeta", "dcrho"):
+            assert np.isnan(m[key][:, t]).all(), f"dcbeta_{key} t={t} should be NaN"
     for t in range(W, 300):
-        for key in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
-            assert np.isfinite(m[key][:, t]).any(), f"qreg_{key} t={t} should be finite"
+        for key in ("dcbeta", "dcrho"):
+            assert np.isfinite(m[key][:, t]).any(), f"dcbeta_{key} t={t} should be finite"
 
 
-def test_qreg_params():
-    assert R.QREG_W == 256
-    assert tuple(R.QREG_TAUS) == (0.1, 0.5, 0.9)
+def test_dcbeta_params():
+    assert R.DCBETA_W == 256
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "qreg_slope_0.1_dev": "qreg_slope_0.1_dev",
-        "qreg_slope_0.5_dev": "qreg_slope_0.5_dev",
-        "qreg_slope_0.9_dev": "qreg_slope_0.9_dev",
-        "qreg_spread_dev": "qreg_spread_dev",
+        "dcbeta_dev": "dcbeta_dev",
+        "dcrho_dev": "dcrho_dev",
     }
     assert R.PLACEBO_SEED == 20261280
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.QREG_W == 256
-    assert R.SIGNALS[0] == "qreg_slope_0.1_dev"
+    assert R.DCBETA_W == 256
+    assert R.SIGNALS[0] == "dcbeta_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -223,8 +218,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"}
-    for k in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
+    assert set(series.keys()) == {"dcbeta", "dcrho"}
+    for k in ("dcbeta", "dcrho"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -241,18 +236,18 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_qreg_kernel_not_degenerate():
-    """Rewrite guard: QREG metrics are not degenerate (not allclose to 0 where defined)."""
+def test_dcbeta_kernel_not_degenerate():
+    """Rewrite guard: DCBETA metrics are not degenerate (not allclose to 0 where defined)."""
     rng = np.random.default_rng(55)
     n_assets, n_bars = 5, 1600
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    for name in ("qreg_slope_0.1", "qreg_slope_0.5", "qreg_slope_0.9", "qreg_spread"):
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    for name in ("dcbeta", "dcrho"):
         arr = mm[name]
         fin = np.isfinite(arr)
-        assert fin.sum() > 0, f"qreg_{name}: no finite values"
-        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"qreg_{name} collapses to 0"
+        assert fin.sum() > 0, f"dcbeta_{name}: no finite values"
+        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"dcbeta_{name} collapses to 0"
 
 
 # ---- inline prior-family reference statistics (distinctness guards)
@@ -464,94 +459,94 @@ def _taildep_style_stat(log_return, W=256, q=0.10):
 def _assert_distinct(sa, ref, name):
     fin = np.isfinite(sa) & np.isfinite(ref)
     assert fin.sum() > 0, name
-    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"QREG degenerates to {name}"
+    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"DCBETA degenerates to {name}"
 
 
-def test_qreg_kernel_distinct_from_betaasym():
+def test_dcbeta_kernel_distinct_from_betaasym():
     rng = np.random.default_rng(214)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
     market = log_return.mean(axis=0)
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_spread"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _betaasym_style_stat(log_return[0], market, W)[W:], "BETAASYM")
 
 
-def test_qreg_kernel_distinct_from_residvol():
+def test_dcbeta_kernel_distinct_from_residvol():
     rng = np.random.default_rng(215)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
     market = log_return.mean(axis=0)
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_slope_0.5"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcrho"][0, W:]
     _assert_distinct(sa, _residvol_style_stat(log_return[0], market, W)[W:], "RESIDVOL")
 
 
-def test_qreg_kernel_distinct_from_xcorr():
+def test_dcbeta_kernel_distinct_from_xcorr():
     rng = np.random.default_rng(212)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_spread"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _xcorr_style_stat(log_return, W)[0, W:], "XCORR")
 
 
-def test_qreg_kernel_distinct_from_semcorr():
+def test_dcbeta_kernel_distinct_from_semcorr():
     rng = np.random.default_rng(213)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_slope_0.1"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _semcorr_style_stat(log_return, W)[0, W:], "SEMCORR")
 
 
-def test_qreg_kernel_distinct_from_signpower():
+def test_dcbeta_kernel_distinct_from_signpower():
     rng = np.random.default_rng(216)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_slope_0.1"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     for p in (0.5, 1.5, 2.5):
         ref = _signpower_style_stat(log_return[0], W, p)[W:]
         _assert_distinct(sa, ref, f"SIGNPOWER_p{p}")
 
 
-def test_qreg_kernel_distinct_from_signcomotion():
+def test_dcbeta_kernel_distinct_from_signcomotion():
     """C414 SIGNCO-MOTION: legitimate distinctness-guard ref (prior family)."""
     rng = np.random.default_rng(217)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_spread"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _signcomotion_style_stat(log_return, W)[0, W:], "SIGNCO-MOTION")
 
 
-def test_qreg_kernel_distinct_from_tailbeta():
+def test_dcbeta_kernel_distinct_from_tailbeta():
     """C413 TAILBETA: legitimate distinctness-guard ref (prior family)."""
     rng = np.random.default_rng(211)
     n_assets, n_bars = 5, 1200
     market = rng.standard_normal(n_bars) * 0.02
     log_return = market[None, :] + rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_spread"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _tailbeta_style_stat(log_return, W)[0, W:], "TAILBETA")
 
 
-def test_qreg_kernel_distinct_from_taildep():
+def test_dcbeta_kernel_distinct_from_taildep():
     """C415 TAILDEP: legitimate distinctness-guard ref (prior family)."""
     rng = np.random.default_rng(210)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.QREG_W
-    mm = R.compute_qreg_metrics(log_return, W)
-    sa = mm["qreg_slope_0.1"][0, W:]
+    W = R.DCBETA_W
+    mm = R.compute_dcbeta_metrics(log_return, W)
+    sa = mm["dcbeta"][0, W:]
     _assert_distinct(sa, _taildep_style_stat(log_return, W)[0, W:], "TAILDEP")
 
 
@@ -567,16 +562,16 @@ def test_artifact_campaign_is_416():
         assert obj["campaign"] == 416, f"{part} artifact campaign != 416: {obj.get('campaign')}"
 
 
-def test_mandate_contains_qreg():
-    """Rewrite guard: the C416 mandate names QREG quantile regression vs
+def test_mandate_contains_dcbeta():
+    """Rewrite guard: the C416 mandate names DCBETA dispersion co-beta vs
     equal-weight market (never prior families)."""
     p = sorted((ROOT / "reports").glob("campaign416_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "QREG" in mandate, "mandate missing QREG"
-    assert "quantile regression" in mandate.lower(), "mandate missing quantile regression"
+    assert "DCBETA" in mandate, "mandate missing DCBETA"
+    assert "dispersion co-beta" in mandate.lower(), "mandate missing dispersion co-beta"
     assert "EQUAL-WEIGHT MARKET" in mandate, "mandate missing EQUAL-WEIGHT MARKET"
     for bad in ("SIGNCO-MOTION", "SAME-SIGN", "TAILBETA", "TAIL BETA", "EXTREME",
                 "SIGNPOWER", "FRACTIONAL", "POWER", "XCORR", "SEMCORR",
@@ -629,8 +624,7 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["qreg_params"]["window_W"] == 256
-    assert sw["config"]["qreg_params"]["taus"] == [0.1, 0.5, 0.9]
+    assert sw["config"]["dcbeta_params"]["window_W"] == 256
 
 
 if __name__ == "__main__":
@@ -643,27 +637,27 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_qreg_matches_brute_force()
-    test_qreg_matches_brute_force_10_assets()
-    test_qreg_defined_after_window_nan_before()
-    test_qreg_non_finite_return_propagates()
-    test_qreg_params()
+    test_dcbeta_matches_brute_force()
+    test_dcbeta_matches_brute_force_10_assets()
+    test_dcbeta_defined_after_window_nan_before()
+    test_dcbeta_non_finite_return_propagates()
+    test_dcbeta_params()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_qreg_kernel_not_degenerate()
-    test_qreg_kernel_distinct_from_betaasym()
-    test_qreg_kernel_distinct_from_residvol()
-    test_qreg_kernel_distinct_from_xcorr()
-    test_qreg_kernel_distinct_from_semcorr()
-    test_qreg_kernel_distinct_from_signpower()
-    test_qreg_kernel_distinct_from_signcomotion()
-    test_qreg_kernel_distinct_from_tailbeta()
-    test_qreg_kernel_distinct_from_taildep()
+    test_dcbeta_kernel_not_degenerate()
+    test_dcbeta_kernel_distinct_from_betaasym()
+    test_dcbeta_kernel_distinct_from_residvol()
+    test_dcbeta_kernel_distinct_from_xcorr()
+    test_dcbeta_kernel_distinct_from_semcorr()
+    test_dcbeta_kernel_distinct_from_signpower()
+    test_dcbeta_kernel_distinct_from_signcomotion()
+    test_dcbeta_kernel_distinct_from_tailbeta()
+    test_dcbeta_kernel_distinct_from_taildep()
     test_artifact_campaign_is_416()
-    test_mandate_contains_qreg()
+    test_mandate_contains_dcbeta()
     test_placebo_seed_is_20261280()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    print("All C416 QREG runner tests passed")
+    print("All C416 DCBETA runner tests passed")

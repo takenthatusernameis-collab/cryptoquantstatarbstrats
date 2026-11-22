@@ -1,51 +1,45 @@
 #!/usr/bin/env python3
 """C416 feature build — real USDT-M linear perp cross-sectional intraday
-QREG: QUANTILE REGRESSION SLOPE vs EQUAL-WEIGHT MARKET
+DCBETA: DISPERSION CO-BETA vs EQUAL-WEIGHT MARKET
 raw inputs: trailing log-returns over a fixed intrinsic window W=256 from which
 the runner derives, per bar t, for each asset i:
 
-    X          = r[t-W+1 .. t]  (W trailing log-returns of asset i)
-    M          = m[t-W+1 .. t]  (W trailing log-returns of the equal-weight market)
-    taus       = (0.1, 0.5, 0.9)
+    X          = r[t-W+1 .. t]   (W trailing log-returns of asset i)
+    D          = std_j( r_j[s] ) (market-wide cross-sectional dispersion, per bar s)
+    DD         = D[t-W+1 .. t]   (W trailing dispersion values)
 
-    qreg_slope_0.1[t]  = quantile regression slope b(0.1) of X on M
-    qreg_slope_0.5[t]  = quantile regression slope b(0.5) of X on M
-    qreg_slope_0.9[t]  = quantile regression slope b(0.9) of X on M
-    qreg_spread[t]     = qreg_slope_0.9[t] - qreg_slope_0.1[t] (quantile-slope spread)
+    dcbeta[t]  = cov(X, DD) / var(DD)   (asset sensitivity to market-wide dispersion)
+    dcrho[t]   = corr(X, DD)            (asset co-movement with market-wide dispersion)
 
-Needs indices t-W+1..t (W bars). NaN if t<W, any NaN/non-finite, or fit not finite.
+Needs indices t-W+1..t (W bars). NaN if t<W, any NaN/non-finite, or var(DD)<=0
+(or var(X)<=0 for dcrho).
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
 grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
 (real only):
 
-    data/cache/campaign416_qreg_5m/<SYM>.npz
+    data/cache/campaign416_dcbeta_5m/<SYM>.npz
         index_ms        int64   common 5m grid (ms)
         perp_close      float32 real 5m kline close (execution price)
         log_return      float32 causal log-return (r[t]=log(c[t]/c[t-1]), r[0]=0)
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner builds QREG scalars over fixed intrinsic window W=256 trailing
-returns: for each bar t, X=r_i[t-W+1..t], M=m[t-W+1..t] equal-weight market
-return; quantile regression slopes at tau in {0.1, 0.5, 0.9} via LP solve
-(minimizing sum rho_tau(residual), rho_tau(u)=u*(tau-1{u<0})), plus the
-quantile-slope spread qreg_spread = qreg_slope_0.9 - qreg_slope_0.1, then the
-seasonal deviation of each QREG scalar at the same (weekday,tod) bucket from
-history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.
+The runner builds DCBETA scalars over fixed intrinsic window W=256 trailing
+returns: for each bar t, X=r_i[t-W+1..t], DD=D[t-W+1..t] where D[s]=std across
+the 10 assets of r_j[s]; dcbeta=cov(X,DD)/var(DD) and dcrho=corr(X,DD) in closed
+form, then the seasonal deviation of each DCBETA scalar at the same (weekday,tod)
+bucket from history strictly before bar t (causal shift(1)), NaN-aware
+min_periods=3.
 
-QREG is genuinely distinct from all prior families C281B–C415: it is the
-first quantile-regression family ever run, estimating conditional quantile
-slopes rather than conditional mean (C406 BETAASYM = OLS beta = conditional
-mean only, single tau=0.5), conditional tail covariance/beta (C413 TAILBETA
-= OLS regression slope over joint extremes), conditional tail exceedance
-probability (C415 TAILDEP = tail-copula object), same-sign co-motion
-(C414 SIGNCO-MOTION), signed fractional moments (C412 SIGNPOWER),
-sign-conditional pairwise correlation (C411 SEMCORR), full-window Pearson
-correlation (C410 XCORR), residual dispersion (C409 RESIDVOL), and every
-moment/tail/spectral family before it. Never used before. Price-only
-(perp_close), volume-free.
+DCBETA is genuinely distinct from all prior families C281B–C415: it is the first
+dispersion co-movement family ever run, measuring how strongly an asset's return
+co-moves with the MARKET-WIDE CROSS-SECTIONAL DISPERSION (a scalar per bar),
+rather than with the market return level (C406 BETAASYM = OLS beta vs equal-weight
+market return), another asset's return (C410 XCORR = average pairwise Pearson
+correlation), a residual (C409 RESIDVOL), or a tail object (C413 TAILBETA /
+C415 TAILDEP). Never used before. Price-only (perp_close), volume-free, exact O(n).
 """
 
 from __future__ import annotations
@@ -62,9 +56,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 SRC_DIR = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m"
 SRC_META = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m.meta.json"
-DST_DIR = ROOT / "data" / "cache" / "campaign416_qreg_5m"
-DST_META = ROOT / "data" / "cache" / "campaign416_qreg_5m.meta.json"
-DST_PROV = ROOT / "data" / "cache" / "campaign416_qreg_5m.provenance.json"
+DST_DIR = ROOT / "data" / "cache" / "campaign416_dcbeta_5m"
+DST_META = ROOT / "data" / "cache" / "campaign416_dcbeta_5m.meta.json"
+DST_PROV = ROOT / "data" / "cache" / "campaign416_dcbeta_5m.provenance.json"
 
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
@@ -340,26 +334,22 @@ def main(argv: list[str] | None = None) -> int:
         "under_push_limit": bool(total < PUSH_LIMIT_BYTES and max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total < CACHE_BUDGET_BYTES),
         "n_buckets_tod_dow": int(N_BUCKETS),
-        "qreg_params": {
+        "dcbeta_params": {
             "window_W": 256,
-            "taus": [0.1, 0.5, 0.9],
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
-            "unreachable). Runner builds QREG scalars over fixed intrinsic "
+            "unreachable). Runner builds DCBETA scalars over fixed intrinsic "
             "window W=256 trailing returns: for each bar t, X=r_i[t-W+1..t], "
-            "M=m[t-W+1..t] equal-weight market return; taus={0.1,0.5,0.9}; "
-            "qreg_slope_tau[t] = quantile regression slope b(tau) of X on M "
-            "(LP minimizing sum rho_tau(residual), rho_tau(u)=u*(tau-1{u<0}), "
-            "scipy.optimize.linprog method='highs'); "
-            "qreg_spread[t] = qreg_slope_0.9 - qreg_slope_0.1 (quantile-slope "
-            "spread, conditional-tail slope dispersion). Needs indices t-W+1..t "
-            "(W bars). NaN if t<W, any NaN/non-finite in the W-bar trailing panel "
-            "span, or fit not finite. Seasonal deviation of each QREG scalar at "
-            "the same (weekday,tod) bucket from history strictly before bar t "
-            "(causal shift(1)), NaN-aware min_periods=3."
+            "DD=D[t-W+1..t] with D[s]=std across the 10 assets of r_j[s]; "
+            "dcbeta=cov(X,DD)/var(DD) (sensitivity to market-wide dispersion), "
+            "dcrho=corr(X,DD) (co-movement with market-wide dispersion). "
+            "Needs indices t-W+1..t (W bars). NaN if t<W, any NaN/non-finite in the "
+            "W-bar trailing panel span, or var(DD)<=0 (or var(X)<=0 for dcrho). "
+            "Seasonal deviation of each DCBETA scalar at the same (weekday,tod) bucket "
+            "from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
         "network_ingest": False,
@@ -374,7 +364,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; QREG scalars NaN where t<W or any NaN/non-finite in the W-bar trailing panel span or fit not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; DCBETA scalars NaN where t<W or any NaN/non-finite in the W-bar trailing panel span or fit not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }

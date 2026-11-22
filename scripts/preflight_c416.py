@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """C416 preflight: fail-closed verification of the real C416 USDT-M
-cross-sectional intraday QREG quantile regression vs equal-weight market feature
+cross-sectional intraday DCBETA dispersion co-beta vs equal-weight market feature
 cache before the C416 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign416_qreg_5m/`` and every shard SHA256 + byte size
+  ``data/cache/campaign416_dcbeta_5m/`` and every shard SHA256 + byte size
   matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -32,9 +32,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign416_qreg_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign416_qreg_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign416_qreg_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign416_dcbeta_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign416_dcbeta_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign416_dcbeta_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -133,8 +133,8 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("qreg_params", {}).get("window_W") == 256
-        and list(meta.get("qreg_params", {}).get("taus") or []) == [0.1, 0.5, 0.9]
+        and meta.get("dcbeta_params", {}).get("window_W") == 256
+        and "taus" not in (meta.get("dcbeta_params") or {})
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -150,7 +150,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "qreg_params": meta.get("qreg_params"),
+        "dcbeta_params": meta.get("dcbeta_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -163,7 +163,7 @@ def main() -> int:
         "ok": bool(flags_ok),
     }
     if not flags_ok:
-        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/qreg_params mismatch")
+        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/dcbeta_params mismatch")
     checks["shards"] = {"n_shards": len(shard_sha_meta), "ok": bool(shard_ok), "detail": shard_detail}
     if not shard_ok:
         blocked.append("one or more shards missing / sha or size mismatch / over push limit")
@@ -237,7 +237,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where QREG scalars t<W or any NaN/non-finite in W-bar span or fit not finite. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where DCBETA scalars t<W or any NaN/non-finite in W-bar span or fit not finite. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:

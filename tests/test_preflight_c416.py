@@ -45,24 +45,22 @@ def test_preflight_artifact_flags():
     assert checks["meta"]["executed_fills"] is False
     assert checks["meta"]["under_push_limit"] is True
     assert checks["meta"]["under_cache_budget"] is True
-    assert checks["meta"]["qreg_params"]["window_W"] == 256
-    assert checks["meta"]["qreg_params"]["taus"] == [0.1, 0.5, 0.9]
+    assert checks["meta"]["dcbeta_params"]["window_W"] == 256
     assert checks["feature_integrity"]["ok"] is True
     assert checks["feature_integrity"]["raw_nan_total"] == 0
     assert checks["per_symbol"]["ok"] is True
     assert checks["provenance"]["ok"] is True
 
 
-def test_cache_meta_qreg_params_distinct():
-    """Verify C416 cache meta has distinct QREG params (not other campaign params)."""
-    meta_path = ROOT / "data" / "cache" / "campaign416_qreg_5m.meta.json"
+def test_cache_meta_dcbeta_params_distinct():
+    """Verify C416 cache meta has distinct DCBETA params (not other campaign params)."""
+    meta_path = ROOT / "data" / "cache" / "campaign416_dcbeta_5m.meta.json"
     if not meta_path.exists():
         return
     meta = json.loads(meta_path.read_text())
     assert meta["campaign"] == 416
     assert meta["source_campaign"] == 312
-    assert meta["qreg_params"]["window_W"] == 256
-    assert meta["qreg_params"]["taus"] == [0.1, 0.5, 0.9]
+    assert meta["dcbeta_params"]["window_W"] == 256
     for other in ("signcomotion_params", "tailbeta_params", "signpower_params",
                   "semcorr_params", "xcorr_params", "residvol_params",
                   "leadlag_params", "ktrend_params", "cbreak_params",
@@ -87,5 +85,5 @@ def test_cache_meta_qreg_params_distinct():
 if __name__ == "__main__":
     test_preflight_ready_true_on_real_cache()
     test_preflight_artifact_flags()
-    test_cache_meta_qreg_params_distinct()
-    print("All C416 QREG preflight tests passed")
+    test_cache_meta_dcbeta_params_distinct()
+    print("All C416 DCBETA preflight tests passed")
