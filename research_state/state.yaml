@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-23T08:15:00Z
-handoff_refreshed_at_utc: 2026-11-23T08:15:00Z
+updated_at_utc: 2026-11-23T09:06:00Z
+handoff_refreshed_at_utc: 2026-11-23T09:06:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C418
-next_campaign: C419
+latest_campaign_done: C419
+next_campaign: C420
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T08:15:00Z: C418 AUTOCF (normalized autocorrelation-function decorrelation horizon vs own returns, 20261123T080851Z) is now FROZEN formal negative (1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059, attribution_ok false because dominant is placebo, 35/35 tests green incl brute-force equality maxdiff<1e-12 and kernel-distinctness guards vs ACOVK/XSRANK/SEMCORR/LVAC/TIRV/SIGNRUN). C281B-C418 ALL FROZEN formal negatives, NO EDGE through C418. Queue depth 3: C417 CDOMIN (FROZEN) -> C418 AUTOCF (FROZEN) -> C419 placeholder (ACTIVE next, seed 20261283). Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
-bottlenecks_verified_removed_at_utc: "2026-11-23T08:15:00Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-23T08:15:00Z: C418 AUTOCF FROZEN formal negative (20261123T080851Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059 [placebo dominates], attribution_ok false, 35/35 tests green). C281B-C418 ALL FROZEN formal negatives, NO EDGE through C418. C419 placeholder ACTIVE next (seed 20261283, price-only close-only volume-free family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C419
-queued_next_campaign_note: 'C281B-C418 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C419 placeholder (pre-register a genuinely-new price-only family, seed 20261283). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
-first_action: "BUILD C419 END-TO-END (2026-11-23T08:15:00Z). C418 AUTOCF FROZEN (20261123T080851Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059, attribution_ok false, 35/35 tests green). C419 placeholder (genuinely-new price-only family, seed 20261283) ACTIVE next. Build from C418 plumbing with mandatory rewrite guards, run full N_TRIALS config sweep, record SHAs, freeze, advance queue."
-active_campaign: C419
-space_status: NO_EDGE_C281B_C418
-closure_note: 'C281B-C418 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~158k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C418 AUTOCF 20261123T080851Z (decorh_horizon_placebo 0.5059 [placebo dominates], attribution_ok false, 35/35 tests green incl brute-force equality + kernel-distinctness guards, 5 artifact SHA256 matching). C419 placeholder ACTIVE (seed 20261283) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C419 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T09:06:00Z: C419 RCF (standardized empirical-characteristic-function dispersion & asymmetry vs own returns, 20261123T090438Z) is now FROZEN formal negative (1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant rcf_mod_placebo 0.3105, attribution_ok false because dominant is placebo, 34/34 tests green incl brute-force equality maxdiff 0.0 and kernel-distinctness guards vs ACOVK/RSKEW/DOMFREQ/QATM/MAGNET). C281B-C419 ALL FROZEN formal negatives, NO EDGE through C419. Queue depth 3: C418 AUTOCF (FROZEN) -> C419 RCF (FROZEN) -> C420 SCOH placeholder (ACTIVE next, seed 20261284). Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
+bottlenecks_verified_removed_at_utc: "2026-11-23T09:06:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T09:06:00Z: C419 RCF FROZEN formal negative (20261123T090438Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant rcf_mod_placebo 0.3105 [placebo dominates], attribution_ok false, 34/34 tests green). RESOLVED this session: the prior C419 slot was an inconsistent half-clone (build/preflight/tests still AUTOCF with n_lags/rho/rcf_sum/decorh_horizon while the runner was the genuinely-new ECF rcf_mod/rcf_imag kernel) — reconciled all five files to ECF, verified brute-force maxdiff 0.0, then built+froze. C281B-C419 ALL FROZEN formal negatives, NO EDGE through C419. C420 SCOH placeholder ACTIVE next (seed 20261284, price-only close-only volume-free spectral-coherence family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C420
+queued_next_campaign_note: 'C281B-C419 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C420 SCOH placeholder (pre-register a genuinely-new price-only family: spectral coherence / frequency-localized co-movement vs equal-weight market, seed 20261284). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+first_action: "BUILD C420 SCOH END-TO-END (2026-11-23T09:06:00Z). C419 RCF FROZEN (20261123T090438Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant rcf_mod_placebo 0.3105, attribution_ok false, 34/34 tests green). C420 SCOH placeholder (genuinely-new price-only spectral-coherence family, seed 20261284) ACTIVE next. Build from C419 plumbing with mandatory rewrite guards, run full N_TRIALS config sweep, record SHAs, freeze, advance queue."
+active_campaign: C420
+space_status: NO_EDGE_C281B_C419
+closure_note: 'C281B-C419 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~160k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C419 RCF 20261123T090438Z (rcf_mod_placebo 0.3105 [placebo dominates], attribution_ok false, 34/34 tests green incl brute-force equality + kernel-distinctness guards, 5 artifact SHA256 matching). C420 SCOH placeholder ACTIVE (seed 20261284) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C420 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C417
@@ -199,6 +199,46 @@ c418_status:
   cache_shas:
     meta: 'f5f42b704b6658763673852243b650c9aadf68db5933f59374ba6ff497862125'
     provenance: 'e1f4eb242e7db89caec1d4f47cee3138138e62750ad1345a9edf547033f1bf57'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c419_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C419
+  family: standardized_empirical_characteristic_function_dispersion_and_asymmetry_vs_own_returns_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First empirical-characteristic-function family ever run. For each bar t over X=r_i[t-W+1..t] (W=256), standardize z=(X-mean)/std; phi(u0)=(1/W)sum exp(i*u0*z)=C+iS with C=mean(cos(u0*z)), S=mean(sin(u0*z)), u0=1.0; rcf_mod=sqrt(C^2+S^2) in [0,1] (ECF modulus/concentration); rcf_imag=S (imaginary part, sign=skew). Bounded higher-moment SHAPE functionals (variance removed), distinct from polynomial moments (C361 RSKEK/C371 RSK/RKT), time-series FFT (C397 SPECFM/C404 DOMFREQ), magnitude-bin entropy (C396 MAGNET), quantile/order stats (C363 QATM/C376 QSPREAD), and autocorrelation/covariance families (C375 ACOVK/C407 XSRANK/C411 SEMCORR/C360 LVAC/C372 TIRV/C374 SIGNRUN/C418 AUTOCF). Price-only (perp_close), volume-free.'
+  as_of_utc: 20261123T090438Z
+  artifacts_ts: 20261123T090438Z
+  signals: [rcf_mod_dev, rcf_imag_dev, rcf_mod_placebo, rcf_imag_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261283
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rcf_mod_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rcf_mod_dev, rcf_imag_dev]
+  rcf_params: {window_W: 256, u0: 1.0}
+  scripts_present: [scripts/build_c419_rcf_features.py, scripts/preflight_c419.py, scripts/run_c419_rcf_xsec_oos.py]
+  tests_present: [tests/test_preflight_c419.py, tests/test_c419_rcf_xsec_oos.py]
+  cache_present: data/cache/campaign419_rcf_5m
+  artifacts_present: [reports/campaign419_oos_sweep_20261123T090438Z.json, reports/campaign419_tradable_edge_registry_20261123T090438Z.json, reports/campaign419_summary_20261123T090438Z.json, reports/campaign419_verdict_20261123T090438Z.json, reports/campaign419_binding_constraint_20261123T090438Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: rcf_mod_placebo
+  dominant_share: 0.3105371789426866
+  attribution_ok: false
+  tests_green: 34
+  brute_force_maxdiff: 'rcf_mod/rcf_imag maxdiff 0.0 (sliding_window_view vectorized cos/sin vs per-window np.cos/np.sin reference); NaN patterns identical; 10-asset panel also maxdiff 0.0'
+  artifacts:
+    oos_sweep: 'c197092501dfe6c10c73cb2a4056ffa1df55f64a233f9e1013c138d095fb28ed'
+    tradable_edge_registry: '68294d289400ab7b131f95c482a405d40269aa4084736cfcd4d641e99eb9e863'
+    summary: '19085aab2bb08bd12c1bb060f2b2fc669e6261c73ecd15154e4fd85555e2e898'
+    verdict: '51becadd00c771da1dad3bbad9ff019e3b18cd9a573b0c341ae3bd8cc3fe3f42'
+    binding_constraint: '347993147f4c633cf3580b9b505b417b1881db4cc99567a09ae55b545580e09b'
+  cache_shas:
+    meta: '24c94fac5a8478f3ba9c3306b18e4826aa8287d57d88f57681336ba9e4a0871f'
+    provenance: '0a2073f538e0464d544fef7acbad10211346b47e7fc060778d373ff3cebf08c4'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
 c415_status:

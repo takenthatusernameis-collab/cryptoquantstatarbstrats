@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C419 preflight: fail-closed verification of the real C419 USDT-M price-only
-RCF normalized-autocorrelation-function decorrelation-horizon feature cache
-before the C419 runner sweeps the pre-registered costed OOS grid.
+RCF standardized empirical-characteristic-function feature cache before the C419
+runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
@@ -134,7 +134,7 @@ def main() -> int:
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
         and meta.get("rcf_params", {}).get("window_W") == 256
-        and meta.get("rcf_params", {}).get("n_lags") == 20
+        and meta.get("rcf_params", {}).get("u0") == 1.0
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -237,7 +237,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where RCF scalars t<W or any NaN/non-finite in W-bar span or any rho[k] zero variance/non-finite. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where RCF scalars t<W or any NaN/non-finite in W-bar span or std<=0. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:

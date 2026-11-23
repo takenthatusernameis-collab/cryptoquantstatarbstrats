@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""C419 feature build — real USDT-M linear perp price-only RCF: normalized
-autocorrelation-function decorrelation horizon vs own returns. Raw inputs:
-trailing log-returns over a fixed intrinsic window W=256 from which the runner
-derives, per bar t, for each asset i:
+"""C419 feature build — real USDT-M linear perp price-only RCF: standardized
+empirical-characteristic-function dispersion & asymmetry vs own returns. Raw
+inputs: trailing log-returns over a fixed intrinsic window W=256 from which the
+runner derives, per bar t, for each asset i:
 
-    X = r_i[t-W+1..t]                            (demeaned trailing log-returns)
-    rho[k]           = corr(X[0..W-k], X[k..W])   (lag-k normalized autocorr, k=1..K)
-    rcf_sum[i,t]  = (1/K) * sum_{k=1..K} rho[k]   (integrated serial dependence)
-    decorh_horizon[i,t] = min{k>=1 : rho[k] <= 0}   (first sign-change lag; K+1 if none)
+    X = r_i[t-W+1..t]                       (trailing log-returns)
+    z = (X - mean(X)) / std(X)              (standardized, variance removed)
+    phi(u0) = (1/W) * sum_j exp(i*u0*z_j) = C + iS   (u0 = 1.0)
+    C = mean(cos(u0*z)),  S = mean(sin(u0*z))
+    rcf_mod[i,t]  = sqrt(C^2 + S^2)         (ECF modulus, in [0,1]; concentration)
+    rcf_imag[i,t] = S                       (imaginary part; 0 for symmetric, sign = skew)
 
-rcf_sum is the integrated serial dependence over K=20 lags (in [-1,1]);
-decorh_horizon is the decorrelation horizon, the first lag where the normalized
-autocorrelation turns non-positive. NaN if t<W or any NaN/non-finite in the
-trailing window, or any rho[k] has zero variance / non-finite.
-Price-only (perp_close), volume-free.
+Because z is standardized, rcf_mod and rcf_imag are pure higher-moment SHAPE
+functionals (variance removed), distinct from polynomial moments and from the
+realized-vol level. NaN if t<W or any NaN/non-finite in the trailing window, or
+std<=0. Price-only (perp_close), volume-free.
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
@@ -28,20 +29,21 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         funding_rate    float32 all-NaN (control)
 
 The runner builds RCF scalars over fixed intrinsic window W=256 trailing
-returns: demean X=r_i[t-W+1..t]; rho[k]=corr(X[0:W-k], X[k:W]) for k=1..K (K=20)
-via sum-identity Pearson over cumulative sums; rcf_sum[i,t]=(1/K)*sum rho[k];
-decorh_horizon[i,t]=first k with rho[k]<=0 else K+1; then the seasonal deviation
+returns: standardize z=(X-mean)/std; C=mean(cos(u0*z)), S=mean(sin(u0*z)) with
+u0=1.0; rcf_mod[i,t]=sqrt(C^2+S^2); rcf_imag[i,t]=S; then the seasonal deviation
 of each RCF scalar at the same (weekday,tod) bucket from history strictly
 before bar t (causal shift(1)), NaN-aware min_periods=3.
 
-RCF is genuinely distinct from all prior families C281B–C416: it is the first
-normalized-ACF decorrelation-horizon family ever run, built from own-return
-normalized autocorrelations across lags 1..20, rather than unnormalized
-autocovariance (C375 ACOVK), cross-sectional rank persistence vs market (C407
-XSRANK), sign-conditional pairwise correlation asymmetry (C411 SEMCORR),
-leverage coupling corr(r,|r|_lag) (C360 LVAC), lagged-product cumulants (C372
-TIRV), sign run lengths (C374 SIGNRUN), or any moment/tail/spectral family.
-Never used before. Price-only (perp_close), volume-free.
+RCF is genuinely distinct from all prior families C281B–C418: it is the first
+family whose primitive is the EMPIRICAL CHARACTERISTIC FUNCTION of the
+standardized return distribution (a bounded shape functional), rather than
+unbounded polynomial moments (C361 RSKEK / C371 RSK/RKT, derivatives of phi at
+0), the FFT of the TIME SERIES in the bar domain (C397 SPECFM / C404 DOMFREQ),
+magnitude-bin Shannon entropy (C396 MAGNET), quantile / order statistics
+(C363 QATM / C376 QSPREAD), autocorrelation / covariance families (C375 ACOVK,
+C407 XSRANK, C411 SEMCORR, C360 LVAC, C372 TIRV, C374 SIGNRUN, C418 AUTOCF), or
+any other moment/tail/spectral family. Never used before. Price-only
+(perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -338,22 +340,20 @@ def main(argv: list[str] | None = None) -> int:
         "n_buckets_tod_dow": int(N_BUCKETS),
         "rcf_params": {
             "window_W": 256,
-            "n_lags": 20,
+            "u0": 1.0,
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
             "unreachable). Runner builds RCF scalars over fixed intrinsic "
-            "window W=256 trailing returns: demean X=r_i[t-W+1..t]; "
-            "rho[k]=corr(X[0:W-k], X[k:W]) for k=1..K (K=20); "
-            "rcf_sum[i,t]=(1/K)*sum_{k=1..K} rho[k]; "
-            "decorh_horizon[i,t]=min{k>=1: rho[k]<=0} else K+1. Needs indices "
+            "window W=256 trailing returns: standardize z=(X-mean)/std; "
+            "C=mean(cos(u0*z)), S=mean(sin(u0*z)) with u0=1.0; "
+            "rcf_mod[i,t]=sqrt(C^2+S^2); rcf_imag[i,t]=S. Needs indices "
             "t-W+1..t (W bars). NaN if t<W or any NaN/non-finite in the trailing "
-            "window, or any rho[k] has zero variance / non-finite. Seasonal "
-            "deviation of each RCF scalar at the same (weekday,tod) bucket "
-            "from history strictly before bar t (causal shift(1)), NaN-aware "
-            "min_periods=3."
+            "window, or std<=0. Seasonal deviation of each RCF scalar at the same "
+            "(weekday,tod) bucket from history strictly before bar t (causal "
+            "shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
         "network_ingest": False,
@@ -368,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; RCF scalars NaN where t<W or any NaN/non-finite in the W-bar trailing panel span or any rho[k] zero variance/non-finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; RCF scalars NaN where t<W or any NaN/non-finite in the W-bar trailing panel span or std<=0.",
             "raw_nan_observed": raw_nan_observed,
         },
     }

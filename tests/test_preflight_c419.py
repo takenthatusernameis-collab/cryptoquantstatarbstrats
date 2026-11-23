@@ -46,7 +46,7 @@ def test_preflight_artifact_flags():
     assert checks["meta"]["under_push_limit"] is True
     assert checks["meta"]["under_cache_budget"] is True
     assert checks["meta"]["rcf_params"]["window_W"] == 256
-    assert checks["meta"]["rcf_params"]["n_lags"] == 20
+    assert checks["meta"]["rcf_params"]["u0"] == 1.0
     assert checks["feature_integrity"]["ok"] is True
     assert checks["feature_integrity"]["raw_nan_total"] == 0
     assert checks["per_symbol"]["ok"] is True
@@ -62,7 +62,7 @@ def test_cache_meta_rcf_params_distinct():
     assert meta["campaign"] == 419
     assert meta["source_campaign"] == 312
     assert meta["rcf_params"]["window_W"] == 256
-    assert meta["rcf_params"]["n_lags"] == 20
+    assert meta["rcf_params"]["u0"] == 1.0
     for other in ("qreg_params", "taildep_params", "tailbeta_params",
                   "signpower_params", "semcorr_params", "xcorr_params",
                   "residvol_params", "leadlag_params", "cdom_params",
