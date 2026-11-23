@@ -1,22 +1,61 @@
-updated_at_utc: 2026-11-23T03:20:00Z
-handoff_refreshed_at_utc: 2026-11-23T03:20:00Z
+updated_at_utc: 2026-11-23T06:16:25Z
+handoff_refreshed_at_utc: 2026-11-23T06:16:25Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C416
-next_campaign: C417
+latest_campaign_done: C417
+next_campaign: C418
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T03:20:00Z: C416 QREG (20261123T012853Z) is now FROZEN formal negative (2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, attribution_ok false, 35/35 tests green incl brute-force maxdiff<1e-12, 5 artifact SHA256 matching). C281B-C416 ALL FROZEN formal negatives, NO EDGE through C416. Queue depth 3: C416 QREG (FROZEN) -> C417 CDOMIN (ACTIVE next, seed 20261281) -> C418 placeholder. Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
-bottlenecks_verified_removed_at_utc: "2026-11-22T21:32:00Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-23T03:20:00Z: C416 QREG FROZEN formal negative (20261123T012853Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, 35/35 tests green). C281B-C416 ALL FROZEN formal negatives, NO EDGE through C416. C417 CDOMIN ACTIVE next (seed 20261281, N_TRIALS=1296). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C417
-queued_next_campaign_note: 'C281B-C415 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C416 QREG (quantile-regression slope of asset return on equal-weight market at tau in {0.1,0.5,0.9} plus quantile-slope spread, seed 20261280). Pre-registered next: C417 placeholder. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C415 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
-first_action: "BUILD C417 CDOMIN END-TO-END (2026-11-23T03:20:00Z). C416 QREG FROZEN (20261123T012853Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, 35/35 tests green). C417 CDOMIN (cross-sectional extreme dominance frequency, seed 20261281, N_TRIALS=1296) ACTIVE. Build from C416 plumbing with mandatory rewrite guards, run full 1296-config sweep, record SHAs, freeze, advance to C418."
-active_campaign: C417
-space_status: NO_EDGE_C281B_C416
-closure_note: 'C281B-C415 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~155k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C415 TAILDEP 20261122T162624Z (taildep_low_placebo 0.2592, attribution_ok false, 34/34 tests green incl brute-force maxdiff<1e-12, 5 artifact SHA256 matching). C416 QREG is ACTIVE and FULLY PRE-REGISTERED (seed 20261280) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C416 QREG end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T06:16:25Z: C417 CDOMIN (cross-sectional extreme dominance frequency, 20261123T061625Z) is now FROZEN formal negative (1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, attribution_ok false, 34/34 tests green incl brute-force equality and kernel-distinctness guards vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION). C281B-C417 ALL FROZEN formal negatives, NO EDGE through C417. Queue depth 3: C416 QREG (FROZEN) -> C417 CDOMIN (FROZEN) -> C418 HULLVAR (ACTIVE next, seed 20261282). Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
+bottlenecks_verified_removed_at_utc: "2026-11-23T06:16:25Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T06:16:25Z: C417 CDOMIN FROZEN formal negative (20261123T061625Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, 34/34 tests green). C281B-C417 ALL FROZEN formal negatives, NO EDGE through C417. C418 HULLVAR ACTIVE next (seed 20261282, N_TRIALS=1296). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C418
+queued_next_campaign_note: 'C281B-C417 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C418 HULLVAR (realized variance signature / truncated-realized-variance term-structure slope, seed 20261282, N_TRIALS=1296). Pre-registered next: C419 placeholder. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C417 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
+first_action: "BUILD C418 HULLVAR END-TO-END (2026-11-23T06:16:25Z). C417 CDOMIN FROZEN (20261123T061625Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, 34/34 tests green). C418 HULLVAR (realized variance term-structure / truncated-RV slope, seed 20261282, N_TRIALS=1296) ACTIVE. Build from C417 plumbing with mandatory rewrite guards, run full 1296-config sweep, record SHAs, freeze, advance to C419."
+active_campaign: C418
+space_status: NO_EDGE_C281B_C417
+closure_note: 'C281B-C417 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~157k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C417 CDOMIN 20261123T061625Z (cdomin_asym_placebo 0.3491, attribution_ok false, 34/34 tests green incl brute-force equality + kernel-distinctness guards, 5 artifact SHA256 matching). C418 HULLVAR is ACTIVE and FULLY PRE-REGISTERED (seed 20261282, N_TRIALS=1296) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C418 HULLVAR end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+c417_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C417
+  family: cross_sectional_extreme_dominance_frequency_vs_equal_weight_cross_section_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First cross-sectional extreme-dominance-frequency family ever run. For each bar t, dom[t]=argmax_i|r_i[t]| over the 10-asset cross-section; cdomin_freq[i,t]=trailing W=256 mean of 1{dom[s]==i}; cdomin_asym[i,t]=cdomin_freq-1/10. Distinct from C390 XCOEX (extreme co-exceedance probability vs market), C391 XSKEW3 (lag-1 cross third-moment), C396 MAGNET (magnitude-distribution entropy), C412 SIGNPOWER (signed fractional power moments), C414 SIGNCO-MOTION (sign-agreement motion). Price-only (perp_close), volume-free.'
+  as_of_utc: 20261123T061625Z
+  artifacts_ts: 20261123T061625Z
+  signals: [cdomin_freq_dev, cdomin_asym_dev, cdomin_freq_placebo, cdomin_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261281
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'cdomin_freq_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [cdomin_freq_dev, cdomin_asym_dev]
+  cdom_params: {window_W: 256}
+  scripts_present: [scripts/build_c417_cdom_features.py, scripts/preflight_c417.py, scripts/run_c417_cdom_xsec_oos.py]
+  tests_present: [tests/test_preflight_c417.py, tests/test_c417_cdom_xsec_oos.py]
+  cache_present: data/cache/campaign417_cdom_5m
+  artifacts_present: [reports/campaign417_oos_sweep_20261123T061625Z.json, reports/campaign417_tradable_edge_registry_20261123T061625Z.json, reports/campaign417_summary_20261123T061625Z.json, reports/campaign417_verdict_20261123T061625Z.json, reports/campaign417_binding_constraint_20261123T061625Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: cdomin_asym_placebo
+  dominant_share: 0.3491
+  attribution_ok: false
+  tests_green: 34
+  brute_force_maxdiff: 'cdomin_freq/asym maxdiff < 1e-12 (sliding_window_view argmax + rolling mean of one-hot argmax); NaN patterns identical'
+  artifacts:
+    oos_sweep: 'becb6c9fe79699199adf3da2bbf4fb50451a86f32b5f5eff950c400114e52db3'
+    tradable_edge_registry: 'ac06f0af16be1e2f9bb0b8bd45f2568f40a6cd7ef02aafa0077f5c25d0c5e007'
+    summary: 'fbab8d5a62e818db3e997f75b9f082ce923dd61159253f3d9d5be536a0361595'
+    verdict: '44e231c382be43a345dda34811535701d1511bec9124edbb964f672eade0f451'
+    binding_constraint: '6a4de6947e67b95a41aabcedc431cb6e0efd9a5e1143bd48a894ef03ac1c6ee2'
+  cache_shas:
+    meta: 'e99fe7eecc4d563b6eb833ff67fec50a26dc6c6bded8025afa263f20a455ca68'
+    provenance: '6d736dcb5a424f006162869ee948ff032f45a2a3eba4726933b21b3aef449fa2'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c409_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C409

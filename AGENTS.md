@@ -1,55 +1,58 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T05:16:37Z (C416 QREG FROZEN 20261123T012853Z formal negative; C415 TAILDEP FROZEN 20261122T162624Z formal negative; no C417 artifacts on disk; env OK; no bottlenecks; C417 CDOMIN ACTIVE next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T06:16:25Z (C417 CDOMIN FROZEN 20261123T061625Z formal negative; C416 QREG FROZEN 20261123T012853Z formal negative; C418 HULLVAR ACTIVE next; env OK; no bottlenecks) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T03:20:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T06:16:25Z; supersedes every earlier session message; the ONLY active directive)
 
-**C415 TAILDEP FROZEN (20261122T162624Z):** formal negative, 1944 configs, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false. NO EDGE through C415. DO NOT re-run.
+**C416 QREG FROZEN (20261123T012853Z):** formal negative, 2592 configs costed-OOS, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false, dominant attribution qreg_spread_placebo 0.2400 (< 0.50, attribution_ok false). NO EDGE through C416. DO NOT re-run.
 
-**C416 QREG FROZEN (20261123T012853Z):** formal negative, 2592 configs costed-OOS, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false, dominant attribution qreg_spread_placebo 0.2400 (< 0.50, attribution_ok false). 5 SHA256 artifacts + gitignored .full.json on disk at reports/campaign416_*_20261123T012853Z.json; 35/35 tests green (incl. QREG brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA/TAILDEP); cache data/cache/campaign416_qreg_5m/ (10 shards × 315,648 bars). NO EDGE through C416. DO NOT re-run it.
+**C417 CDOMIN FROZEN (20261123T061625Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false, dominant attribution cdomin_asym_placebo 0.3491 (< 0.50, attribution_ok false; cdomin_freq_placebo 0.3491 too — placebos dominate, no real-vs-placebo separation). 5 SHA256 artifacts + gitignored .full.json on disk at reports/campaign417_*_20261123T061625Z.json; 34/34 tests green (incl. CDOMIN brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION); cache data/cache/campaign417_cdom_5m/ (10 shards × 315,648 bars). NO EDGE through C417. DO NOT re-run it.
 
-**NEXT ACTION — BUILD C417 END-TO-END (no stopping, do NOT re-benchmark):**
+**NEXT ACTION — BUILD C418 END-TO-END (no stopping, do NOT re-benchmark):**
 ```
-# C417: CDOMIN (cross-sectional extreme dominance frequency), seed 20261281, N_TRIALS=1296
-# For each bar t, over 10-asset cross-section: dom[t] = argmax_i |r_i[t]|
+# C418: AUTOCF (normalized autocorrelation-function decorrelation horizon vs own returns), seed 20261282, N_TRIALS=1296
 # For each asset i and trailing window W=256:
-#   cdomin_freq[i,t] = (1/W) Σ_{s=t-W+1..t} 1{dom[s]==i}
-#   cdomin_asym[i,t] = cdomin_freq[i,t] − 1/10
-# NaN if t<W or any NaN/non-finite in window. Price-only (perp_close), volume-free.
-# Vectorized: sliding_window_view of (T,10) |return| matrix + per-bar argmax + rolling mean of one-hot argmax
-# Brute-force per-window loop reference; maxdiff < 1e-12.
-# Signals {cdomin_freq_dev, cdomin_asym_dev, cdomin_freq_placebo, cdomin_asym_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS
-# LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical to C416; WF 12m/3m roll 3m → 8 OOS splits
-# placebo seed 20261281; ref cdomin_freq_dev L=240 H=4 fee 0.0007 slip 0.0001 taker
-# cache data/cache/campaign417_cdom_5m/ with cdom_params={window_W:256}
-# same guards: campaign==417, N_TRIALS==1296, PLACEBO_SEED==20261281, kernel-distinctness vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION, brute-force maxdiff<1e-12
+#   demean X = r_i[t-W+1..t] (NaN if t<W or any NaN)
+#   rho[k] = corr(X[0..W-k], X[k..W])  for k=1..K (K=20), lag-k normalized autocorrelation
+#   autocf_sum[i,t]   = (1/K) Σ_{k=1..K} rho[k]        (integrated serial dependence, in [-1,1])
+#   decorh_horizon[i,t] = min k>=1 with rho[k] <= 0    (first sign-change lag = decorrelation horizon; K+1 if none)
+# NaN if any rho[k] has zero variance / non-finite, or any NaN in window. Price-only (perp_close), volume-free.
+# Vectorized: sliding_window_view + per-lag sum-identity Pearson (cumulative sums) over the (T,10) return panel
+# Brute-force per-window loop reference with explicit np.corrcoef per lag; maxdiff < 1e-12.
+# Signals {autocf_sum_dev, decorh_horizon_dev, autocf_sum_placebo, decorh_horizon_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS
+# LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical to C417; WF 12m/3m roll 3m → 8 OOS splits 2023-01..2025-12
+# placebo seed 20261282; ref autocf_sum_dev L=240 H=4 fee 0.0007 slip 0.0001 taker
+# cache data/cache/campaign418_autocf_5m/ with autocf_params={window_W:256, n_lags:20}
+# same guards: campaign==418, N_TRIALS==1296, PLACEBO_SEED==20261282, kernel-distinctness vs ACOVK/XSRANK/SEMCORR/LVAC/TIRV/SIGNRUN, brute-force maxdiff<1e-12
 # identical gates/verdict (Holm AND BH over 1296 at α=0.05; MDE power 0.80; stability ≥0.70 sign + ≥0.5 half-Sharpe; dominant real non-placebo share ≥0.5)
 # Sequence:
-cp scripts/build_c416_qreg_features.py  scripts/build_c417_cdom_features.py
-cp scripts/preflight_c416.py               scripts/preflight_c417.py
-cp scripts/run_c416_qreg_xsec_oos.py    scripts/run_c417_cdom_xsec_oos.py
-cp tests/test_preflight_c416.py            tests/test_preflight_c417.py
-cp tests/test_c416_qreg_xsec_oos.py     tests/test_c417_cdom_xsec_oos.py
-# grep self-check: 416/qreg/QREG/20261280 must return NOTHING (apart from legitimate distinctness-guard refs)
-python3 scripts/build_c417_cdom_features.py     # -> data/cache/campaign417_cdom_5m/ (10 shards)
-python3 scripts/preflight_c417.py                   # must print ready:true
-python3 scripts/run_c417_cdom_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
-python3 -m pytest tests/test_preflight_c417.py tests/test_c417_cdom_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign417_*_<TS>Z.json          # record all 5 artifact SHAs
+cp scripts/build_c417_cdom_features.py   scripts/build_c418_autocf_features.py
+cp scripts/preflight_c417.py              scripts/preflight_c418.py
+cp scripts/run_c417_cdom_xsec_oos.py   scripts/run_c418_autocf_xsec_oos.py
+cp tests/test_preflight_c417.py           tests/test_preflight_c418.py
+cp tests/test_c417_cdom_xsec_oos.py   tests/test_c418_autocf_xsec_oos.py
+# grep self-check: 417/cdom/CDOMIN/20261281 must return NOTHING (apart from legitimate distinctness-guard refs)
+python3 scripts/build_c418_autocf_features.py     # -> data/cache/campaign418_autocf_5m/ (10 shards)
+python3 scripts/preflight_c418.py                        # must print ready:true
+python3 scripts/run_c418_autocf_xsec_oos.py         # FULL literal 1296-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c418.py tests/test_c418_autocf_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign418_*_<TS>Z.json            # record all 5 artifact SHAs
 ```
-Then freeze C417 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C418.
+Then freeze C418 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C419.
 
-**SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The ~1-2 h C417 sweep fits the 4.2 h budget if the session keeps making tool calls every <15 min — poll log in `sleep 600` cycles, never a bare `sleep 1500`. If the session dies before the sweep finishes, the NEXT session must re-run `python3 scripts/run_c417_cdom_xsec_oos.py` (heavy, ~1-2 h) — there is no shortcut that preserves exactness.
+**SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The ~1-2 h C418 sweep fits the 4.2 h budget if the session keeps making tool calls every <15 min — poll the sweep log in `sleep 600` cycles, never a bare `sleep 1500`. The C417 sweep in the prior session was fast (<20 s) because all 1296 configs reuse cached per-(signal,L,H) gross-turn — C418 should behave the same, so a single blocking `python3 scripts/run_c418_autocf_xsec_oos.py` call under a 10-minute timeout is expected to finish. If the session dies before the sweep finishes, the NEXT session must re-run `python3 scripts/run_c418_autocf_xsec_oos.py` (no shortcut that preserves exactness).
 
-**C417 — PRE-REGISTERED SPEC (CDOMIN: CROSS-SECTIONAL EXTREME DOMINANCE FREQUENCY, seed 20261281) — build when C416 freezes.** For each bar t, over the 10-asset cross-section compute `dom[t] = argmax_i |r_i[t]|` (which asset is the largest absolute mover this bar). For each asset i and trailing window W=256: `cdomin_freq[i,t] = (1/W) Σ_{s=t-W+1..t} 1{dom[s]==i}` (fraction of recent bars in which asset i was the top absolute mover) and `cdomin_asym[i,t] = cdomin_freq[i,t] − 1/10` (tilt vs uniform). NaN if t<W or any NaN/non-finite in window. Price-only (`perp_close`), volume-free. Vectorized kernel: `sliding_window_view` of the (T,10) |return| matrix + per-bar argmax + rolling mean of the one-hot argmax; brute-force per-window loop reference; maxdiff < 1e-12. Signals {cdomin_freq_dev, cdomin_asym_dev, cdomin_freq_placebo, cdomin_asym_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS; LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical to C416; WF 12m/3m roll 3m → 8 OOS splits; placebo seed 20261281; ref `cdomin_freq_dev` L=240 H=4 fee 0.0007 slip 0.0001 taker; cache `data/cache/campaign417_cdom_5m/` with `cdom_params={window_W:256}`; same guards (campaign==417, N_TRIALS==1296, PLACEBO_SEED==20261281, kernel-distinctness vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION, brute-force maxdiff<1e-12) and identical gates/verdict.
+**C418 — PRE-REGISTERED SPEC (AUTOCF: NORMALIZED AUTOCORRELATION DECORRELATION HORIZON, seed 20261282) — build when C417 freezes.** For each asset i and trailing window W=256 of raw log-returns `X = r_i[t-W+1..t]` (NaN if t<W or any NaN/non-finite): for lags k=1..K (K=20) compute the normalized lag-k autocorrelation `rho[k] = corr(X[0..W-k], X[k..W])` (Pearson, NaN if either leg has zero variance or W-k<3). Then `autocf_sum[i,t] = (1/K) Σ_{k=1..K} rho[k]` (integrated serial dependence, ∈[-1,1]) and `decorh_horizon[i,t] = min{k>=1 : rho[k] <= 0}` (first sign-change lag = decorrelation horizon; = K+1 if no sign change in 1..K). NaN if any rho[k] is NaN. Price-only (`perp_close`), volume-free. Genuinely distinct from C375 ACOVK (unnormalized realized autocovariance γ_k at lags {1,2,4,8}, not normalized ACF nor a derived horizon), C407 XSRANK (autocorrelation of the cross-sectional RANK series vs market, not own-return ACF), C326/C343 (single-lag return / |r| autocorrelation), C380 SEMICOV (sign-conditional lag covariance), C360 LVAC (corr(r,|r|_lag) leverage coupling), C372 TIRV (lagged-product 3rd/4th-order cumulants), C374 SIGNRUN (sign run lengths). Vectorized kernel: `sliding_window_view` + per-lag sum-identity Pearson (cumulative sums) over the (T,10) panel; brute-force per-window loop reference with explicit `np.corrcoef` per lag; maxdiff < 1e-12. Signals {autocf_sum_dev, decorh_horizon_dev, autocf_sum_placebo, decorh_horizon_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS; LOOKBACKS={60,120,240,480,960,1920}; REBALANCES={1,4,12}; FEES={0.0004,0.0007,0.0010}; SLIPS={0.0,0.0001,0.0002}; COST_VARIANTS=("taker","maker_blend"); WF 12m/3m roll 3m → 8 OOS splits; placebo seed 20261282; ref `autocf_sum_dev` L=240 H=4 fee 0.0007 slip 0.0001 taker; cache `data/cache/campaign418_autocf_5m/` with `autocf_params={window_W:256, n_lags:20}`; same guards (campaign==418, N_TRIALS==1296, PLACEBO_SEED==20261282, kernel-distinctness vs ACOVK/XSRANK/SEMCORR/LVAC/TIRV/SIGNRUN, brute-force maxdiff<1e-12) and identical gates/verdict (Holm AND BH over 1296 at α=0.05, edge requires BOTH; MDE power 0.80; stability ≥0.70 sign + ≥0.5 half-Sharpe; dominant real non-placebo share ≥0.5; RETRACTED(multiple_testing|attribution|stability) else EDGE_PROVEN).
 
-**DISK TRUTH:** C281B–C415 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest. Stray DCBETA quarantined read-only at archive/void_c416_dcbeta_stray/. Both archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE (stray DCBETA removed this session). No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
+**C419 placeholder (keeps queue depth 3):** pre-register a genuinely-new price-only family (e.g. a never-before-used close-only statistic), seed 20261283; build when C418 freezes. Never re-order, never reuse a kernel, never clone-and-rename.
 
-**SESSION LIMITS (2026-11-22T21:32:00Z, verified via `ps`):** the whole `kilo run` is wrapped in `timeout ... 15107s` (~4.2 h hard cap) plus `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The ~2 h C416 sweep therefore fits the 4.2 h budget only if the session keeps making tool calls (a bare `sleep 1500` will be killed at 900 s). To wait for the sweep, poll `/tmp/c416_sweep.log` in ≤ 12-minute cycles. If the session dies before the sweep finishes, the NEXT session must re-run `python3 scripts/run_c416_qreg_xsec_oos.py` (heavy, ~2 h) — there is no shortcut that preserves exactness.
+**DISK TRUTH:** C281B–C417 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest, never bare pytest. Both archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE. No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
 
 **NO-LIGHT-WORK RULE:** a session is complete only when it produces 3 scripts + 2 test files + cache + preflight ready:true + the FULL literal-N_TRIALS costed OOS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality, then records the truthful RESULT + SHAs in this file and research_state/state.yaml and moves the queue forward. If a session cannot finish, it must leave the queue non-empty and name the partial artifacts. Terminal closure by fiat is PROHIBITED.
+
+---
 
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
@@ -932,6 +935,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C414 | 20261122T160908Z | sign-agreement cross-sectional motion vs equal-weight market (SIGNCO-MOTION) | 1296 | sign_agree_asym_placebo 0.3030 | `2bfdd4c5bbfb3a761100c5a2aa559834801a46c382ced13374c6222610944822` | `7efbe29dd2cde30f57d39765771307e13fbb6e01586472abd21b70ad8dc82134` |
 | C415 | 20261122T162624Z | tail dependence coefficient / extremal dependence vs equal-weight market (TAILDEP) | 1944 | taildep_low_placebo 0.2592 | `5a5ad81406a92fe5b4880f912d161f7d66895de849f5facda836b6d6802fd79d` | `981557cec35b8f813cbe6c4c05b13819f50acc8c4170d4ef26417b3199b9e9b2` |
 | C416 | 20261123T012853Z | quantile-regression slope & quantile-slope spread vs equal-weight market (QREG) | 2592 | qreg_spread_placebo 0.2400 | `290aeaa65566ccb95dfc26796362f7c879c307a1891875c3ec44bce9d960b340` | `594440bba113a856dceca7f60bf0102d4130d463411434b1ebb627d2aedc9013` |
+| C417 | 20261123T061625Z | cross-sectional extreme dominance frequency vs equal-weight cross-section (CDOMIN) | 1296 | cdomin_asym_placebo 0.3491 | `becb6c9fe79699199adf3da2bbf4fb50451a86f32b5f5eff950c400114e52db3` | `44e231c382be43a345dda34811535701d1511bec9124edbb964f672eade0f451` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 

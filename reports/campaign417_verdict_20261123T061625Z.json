@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "20261123T052422Z",
+  "generated_at_utc": "20261123T061625Z",
   "campaign": 417,
   "part": "verdict",
   "analysis": "final_verdict",
@@ -27,12 +27,12 @@
     "fabricated_data": false,
     "executed_fills": false
   },
-  "oos_sweep_artifact": "reports/campaign417_oos_sweep_20261123T052422Z.json",
-  "oos_sweep_sha256": "3cb33f9111c0e4c868eb37989f426f992371f201f568a6151d953350ef07b2d1",
-  "registry_artifact": "reports/campaign417_tradable_edge_registry_20261123T052422Z.json",
-  "registry_sha256": "922212b545a0822e0983605b656be70c0d8d8b580d78b148eeb3f35539d27ec4",
-  "summary_artifact": "reports/campaign417_summary_20261123T052422Z.json",
-  "summary_sha256": "e54e2c48627a85c071432a06792222a5978e76301a551f555eb9813ee6267b85",
+  "oos_sweep_artifact": "reports/campaign417_oos_sweep_20261123T061625Z.json",
+  "oos_sweep_sha256": "becb6c9fe79699199adf3da2bbf4fb50451a86f32b5f5eff950c400114e52db3",
+  "registry_artifact": "reports/campaign417_tradable_edge_registry_20261123T061625Z.json",
+  "registry_sha256": "ac06f0af16be1e2f9bb0b8bd45f2568f40a6cd7ef02aafa0077f5c25d0c5e007",
+  "summary_artifact": "reports/campaign417_summary_20261123T061625Z.json",
+  "summary_sha256": "fbab8d5a62e818db3e997f75b9f082ce923dd61159253f3d9d5be536a0361595",
   "binding_constraint": "multiple_testing",
   "n_deterministic_edge": 0,
   "n_survive_holm": 0,
@@ -54,6 +54,6 @@
     "Single-leg PnL with costs on turnover; executed_fills: false",
     "Only RNG is recorded-seed placebo phase randomization (not market data)"
   ],
-  "binding_constraint_artifact": "reports/campaign417_binding_constraint_20261123T052422Z.json",
-  "binding_constraint_sha256": "e6fa84e01742df04a85dd024767216dfe1e022ce0deefd49e4bc0a337e62e371"
+  "binding_constraint_artifact": "reports/campaign417_binding_constraint_20261123T061625Z.json",
+  "binding_constraint_sha256": "6a4de6947e67b95a41aabcedc431cb6e0efd9a5e1143bd48a894ef03ac1c6ee2"
 }
