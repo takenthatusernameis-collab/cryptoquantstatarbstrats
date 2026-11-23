@@ -924,6 +924,18 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C419 | 20261123T090438Z | standardized empirical characteristic function dispersion & asymmetry vs own returns (RCF) | 1296 | rcf_mod_placebo 0.3105 | `c197092501dfe6c10c73cb2a4056ffa1df55f64a233f9e1013c138d095fb28ed` | `51becadd00c771da1dad3bbad9ff019e3b18cd9a573b0c341ae3bd8cc3fe3f42` |
 | C420 | 20261123T100626Z | spectral coherence / frequency-localized co-movement vs equal-weight market (SCOH) | 1296 | coh_low_placebo 0.3984 | `9c9cd5df28d5d2e7f27dc8619a53b178a8bc2ac3af05e2bf320f6614a424f288` | `b04a8f13b6d38e1f5f233a37dabea96210d78bcb7d6320f2fe92225f01aed489` |
 | C421 | 20261123T111430Z | sign-sequence autocorrelation profile vs own returns (SIGNCOH) | 1296 | signcoh_decay_placebo 0.2638 | `e79bbfa9900d7b5b034ac091658ed204fe7eeae1388accbfd0473194e66e7afe` | `95adf42a2f08ac2507a17de3e16e8fb0c8770ff431733adb18e9dabb071e94ff` |
+| C422 | 20261123T121051Z | zero-crossing rate of cumulative-return path / price-revisit oscillation (ZCRPATH) | 1296 | zcr_asym_placebo 0.2629 | `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a` | `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376` |
+
+## C422 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T121051Z)
+
+C422 (ZERO-CROSSING RATE OF THE INTRAWINDOW CUMULATIVE-RETURN PATH / PRICE-REVISIT OSCILLATION × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `zcr_asym_placebo` 0.2629 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign422_*_20261123T121051Z.json`; 34/34 tests green (incl. ZCRPATH brute-force equality `maxdiff < 1e-9` vs per-window cumsum + crossing count and kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK). Cache `data/cache/campaign422_zcrpath_5m/` (10 shards × 315,648 bars). NO EDGE through C422. Frozen — DO NOT re-run.
+
+- oos_sweep `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a`
+- tradable_edge_registry `484378cb491832d23716c4a5d774495d4fac7f503055c9e595461fe750c19271`
+- summary `95fe2175f3d32872e84c06b8149cb9f19407ea06eb9c031d88b3a9250d108167`
+- verdict `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376`
+- binding_constraint `ccf8bf835baa1cef8dc450c231fe40ce6a452385a709ba185ef276c9a32802a1`
+- cache: meta `85a15db5d88910c148e65f251d5d588d0135b246b53d0eaf0300f33e6f39d738`, provenance `ca2b9a909fb3b14f8e3f61cca739685644dd96a50ebdcb87d30971c86bdf22ae`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
