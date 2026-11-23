@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""C423 preflight: fail-closed verification of the real C423 USDT-M price-only
-RUNLEN run-length-distribution-entropy feature cache before the C423 runner sweeps the
+"""C424 preflight: fail-closed verification of the real C424 USDT-M price-only
+IESD inter-extremum-spacing-distribution feature cache before the C424 runner sweeps the
 pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign423_runlen_5m/`` and every shard SHA256 + byte size
+  ``data/cache/campaign424_iesd_5m/`` and every shard SHA256 + byte size
   matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -32,9 +32,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign423_runlen_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign423_runlen_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign423_runlen_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign424_iesd_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign424_iesd_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign424_iesd_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -84,7 +84,7 @@ def main() -> int:
     blocked: list[str] = []
 
     if not CACHE_META.exists():
-        print(json.dumps({"ready": False, "blocked_reasons": ["C423 meta missing"]}, indent=2))
+        print(json.dumps({"ready": False, "blocked_reasons": ["C424 meta missing"]}, indent=2))
         return 1
     try:
         meta = json.loads(CACHE_META.read_text())
@@ -133,7 +133,7 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("runlen_params", {}).get("window_W") == 256
+        and meta.get("iesd_params", {}).get("window_W") == 256
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -149,7 +149,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "runlen_params": meta.get("runlen_params"),
+        "runlen_params": meta.get("iesd_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -162,7 +162,7 @@ def main() -> int:
         "ok": bool(flags_ok),
     }
     if not flags_ok:
-        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/runlen_params mismatch")
+        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/iesd_params mismatch")
     checks["shards"] = {"n_shards": len(shard_sha_meta), "ok": bool(shard_ok), "detail": shard_detail}
     if not shard_ok:
         blocked.append("one or more shards missing / sha or size mismatch / over push limit")
@@ -182,9 +182,9 @@ def main() -> int:
     grid_start = meta.get("grid_start_utc")
     grid_end = meta.get("grid_end_utc")
     if n_grid == 0 or not symbols:
-        blocked.append("C423 common grid is empty")
+        blocked.append("C424 common grid is empty")
     if n_symbols < N_SYMBOLS:
-        blocked.append(f"C423 has {n_symbols} symbols (< {N_SYMBOLS} required)")
+        blocked.append(f"C424 has {n_symbols} symbols (< {N_SYMBOLS} required)")
     in_window = bool(str(grid_start).startswith("2023-01") and str(grid_end).startswith("2025-12"))
     checks["grid"] = {
         "n_symbols": n_symbols, "symbols": symbols, "n_grid_bars": n_grid,
@@ -192,7 +192,7 @@ def main() -> int:
         "in_window": in_window,
     }
     if not in_window:
-        blocked.append("C423 grid not in 2023-01..2025-12 window")
+        blocked.append("C424 grid not in 2023-01..2025-12 window")
 
     detail = {}
     all_ok = True
@@ -236,7 +236,7 @@ def main() -> int:
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where RUNLEN scalars t<W or any NaN/non-finite in W-bar span or fewer than 2 runs. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where IESD scalars t<W or any NaN/non-finite in W+1-bar close span or M<2. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:
@@ -256,7 +256,7 @@ def main() -> int:
         "real_data_only": True,
         "fabricated_data": False,
         "executed_fills": False,
-        "campaign": 423,
+        "campaign": 424,
         "part": "preflight",
         "checks": checks,
         "blocked_reasons": blocked,
