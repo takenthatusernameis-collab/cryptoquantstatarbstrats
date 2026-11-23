@@ -1,39 +1,39 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T11:15:00Z (C421 SIGNCOH FROZEN 20261123T111430Z formal negative; C422 ZCRPATH ACTIVE next, seed 20261286; env OK; no bottlenecks; C421 built end-to-end this session and frozen) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T12:15:00Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN ACTIVE next, seed 20261287; env OK; no bottlenecks; C422 built end-to-end this session and frozen) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T11:15:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T12:15:00Z; supersedes every earlier session message; the ONLY active directive)
 
-**C421 SIGNCOH FROZEN (20261123T111430Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `signcoh_decay_placebo` 0.2638 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign421_*_20261123T111430Z.json`; 33/33 tests green (incl. SIGNCOH brute-force equality `maxdiff ~1e-15 < 1e-9` vs per-window np.corrcoef and kernel-distinctness guards vs ACOVK/SIGNRUN/SEMICOV/TURNINGPT); cache `data/cache/campaign421_signcoh_5m/` (10 shards × 315,648 bars, 38.48 MB). NO EDGE through C421. DO NOT re-run it.
+**C422 ZCRPATH FROZEN (20261123T121051Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `zcr_asym_placebo` 0.2629 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign422_*_20261123T121051Z.json`; 34/34 tests green (incl. ZCRPATH brute-force equality `maxdiff < 1e-9` vs per-window cumsum + crossing count and kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK); cache `data/cache/campaign422_zcrpath_5m/` (10 shards × 315,648 bars). NO EDGE through C422. DO NOT re-run it.
 
-- oos_sweep `e79bbfa9900d7b5b034ac091658ed204fe7eeae1388accbfd0473194e66e7afe`
-- tradable_edge_registry `a21721ea7cdbb3f9eaddc992bc434fa6ffe8437d752a8b236fdf7bdc96bd2c45`
-- summary `d086d612d8296e950a490e19d16c444553b8d604438d5d9824e17e6cea7bb01b`
-- verdict `95adf42a2f08ac2507a17de3e16e8fb0c8770ff431733adb18e9dabb071e94ff`
-- binding_constraint `34f8fc1c40fe9d23a61c3af28db5e0cbd6bbe7399255781800be59f5e0539a70`
-- cache: meta `a8f3bae3a0e18b5411812ef41158196cdc35919472af5af195811ed9c43aa14c`, provenance `1330990b5bbeba294c6110e4d9dafe820b5199d2fb50092022b9c4db9f9b8e5e`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+- oos_sweep `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a`
+- tradable_edge_registry `484378cb491832d23716c4a5d774495d4fac7f503055c9e595461fe750c19271`
+- summary `95fe2175f3d32872e84c06b8149cb9f19407ea06eb9c031d88b3a9250d108167`
+- verdict `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376`
+- binding_constraint `ccf8bf835baa1cef8dc450c231fe40ce6a452385a709ba185ef276c9a32802a1`
+- cache: meta `85a15db5d88910c148e65f251d5d588d0135b246b53d0eaf0300f33e6f39d738`, provenance `ca2b9a909fb3b14f8e3f61cca739685644dd96a50ebdcb87d30971c86bdf22ae`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
-**NEXT ACTION — BUILD C422 ZCRPATH END-TO-END (no stopping, do NOT re-benchmark):**
+**NEXT ACTION — BUILD C423 RUNLEN END-TO-END (no stopping, do NOT re-benchmark):**
 ```
-cp scripts/build_c421_signcoh_features.py  scripts/build_c422_zcrpath_features.py
-cp scripts/preflight_c421.py               scripts/preflight_c422.py
-cp scripts/run_c421_signcoh_xsec_oos.py    scripts/run_c422_zcrpath_xsec_oos.py
-cp tests/test_preflight_c421.py            tests/test_preflight_c422.py
-cp tests/test_c421_signcoh_xsec_oos.py     tests/test_c422_zcrpath_xsec_oos.py
-# FULLY rewrite every identifier (campaign 422, kernel, signal names, placebo seed 20261286, mandate, cache, report prefixes);
-# the test file MUST import run_c422_zcrpath_xsec_oos (NOT run_c421) and assert campaign==422 + PLACEBO_SEED==20261286.
-grep -n "421\|signcoh\|SIGNCOH\|20261285" scripts/*c422* tests/*c422*   # must return NOTHING (apart from legitimate distinctness-guard refs)
-python3 scripts/build_c422_zcrpath_features.py     # -> data/cache/campaign422_zcrpath_5m/ (10 shards)
-python3 scripts/preflight_c422.py                   # must print ready:true
-python3 scripts/run_c422_zcrpath_xsec_oos.py       # FULL literal N_TRIALS costed OOS sweep
-python3 -m pytest tests/test_preflight_c422.py tests/test_c422_zcrpath_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign422_*_<TS>Z.json           # record all 5 artifact SHAs
+cp scripts/build_c422_zcrpath_features.py  scripts/build_c423_runlen_features.py
+cp scripts/preflight_c422.py               scripts/preflight_c423.py
+cp scripts/run_c422_zcrpath_xsec_oos.py    scripts/run_c423_runlen_xsec_oos.py
+cp tests/test_preflight_c422.py            tests/test_preflight_c423.py
+cp tests/test_c422_zcrpath_xsec_oos.py     tests/test_c423_runlen_xsec_oos.py
+# FULLY rewrite every identifier (campaign 423, kernel, signal names, placebo seed 20261287, mandate, cache, report prefixes);
+# the test file MUST import run_c423_runlen_xsec_oos (NOT run_c422) and assert campaign==423 + PLACEBO_SEED==20261287.
+grep -n "422\|zcrpath\|ZCRPATH\|20261286" scripts/*c423* tests/*c423*   # must return NOTHING (apart from legitimate distinctness-guard refs)
+python3 scripts/build_c423_runlen_features.py     # -> data/cache/campaign423_runlen_5m/ (10 shards)
+python3 scripts/preflight_c423.py                   # must print ready:true
+python3 scripts/run_c423_runlen_xsec_oos.py       # FULL literal N_TRIALS costed OOS sweep
+python3 -m pytest tests/test_preflight_c423.py tests/test_c423_runlen_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign423_*_<TS>Z.json           # record all 5 artifact SHAs
 ```
-Then freeze C422 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C423.
+Then freeze C423 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C424.
 
-**C422 (ACTIVE, seed 20261286): ZCRPATH — zero-crossing rate of the intrawindow cumulative-return (price-revisit) path (close-only, volume-free).** Genuinely new: counts how often the window's cumulative-return path (equivalently the price path rebased to the window-start level) crosses zero — a "price revisits its starting level" oscillation statistic. Distinct from C344 (sign-change/chop rate of returns = sign flips of Δprice), C383 TURNINGPT (second-difference turning points = price local extrema), C365 KER (net displacement / gross path length magnitude), C377 PSLOPE (OLS trend significance), C400 KTREND (rank trend), and C375 ACOVK. Kernel: for window X=r[t-W+1..t], W=256: C_j = Σ_{m=0..j} X_m (cumulative-return path, j=0..W-1); crossings = #{ j∈1..W-1 : C_{j-1}·C_j < 0 }; zcr_path = crossings/(W-1) ∈[0,1]; zcr_asym = (late-half crossings − early-half crossings)/(W-1) ∈[−1,1]. NaN if t<W, any NaN in window, or not finite. Signals {zcr_path_dev, zcr_asym_dev, zcr_path_placebo, zcr_asym_placebo} → 4×6×3×3×3×2 = 1296 configs. LOOKBACKS {60,120,240,480,960,1920}; REBALANCES {1,4,12}; FEES {0.0004,0.0007,0.0010}; SLIPS {0.0,0.0001,0.0002}; COST_VARIANTS taker/maker_blend. Placebo seed 20261286. Cache data/cache/campaign422_zcrpath_5m/ with zcrpath_params={window_W:256}. Ref zcr_path_dev L=240 H=4. Brute-force equality (cumsum + crossing count) required; kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK. Build end-to-end per NO-LIGHT-WORK RULE.
+**C423 (ACTIVE, seed 20261287): RUNLEN — run-length distribution entropy and asymmetry of consecutive return signs (close-only, volume-free).** Genuinely new: computes the full empirical distribution of consecutive positive-return and negative-return run lengths within the trailing window, then derives the Shannon entropy of the run-length distribution and the up/down asymmetry. Distinct from C344 (sign-change/chop rate = count of sign flips), C374 SIGNRUN (max run share / mean run length of signed runs), C421 SIGNCOH (autocorrelation of sign sequence at lags 1,2,4,8), C422 ZCRPATH (zero-crossings of cumulative-return path). Kernel: for window X=r[t-W+1..t], W=256: compute signs s_i = sign(X_i) ∈ {−1,+1} (drop zeros); find all runs of consecutive identical signs; let U = lengths of positive runs, D = lengths of negative runs; runlen_ent = −Σ_k (p_k log p_k) where p_k = freq(run length = k) over all runs (up+down); runlen_asym = (mean(U) − mean(D)) / (mean(U) + mean(D)) ∈[−1,1] (up-vs-down mean run-length asymmetry); runlen_up_ent = entropy of positive-run-length distribution only; runlen_down_ent = entropy of negative-run-length distribution only. NaN if t<W, any NaN in window, fewer than 2 runs, or not finite. Signals {runlen_ent_dev, runlen_asym_dev, runlen_up_ent_dev, runlen_down_ent_dev, runlen_ent_placebo, runlen_asym_placebo, runlen_up_ent_placebo, runlen_down_ent_placebo} → 8×6×3×3×3×2 = 2592 configs. LOOKBACKS {60,120,240,480,960,1920}; REBALANCES {1,4,12}; FEES {0.0004,0.0007,0.0010}; SLIPS {0.0,0.0001,0.0002}; COST_VARIANTS taker/maker_blend. Placebo seed 20261287. Cache data/cache/campaign423_runlen_5m/ with runlen_params={window_W:256}. Ref runlen_ent_dev L=240 H=4. Brute-force equality (per-window run-length extraction + entropy) required; kernel-distinctness guards vs C344/C374/C421/C422. Build end-to-end per NO-LIGHT-WORK RULE.
 
 **SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The C421 sweep took ~2 min end-to-end (build ~40 s + sweep ~60 s + tests ~26 s); a single blocking `python3 scripts/run_c422_zcrpath_xsec_oos.py` under a 10-minute timeout is expected to finish. If the session dies before the sweep finishes, the NEXT session must re-run it (no shortcut that preserves exactness).
 
