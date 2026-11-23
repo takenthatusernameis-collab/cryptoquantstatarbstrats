@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261123T111430Z",
+  "campaign": 421,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign421_oos_sweep_20261123T111430Z.json",
+  "oos_sweep_sha256": "e79bbfa9900d7b5b034ac091658ed204fe7eeae1388accbfd0473194e66e7afe",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "signcoh_sum_dev": 0.24450501316786652,
+    "signcoh_decay_dev": 0.2334526801260279,
+    "signcoh_sum_placebo": 0.2582418819126388,
+    "signcoh_decay_placebo": 0.2638004247934667
+  },
+  "dominant_attribution": "signcoh_decay_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "signcoh_sum_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.0777336469816188,
+      -1.0918831346028146,
+      -0.925560835814792,
+      -0.9554186174468831,
+      -0.9201726995031905,
+      -0.8639139698645847,
+      -0.9756397293000979,
+      -1.0818860946910878
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -13.853160202442247,
+    "second_half_sharpe": -11.930954532707524,
+    "sharpe_corr": 0.9965133077012881,
+    "stable": false
+  },
+  "diagnosis": "C421 price-only SIGNCOH spectral coherence vs equal-weight market stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
