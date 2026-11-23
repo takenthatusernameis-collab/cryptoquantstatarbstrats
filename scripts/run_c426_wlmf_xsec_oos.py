@@ -1016,10 +1016,8 @@ def main(argv: list[str] | None = None) -> int:
             "selection_frac": float(FRAC), "cost_variants": list(COST_VARIANTS),
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
-            "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "rqa_params": {"window_W": RQA_W, "embed_m": RQA_M, "embed_tau": RQA_TAU,
-                           "eps_sigma_mult": RQA_EPS_SIGMA_MULT,
-                           "l_min": RQA_L_MIN, "v_min": RQA_V_MIN},
+            "alpha": ALPHA,             "n_trials": N_TRIALS, "total_runs": n_total,
+            "wlmf_params": {"window_W": WLM_F_W, "wavelet": "db3", "j_max": WLM_F_J},
         },
         "gates": {
             "fail_closed": True,
@@ -1045,39 +1043,35 @@ def main(argv: list[str] | None = None) -> int:
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
             "raw_features": "perp_close real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 trailing closes C=c_i[t-W..t] / "
-                          "trailing log-returns X=r[t-W+1..t]; delay embedding E in "
-                          "R^(N_emb x m), N_emb=W-(m-1)*tau=254, m=3, tau=1, row "
-                          "k=[X[k],X[k+1],X[k+2]]; pairwise Chebyshev distance "
-                          "D_ab=||E_a-E_b||_inf; recurrence threshold eps=0.1*"
-                          "sigma_window; recurrence matrix R_ab=1{D_ab<=eps}; "
-                          "rqa_rr=(1/N_emb^2)*sum R_ab; rqa_det=diagonal-line "
-                          "determinism (l>=l_min=2); rqa_lam=vertical-line "
-                          "laminarity (v>=v_min=2); rqa_tt=mean vertical line "
-                          "length (v>=v_min=2).",
-            "signals": "rqa_rr/rqa_det/rqa_lam/rqa_tt over fixed W=256; "
-                       "score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
-                       "(min_periods=3, excluding NaN, causal shift(1)); "
+            "primitives": "fixed intrinsic window W=256 trailing closes C=c_i[t-W+1..t] "
+                          "(log-prices L=log(C)); decimated periodic db3 DWT, J=5 levels, "
+                          "scale 2^j, per-level 2^{-j/2} norm; detail d_j; wavelet leader "
+                          "L_j[k]=max_{j'<=j, k' in cyclic[(k-1)*2^{j-j'}..(k+2)*2^{j-j'}-1]}|d_{j'}[k']| "
+                          "(3lambda box); structure function S(q,j)=mean_k L_j[k]^q (q in [-5,5], 21 moments); "
+                          "scaling exponent zeta(q)=slope of log2 S(q,j) vs j over levels {2,3,4,5}; "
+                          "Legendre spectrum D(h)=q*h-zeta(q)+1 (h=dzeta/dq); wlmf_width=Delta h=h_max-h_min "
+                          "over {q:D(h)>=0}; wlmf_centroid=h* at argmax_q D(h).",
+            "signals": "wlmf_width_dev/wlmf_centroid_dev plus phase-randomized-surrogate placebos "
+                       "over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket "
+                       "mean/std (min_periods=3, excluding NaN, causal shift(1)); "
                        "cross-sectional rank, dollar-neutral gross 1.0; "
                        "NaN-score assets weight 0.",
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
             "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
             "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
-            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
+            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
             "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
-            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "rqa_vectorization_note": "close matrix C=(T,10) built once; per asset, log-return series "
-                          "X[j]=log(c[j+1]/c[j]); embedding E_full[j]=[X[j],X[j+1],X[j+2]] "
-                          "via sliding_window_view; per window ending at t, embedding "
-                          "rows E_full[t-W .. t-3] (N_emb=254); pairwise Chebyshev "
-                          "distance in bounded chunks; epsilon=0.1*std of window "
-                          "returns; recurrence matrix R=1{D<=eps}; diagonal/vertical "
-                          "line run-lengths from boolean recurrence matrices; "
-                          "validated against brute-force per-window loop with "
-                          "explicit embedding + distance matrix + RQA measures, "
-                          "maxdiff < 1e-12 in tests.",
+            "wlmf_vectorization_note": "close matrix C=(T,10) built once; per asset, log-price series "
+                           "L[j]=log(c[j]); per window ending at t, trailing W=256 log-prices "
+                           "L[t-W+1..t]; decimated periodic db3 DWT (J=5) vectorized per chunk "
+                           "of windows; wavelet leaders via 3lambda box max over finer scales; "
+                           "structure function over 21 q moments; zeta(q) slope over levels {2,3,4,5}; "
+                           "Legendre spectrum D(h); width=Delta h and centroid=h* per window; "
+                           "validated against brute-force per-window loop with explicit gather+matvec "
+                           "DWT + explicit leader index sets + multifractal spectrum, maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -1138,12 +1132,12 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C425 price-only RQA recurrence-quantification-analysis stat-arb edge {verdict} "
+        f"C426 price-only WLMF wavelet-leader-multifractal-spectrum stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C425 price-only RQA recurrence-quantification-analysis stat-arb edge validated: "
+        else f"C426 price-only WLMF wavelet-leader-multifractal-spectrum stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )

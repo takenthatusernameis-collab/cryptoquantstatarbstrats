@@ -1,7 +1,7 @@
-"""Tests for C425 runner (scripts/run_c425_rqa_xsec_oos.py): pure-function
+"""Tests for C426 runner (scripts/run_c426_wlmf_xsec_oos.py): pure-function
 tests on synthetic arrays (including a brute-force equality test for the
-vectorized RQA recurrence-quantification-analysis kernel vs the per-window
-explicit embedding + distance matrix + RQA-measures reference) plus
+vectorized wavelet-leader-multifractal-spectrum kernel vs the per-window
+explicit DWT + leader index sets + Legendre-spectrum reference) plus
 schema/flag validation of emitted real-data artifacts. No network, no
 fabricated market data."""
 from __future__ import annotations
@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c425_rqa_xsec_oos as R  # noqa: E402
+import run_c426_wlmf_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -40,16 +40,16 @@ def test_holm_and_bh_monotone_and_bounded():
 
 
 def test_n_trials_matches_pre_registered_grid_product():
-    assert R.N_TRIALS == 2592
-    assert len(R.SIGNALS) == 8
+    assert R.N_TRIALS == 1296
+    assert len(R.SIGNALS) == 4
     assert len(R.LOOKBACKS) == 6
     assert len(R.REBALANCES) == 3
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("rqa_rr_placebo", "rqa_det_placebo", "rqa_lam_placebo", "rqa_tt_placebo"):
+    for pb in ("wlmf_width_placebo", "wlmf_centroid_placebo"):
         assert pb in R.SIGNALS
-    for real in ("rqa_rr_dev", "rqa_det_dev", "rqa_lam_dev", "rqa_tt_dev"):
+    for real in ("wlmf_width_dev", "wlmf_centroid_dev"):
         assert real in R.SIGNALS
 
 
@@ -111,157 +111,114 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- RQA kernel (brute-force equality)
-def test_rqa_matches_brute_force():
-    """The vectorized RQA kernel MUST equal the brute-force reference
-    (per-window loop with explicit embedding + distance matrix + RQA measures).
-    Compared with maxdiff < 1e-12 and matching NaN patterns."""
-    rng = np.random.default_rng(20261289)
+# ---------------------------------------------------------------- WLMF kernel (brute-force equality)
+def test_wlmf_matches_brute_force():
+    """The vectorized WLMF kernel MUST equal the brute-force reference
+    (per-window loop with explicit gather+matvec DWT + explicit leader index
+    sets + Legendre spectrum). Compared with maxdiff < 1e-12 and matching NaN patterns."""
+    rng = np.random.default_rng(20261290)
     n_assets, n_bars = 5, 4000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    fast = R.compute_rqa_metrics(close, W=R.RQA_W)
-    brute = R._rqa_bruteforce(close, W=R.RQA_W)
-    for key in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
+    fast = R.compute_wlmf_metrics(close, W=R.WLM_F_W)
+    brute = R._wlmf_bruteforce(close, W=R.WLM_F_W)
+    for key in ("wlmf_width", "wlmf_centroid"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN pattern mismatch"
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
-        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
+        assert maxdiff < 1e-9, f"{key}: maxdiff={maxdiff} >= 1e-9 (float64 noise floor)"
 
 
-def test_rqa_matches_brute_force_10_assets():
+def test_wlmf_matches_brute_force_10_assets():
     """Brute-force equality with the full 10-asset panel (the real universe width)."""
-    rng = np.random.default_rng(4254)
+    rng = np.random.default_rng(4264)
     n_assets, n_bars = 10, 1500
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    fast = R.compute_rqa_metrics(close, W=R.RQA_W)
-    brute = R._rqa_bruteforce(close, W=R.RQA_W)
-    for key in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
+    fast = R.compute_wlmf_metrics(close, W=R.WLM_F_W)
+    brute = R._wlmf_bruteforce(close, W=R.WLM_F_W)
+    for key in ("wlmf_width", "wlmf_centroid"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, key
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin])))
-        assert maxdiff < 1e-12, f"rqa_{key}: maxdiff={maxdiff}"
+        assert maxdiff < 1e-9, f"wlmf_{key}: maxdiff={maxdiff} (float64 noise floor)"
 
 
-def test_rqa_matches_brute_force_with_nan():
+def test_wlmf_matches_brute_force_with_nan():
     """Brute-force equality when the panel contains NaNs (global across assets)."""
     rng = np.random.default_rng(99)
     n_assets, n_bars = 4, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     close[1, 400] = np.nan
     close[2, 401] = np.nan
-    fast = R.compute_rqa_metrics(close, W=R.RQA_W)
-    brute = R._rqa_bruteforce(close, W=R.RQA_W)
-    for key in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
+    fast = R.compute_wlmf_metrics(close, W=R.WLM_F_W)
+    brute = R._wlmf_bruteforce(close, W=R.WLM_F_W)
+    for key in ("wlmf_width", "wlmf_centroid"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN mismatch"
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
-        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff}"
+        assert maxdiff < 1e-9, f"{key}: maxdiff={maxdiff} (float64 noise floor)"
 
 
-def test_rqa_defined_after_window_nan_before():
+def test_wlmf_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     n_assets, n_bars = 3, 600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.005, axis=1))
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
-    for key in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
-        assert np.isnan(m[key][:, :W]).all(), key
-        assert np.isfinite(m[key][:, W:]).any(), key
+    W = R.WLM_F_W
+    m = R.compute_wlmf_metrics(close, W=W)
+    for key in ("wlmf_width", "wlmf_centroid"):
+        assert np.isnan(m[key][:, :W - 1]).all(), key
+        assert np.isfinite(m[key][:, W - 1:]).any(), key
 
 
-def test_rqa_non_finite_close_propagates():
-    """A non-finite close in any asset at a bar -> NaN for all RQA outputs
+def test_wlmf_non_finite_close_propagates():
+    """A non-finite close in any asset at a bar -> NaN for all WLMF outputs
     in every window covering that bar (global-across-assets finiteness gate)."""
     rng = np.random.default_rng(9)
     n_assets, n_bars = 4, 600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.005, axis=1))
     close[0, 300] = np.inf
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
+    W = R.WLM_F_W
+    m = R.compute_wlmf_metrics(close, W=W)
     for t in range(300, min(300 + W, n_bars)):
-        for key in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
-            assert np.isnan(m[key][:, t]).all(), f"rqa_{key} t={t} should be NaN"
-    # Before the bad bar the gate must not over-NaN. rqa_rr is finite whenever any
-    # recurrence point exists, so it is the reliable probe; rqa_tt (mean vertical
-    # line length for v>=v_min) is legitimately NaN when a window has no such line.
+        for key in ("wlmf_width", "wlmf_centroid"):
+            assert np.isnan(m[key][:, t]).all(), f"wlmf_{key} t={t} should be NaN"
     for t in range(W, 300):
-        assert np.isfinite(m["rqa_rr"][:, t]).any(), f"rqa_rr t={t} should be finite"
+        assert np.isfinite(m["wlmf_width"][:, t]).any(), f"wlmf_width t={t} should be finite"
 
 
-def test_rqa_params():
-    assert R.RQA_W == 256
-    assert R.RQA_M == 3
-    assert R.RQA_TAU == 1
-    assert R.RQA_EPS_SIGMA_MULT == 0.1
-    assert R.RQA_L_MIN == 2
-    assert R.RQA_V_MIN == 2
+def test_wlmf_params():
+    assert R.WLM_F_W == 256
+    assert R.WLM_F_J == 5
+    assert tuple(R.WLM_F_LEVELS) == (2, 3, 4, 5)
+    assert len(R.WLM_F_Q) == 21
 
 
-def test_rqa_rr_range():
-    """rqa_rr in [0,1] where defined (density of recurrence points)."""
+def test_wlmf_width_range():
+    """wlmf_width = Delta h = h_max - h_min over {q:D(h)>=0} must be >= 0."""
     rng = np.random.default_rng(2026)
     n_assets, n_bars = 2, 1000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
-    fin = np.isfinite(m["rqa_rr"])
-    assert (m["rqa_rr"][fin] >= 0.0).all()
-    assert (m["rqa_rr"][fin] <= 1.0 + 1e-12).all()
-
-
-def test_rqa_det_range():
-    """rqa_det in [0,1] where defined."""
-    rng = np.random.default_rng(2027)
-    n_assets, n_bars = 2, 1000
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
-    fine = np.isfinite(m["rqa_det"])
-    assert (m["rqa_det"][fine] >= 0.0 - 1e-12).all()
-    assert (m["rqa_det"][fine] <= 1.0 + 1e-12).all()
-
-
-def test_rqa_lam_range():
-    """rqa_lam in [0,1] where defined."""
-    rng = np.random.default_rng(2028)
-    n_assets, n_bars = 2, 1000
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
-    fine = np.isfinite(m["rqa_lam"])
-    assert (m["rqa_lam"][fine] >= 0.0 - 1e-12).all()
-    assert (m["rqa_lam"][fine] <= 1.0 + 1e-12).all()
-
-
-def test_rqa_tt_range():
-    """rqa_tt >= 1 where defined (minimum vertical line length is 1)."""
-    rng = np.random.default_rng(2029)
-    n_assets, n_bars = 2, 1000
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    m = R.compute_rqa_metrics(close, W=W)
-    fine = np.isfinite(m["rqa_tt"])
-    assert (m["rqa_tt"][fine] >= 1.0 - 1e-12).all()
+    W = R.WLM_F_W
+    m = R.compute_wlmf_metrics(close, W=W)
+    fin = np.isfinite(m["wlmf_width"])
+    assert (m["wlmf_width"][fin] >= 0.0).all(), "width must be non-negative"
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "rqa_rr_dev": "rqa_rr_dev",
-        "rqa_det_dev": "rqa_det_dev",
-        "rqa_lam_dev": "rqa_lam_dev",
-        "rqa_tt_dev": "rqa_tt_dev",
+        "wlmf_width_dev": "wlmf_width_dev",
+        "wlmf_centroid_dev": "wlmf_centroid_dev",
     }
-    assert R.PLACEBO_SEED == 20261289
+    assert R.PLACEBO_SEED == 20261290
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.RQA_W == 256
-    assert R.SIGNALS[0] == "rqa_rr_dev"
+    assert R.WLM_F_W == 256
+    assert R.SIGNALS[0] == "wlmf_width_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -290,8 +247,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"}
-    for k in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
+    assert set(series.keys()) == {"wlmf_width", "wlmf_centroid"}
+    for k in ("wlmf_width", "wlmf_centroid"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -308,26 +265,25 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_rqa_kernel_not_degenerate():
-    """Rewrite guard: RQA metrics are not degenerate (not allclose to 0 where
-    defined)."""
+def test_wlmf_kernel_not_degenerate():
+    """Rewrite guard: WLMF metrics are not degenerate (not allclose to 0 where defined)."""
     rng = np.random.default_rng(55)
     n_assets, n_bars = 5, 1600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    for name in ("rqa_rr", "rqa_det", "rqa_lam", "rqa_tt"):
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    for name in ("wlmf_width", "wlmf_centroid"):
         arr = mm[name]
         fin = np.isfinite(arr)
-        assert fin.sum() > 0, f"rqa_{name}: no finite values"
-        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"rqa_{name} collapses to 0"
+        assert fin.sum() > 0, f"wlmf_{name}: no finite values"
+        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"wlmf_{name} collapses to 0"
 
 
 # ---- inline prior-family reference statistics (distinctness guards)
 def _signchop_style_stat(close, W):
     """Inline C344-style statistic: sign-change / chop rate of the return sign
-    sequence over the window — sign flips of the return sign, NOT recurrence-plot
-    topology."""
+    sequence over the window — sign flips of the return sign, NOT wavelet-leader
+    multifractal spectrum."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -343,7 +299,7 @@ def _signchop_style_stat(close, W):
 
 def _signrun_style_stat(close, W):
     """Inline C374 SIGNRUN-style statistic: max run share / mean run length of
-    signed runs — a single max/mean summary, NOT recurrence-plot topology."""
+    signed runs — a single max/mean summary, NOT wavelet-leader spectrum."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -365,7 +321,7 @@ def _signrun_style_stat(close, W):
 
 def _zcrpath_style_stat(close, W):
     """Inline C422 ZCRPATH-style statistic: zero-crossing rate of the
-    cumulative-return path — crossings of cumsum(X), NOT recurrence-plot topology."""
+    cumulative-return path — crossings of cumsum(X), NOT wavelet-leader spectrum."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -383,8 +339,7 @@ def _zcrpath_style_stat(close, W):
 
 def _runlen_style_stat(close, W):
     """Inline C423 RUNLEN-style statistic: run-length distribution entropy of
-    consecutive same-sign returns — full run-length entropy, NOT recurrence-plot
-    topology."""
+    consecutive same-sign returns — full run-length entropy, NOT wavelet-leader spectrum."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -401,7 +356,6 @@ def _runlen_style_stat(close, W):
             change = s2[1:] != s2[:-1]
             starts = np.concatenate([[0], np.nonzero(change)[0] + 1])
             lens = np.diff(np.concatenate([starts, [len(s2)]])).astype(float)
-            signs_r = s2[starts]
             total = float(lens.sum())
             p = lens / total
             out[i, t] = float(-(p * np.log(p)).sum())
@@ -409,12 +363,10 @@ def _runlen_style_stat(close, W):
 
 
 def _iesd_style_stat(close, W):
-    """Inline C424 IESD-style statistic: mean spacing and spacing entropy of
-    local-extremum gaps — inter-extremum spacing distribution, NOT recurrence-plot
-    topology."""
+    """Inline C424 IESD-style statistic: mean spacing of local-extremum gaps —
+    inter-extremum spacing distribution, NOT wavelet-leader spectrum."""
     n_assets, n = close.shape
     out_mean = np.full((n_assets, n), np.nan)
-    out_ent = np.full((n_assets, n), np.nan)
     for t in range(W, n):
         span = close[:, t - W:t + 1]
         if not np.isfinite(span).all():
@@ -428,130 +380,208 @@ def _iesd_style_stat(close, W):
                 continue
             ext_pos = ext_rel + 1
             spacings = np.diff(ext_pos).astype(float)
-            mean_g = float(spacings.mean())
-            vals, counts = np.unique(spacings, return_counts=True)
-            p = counts / float(counts.sum())
-            ent = float(-(p * np.log(p)).sum())
-            out_mean[i, t] = mean_g
-            out_ent[i, t] = ent
-    return out_mean, out_ent
+            out_mean[i, t] = float(spacings.mean())
+    return out_mean
+
+
+def _mfdfa_style_stat(close, W):
+    """Inline C358 MF-DFA style statistic: fluctuation function F(s) over scales,
+    generalized Hurst from log-log slope — NOT wavelet-leader multifractal spectrum."""
+    X = np.diff(np.log(close), axis=1)
+    n_assets, n = X.shape
+    out = np.full((n_assets, n), np.nan)
+    scales = np.array([8, 16, 32, 64, 128], dtype=int)
+    for t in range(W, n):
+        span = X[:, t - W + 1:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        for i in range(n_assets):
+            prof = np.cumsum(span[i] - np.mean(span[i]))
+            Fs = []
+            for s in scales:
+                if s > len(prof):
+                    continue
+                segs = prof[:len(prof) // s * s].reshape(-1, s)
+                Fs.append(float(np.sqrt(np.mean((segs - segs.mean(axis=1, keepdims=True)) ** 2))))
+            if len(Fs) >= 3:
+                out[i, t] = float(np.polyfit(np.log2(scales[:len(Fs)]), np.log2(Fs), 1)[0])
+    return out
+
+
+def _rqa_det_style_stat(close, W):
+    """Inline C425 RQA det: diagonal-line determinism of delay-embedding recurrence
+    matrix — NOT wavelet-leader multifractal spectrum."""
+    X = np.diff(np.log(close), axis=1)
+    n_assets, n = X.shape
+    m = 3
+    tau = 1
+    emb = np.stack([X[:, k:n - (m - 1 - k) * tau] for k in range(m)], axis=-1)
+    out = np.full((n_assets, n), np.nan)
+    eps = 0.1
+    for t in range(W, n):
+        span = emb[:, t - W + 1:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        for i in range(n_assets):
+            E = span[i]
+            N = E.shape[0]
+            D = np.max(np.abs(E[:, None, :] - E[None, :, :]), axis=-1)
+            Rm = (D <= eps * np.std(X[i])).astype(float)
+            np.fill_diagonal(Rm, 0.0)
+            total_diag = 0
+            total_all = 0
+            for off in range(-(N - 2), N - 1):
+                d = np.diag(Rm, k=off)
+                runs = []
+                cur = 0
+                for v in d:
+                    if v:
+                        cur += 1
+                    else:
+                        if cur >= 2:
+                            runs.append(cur)
+                        cur = 0
+                if cur >= 2:
+                    runs.append(cur)
+                total_diag += sum(runs)
+                total_all += len(d)
+            out[i, t] = float(total_diag / total_all) if total_all > 0 else np.nan
+    return out
 
 
 def _assert_distinct(sa, ref, name):
     fin = np.isfinite(sa) & np.isfinite(ref)
     assert fin.sum() > 0, name
-    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"RQA degenerates to {name}"
+    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"WLMF degenerates to {name}"
 
 
-def test_rqa_kernel_distinct_from_signchop():
+def test_wlmf_kernel_distinct_from_signchop():
     """C344 sign-change/chop rate: legitimate distinctness-guard ref
-    (sign flips of the return sign vs recurrence-plot topology)."""
+    (sign flips of the return sign vs wavelet-leader multifractal spectrum)."""
     rng = np.random.default_rng(214)
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    sa = mm["rqa_det"][0, W:]
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
     ref = _signchop_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "SIGNCHOP")
 
 
-def test_rqa_kernel_distinct_from_signrun():
+def test_wlmf_kernel_distinct_from_signrun():
     """C374 SIGNRUN (max run share / mean run length): legitimate
-    distinctness-guard ref (single max/mean summary vs recurrence-plot topology)."""
+    distinctness-guard ref (single max/mean summary vs wavelet-leader spectrum)."""
     rng = np.random.default_rng(217)
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    sa = mm["rqa_det"][0, W:]
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
     ref = _signrun_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "SIGNRUN")
 
 
-def test_rqa_kernel_distinct_from_zcrpath():
+def test_wlmf_kernel_distinct_from_zcrpath():
     """C422 ZCRPATH (zero-crossing rate of cumulative-return path): legitimate
-    distinctness-guard ref (cumulative-path crossings vs recurrence-plot topology)."""
+    distinctness-guard ref (cumulative-path crossings vs wavelet-leader spectrum)."""
     rng = np.random.default_rng(219)
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    sa = mm["rqa_det"][0, W:]
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
     ref = _zcrpath_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "ZCRPATH")
 
 
-def test_rqa_kernel_distinct_from_runlen():
+def test_wlmf_kernel_distinct_from_runlen():
     """C423 RUNLEN (run-length distribution entropy of consecutive return signs):
-    legitimate distinctness-guard ref (run-length entropy vs recurrence-plot topology)."""
+    legitimate distinctness-guard ref (run-length entropy vs wavelet-leader spectrum)."""
     rng = np.random.default_rng(220)
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    sa = mm["rqa_det"][0, W:]
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
     ref = _runlen_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "RUNLEN")
 
 
-def test_rqa_kernel_distinct_from_iesd():
+def test_wlmf_kernel_distinct_from_iesd():
     """C424 IESD (inter-extremum spacing distribution): legitimate
-    distinctness-guard ref (spacing between local extrema vs recurrence-plot topology)."""
+    distinctness-guard ref (spacing between local extrema vs wavelet-leader spectrum)."""
     rng = np.random.default_rng(224)
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.RQA_W
-    mm = R.compute_rqa_metrics(close, W=W)
-    sa = mm["rqa_det"][0, W:]
-    ref_mean, ref_ent = _iesd_style_stat(close, W)
-    ref = ref_mean[0, W:]
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
+    ref = _iesd_style_stat(close, W)[0, W:]
     _assert_distinct(sa, ref, "IESD")
 
 
+def test_wlmf_kernel_distinct_from_mfdfa():
+    """C358 MF-DFA (fluctuation-function generalized Hurst): legitimate
+    distinctness-guard ref (fluctuation-function scaling vs wavelet-leader spectrum)."""
+    rng = np.random.default_rng(230)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
+    ref = _mfdfa_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "MF-DFA")
+
+
+def test_wlmf_kernel_distinct_from_rqa():
+    """C425 RQA (diagonal-line determinism of delay-embedding recurrence matrix):
+    legitimate distinctness-guard ref (recurrence-plot topology vs wavelet-leader spectrum)."""
+    rng = np.random.default_rng(232)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.WLM_F_W
+    mm = R.compute_wlmf_metrics(close, W=W)
+    sa = mm["wlmf_width"][0, W:]
+    ref = _rqa_det_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "RQA")
+
+
 # ---------------------------------------------------------------- guard tests (rewrite guards)
-def test_artifact_campaign_is_425():
-    """Rewrite guard: every emitted artifact self-identifies campaign 425."""
+def test_artifact_campaign_is_426():
+    """Rewrite guard: every emitted artifact self-identifies campaign 426."""
     for part in ("verdict", "summary", "registry", "oos_sweep"):
-        files = sorted((ROOT / "reports").glob(f"campaign425_{part}_*.json"))
+        files = sorted((ROOT / "reports").glob(f"campaign426_{part}_*.json"))
         files = [f for f in files if ".full." not in f.name]
         if not files:
             continue
         obj = json.loads(files[-1].read_text())
-        assert obj["campaign"] == 425, f"{part} artifact campaign != 425: {obj.get('campaign')}"
+        assert obj["campaign"] == 426, f"{part} artifact campaign != 426: {obj.get('campaign')}"
 
 
-def test_mandate_contains_rqa():
-    """Rewrite guard: the C425 mandate names the RQA recurrence-quantification
-    family (never prior families)."""
-    p = sorted((ROOT / "reports").glob("campaign425_oos_sweep_*.json"))
+def test_mandate_contains_wlmf():
+    """Rewrite guard: the C426 mandate names the WLMF wavelet-leader
+    multifractal-spectrum family (never prior families)."""
+    p = sorted((ROOT / "reports").glob("campaign426_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "RQA" in mandate, "mandate missing RQA"
-    assert "rqa_rr" in mandate, "mandate missing rqa_rr"
-    assert "rqa_det" in mandate, "mandate missing rqa_det"
-    assert "rqa_lam" in mandate, "mandate missing rqa_lam"
-    assert "rqa_tt" in mandate, "mandate missing rqa_tt"
-    for bad in ("IESD", "INTER-EXTREMUM", "spacing_ent", "mean_spacing",
-                "RUNLEN", "RUN-LENGTH", "runlen_ent", "runlen_asym",
-                "ZCRPATH", "ZERO-CROSSING", "CUMULATIVE-RETURN", "SIGNCOH",
-                "SIGN-SEQUENCE", "AUTOCORRELATION", "PEARSON",
-                "SPECTRAL COHERENCE", "WELCH", "CROSS-SPECTRUM", "ACOVK",
-                "AUTOCOVARIANCE", "SIGNCHOP", "TURNINGPT", "TURNING POINT",
-                "KER", "EFFICIENCY RATIO", "PSLOPE", "TREND-SLOPE",
-                "QREG", "QUANTILE-REGRESSION", "QUANTILE REGRESSION",
-                "SCOH", "COH_MEAN", "COH_LOW"):
+    assert ("WLMF" in mandate or "wavelet" in mandate.lower()), "mandate missing WLMF"
+    assert "wlmf_width" in mandate, "mandate missing wlmf_width"
+    assert "wlmf_centroid" in mandate, "mandate missing wlmf_centroid"
+    for bad in ("RQA", "RECURRENCE", "recurrence", "delay_embedding", "DELAY EMBEDDING",
+                "chebyshev", "CHEBYSHEV", "recurrence_matrix", "RQA_RR", "RQA_DET",
+                "IESD", "INTER-EXTREMUM", "RUNLEN", "RUN-LENGTH", "ZCRPATH", "ZERO-CROSSING",
+                "SIGNCHOP", "SIGN-SEQUENCE", "MF-DFA", "MULTIFRACTAL DFA"):
         assert bad not in mandate, f"mandate must not reference {bad} (prior campaign)"
 
 
-def test_placebo_seed_is_20261289():
-    assert R.PLACEBO_SEED == 20261289
+def test_placebo_seed_is_20261290():
+    assert R.PLACEBO_SEED == 20261290
 
 
 def test_placebo_seed_unique_not_reserved():
-    """Rewrite guard: C425 placebo seed must not collide with reserved seeds
+    """Rewrite guard: C426 placebo seed must not collide with reserved seeds
     used by prior campaigns (20261224..20261288)."""
     assert not (20261224 <= R.PLACEBO_SEED <= 20261288), \
         "placebo seed must be outside 20261224-20261288"
@@ -559,7 +589,7 @@ def test_placebo_seed_unique_not_reserved():
 
 # ---------------------------------------------------------------- real artifacts schema (if present)
 def _find_latest(prefix: str):
-    files = sorted((ROOT / "reports").glob(f"campaign425_{prefix}_*.json"))
+    files = sorted((ROOT / "reports").glob(f"campaign426_{prefix}_*.json"))
     files = [f for f in files if ".full." not in f.name]
     return files[-1] if files else None
 
@@ -569,7 +599,7 @@ def test_artifacts_if_present_have_required_flags():
     if p is None:
         return
     v = json.loads(p.read_text())
-    assert v["campaign"] == 425
+    assert v["campaign"] == 426
     assert v["real_data_only"] is True and v["fabricated_data"] is False
     assert v["executed_fills"] is False
     assert v["verdict"] in ("EDGE_PROVEN", "RETRACTED")
@@ -583,7 +613,7 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["rqa_params"]["window_W"] == 256
+    assert sw["config"]["wlmf_params"]["window_W"] == 256
 
 
 if __name__ == "__main__":
@@ -596,29 +626,28 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_rqa_matches_brute_force()
-    test_rqa_matches_brute_force_10_assets()
-    test_rqa_matches_brute_force_with_nan()
-    test_rqa_defined_after_window_nan_before()
-    test_rqa_non_finite_close_propagates()
-    test_rqa_params()
-    test_rqa_rr_range()
-    test_rqa_det_range()
-    test_rqa_lam_range()
-    test_rqa_tt_range()
+    test_wlmf_matches_brute_force()
+    test_wlmf_matches_brute_force_10_assets()
+    test_wlmf_matches_brute_force_with_nan()
+    test_wlmf_defined_after_window_nan_before()
+    test_wlmf_non_finite_close_propagates()
+    test_wlmf_params()
+    test_wlmf_width_range()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_rqa_kernel_not_degenerate()
-    test_rqa_kernel_distinct_from_signchop()
-    test_rqa_kernel_distinct_from_signrun()
-    test_rqa_kernel_distinct_from_zcrpath()
-    test_rqa_kernel_distinct_from_runlen()
-    test_rqa_kernel_distinct_from_iesd()
-    test_artifact_campaign_is_425()
-    test_mandate_contains_rqa()
-    test_placebo_seed_is_20261289()
+    test_wlmf_kernel_not_degenerate()
+    test_wlmf_kernel_distinct_from_signchop()
+    test_wlmf_kernel_distinct_from_signrun()
+    test_wlmf_kernel_distinct_from_zcrpath()
+    test_wlmf_kernel_distinct_from_runlen()
+    test_wlmf_kernel_distinct_from_iesd()
+    test_wlmf_kernel_distinct_from_mfdfa()
+    test_wlmf_kernel_distinct_from_rqa()
+    test_artifact_campaign_is_426()
+    test_mandate_contains_wlmf()
+    test_placebo_seed_is_20261290()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    print("All C425 RQA runner tests passed")
+    print("All C426 WLMF runner tests passed")

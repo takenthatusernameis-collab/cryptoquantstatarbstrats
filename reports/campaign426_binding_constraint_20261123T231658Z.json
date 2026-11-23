@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "20261123T231658Z",
+  "campaign": 426,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign426_oos_sweep_20261123T231658Z.json",
+  "oos_sweep_sha256": "af1a2850510f0b0cd82476de63472023c0dc4bfd17c0e24c2b2451ba3028f1af",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "wlmf_width_dev": 0.30198649299803926,
+    "wlmf_centroid_dev": 0.225408143102391,
+    "wlmf_width_placebo": 0.273240612467543,
+    "wlmf_centroid_placebo": 0.19936475143202675
+  },
+  "dominant_attribution": "wlmf_width_dev",
+  "dominant_share": 0.30198649299803926
+}
