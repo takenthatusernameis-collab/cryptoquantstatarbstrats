@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T11:02:13Z (C420 SCOH FROZEN 20261123T100626Z formal negative; C419 RCF FROZEN 20261123T090438Z formal negative; C421 SIGNCOH pre-registered ACTIVE next, seed 20261285; env OK; no bottlenecks) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T11:03:10Z (C420 SCOH FROZEN 20261123T100626Z formal negative; C421 SIGNCOH ACTIVE next, seed 20261285; env OK; no bottlenecks) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
