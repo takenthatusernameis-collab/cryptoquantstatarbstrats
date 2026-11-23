@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261123T080851Z",
+  "campaign": 418,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign418_oos_sweep_20261123T080851Z.json",
+  "oos_sweep_sha256": "c5b5d01dca0880b414892b43566507ee016d872b9faef9ff7b90eb5a216e69b6",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "autocf_sum_dev": 0.10932576170603908,
+    "decorh_horizon_dev": 0.24195231271789203,
+    "autocf_sum_placebo": 0.14278830890889457,
+    "decorh_horizon_placebo": 0.5059336166671743
+  },
+  "dominant_attribution": "decorh_horizon_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "autocf_sum_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.3365934383907645,
+      -1.1984870855081422,
+      -1.252938501301192,
+      -1.1973952046360707,
+      -1.4517319664156587,
+      -1.1993842708291587,
+      -1.2567605943614293,
+      -1.198592026510848
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -21.968601284317334,
+    "second_half_sharpe": -12.296740233596696,
+    "sharpe_corr": 0.9999999024680059,
+    "stable": false
+  },
+  "diagnosis": "C418 price-only AUTOCF normalized-autocorrelation-function decorrelation-horizon stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

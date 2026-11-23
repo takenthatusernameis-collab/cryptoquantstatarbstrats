@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-23T06:25:29Z
-handoff_refreshed_at_utc: 2026-11-23T06:25:29Z
+updated_at_utc: 2026-11-23T08:15:00Z
+handoff_refreshed_at_utc: 2026-11-23T08:15:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C417
-next_campaign: C418
+latest_campaign_done: C418
+next_campaign: C419
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T06:25:29Z: C417 CDOMIN (cross-sectional extreme dominance frequency, 20261123T061625Z) is now FROZEN formal negative (1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, attribution_ok false, 34/34 tests green incl brute-force equality and kernel-distinctness guards vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION). C281B-C417 ALL FROZEN formal negatives, NO EDGE through C417. Queue depth 3: C416 QREG (FROZEN) -> C417 CDOMIN (FROZEN) -> C418 AUTOCF (ACTIVE next, seed 20261282). Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
-bottlenecks_verified_removed_at_utc: "2026-11-23T06:25:29Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-23T06:25:29Z: C417 CDOMIN FROZEN formal negative (20261123T061625Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, 34/34 tests green). C281B-C417 ALL FROZEN formal negatives, NO EDGE through C417. C418 AUTOCF ACTIVE next (seed 20261282, N_TRIALS=1296). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C418
-queued_next_campaign_note: 'C281B-C417 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C418 AUTOCF (normalized autocorrelation-function decorrelation horizon vs own returns, seed 20261282, N_TRIALS=1296). Pre-registered next: C419 placeholder. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C417 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
-first_action: "BUILD C418 AUTOCF END-TO-END (2026-11-23T06:25:29Z). C417 CDOMIN FROZEN (20261123T061625Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cdomin_asym_placebo 0.3491, 34/34 tests green). C418 AUTOCF (normalized autocorrelation-function decorrelation horizon, seed 20261282, N_TRIALS=1296) ACTIVE. Build from C417 plumbing with mandatory rewrite guards, run full 1296-config sweep, record SHAs, freeze, advance to C419."
-active_campaign: C418
-space_status: NO_EDGE_C281B_C417
-closure_note: 'C281B-C417 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~157k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C417 CDOMIN 20261123T061625Z (cdomin_asym_placebo 0.3491, attribution_ok false, 34/34 tests green incl brute-force equality + kernel-distinctness guards, 5 artifact SHA256 matching). C418 AUTOCF is ACTIVE and FULLY PRE-REGISTERED (seed 20261282, N_TRIALS=1296) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C418 AUTOCF end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T08:15:00Z: C418 AUTOCF (normalized autocorrelation-function decorrelation horizon vs own returns, 20261123T080851Z) is now FROZEN formal negative (1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059, attribution_ok false because dominant is placebo, 35/35 tests green incl brute-force equality maxdiff<1e-12 and kernel-distinctness guards vs ACOVK/XSRANK/SEMCORR/LVAC/TIRV/SIGNRUN). C281B-C418 ALL FROZEN formal negatives, NO EDGE through C418. Queue depth 3: C417 CDOMIN (FROZEN) -> C418 AUTOCF (FROZEN) -> C419 placeholder (ACTIVE next, seed 20261283). Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
+bottlenecks_verified_removed_at_utc: "2026-11-23T08:15:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T08:15:00Z: C418 AUTOCF FROZEN formal negative (20261123T080851Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059 [placebo dominates], attribution_ok false, 35/35 tests green). C281B-C418 ALL FROZEN formal negatives, NO EDGE through C418. C419 placeholder ACTIVE next (seed 20261283, price-only close-only volume-free family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C419
+queued_next_campaign_note: 'C281B-C418 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C419 placeholder (pre-register a genuinely-new price-only family, seed 20261283). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+first_action: "BUILD C419 END-TO-END (2026-11-23T08:15:00Z). C418 AUTOCF FROZEN (20261123T080851Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant decorh_horizon_placebo 0.5059, attribution_ok false, 35/35 tests green). C419 placeholder (genuinely-new price-only family, seed 20261283) ACTIVE next. Build from C418 plumbing with mandatory rewrite guards, run full N_TRIALS config sweep, record SHAs, freeze, advance queue."
+active_campaign: C419
+space_status: NO_EDGE_C281B_C418
+closure_note: 'C281B-C418 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~158k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C418 AUTOCF 20261123T080851Z (decorh_horizon_placebo 0.5059 [placebo dominates], attribution_ok false, 35/35 tests green incl brute-force equality + kernel-distinctness guards, 5 artifact SHA256 matching). C419 placeholder ACTIVE (seed 20261283) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C419 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C417
@@ -159,6 +159,46 @@ c416_status:
   cache_shas:
     meta: '1386955e4a8d45889f0e070899543c5fda4dcf40f79c5bdc1cd5eaba1bfd1e02'
     provenance: '54c6a2394ac1e67c56c33700185fdf49c9941c2feade85247f623442d2d15d3c'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c418_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C418
+  family: normalized_autocorrelation_function_decorrelation_horizon_vs_own_returns_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First normalized-ACF decorrelation-horizon family ever run. For each bar t over X=r_i[t-W+1..t] (W=256 demeaned), lag-k normalized autocorrelation rho[k]=corr(X[0:W-k],X[k:W]) for k=1..K (K=20); autocf_sum=(1/K)*sum rho[k] in [-1,1]; decorh_horizon=min{k>=1:rho[k]<=0} (first sign-change lag; K+1 if none). NaN if any rho[k] zero variance/non-finite or any NaN. Genuinely distinct from C375 ACOVK (unnormalized autocovariance profile), C407 XSRANK (rank persistence vs market), C360 LVAC (corr(r,|r|_lag) leverage coupling), C380 SEMICOV (sign-conditional lag covariance), C372 TIRV (lagged-product cumulants), C374 SIGNRUN (sign run lengths). Price-only (perp_close), volume-free.'
+  as_of_utc: 20261123T080851Z
+  artifacts_ts: 20261123T080851Z
+  signals: [autocf_sum_dev, decorh_horizon_dev, autocf_sum_placebo, decorh_horizon_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261282
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'autocf_sum_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [autocf_sum_dev, decorh_horizon_dev]
+  autocf_params: {window_W: 256, n_lags: 20}
+  scripts_present: [scripts/build_c418_autocf_features.py, scripts/preflight_c418.py, scripts/run_c418_autocf_xsec_oos.py]
+  tests_present: [tests/test_preflight_c418.py, tests/test_c418_autocf_xsec_oos.py]
+  cache_present: data/cache/campaign418_autocf_5m
+  artifacts_present: [reports/campaign418_oos_sweep_20261123T080851Z.json, reports/campaign418_tradable_edge_registry_20261123T080851Z.json, reports/campaign418_summary_20261123T080851Z.json, reports/campaign418_verdict_20261123T080851Z.json, reports/campaign418_binding_constraint_20261123T080851Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: decorh_horizon_placebo
+  dominant_share: 0.5059336166671743
+  attribution_ok: false
+  tests_green: 35
+  brute_force_maxdiff: 'autocf_sum/decorh_horizon maxdiff < 1e-12 (sliding_window_view sum-identity Pearson per lag vs per-window np.corrcoef); NaN patterns identical; 10-asset panel also maxdiff < 1e-12'
+  artifacts:
+    oos_sweep: 'c5b5d01dca0880b414892b43566507ee016d872b9faef9ff7b90eb5a216e69b6'
+    tradable_edge_registry: 'b98cabdedec356a9412d6ee1158f7eb1401c68c55e8c2061271df905e1a93297'
+    summary: '10d530ee849fd306d38cfc57bd14522fe1c21f7963d0eb77d81bf59dd489810b'
+    verdict: 'a618cfe6efb7814e6c4b936cbc7fe9b6e7463a9f8381fd0dfcd5cbd43599eea3'
+    binding_constraint: '3f1423a06927daf31692e28ceb6e9af434b96297f0e57cac440c68e35083fc02'
+  cache_shas:
+    meta: 'f5f42b704b6658763673852243b650c9aadf68db5933f59374ba6ff497862125'
+    provenance: 'e1f4eb242e7db89caec1d4f47cee3138138e62750ad1345a9edf547033f1bf57'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
 c415_status:
