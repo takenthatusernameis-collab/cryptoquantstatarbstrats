@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-22T21:32:00Z
-handoff_refreshed_at_utc: 2026-11-22T21:32:00Z
+updated_at_utc: 2026-11-23T03:20:00Z
+handoff_refreshed_at_utc: 2026-11-23T03:20:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C415
-next_campaign: C416
+latest_campaign_done: C416
+next_campaign: C417
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-22T16:26:24Z: C415 TAILDEP (20261122T162624Z) is now FROZEN formal negative (1944 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant taildep_low_placebo 0.2592, attribution_ok false, 34/34 tests green incl brute-force maxdiff<1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA; 5 SHA256 artifacts + .full.json on disk at reports/campaign415_*_20261122T162624Z.json; cache data/cache/campaign415_taildep_5m/, 10 shards x 315648 bars). C281B-C415 ALL FROZEN formal negatives, NO EDGE through C415. Queue depth 3: C415 TAILDEP (FROZEN) -> C416 QREG (ACTIVE next session, seed 20261280) -> C417 placeholder. Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T03:20:00Z: C416 QREG (20261123T012853Z) is now FROZEN formal negative (2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, attribution_ok false, 35/35 tests green incl brute-force maxdiff<1e-12, 5 artifact SHA256 matching). C281B-C416 ALL FROZEN formal negatives, NO EDGE through C416. Queue depth 3: C416 QREG (FROZEN) -> C417 CDOMIN (ACTIVE next, seed 20261281) -> C418 placeholder. Bottlenecks: NONE (env ready numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; all archive/void_* clone-traps remain quarantined read-only).'
 bottlenecks_verified_removed_at_utc: "2026-11-22T21:32:00Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-22T23:43:00Z: (1) C416 QREG kernel is FINAL + OPTIMIZED + VALIDATED. Per-window LP now uses the raw scipy.optimize._linprog_highs._highs_wrapper on a per-chunk CSC matrix (beta column updated in place) with presolve=False (scripts/run_c416_qreg_xsec_oos.py:164,~214). Bit-exact vs linprog(method="highs") — maxdiff 0.00 across all tau, 0 finite-mismatches, 35/35 tests green in 740s. Fastest exact variant measured on 20000 asset-0 windows (equal-weight market): 3.39 ms/win (presolve=False) vs 3.79 (presolve=True) vs 4.54 (linprog highs) — 1.12x/1.34x faster. Real runner rate ~4.5 ms/win (harder later windows) => full 9.46M-LP sweep ~3.0 h on 4 cores (QREG is the first LP-based campaign; all prior campaigns were vectorized closed-form and finished in minutes). Do NOT re-benchmark or re-edit the kernel; do NOT pass CSR (expects CSC -> kModelError). (2) reports/campaign416_* do NOT exist yet — the runner writes all 5 reports only at full sweep completion; a killed run yields nothing durable. This session (started 20:50:04, cap 01:01:51) had ~1h19m left at 23:42Z and could NOT finish the ~3.0h sweep. No blocked/inefficient sessions remain. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). If ModuleNotFoundError: numpy, re-run python3 -m pip install --break-system-packages numpy pandas scipy pytest. Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest. C281B-C415 ALL COMPLETE FORMAL NEGATIVES. C312 5m ready (11 entries = 10 shards + manifest, 315648 bars each). SESSION LIMITS: kilo run wrapped in timeout 15107s (~4.2h) + kilo-idle-timeout.py --idle-timeout-seconds 900 (15 min); any blocking wait MUST be < 15 min. NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only or partial is a HARD VIOLATION. File existence never proves a campaign exists: verify campaign id, kernel, placebo seed, 10 cache shards and 5 reports.'
-queued_next_campaign: C416
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T03:20:00Z: C416 QREG FROZEN formal negative (20261123T012853Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, 35/35 tests green). C281B-C416 ALL FROZEN formal negatives, NO EDGE through C416. C417 CDOMIN ACTIVE next (seed 20261281, N_TRIALS=1296). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C417
 queued_next_campaign_note: 'C281B-C415 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C416 QREG (quantile-regression slope of asset return on equal-weight market at tau in {0.1,0.5,0.9} plus quantile-slope spread, seed 20261280). Pre-registered next: C417 placeholder. Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight ready:true + full literal N_TRIALS costed OOS sweep + 5 SHA256 reports + >=21 green tests pattern. Build strictly in order; never reuse a kernel and never rename-only; never re-run frozen C281B-C415 or C287; never touch any archive/void_* directory. Queue depth 3 so it can never run dry.'
-first_action: "RUN C416 SWEEP FRESH AT SESSION START (2026-11-22T23:43:00Z). C416 is BUILT: cache data/cache/campaign416_qreg_5m/ (10 shards), preflight ready:true, 5 scripts/tests present, rewrite-guard grep clean, kernel FINAL+OPTIMIZED (raw CSC _highs_wrapper + presolve=False, bit-exact, 35/35 green in 740s). reports/campaign416_* do NOT exist (written only at full completion). NEXT: nohup python3 -u scripts/run_c416_qreg_xsec_oos.py > /tmp/c416_sweep.log 2>&1 & ; poll /tmp/c416_sweep.log in <=12 min cycles (900s idle timeout + 15107s~4.2h hard cap) until '[qreg] 210/210 tasks done' (~3.0 h) AND reports/campaign416_*_<TS>Z.json exist (5 + .full.json); then python3 -m pytest tests/test_preflight_c416.py tests/test_c416_qreg_xsec_oos.py -q (35 green incl brute-force maxdiff<1e-12); sha256sum reports/campaign416_*_<TS>Z.json; record truthful RESULT + SHAs in AGENTS.md + this file; add frozen-table row; advance queue to C417 CDOMIN (seed 20261281, N_TRIALS=1296). If the sweep process is dead and no reports exist, RE-RUN the sweep (heavy, ~3.0h) — no shortcut preserves exactness. DO NOT re-benchmark or re-edit the kernel; it is FINAL."
-active_campaign: C416
-space_status: NO_EDGE_C281B_C415
+first_action: "BUILD C417 CDOMIN END-TO-END (2026-11-23T03:20:00Z). C416 QREG FROZEN (20261123T012853Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant qreg_spread_placebo 0.2400, 35/35 tests green). C417 CDOMIN (cross-sectional extreme dominance frequency, seed 20261281, N_TRIALS=1296) ACTIVE. Build from C416 plumbing with mandatory rewrite guards, run full 1296-config sweep, record SHAs, freeze, advance to C418."
+active_campaign: C417
+space_status: NO_EDGE_C281B_C416
 closure_note: 'C281B-C415 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~155k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C415 TAILDEP 20261122T162624Z (taildep_low_placebo 0.2592, attribution_ok false, 34/34 tests green incl brute-force maxdiff<1e-12, 5 artifact SHA256 matching). C416 QREG is ACTIVE and FULLY PRE-REGISTERED (seed 20261280) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C416 QREG end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c409_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -82,6 +82,46 @@ c410_status:
     meta: '3e03363561225e6fb15bebbe8a315349c4f2ff471c0b9af640454625d9b22f44'
     provenance: '449577793e726f88331b230b74dcf77e15c020156121606f0d45eaf07fde3892'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c416_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C416
+  family: quantile_regression_slope_quantile_slope_spread_vs_equal_weight_market_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First quantile-regression family ever run. QREG: quantile-regression slope of asset return on equal-weight market at tau in {0.1,0.5,0.9} plus quantile-slope spread (conditional-tail slope dispersion). Distinct from C406 BETAASYM (OLS same-bar beta, single tau=0.5), C413 TAILBETA (conditional tail covariance/beta), C415 TAILDEP (conditional tail exceedance probability). Price-only (perp_close), volume-free.'
+  as_of_utc: 20261123T012853Z
+  artifacts_ts: 20261123T012853Z
+  signals: [qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev, qreg_slope_0.1_placebo, qreg_slope_0.5_placebo, qreg_slope_0.9_placebo, qreg_spread_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261280
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'qreg_spread_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [qreg_slope_0.1_dev, qreg_slope_0.5_dev, qreg_slope_0.9_dev, qreg_spread_dev]
+  qreg_params: {window_W: 256, taus: [0.1, 0.5, 0.9]}
+  scripts_present: [scripts/build_c416_qreg_features.py, scripts/preflight_c416.py, scripts/run_c416_qreg_xsec_oos.py]
+  tests_present: [tests/test_preflight_c416.py, tests/test_c416_qreg_xsec_oos.py]
+  cache_present: data/cache/campaign416_qreg_5m
+  artifacts_present: [reports/campaign416_oos_sweep_20261123T012853Z.json, reports/campaign416_tradable_edge_registry_20261123T012853Z.json, reports/campaign416_summary_20261123T012853Z.json, reports/campaign416_verdict_20261123T012853Z.json, reports/campaign416_binding_constraint_20261123T012853Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: qreg_spread_placebo
+  dominant_share: 0.24
+  attribution_ok: false
+  tests_green: 35
+  brute_force_maxdiff: 'qreg_slope_0.1/0.5/0.9/spread < 1e-12 (raw CSC _highs_wrapper + presolve=False, bit-exact); NaN patterns identical; 10-asset panel also maxdiff < 1e-12'
+  artifacts:
+    oos_sweep: '290aeaa65566ccb95dfc26796362f7c879c307a1891875c3ec44bce9d960b340'
+    tradable_edge_registry: '6b5dc0657cf527fe17616677f2cc84e8bcffd0a9a018526b34e761137c7aebd4'
+    summary: 'e478eb3235ffd213dc58cb71f3c5f4df5171495b23073e3fd68fb3008313af91'
+    verdict: '594440bba113a856dceca7f60bf0102d4130d463411434b1ebb627d2aedc9013'
+    binding_constraint: '49bb789b4f4393bf8a36b78f836f39b43833db1930b099664237d52162026b79'
+  cache_shas:
+    meta: '1386955e4a8d45889f0e070899543c5fda4dcf40f79c5bdc1cd5eaba1bfd1e02'
+    provenance: '54c6a2394ac1e67c56c33700185fdf49c9941c2feade85247f623442d2d15d3c'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
 c415_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C415

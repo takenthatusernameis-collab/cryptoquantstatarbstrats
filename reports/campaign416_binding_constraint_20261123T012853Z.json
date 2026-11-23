@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261123T012853Z",
+  "campaign": 416,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign416_oos_sweep_20261123T012853Z.json",
+  "oos_sweep_sha256": "290aeaa65566ccb95dfc26796362f7c879c307a1891875c3ec44bce9d960b340",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "qreg_slope_0.1_dev": 0.07177993616512296,
+    "qreg_slope_0.5_dev": 0.06532236467438039,
+    "qreg_slope_0.9_dev": 0.0735939996723126,
+    "qreg_spread_dev": 0.20094521943483734,
+    "qreg_slope_0.1_placebo": 0.12601529031557143,
+    "qreg_slope_0.5_placebo": 0.09738038867837637,
+    "qreg_slope_0.9_placebo": 0.12496039467540608,
+    "qreg_spread_placebo": 0.24000240638399273
+  },
+  "dominant_attribution": "qreg_spread_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "qreg_spread_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.2975552798840588,
+      -1.4350163506055005,
+      -1.4471562849514952,
+      -1.4108957368162343,
+      -1.4644630606657392,
+      -1.496754758386584,
+      -1.5423432652325746,
+      -1.4039810307231684
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -23.589743512922958,
+    "second_half_sharpe": -29.320249590870578,
+    "sharpe_corr": 0.9999077498308779,
+    "stable": false
+  },
+  "diagnosis": "C416 cross-sectional intraday QREG quantile-regression-slope vs equal-weight market stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

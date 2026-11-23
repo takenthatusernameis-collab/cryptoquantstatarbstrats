@@ -1,27 +1,47 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-22T23:48:58Z (C415 TAILDEP FROZEN 20261122T162624Z formal negative; C416 QREG cache BUILT 20261122T192035Z (10 shards), preflight `ready:true`, 5 scripts/tests present + rewrite-guard grep clean; **C416 kernel FINAL + OPTIMIZED + VALIDATED (raw CSC `_highs_wrapper` + `presolve=False`, bit-exact, 35/35 tests green in 740 s)**; **FULL literal-2592-config costed OOS sweep STARTED at 2026-11-22T23:48:58Z (PID 24145, log /tmp/c416_sweep.log)** — reports/campaign416_* written only at full completion; this session (~4.2 h cap) can finish the ~3.0 h sweep if polled every ≤12 min — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T03:20:00Z (C416 QREG FROZEN 20261123T012853Z formal negative; C415 TAILDEP FROZEN 20261122T162624Z formal negative; C417 CDOMIN ACTIVE next) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-22T23:48:58Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T03:20:00Z; supersedes every earlier session message; the ONLY active directive)
 
 **C415 TAILDEP FROZEN (20261122T162624Z):** formal negative, 1944 configs, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false. NO EDGE through C415. DO NOT re-run.
 
-**C416 QREG (ACTIVE, seed 20261280):** cache `data/cache/campaign416_qreg_5m/` BUILT (10 shards), preflight `ready:true` verified, kernel FINAL + OPTIMIZED + VALIDATED (35/35 tests green). **FULL literal-2592-config costed OOS sweep STARTED (PID 24145, log /tmp/c416_sweep.log); `reports/campaign416_*` not yet written.** THIS IS THE ONLY LIVE WORK.
+**C416 QREG FROZEN (20261123T012853Z):** formal negative, 2592 configs costed-OOS, 0 Holm+BH survivors, binding multiple_testing, edge_proven:false, dominant attribution qreg_spread_placebo 0.2400 (< 0.50, attribution_ok false). 5 SHA256 artifacts + gitignored .full.json on disk at reports/campaign416_*_20261123T012853Z.json; 35/35 tests green (incl. QREG brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA/TAILDEP); cache data/cache/campaign416_qreg_5m/ (10 shards × 315,648 bars). NO EDGE through C416. DO NOT re-run it.
 
-**NEXT ACTION — POLL C416 SWEEP TO COMPLETION (no stopping, do NOT re-benchmark):**
+**NEXT ACTION — BUILD C417 END-TO-END (no stopping, do NOT re-benchmark):**
 ```
-# sweep running: nohup python3 -u scripts/run_c416_qreg_xsec_oos.py > /tmp/c416_sweep.log 2>&1 &  (PID 24145)
-# poll /tmp/c416_sweep.log every ≤12 min (never bare sleep 1500); expect "[qreg] N/210 tasks done" every 10 tasks
-# wait for final "[qreg] 210/210 tasks done" (~3.0 h wall) then:
-ls reports/campaign416_*        # 5 reports + .full.json must exist when done
-python3 -m pytest tests/test_preflight_c416.py tests/test_c416_qreg_xsec_oos.py -q   # expect 35 passed incl brute-force maxdiff < 1e-12
-sha256sum reports/campaign416_*_<TS>Z.json          # record all 5 artifact SHAs
+# C417: CDOMIN (cross-sectional extreme dominance frequency), seed 20261281, N_TRIALS=1296
+# For each bar t, over 10-asset cross-section: dom[t] = argmax_i |r_i[t]|
+# For each asset i and trailing window W=256:
+#   cdomin_freq[i,t] = (1/W) Σ_{s=t-W+1..t} 1{dom[s]==i}
+#   cdomin_asym[i,t] = cdomin_freq[i,t] − 1/10
+# NaN if t<W or any NaN/non-finite in window. Price-only (perp_close), volume-free.
+# Vectorized: sliding_window_view of (T,10) |return| matrix + per-bar argmax + rolling mean of one-hot argmax
+# Brute-force per-window loop reference; maxdiff < 1e-12.
+# Signals {cdomin_freq_dev, cdomin_asym_dev, cdomin_freq_placebo, cdomin_asym_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS
+# LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical to C416; WF 12m/3m roll 3m → 8 OOS splits
+# placebo seed 20261281; ref cdomin_freq_dev L=240 H=4 fee 0.0007 slip 0.0001 taker
+# cache data/cache/campaign417_cdom_5m/ with cdom_params={window_W:256}
+# same guards: campaign==417, N_TRIALS==1296, PLACEBO_SEED==20261281, kernel-distinctness vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION, brute-force maxdiff<1e-12
+# identical gates/verdict (Holm AND BH over 1296 at α=0.05; MDE power 0.80; stability ≥0.70 sign + ≥0.5 half-Sharpe; dominant real non-placebo share ≥0.5)
+# Sequence:
+cp scripts/build_c416_qreg_features.py  scripts/build_c417_cdom_features.py
+cp scripts/preflight_c416.py               scripts/preflight_c417.py
+cp scripts/run_c416_qreg_xsec_oos.py    scripts/run_c417_cdom_xsec_oos.py
+cp tests/test_preflight_c416.py            tests/test_preflight_c417.py
+cp tests/test_c416_qreg_xsec_oos.py     tests/test_c417_cdom_xsec_oos.py
+# grep self-check: 416/qreg/QREG/20261280 must return NOTHING (apart from legitimate distinctness-guard refs)
+python3 scripts/build_c417_cdom_features.py     # -> data/cache/campaign417_cdom_5m/ (10 shards)
+python3 scripts/preflight_c417.py                   # must print ready:true
+python3 scripts/run_c417_cdom_xsec_oos.py       # FULL literal 1296-config costed OOS sweep
+python3 -m pytest tests/test_preflight_c417.py tests/test_c417_cdom_xsec_oos.py -q   # >=21 green
+sha256sum reports/campaign417_*_<TS>Z.json          # record all 5 artifact SHAs
 ```
-Then freeze C416 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C417.
+Then freeze C417 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C418.
 
-**SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). The ~3.0 h sweep fits only if the session keeps making tool calls every <15 min — poll log in `sleep 600` cycles, never a bare `sleep 1500`.
+**SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The ~1-2 h C417 sweep fits the 4.2 h budget if the session keeps making tool calls every <15 min — poll log in `sleep 600` cycles, never a bare `sleep 1500`. If the session dies before the sweep finishes, the NEXT session must re-run `python3 scripts/run_c417_cdom_xsec_oos.py` (heavy, ~1-2 h) — there is no shortcut that preserves exactness.
 
 **C417 — PRE-REGISTERED SPEC (CDOMIN: CROSS-SECTIONAL EXTREME DOMINANCE FREQUENCY, seed 20261281) — build when C416 freezes.** For each bar t, over the 10-asset cross-section compute `dom[t] = argmax_i |r_i[t]|` (which asset is the largest absolute mover this bar). For each asset i and trailing window W=256: `cdomin_freq[i,t] = (1/W) Σ_{s=t-W+1..t} 1{dom[s]==i}` (fraction of recent bars in which asset i was the top absolute mover) and `cdomin_asym[i,t] = cdomin_freq[i,t] − 1/10` (tilt vs uniform). NaN if t<W or any NaN/non-finite in window. Price-only (`perp_close`), volume-free. Vectorized kernel: `sliding_window_view` of the (T,10) |return| matrix + per-bar argmax + rolling mean of the one-hot argmax; brute-force per-window loop reference; maxdiff < 1e-12. Signals {cdomin_freq_dev, cdomin_asym_dev, cdomin_freq_placebo, cdomin_asym_placebo} → 4×6×3×3×3×2 = 1296 = N_TRIALS; LOOKBACKS/REBALANCES/FEES/SLIPS/COST_VARIANTS identical to C416; WF 12m/3m roll 3m → 8 OOS splits; placebo seed 20261281; ref `cdomin_freq_dev` L=240 H=4 fee 0.0007 slip 0.0001 taker; cache `data/cache/campaign417_cdom_5m/` with `cdom_params={window_W:256}`; same guards (campaign==417, N_TRIALS==1296, PLACEBO_SEED==20261281, kernel-distinctness vs XCOEX/XSKEW3/MAGNET/SIGNPOWER/SIGNCO-MOTION, brute-force maxdiff<1e-12) and identical gates/verdict.
 
@@ -911,6 +931,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C413 | 20261122T151436Z | tail beta / extreme dependence vs equal-weight market (TAILBETA) | 1944 | tailbeta_low_placebo 0.2595 | `3e5a3878f9b61f84788ff209fe03f8a91e2f0f2462b76bbb7573bda76a061ab9` | `84e67920449f12c0442da91ed4d1454c95a3095d4561ec8fb2560c754b31e255` |
 | C414 | 20261122T160908Z | sign-agreement cross-sectional motion vs equal-weight market (SIGNCO-MOTION) | 1296 | sign_agree_asym_placebo 0.3030 | `2bfdd4c5bbfb3a761100c5a2aa559834801a46c382ced13374c6222610944822` | `7efbe29dd2cde30f57d39765771307e13fbb6e01586472abd21b70ad8dc82134` |
 | C415 | 20261122T162624Z | tail dependence coefficient / extremal dependence vs equal-weight market (TAILDEP) | 1944 | taildep_low_placebo 0.2592 | `5a5ad81406a92fe5b4880f912d161f7d66895de849f5facda836b6d6802fd79d` | `981557cec35b8f813cbe6c4c05b13819f50acc8c4170d4ef26417b3199b9e9b2` |
+| C416 | 20261123T012853Z | quantile-regression slope & quantile-slope spread vs equal-weight market (QREG) | 2592 | qreg_spread_placebo 0.2400 | `290aeaa65566ccb95dfc26796362f7c879c307a1891875c3ec44bce9d960b340` | `594440bba113a856dceca7f60bf0102d4130d463411434b1ebb627d2aedc9013` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -1477,3 +1498,14 @@ C414 (SIGNCO-MOTION: sign-agreement cross-sectional motion vs equal-weight marke
 - verdict `7efbe29dd2cde30f57d39765771307e13fbb6e01586472abd21b70ad8dc82134`
 - binding_constraint `9b91359a41f7abb14a9659ed28e13c877d57eee7c71dc5639227b14f8e24e75d`
 - cache: meta `156c235757a6a0906f3f08d809f88c3b6d760be3a32602cff205831effb6e4a0`, provenance `e737bbd3005a6ae81a6986b553b6ac8b6ec18eb981cdef8d219497524ca855fb`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C416 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T012853Z)
+
+C416 (QREG: quantile-regression slope of asset return on equal-weight market at τ∈{0.1,0.5,0.9} plus quantile-slope spread × seasonal-dislocation mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 2592 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `qreg_spread_placebo` 0.2400 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 35/35 tests green (incl. QREG brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA/TAILDEP). Cache `data/cache/campaign416_qreg_5m/` (10 shards × 315,648 bars, 38.5 MB < 100 MB). NO EDGE through C416. Frozen — DO NOT re-run.
+
+- oos_sweep `290aeaa65566ccb95dfc26796362f7c879c307a1891875c3ec44bce9d960b340`
+- tradable_edge_registry `6b5dc0657cf527fe17616677f2cc84e8bcffd0a9a018526b34e761137c7aebd4`
+- summary `e478eb3235ffd213dc58cb71f3c5f4df5171495b23073e3fd68fb3008313af91`
+- verdict `594440bba113a856dceca7f60bf0102d4130d463411434b1ebb627d2aedc9013`
+- binding_constraint `49bb789b4f4393bf8a36b78f836f39b43833db1930b099664237d52162026b79`
+- cache: meta `1386955e4a8d45889f0e070899543c5fda4dcf40f79c5bdc1cd5eaba1bfd1e02`, provenance `54c6a2394ac1e67c56c33700185fdf49c9941c2feade85247f623442d2d15d3c`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
