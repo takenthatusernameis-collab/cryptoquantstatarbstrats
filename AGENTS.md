@@ -4,7 +4,7 @@
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T20:24:54Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T20:26:49Z; supersedes every earlier session message; the ONLY active directive)
 
 **C422 ZCRPATH FROZEN (20261123T121051Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `zcr_asym_placebo` 0.2629 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign422_*_20261123T121051Z.json` (all 5 SHAs RE-VERIFIED byte-identical this session); 34/34 tests green (incl. ZCRPATH brute-force equality `maxdiff < 1e-9` vs per-window cumsum + crossing count and kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK); cache `data/cache/campaign422_zcrpath_5m/` (10 shards × 315,648 bars). NO EDGE through C422. DO NOT re-run it.
 
