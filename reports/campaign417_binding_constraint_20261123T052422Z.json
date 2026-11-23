@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261123T052422Z",
+  "campaign": 417,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign417_oos_sweep_20261123T052422Z.json",
+  "oos_sweep_sha256": "3cb33f9111c0e4c868eb37989f426f992371f201f568a6151d953350ef07b2d1",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "cdomin_freq_dev": 0.1508930249953685,
+    "cdomin_asym_dev": 0.1508909369041947,
+    "cdomin_freq_placebo": 0.34910095409542385,
+    "cdomin_asym_placebo": 0.3491150840050129
+  },
+  "dominant_attribution": "cdomin_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "cdomin_freq_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.3741553523157484,
+      -0.35464891122304043,
+      -0.22525065692332014,
+      -0.5165779547413174,
+      -0.38222620748820096,
+      -0.19372246387220987,
+      -0.3510040529149849,
+      -0.33225098821339477
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -3.559760742481691,
+    "second_half_sharpe": -4.3632663833319665,
+    "sharpe_corr": 0.9843465375307996,
+    "stable": false
+  },
+  "diagnosis": "C417 cross-sectional intraday CDOMIN extreme-dominance-frequency vs equal-weight cross-section stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
