@@ -1,49 +1,29 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T12:24:30Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative, SHAs re-verified this session; C423 RUNLEN ACTIVE next, seed 20261287, ABSENT from disk; env OK; BOTTLENECK REMOVED this session — the writable stray clone-trap `archive/void_c416_dcbeta_stray` (DCBETA kernel mislabeled campaign 416, a QREG slot) was found writable and is now `chmod -R a-w` read-only quarantined like all other void dirs; C422 built end-to-end and frozen; C423 must be built fresh, heavy work unavoidable per NO-LIGHT-WORK RULE; C424 pre-registered below so queue depth is 3 and can never run dry) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T13:16:05Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN BUILT END-TO-END AND FROZEN formal negative 20261123T131008Z, 2592 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution runlen_asym_placebo 0.1664, attribution_ok false; 34/34 tests green incl RUNLEN brute-force equality maxdiff<1e-9 + kernel-distinctness guards vs C344/C374/C421/C422; 5 artifact SHAs on disk + cache SHAs recorded below; C281B–C423 ALL FROZEN formal negatives, NO EDGE through C423; C424 PRE-REGISTERED as next active so queue depth never runs dry) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T12:24:30Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T13:16:05Z; supersedes every earlier session message; the ONLY active directive)
 
 **C422 ZCRPATH FROZEN (20261123T121051Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `zcr_asym_placebo` 0.2629 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign422_*_20261123T121051Z.json` (all 5 SHAs RE-VERIFIED byte-identical this session); 34/34 tests green (incl. ZCRPATH brute-force equality `maxdiff < 1e-9` vs per-window cumsum + crossing count and kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK); cache `data/cache/campaign422_zcrpath_5m/` (10 shards × 315,648 bars). NO EDGE through C422. DO NOT re-run it.
 
-**C423 RUNLEN is ABSENT from disk** — `ls scripts tests | grep -c c423 == 0`, `ls data/cache | grep -c campaign423 == 0`, `ls reports | grep -c campaign423 == 0`. It must be built fresh from the C422 plumbing with every identifier fully rewritten (campaign 423, RUNLEN kernel, signal names, placebo seed 20261287, mandate, cache `data/cache/campaign423_runlen_5m/`, report prefix `campaign423_*`). Do NOT re-run C422; do NOT clone-and-rename without a full rewrite.
+**C423 RUNLEN FROZEN formal negative (20261123T131008Z):** run-length distribution entropy and asymmetry of consecutive return signs (close-only, volume-free), seed 20261287, cache `data/cache/campaign423_runlen_5m/`, report prefix `campaign423_*`. Fully built end-to-end from C422 plumbing with every identifier fully rewritten (campaign 423, RUNLEN kernel, signal names, placebo seed 20261287, mandate, cache, report prefixes). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign423_*_20261123T131008Z.json`; 34/34 tests green (incl. RUNLEN brute-force equality `maxdiff < 1e-9` vs per-window run-length extraction + entropy and kernel-distinctness guards vs C344/C374/C421/C422). NO EDGE through C423. DO NOT re-run it.
 
-- oos_sweep `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a`
-- tradable_edge_registry `484378cb491832d23716c4a5d774495d4fac7f503055c9e595461fe750c19271`
-- summary `95fe2175f3d32872e84c06b8149cb9f19407ea06eb9c031d88b3a9250d108167`
-- verdict `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376`
-- binding_constraint `ccf8bf835baa1cef8dc450c231fe40ce6a452385a709ba185ef276c9a32802a1`
-- cache: meta `85a15db5d88910c148e65f251d5d588d0135b246b53d0eaf0300f33e6f39d738`, provenance `ca2b9a909fb3b14f8e3f61cca739685644dd96a50ebdcb87d30971c86bdf22ae`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+- oos_sweep `53dee1a884e5afbbf0f2956d61c272159adba8d05359d798d9c4d9c27863957f`
+- tradable_edge_registry `e84b30b4f6d1a9dbe3bb7da5242a4a3799bd247ecdb4148eb377ff4a069d2d46`
+- summary `b2506f0a1d741a7133b1fe1bdee471fa1dbfc42576e021f0c974bb6735f3b660`
+- verdict `771b41c01d61ff95476f401657106fc70ad5e233e6d00d9aff8d56a13556f315`
+- binding_constraint `7bd01dc4c48e5ecc5096448ac4cdb6d3ef6b987fc7031095c279e34c0ebdb605`
+- cache: meta `5f75279040205fa65fa0b816b075659e172d933f7ff898923bc8f1628f891bdd`, provenance `636387fe067e5f385a75dfde15643137a9538e37766bdf721c895722dcd61788`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
-**NEXT ACTION — BUILD C423 RUNLEN END-TO-END (no stopping, do NOT re-benchmark):**
-```
-cp scripts/build_c422_zcrpath_features.py  scripts/build_c423_runlen_features.py
-cp scripts/preflight_c422.py               scripts/preflight_c423.py
-cp scripts/run_c422_zcrpath_xsec_oos.py    scripts/run_c423_runlen_xsec_oos.py
-cp tests/test_preflight_c422.py            tests/test_preflight_c423.py
-cp tests/test_c422_zcrpath_xsec_oos.py     tests/test_c423_runlen_xsec_oos.py
-# FULLY rewrite every identifier (campaign 423, kernel, signal names, placebo seed 20261287, mandate, cache, report prefixes);
-# the test file MUST import run_c423_runlen_xsec_oos (NOT run_c422) and assert campaign==423 + PLACEBO_SEED==20261287.
-grep -n "422\|zcrpath\|ZCRPATH\|20261286" scripts/*c423* tests/*c423*   # must return NOTHING (apart from legitimate distinctness-guard refs)
-python3 scripts/build_c423_runlen_features.py     # -> data/cache/campaign423_runlen_5m/ (10 shards)
-python3 scripts/preflight_c423.py                   # must print ready:true
-python3 scripts/run_c423_runlen_xsec_oos.py       # FULL literal N_TRIALS costed OOS sweep
-python3 -m pytest tests/test_preflight_c423.py tests/test_c423_runlen_xsec_oos.py -q   # >=21 green
-sha256sum reports/campaign423_*_<TS>Z.json           # record all 5 artifact SHAs
-```
-Then freeze C423 (record truthful RESULT + 5 SHAs here + in `research_state/state.yaml`, add frozen-table row) and advance to C424.
-
-**C423 (ACTIVE, seed 20261287): RUNLEN — run-length distribution entropy and asymmetry of consecutive return signs (close-only, volume-free).** Genuinely new: computes the full empirical distribution of consecutive positive-return and negative-return run lengths within the trailing window, then derives the Shannon entropy of the run-length distribution and the up/down asymmetry. Distinct from C344 (sign-change/chop rate = count of sign flips), C374 SIGNRUN (max run share / mean run length of signed runs), C421 SIGNCOH (autocorrelation of sign sequence at lags 1,2,4,8), C422 ZCRPATH (zero-crossings of cumulative-return path). Kernel: for window X=r[t-W+1..t], W=256: compute signs s_i = sign(X_i) ∈ {−1,+1} (drop zeros); find all runs of consecutive identical signs; let U = lengths of positive runs, D = lengths of negative runs; runlen_ent = −Σ_k (p_k log p_k) where p_k = freq(run length = k) over all runs (up+down); runlen_asym = (mean(U) − mean(D)) / (mean(U) + mean(D)) ∈[−1,1] (up-vs-down mean run-length asymmetry); runlen_up_ent = entropy of positive-run-length distribution only; runlen_down_ent = entropy of negative-run-length distribution only. NaN if t<W, any NaN in window, fewer than 2 runs, or not finite. Signals {runlen_ent_dev, runlen_asym_dev, runlen_up_ent_dev, runlen_down_ent_dev, runlen_ent_placebo, runlen_asym_placebo, runlen_up_ent_placebo, runlen_down_ent_placebo} → 8×6×3×3×3×2 = 2592 configs. LOOKBACKS {60,120,240,480,960,1920}; REBALANCES {1,4,12}; FEES {0.0004,0.0007,0.0010}; SLIPS {0.0,0.0001,0.0002}; COST_VARIANTS taker/maker_blend. Placebo seed 20261287. Cache data/cache/campaign423_runlen_5m/ with runlen_params={window_W:256}. Ref runlen_ent_dev L=240 H=4. Brute-force equality (per-window run-length extraction + entropy) required; kernel-distinctness guards vs C344/C374/C421/C422. Build end-to-end per NO-LIGHT-WORK RULE.
-
-**C424 (PRE-REGISTERED placeholder — keeps queue depth 3 so the queue can never run dry; build only after C423 freezes):** a genuinely-new price-only, volume-free, close-only family on real C312 `perp_close`, never used before (candidates: run-length-weighted directional-variance ratio, sign-run hazard/survival slope, or inter-extremum spacing distribution). Seed 20261288. Must be a distinct kernel with its own mandate, cache `data/cache/campaign424_<kernel>_5m/`, report prefix `campaign424_*`, brute-force equality test, kernel-distinctness guards vs all prior families incl. C423 RUNLEN, and a literal-N_TRIALS costed OOS sweep. Never re-order, never reuse a kernel, never clone-and-rename.
+**C424 (ACTIVE NEXT — build only after C423 freezes):** a genuinely-new price-only, volume-free, close-only family on real C312 `perp_close`, never used before (candidates: run-length-weighted directional-variance ratio, sign-run hazard/survival slope, or inter-extremum spacing distribution). Seed 20261288. Must be a distinct kernel with its own mandate, cache `data/cache/campaign424_<kernel>_5m/`, report prefix `campaign424_*`, brute-force equality test, kernel-distinctness guards vs all prior families incl. C423 RUNLEN, and a literal-N_TRIALS costed OOS sweep. Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.
 
 **QUARANTINE (verified this session, 2026-11-23T12:24:30Z):** the stray writable clone-trap `archive/void_c416_dcbeta_stray/` (a DCBETA-kernel script set mislabeled as campaign 416/QREG, never produced frozen reports) was found writable and has been `chmod -R a-w` read-only quarantined. All `archive/void_*` dirs are now read-only and MUST never be copied, imported, cited, fixed, frozen, or re-run. The live tree is clean (no `dcbeta` references anywhere under scripts/tests/reports/data/cache; real C416 QREG intact). C312 source intact: `data/cache/campaign312_usdt_m_ofi_5m/` (11 entries = 10 × 315,648-bar `perp_close` shards + manifest). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at `/home/runner/work/_temp/kilo-home/.local/bin` (NOT on PATH) → always `python3 -m pytest`, never bare `pytest`. BOTTLENECKS: NONE. C287 permanently blocked/decoupled — never retry.
 
 **SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The C421 sweep took ~2 min end-to-end (build ~40 s + sweep ~60 s + tests ~26 s); a single blocking `python3 scripts/run_c422_zcrpath_xsec_oos.py` under a 10-minute timeout is expected to finish. If the session dies before the sweep finishes, the NEXT session must re-run it (no shortcut that preserves exactness).
 
-**DISK TRUTH:** C281B–C421 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest, never bare pytest. All archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE. No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
+**DISK TRUTH:** C281B–C423 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest, never bare pytest. All archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE. No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
 
 **NO-LIGHT-WORK RULE:** a session is complete only when it produces 3 scripts + 2 test files + cache + preflight ready:true + the FULL literal-N_TRIALS costed OOS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality, then records the truthful RESULT + SHAs in this file and research_state/state.yaml and moves the queue forward. If a session cannot finish, it must leave the queue non-empty and name the partial artifacts. Terminal closure by fiat is PROHIBITED.
 ---
@@ -931,6 +911,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C420 | 20261123T100626Z | spectral coherence / frequency-localized co-movement vs equal-weight market (SCOH) | 1296 | coh_low_placebo 0.3984 | `9c9cd5df28d5d2e7f27dc8619a53b178a8bc2ac3af05e2bf320f6614a424f288` | `b04a8f13b6d38e1f5f233a37dabea96210d78bcb7d6320f2fe92225f01aed489` |
 | C421 | 20261123T111430Z | sign-sequence autocorrelation profile vs own returns (SIGNCOH) | 1296 | signcoh_decay_placebo 0.2638 | `e79bbfa9900d7b5b034ac091658ed204fe7eeae1388accbfd0473194e66e7afe` | `95adf42a2f08ac2507a17de3e16e8fb0c8770ff431733adb18e9dabb071e94ff` |
 | C422 | 20261123T121051Z | zero-crossing rate of cumulative-return path / price-revisit oscillation (ZCRPATH) | 1296 | zcr_asym_placebo 0.2629 | `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a` | `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376` |
+| C423 | 20261123T131008Z | run-length distribution entropy / asymmetry of consecutive return signs (RUNLEN) | 2592 | runlen_asym_placebo 0.1664 | `53dee1a884e5afbbf0f2956d61c272159adba8d05359d798d9c4d9c27863957f` | `771b41c01d61ff95476f401657106fc70ad5e233e6d00d9aff8d56a13556f315` |
 
 ## C422 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T121051Z)
 
@@ -942,6 +923,17 @@ C422 (ZERO-CROSSING RATE OF THE INTRAWINDOW CUMULATIVE-RETURN PATH / PRICE-REVIS
 - verdict `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376`
 - binding_constraint `ccf8bf835baa1cef8dc450c231fe40ce6a452385a709ba185ef276c9a32802a1`
 - cache: meta `85a15db5d88910c148e65f251d5d588d0135b246b53d0eaf0300f33e6f39d738`, provenance `ca2b9a909fb3b14f8e3f61cca739685644dd96a50ebdcb87d30971c86bdf22ae`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C423 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T131008Z)
+
+C423 (RUN-LENGTH DISTRIBUTION ENTROPY AND ASYMMETRY OF CONSECUTIVE RETURN SIGNS × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 2592 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `runlen_asym_placebo` 0.1664 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign423_*_20261123T131008Z.json`; 34/34 tests green (incl. RUNLEN brute-force equality `maxdiff < 1e-9` vs per-window run-length extraction + entropy and kernel-distinctness guards vs C344/C374/C421/C422). Cache `data/cache/campaign423_runlen_5m/` (10 shards × 315,648 bars). NO EDGE through C423. Frozen — DO NOT re-run.
+
+- oos_sweep `53dee1a884e5afbbf0f2956d61c272159adba8d05359d798d9c4d9c27863957f`
+- tradable_edge_registry `e84b30b4f6d1a9dbe3bb7da5242a4a3799bd247ecdb4148eb377ff4a069d2d46`
+- summary `b2506f0a1d741a7133b1fe1bdee471fa1dbfc42576e021f0c974bb6735f3b660`
+- verdict `771b41c01d61ff95476f401657106fc70ad5e233e6d00d9aff8d56a13556f315`
+- binding_constraint `7bd01dc4c48e5ecc5096448ac4cdb6d3ef6b987fc7031095c279e34c0ebdb605`
+- cache: meta `5f75279040205fa65fa0b816b075659e172d933f7ff898923bc8f1628f891bdd`, provenance `636387fe067e5f385a75dfde15643137a9538e37766bdf721c895722dcd61788`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
