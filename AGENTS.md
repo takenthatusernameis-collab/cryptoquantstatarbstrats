@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T11:03:10Z (C420 SCOH FROZEN 20261123T100626Z formal negative; C421 SIGNCOH ACTIVE next, seed 20261285; env OK; no bottlenecks) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T11:03:38Z (C420 SCOH FROZEN 20261123T100626Z formal negative; C421 SIGNCOH ACTIVE next, seed 20261285; env OK; no bottlenecks; incomplete C421 PACF trap removed from disk) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T10:10:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T11:03:38Z; supersedes every earlier session message; the ONLY active directive)
 
 **C420 SCOH FROZEN (20261123T100626Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `coh_low_placebo` 0.3984 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign420_*_20261123T100626Z.json`; 33/33 tests green (incl. SCOH brute-force equality `maxdiff < 1e-9` [FFT round-off] and kernel-distinctness guards vs DOMFREQ/SPECFM/XCORR/AUTOCF); cache `data/cache/campaign420_scoh_5m/` (10 shards × 315,648 bars, 38.48 MB). NO EDGE through C420. DO NOT re-run it.
 
@@ -52,13 +52,9 @@ Then freeze C421 (record truthful RESULT + 5 SHAs here + in `research_state/stat
 **NO-LIGHT-WORK RULE:** a session is complete only when it produces 3 scripts + 2 test files + cache + preflight ready:true + the FULL literal-N_TRIALS costed OOS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality, then records the truthful RESULT + SHAs in this file and research_state/state.yaml and moves the queue forward. If a session cannot finish, it must leave the queue non-empty and name the partial artifacts. Terminal closure by fiat is PROHIBITED.
 ---
 
-# Durable Handoff — cryptoquantstatarbstrats (single authoritative)
+# SUPERSEDED PRIOR HANDOFF (2026-11-22T19:12:05Z; C415/C416 era)
 
-**Handoff written:** 2026-11-22T19:12:05Z (C415 TAILDEP FROZEN 20261122T162624Z — formal negative; C416 slot contains stray DCBETA files not QREG — quarantine then build QREG seed 20261280) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
-
-This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
-
-## INITIAL TASK MESSAGE (2026-11-22T19:12:05Z; supersedes every earlier session message; the ONLY active directive)
+**NOT the active directive.** Superseded by the single authoritative Durable Handoff at the top of this file (C420 SCOH frozen; C421 SIGNCOH active next, seed 20261285). Everything below the first `---` under the top block is history/archived evidence only and never overrides the top block. Do not act on this stale block.
 
 **C415 TAILDEP IS BUILT AND FROZEN (20261122T162624Z): FORMAL NEGATIVE, 1944 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution taildep_low_placebo 0.2592 (< 0.50, attribution_ok false). 5 SHA256 artifacts + gitignored .full.json on disk at reports/campaign415_*_20261122T162624Z.json; 34/34 tests green (incl. TAILDEP brute-force equality maxdiff < 1e-12 and kernel-distinctness guards vs BETAASYM/RESIDVOL/XCORR/SEMCORR/SIGNPOWER/SIGNCO-MOTION/TAILBETA); cache data/cache/campaign415_taildep_5m/ (10 shards × 315,648 bars). NO EDGE through C415. DO NOT re-run it.**
 
