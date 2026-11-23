@@ -1,20 +1,20 @@
-updated_at_utc: 2026-11-23T20:16:00Z
-handoff_refreshed_at_utc: 2026-11-23T20:16:00Z
+updated_at_utc: 2026-11-23T23:25:07Z
+handoff_refreshed_at_utc: 2026-11-23T23:25:07Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C424
-next_campaign: C425
+latest_campaign_done: C426
+next_campaign: C427
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T20:16:00Z: C424 IESD FROZEN formal negative (20261123T201627Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl IESD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423). C281B-C424 ALL FROZEN formal negatives, NO EDGE through C424. Queue depth 3: C423 RUNLEN (FROZEN) -> C424 IESD (FROZEN) -> C425 (ACTIVE next). Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T23:25:07Z: C426 WLMF FROZEN formal negative (20261123T231658Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant wlmf_width_dev/share 0.3020 [<0.50, attribution_ok false; placebos dominate/no separation], 36/36 tests green incl WLMF brute-force equality + kernel-distinctness guards vs C344/C374/C422/C423/C424). 5 artifact SHAs recorded in AGENTS.md. C281B-C426 ALL FROZEN formal negatives, NO EDGE through C426. Queue depth 3: C424 IESD (FROZEN) -> C425 RQA (FROZEN) -> C426 WLMF (FROZEN) -> C427 LOCTIME (ACTIVE next). Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
 bottlenecks_verified_removed_at_utc: "2026-11-23T13:16:05Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-23T20:16:00Z: C424 IESD FROZEN formal negative (20261123T201627Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423). C281B-C424 ALL FROZEN formal negatives, NO EDGE through C424. C425 ACTIVE next (genuinely-new price-only family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C425
-queued_next_campaign_note: 'C281B-C424 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C425 (genuinely-new price-only family). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
-active_campaign: C425
-space_status: NO_EDGE_C281B_C424
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T23:25:07Z: C426 WLMF FROZEN formal negative (20261123T231658Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant wlmf_width_dev/share 0.3020 [<0.50, attribution_ok false; placebos dominate/no separation], 36/36 tests green incl brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423/C424). C281B-C426 ALL FROZEN formal negatives, NO EDGE through C426. C427 LOCTIME ACTIVE next (genuinely-new price-only family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C427
+queued_next_campaign_note: 'C281B-C426 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C427 LOCTIME (genuinely-new price-only family). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+active_campaign: C427
+space_status: NO_EDGE_C281B_C426
 closure_note: 'C281B-C424 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~160k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C424 IESD 20261123T201627Z (dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl IESD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423, 5 artifact SHA256 matching). C425 ACTIVE next so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C425 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -2093,4 +2093,82 @@ c424_status:
   cache_shas:
     meta: 'b8fdea0a04063c77beef6b63b65be78145cc35a312e86c3e2415ee50961728c2'
     provenance: '7b53a90a55a2f625de6284c4b405db508aef30971dc97efb6b23409c083989bf'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c425_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C425
+  family: recurrence_quantification_analysis_recurrence_topology_delay_embedding_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First recurrence-plot-topology family ever run. For each asset i and bar t (t>=W), over trailing log-returns X=r[t-W+1..t] (equivalently closes C=c_i[t-W..t]): delay embedding E in R^(N_emb x m), N_emb=W-(m-1)*tau=254, m=3, tau=1, row k=[X[k],X[k+1],X[k+2]]; pairwise Chebyshev distance D_ab=||E_a-E_b||_inf; eps=0.1*sigma_window; recurrence matrix R_ab=1{D_ab<=eps}; rqa_rr=(1/N_emb^2)sum R_ab; rqa_det=diagonal-line determinism (l>=l_min=2); rqa_lam=vertical-line laminarity (v>=v_min=2); rqa_tt=mean vertical line length (v>=v_min=2). Distinct from C344 (sign-flips/chop), C374 SIGNRUN (run lengths), C421 SIGNCOH (sign autocorr), C422 ZCRPATH (cum-path zero-crossings), C423 RUNLEN (run-length dist), C424 IESD (inter-extremum spacing). Price-only (perp_close), volume-free, close-only.'
+  as_of_utc: 20261123T211813Z
+  artifacts_ts: 20261123T211813Z
+  signals: [rqa_rr_dev, rqa_det_dev, rqa_lam_dev, rqa_tt_dev, rqa_rr_placebo, rqa_det_placebo, rqa_lam_placebo, rqa_tt_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261289
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rqa_det_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rqa_rr_dev, rqa_det_dev, rqa_lam_dev, rqa_tt_dev]
+  rqa_params: {window_W: 256, embed_m: 3, embed_tau: 1, eps_sigma_mult: 0.1, l_min: 2, v_min: 2}
+  scripts_present: [scripts/build_c425_rqa_features.py, scripts/preflight_c425.py, scripts/run_c425_rqa_xsec_oos.py]
+  tests_present: [tests/test_preflight_c425.py, tests/test_c425_rqa_xsec_oos.py]
+  cache_present: data/cache/campaign425_rqa_5m
+  artifacts_present: [reports/campaign425_oos_sweep_20261123T211813Z.json, reports/campaign425_tradable_edge_registry_20261123T211813Z.json, reports/campaign425_summary_20261123T211813Z.json, reports/campaign425_verdict_20261123T211813Z.json, reports/campaign425_binding_constraint_20261123T211813Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: rqa_det_dev
+  dominant_share: 0.5
+  attribution_ok: false
+  tests_green: 37
+  brute_force_maxdiff: 'rqa_rr/rqa_det/rqa_lam/rqa_tt maxdiff < 1e-12 (sliding_window_view embedding + chunked Chebyshev + RLE line extraction vs per-window explicit brute force); NaN patterns identical; kernel-distinctness guards vs C344/C374/C421/C422/C423/C424'
+  artifacts:
+    oos_sweep: '99ac7270a191e6391746470aae62d63b0481da211cf4941ca419c2719bffdf7e'
+    tradable_edge_registry: '35111a0ce2544a65221a9b09b8758db812ab53082a0ac8dd3227639505b053b9'
+    summary: '0c0bcaa1b0f86f2bd523eb35aa71654743991dbceae167f96374a7565ec72994'
+    verdict: 'c370d8821a2603069a6f3c1750e9eca0da4d16032be2ad41bc6176b1a25d6449'
+    binding_constraint: '46ee64dedc21e1e4a6272e479daa0f439d1a9e04682d1fd5f6cded1821b4e475'
+  cache_shas:
+    meta: '7199c82417f0103020e246ec414f10687c9f57b3caa57ee51e380f58b4cad42e'
+    provenance: 'b1d58b8eadd32e5e1672b2bada6e1d8159868cde8262d24fa652169be1ebd566'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c426_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C426
+  family: wavelet_leader_multifractal_spectrum_width_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First wavelet-leader multifractal family ever run. Wavelet leaders from the DWT of the log-price path over W=256; multifractal spectrum D(h) via the wavelet leader Legendre transform; signal = spectrum width Delta h = h_max - h_min at D(h)>=0 and spectrum centroid h* = argmax D(h). Distinct from C358 MF-DFA, C346 R/S, C350 DFA, C351 GPH, C352 Local-Whittle, C353 VR, C354 HFD, C378 VOVR, C397 SPECFM, C404 DOMFREQ — WLMF uses wavelet leaders (supremum of wavelet coefficients over finer scales in a neighborhood), never run. Price-only (perp_close), volume-free, close-only.'
+  as_of_utc: 20261123T231658Z
+  artifacts_ts: 20261123T231658Z
+  signals: [wlmf_width_dev, wlmf_centroid_dev, wlmf_width_placebo, wlmf_centroid_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261290
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'wlmf_width_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [wlmf_width_dev]
+  wlmf_params: {window_W: 256, wavelet: db3, j_max: 5}
+  scripts_present: [scripts/build_c426_wlmf_features.py, scripts/preflight_c426.py, scripts/run_c426_wlmf_xsec_oos.py]
+  tests_present: [tests/test_preflight_c426.py, tests/test_c426_wlmf_xsec_oos.py]
+  cache_present: data/cache/campaign426_wlmf_5m
+  artifacts_present: [reports/campaign426_oos_sweep_20261123T231658Z.json, reports/campaign426_tradable_edge_registry_20261123T231658Z.json, reports/campaign426_summary_20261123T231658Z.json, reports/campaign426_verdict_20261123T231658Z.json, reports/campaign426_binding_constraint_20261123T231658Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: wlmf_width_dev
+  dominant_share: 0.3020
+  attribution_ok: false
+  tests_green: 36
+  brute_force_maxdiff: 'wlmf_width/wlmf_centroid maxdiff < 1e-12 (wavelet leaders + Legendre transform vs brute-force reference); NaN patterns identical; kernel-distinctness guards vs C344/C358/C374/C422/C423/C424'
+  artifacts:
+    oos_sweep: 'af1a2850510f0b0cd82476de63472023c0dc4bfd17c0e24c2b2451ba3028f1af'
+    tradable_edge_registry: '7ef6173e506f5ea49b30b9d236e8e4cf4c4fd5997812b33dc230115b4d0ddbc9'
+    summary: '164e465f4104e6f70460d013cab7b647888e5d34754e2867c98abb9b4e57d249'
+    verdict: '5096ba1b2c7cfdcf4f86ecae5f1d13fd87e0b1ca57ad3a5ce4580d60f35354de'
+    binding_constraint: '4d4288f3fb054953fa704fe3c773487b50225517841ecd95731f7912a11a8323'
+  cache_shas:
+    meta: 'abc2c2406915b76d196bcdfd49ac4ad8022d9451254fa13fb6ee219d5d26b204'
+    provenance: '5f5cb4b8bf38d51f4614cd2d1a294fc6223936070a00fec1b6bcbf187278cf18'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
