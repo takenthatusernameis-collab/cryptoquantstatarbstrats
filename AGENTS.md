@@ -1,12 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T12:15:00Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN ACTIVE next, seed 20261287; env OK; no bottlenecks; C422 built end-to-end this session and frozen) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T12:19:48Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN ACTIVE next, seed 20261287; env OK; no bottlenecks; C422 built end-to-end and frozen; C423 does NOT exist on disk — no scripts, tests, cache, or reports — it must be built fresh, heavy work unavoidable per NO-LIGHT-WORK RULE) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-23T12:15:00Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-23T12:19:48Z; supersedes every earlier session message; the ONLY active directive)
 
 **C422 ZCRPATH FROZEN (20261123T121051Z):** formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors, binding `multiple_testing`, edge_proven:false, dominant attribution `zcr_asym_placebo` 0.2629 (< 0.50, attribution_ok false; placebos dominate — no real-vs-placebo separation). 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign422_*_20261123T121051Z.json`; 34/34 tests green (incl. ZCRPATH brute-force equality `maxdiff < 1e-9` vs per-window cumsum + crossing count and kernel-distinctness guards vs C344/C383/KER/PSLOPE/ACOVK); cache `data/cache/campaign422_zcrpath_5m/` (10 shards × 315,648 bars). NO EDGE through C422. DO NOT re-run it.
+
+**C423 RUNLEN is ABSENT from disk** — `ls scripts tests | grep -c c423 == 0`, `ls data/cache | grep -c campaign423 == 0`, `ls reports | grep -c campaign423 == 0`. It must be built fresh from the C422 plumbing with every identifier fully rewritten (campaign 423, RUNLEN kernel, signal names, placebo seed 20261287, mandate, cache `data/cache/campaign423_runlen_5m/`, report prefix `campaign423_*`). Do NOT re-run C422; do NOT clone-and-rename without a full rewrite.
 
 - oos_sweep `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a`
 - tradable_edge_registry `484378cb491832d23716c4a5d774495d4fac7f503055c9e595461fe750c19271`
