@@ -1,0 +1,29 @@
+{
+  "generated_at_utc": "20261123T234610Z",
+  "campaign": 427,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign427_oos_sweep_20261123T234610Z.json",
+  "oos_sweep_sha256": "4dc12cf5c53b9ea2416416a46f7c487de9dcbed3e9eb1fcae2fd6fc9a80964ed",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "lt_entropy_dev": 0.12210848020529992,
+    "lt_max_height_dev": 0.17493518692550258,
+    "exc_mean_dev": 0.034895207493368205,
+    "exc_max_dev": 0.03774432179452675,
+    "lt_entropy_placebo": 0.17693565991052781,
+    "lt_max_height_placebo": 0.2685152691078032,
+    "exc_mean_placebo": 0.035211967048235655,
+    "exc_max_placebo": 0.14965390751473578
+  },
+  "dominant_attribution": "lt_max_height_placebo",
+  "dominant_share": 0.2685152691078032
+}
