@@ -149,7 +149,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "runlen_params": meta.get("iesd_params"),
+        "iesd_params": meta.get("iesd_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),

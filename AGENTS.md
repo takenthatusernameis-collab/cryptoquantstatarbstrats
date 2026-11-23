@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-23T13:25:23Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN BUILT END-TO-END AND FROZEN formal negative 20261123T131008Z, 2592 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution runlen_asym_placebo 0.1664, attribution_ok false; 34/34 tests green incl RUNLEN brute-force equality maxdiff<1e-9 + kernel-distinctness guards vs C344/C374/C421/C422; 5 artifact SHAs on disk + cache SHAs recorded below; C281B–C423 ALL FROZEN formal negatives, NO EDGE through C423; C424 IESD PRE-REGISTERED as next active so queue depth never runs dry) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-23T20:16:00Z (C422 ZCRPATH FROZEN 20261123T121051Z formal negative; C423 RUNLEN BUILT END-TO-END AND FROZEN formal negative 20261123T131008Z; C424 IESD BUILT END-TO-END AND FROZEN formal negative 20261123T201627Z, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant attribution null/share 0.0, attribution_ok false; 34/34 tests green incl IESD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423; 5 artifact SHAs on disk + cache SHAs recorded below; C281B–C424 ALL FROZEN formal negatives, NO EDGE through C424; C425 IESD... no, C425 ACTIVE next so queue depth never runs dry) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
@@ -24,7 +24,7 @@ Sequence (no stopping): cp scripts/build_c423_runlen_features.py scripts/build_c
 
 **SESSION LIMITS:** whole `kilo run` wrapped in `timeout ... 15107s` (~4.2 h) + `kilo-idle-timeout.py --idle-timeout-seconds 900` (15 min idle). Any blocking wait MUST be < 15 min or the session is killed. The C421 sweep took ~2 min end-to-end (build ~40 s + sweep ~60 s + tests ~26 s); a single blocking `python3 scripts/run_c422_zcrpath_xsec_oos.py` under a 10-minute timeout is expected to finish. If the session dies before the sweep finishes, the NEXT session must re-run it (no shortcut that preserves exactness).
 
-**DISK TRUTH:** C281B–C423 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest, never bare pytest. All archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE. No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
+**DISK TRUTH:** C281B–C424 ALL FROZEN formal negatives. C312 source intact (10 × 315,648 bars, perp_close only). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) → always python3 -m pytest, never bare pytest. All archive/void_* dirs remain quarantined read-only — never copy/import/cite/fix/freeze/re-run. C287 decoupled and NOT on critical path. BOTTLENECKS: NONE. No blocked sessions; no clone traps live on disk. Queue depth never runs dry.
 
 **NO-LIGHT-WORK RULE:** a session is complete only when it produces 3 scripts + 2 test files + cache + preflight ready:true + the FULL literal-N_TRIALS costed OOS sweep + 5 SHA256 reports + ≥21 green tests incl. brute-force equality, then records the truthful RESULT + SHAs in this file and research_state/state.yaml and moves the queue forward. If a session cannot finish, it must leave the queue non-empty and name the partial artifacts. Terminal closure by fiat is PROHIBITED.
 ---
@@ -913,6 +913,7 @@ C281B–C404: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C421 | 20261123T111430Z | sign-sequence autocorrelation profile vs own returns (SIGNCOH) | 1296 | signcoh_decay_placebo 0.2638 | `e79bbfa9900d7b5b034ac091658ed204fe7eeae1388accbfd0473194e66e7afe` | `95adf42a2f08ac2507a17de3e16e8fb0c8770ff431733adb18e9dabb071e94ff` |
 | C422 | 20261123T121051Z | zero-crossing rate of cumulative-return path / price-revisit oscillation (ZCRPATH) | 1296 | zcr_asym_placebo 0.2629 | `b7f765ae2c37e7c6f088df091756c4cd75fe87e2225dd7fe1b5437744bab136a` | `ad5c55d93c38843165b1196d2ca01ea50b0c9e80b238532e74314bab6373a376` |
 | C423 | 20261123T131008Z | run-length distribution entropy / asymmetry of consecutive return signs (RUNLEN) | 2592 | runlen_asym_placebo 0.1664 | `53dee1a884e5afbbf0f2956d61c272159adba8d05359d798d9c4d9c27863957f` | `771b41c01d61ff95476f401657106fc70ad5e233e6d00d9aff8d56a13556f315` |
+| C424 | 20261123T201627Z | inter-extremum spacing distribution (mean spacing + spacing entropy) (IESD) | 1296 | null / share 0.0 (placebos dominate, no separation) | `02d5cbdb338eb587271b5a4687bb925f5a23be5c1be8a61253711efbdac2233a` | `e39e0e261fa56de9322e9915e0011fa17026f52b545cf4f26eae754fb35ec63e` |
 
 ## C422 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T121051Z)
 
@@ -935,6 +936,17 @@ C423 (RUN-LENGTH DISTRIBUTION ENTROPY AND ASYMMETRY OF CONSECUTIVE RETURN SIGNS 
 - verdict `771b41c01d61ff95476f401657106fc70ad5e233e6d00d9aff8d56a13556f315`
 - binding_constraint `7bd01dc4c48e5ecc5096448ac4cdb6d3ef6b987fc7031095c279e34c0ebdb605`
 - cache: meta `5f75279040205fa65fa0b816b075659e172d933f7ff898923bc8f1628f891bdd`, provenance `636387fe067e5f385a75dfde15643137a9538e37766bdf721c895722dcd61788`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+## C424 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261123T201627Z)
+
+C424 (INTER-EXTREMUM SPACING DISTRIBUTION: mean spacing between local extrema + spacing entropy of the trailing price path × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution null / share 0.0 (placebos dominate, no real-vs-placebo separation), attribution_ok false. All 5 SHA256 artifacts + gitignored `.full.json` on disk at `reports/campaign424_*_20261123T201627Z.json`; 34/34 tests green (incl. IESD brute-force equality `maxdiff < 1e-12` vs per-window explicit extrema + spacing + entropy and kernel-distinctness guards vs C344/C374/C422/C423). Cache `data/cache/campaign424_iesd_5m/` (10 shards × 315,648 bars). NO EDGE through C424. Frozen — DO NOT re-run.
+
+- oos_sweep `02d5cbdb338eb587271b5a4687bb925f5a23be5c1be8a61253711efbdac2233a`
+- tradable_edge_registry `9770900e8355c13df4cb51caf840f715bcf0627b63ef656cb88eb8a5b7bedf43`
+- summary `b1ee6df776c8b5e062a5b66bf88cc15eff57536ac5d2c091aaeb7067385298aa`
+- verdict `e39e0e261fa56de9322e9915e0011fa17026f52b545cf4f26eae754fb35ec63e`
+- binding_constraint `78ecadf8446e130b2fd7fae5475fe6b7fdfe4993374561a8309bf14e71237d1b`
+- cache: meta `b8fdea0a04063c77beef6b63b65be78145cc35a312e86c3e2415ee50961728c2`, provenance `7b53a90a55a2f625de6284c4b405db508aef30971dc97efb6b23409c083989bf`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 

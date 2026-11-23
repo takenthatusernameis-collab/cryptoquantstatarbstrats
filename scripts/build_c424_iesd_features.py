@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 """C424 feature build — real USDT-M linear perp price-only IESD: inter-extremum
-spacing distribution of the price path. Raw inputs: trailing log-returns over
-a fixed intrinsic window W=256 from which the runner derives, per bar t, for
-each asset i:
+spacing distribution (mean spacing and spacing entropy of local-extremum gaps)
+over trailing close prices.
+Raw inputs: trailing close prices over a fixed intrinsic window W=256 from which
+the runner derives, per bar t, for each asset i:
 
-    C = c_i[t-W..t]                (trailing closes, asset i, W+1 bars)
-    interior positions k=1..W-1 are local maxima/minima (strict; ties not extrema)
-    extremum times e_1 < ... < e_M (M = number of extrema in the window)
-    spacings g_m = e_{m+1} - e_m  (bars between consecutive extrema)
+    C = c_i[t-W..t]                  (trailing closes, asset i, W+1 bars)
+    extremum position k in 1..W-1: local max if C[k]>C[k-1] and C[k]>C[k+1],
+                                   local min if C[k]<C[k-1] and C[k]<C[k+1]
+                                   (strict; ties are not extrema)
+    e_1 < ... < e_M                  extremum times (bar indices) in the window
+    g_m = e_{m+1} - e_m              spacings (bars) between consecutive extrema
 
-    ies_mean_spacing[t]  = mean(g)                  (mean inter-extremum spacing)
-    ies_spacing_ent[t]   = -sum_k p_k log p_k, p_k = freq(spacing == k)/(M-1)
-    ies_max_spacing[t]   = max(g)
+    ies_mean_spacing[t] = mean(g)
+    ies_spacing_ent[t]  = -sum_k p_k log p_k, p_k = freq(spacing == k) / (M - 1)
 
-NaN if t<W, any NaN/non-finite in the W+1-bar close span, M<2, or not finite.
-Price-only (perp_close), volume-free.
+NaN if t<W, any NaN/non-finite in C[t-W..t], M<2, or not finite. Price-only
+(perp_close), volume-free.
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
@@ -28,21 +30,18 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
 
-The runner builds IESD scalars over fixed intrinsic window W=256 trailing
-closes: local-extremum flags on interior positions, spacing extraction between
-consecutive extrema, ies_mean_spacing/ies_spacing_ent/ies_max_spacing as
-above; then the seasonal deviation of each IESD scalar at the same
-(weekday,tod) bucket from history strictly before bar t (causal shift(1)),
-NaN-aware min_periods=3.
+The runner builds IESD scalars over fixed intrinsic window W=256 trailing closes:
+local-extremum flags per bar, then per-window spacing extraction (extremum
+times, consecutive spacing gaps, mean spacing, spacing entropy of the spacing
+distribution) at the same (weekday,tod) bucket from history strictly before bar
+t (causal shift(1)), NaN-aware min_periods=3.
 
 IESD is genuinely distinct from all prior families C281B–C423: it is the first
-family whose primitive is the SPACING BETWEEN LOCAL EXTREMA OF THE PRICE PATH
-(a geometric object of the close series itself), not sign flips (C344 chop),
-not run lengths of signed returns (C374 SIGNRUN), not run-length distribution
-entropy of return signs (C423 RUNLEN), not zero-crossings of the cumulative
-path (C422 ZCRPATH), not second-difference turning-point rate (C383 TURNINGPT),
-not trend slope (C377 PSLOPE), not efficiency ratio (C365 KER). Never used
-before. Price-only (perp_close), volume-free.
+family whose primitive is the SPACING BETWEEN LOCAL EXTREMA of the price path
+(inter-extremum spacing distribution) — not sign flips/chop (C344), not max-run
+share (C374 SIGNRUN), not sign autocorrelation (C421 SIGNCOH), not cumulative-path
+zero-crossings (C422 ZCRPATH), not run-length distribution of return signs
+(C423 RUNLEN). Never used before. Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -345,14 +344,14 @@ def main(argv: list[str] | None = None) -> int:
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
             "unreachable). Runner builds IESD scalars over fixed intrinsic "
-            "window W=256 trailing closes C=c[t-W..t] (W+1 bars): interior "
-            "positions k=1..W-1 marked local max if C[k]>C[k-1] and C[k]>C[k+1], "
-            "local min if C[k]<C[k-1] and C[k]<C[k+1] (strict; ties not extrema); "
-            "extremum times e_1<...<e_M; spacings g_m=e_{m+1}-e_m; "
-            "ies_mean_spacing=mean(g); ies_spacing_ent=-sum_k p_k log p_k with "
-            "p_k=freq(spacing==k)/(M-1); ies_max_spacing=max(g). Needs indices "
-            "t-W..t (W+1 bars). NaN if t<W or any NaN/non-finite in the W+1-bar "
-            "close span, M<2, or not finite. Seasonal deviation of each IESD "
+            "window W=256 trailing closes C=c_i[t-W..t]: local-extremum position k "
+            "in 1..W-1 is a local max if C[k]>C[k-1] and C[k]>C[k+1], a local min "
+            "if C[k]<C[k-1] and C[k]<C[k+1] (strict; ties not extrema); "
+            "extremum times e_1<...<e_M; spacings g_m=e_{m+1}-e_m (bars); "
+            "ies_mean_spacing=mean(g); ies_spacing_ent=-sum_k p_k log p_k, "
+            "p_k=freq(spacing==k)/(M-1). Needs indices t-W..t (W+1 bars). NaN if "
+            "t<W or any NaN/non-finite in the W+1-bar trailing close span (global "
+            "across assets), M<2, or not finite. Seasonal deviation of each IESD "
             "scalar at the same (weekday,tod) bucket from history strictly before "
             "bar t (causal shift(1)), NaN-aware min_periods=3."
         ),
@@ -369,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; IESD scalars NaN where t<W or any NaN/non-finite in the W+1-bar close span, M<2, or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; IESD scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or M<2 or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }

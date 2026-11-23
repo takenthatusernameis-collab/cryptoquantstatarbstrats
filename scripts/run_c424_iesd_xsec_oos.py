@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""C423 — rigorous costed out-of-sample test of the price-only RUNLEN:
-run-length distribution entropy and up/down asymmetry of consecutive return
-signs stat-arb family on 10 USDT-M linear perps at native 5m (2592 pre-registered
-configs).
+"""C424 — rigorous costed out-of-sample test of the price-only IESD:
+inter-extremum spacing distribution (mean spacing and spacing entropy of
+local-extremum gaps) stat-arb family on 10 USDT-M linear perps at native 5m
+(1296 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen prior campaign)
 ----------------------------------------------------------------
@@ -47,31 +47,28 @@ sectional extreme-dominance frequency vs the cross-section (CDOMIN), normalized
 autocorrelation-function decorrelation horizon vs own returns (AUTOCF),
 standardized empirical-characteristic-function dispersion & asymmetry vs own
 returns (RCF), spectral coherence / frequency-localized co-movement vs
-equal-weight market (SCOH), and sign-sequence autocorrelation of own returns
+equal-weight market (SCOH), sign-sequence autocorrelation of own returns
 (SIGNCOH, C421) / zero-crossing rate of the cumulative-return path (ZCRPATH,
-C422).
+C422) / run-length distribution entropy of consecutive return signs (RUNLEN,
+C423).
 
-C423 is the first campaign whose primitive is the FULL EMPIRICAL RUN-LENGTH
-DISTRIBUTION of consecutive same-sign returns plus the up/down mean-run-length
-asymmetry. For each asset i and trailing window W=256 of log-returns
-X=r_i[t-W+1..t]:
+C424 is the first campaign whose primitive is the SPACING BETWEEN LOCAL EXTREMA
+of the price path (the inter-extremum spacing distribution). For each asset i
+and trailing window W=256 of closes C=c_i[t-W..t]:
 
-    s_k = sign(X_k) in {-1,+1}, zeros dropped
-    runs = maximal blocks of identical signs in s
-    U = lengths of positive runs, D = lengths of negative runs
+    mark each interior position k in 1..W-1 a local max if C[k]>C[k-1] and C[k]>C[k+1],
+    a local min if C[k]<C[k-1] and C[k]<C[k+1] (strict; ties are not extrema)
+    e_1 < ... < e_M                  extremum times (bar indices) in the window
+    g_m = e_{m+1} - e_m              spacings (bars) between consecutive extrema
 
-    runlen_ent[i,t]  = -sum_k p_k log p_k,
-                       p_k = freq(run length == k) over ALL runs (up+down pooled)
-    runlen_asym[i,t] = (mean(U) - mean(D)) / (mean(U) + mean(D))   (in [-1,1])
-    runlen_up_ent[i,t]  = entropy of positive-run-length distribution only
-    runlen_down_ent[i,t] = entropy of negative-run-length distribution only
+    ies_mean_spacing[i,t] = mean(g)
+    ies_spacing_ent[i,t]  = -sum_k p_k log p_k, p_k = freq(spacing == k) / (M - 1)
 
-NaN if t<W, any NaN/non-finite in the W-bar span (global across assets), fewer
-than 2 runs, or not finite. Distinct from C344 (sign-change/chop rate = sign
-flips of the return sign sequence), C374 SIGNRUN (max run share / mean run
-length of signed runs), C421 SIGNCOH (sign-sequence autocorrelation at lags
-1,2,4,8), C422 ZCRPATH (zero-crossings of the cumulative-return path), and
-every moment/tail/spectral family. First run-length-distribution family ever
+NaN if t<W, any NaN/non-finite in C[t-W..t], M<2, or not finite. Distinct from
+C344 (sign-change/chop rate), C374 SIGNRUN (max run share / mean run length),
+C421 SIGNCOH (sign-sequence autocorrelation), C422 ZCRPATH (cumulative-path
+zero-crossings), C423 RUNLEN (run-length distribution of return signs), and
+every moment/tail/spectral family. First inter-extremum-spacing family ever
 run. Price-only (perp_close), volume-free.
 """
 
@@ -95,18 +92,17 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 cache_dir = ROOT / "data" / "cache"
 
-CACHE_DIR = cache_dir / "campaign423_runlen_5m"
-CACHE_META = cache_dir / "campaign423_runlen_5m.meta.json"
-CACHE_PROV = cache_dir / "campaign423_runlen_5m.provenance.json"
+CACHE_DIR = cache_dir / "campaign424_iesd_5m"
+CACHE_META = cache_dir / "campaign424_iesd_5m.meta.json"
+CACHE_PROV = cache_dir / "campaign424_iesd_5m.provenance.json"
 REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "runlen_ent_dev", "runlen_asym_dev", "runlen_up_ent_dev", "runlen_down_ent_dev",
-    "runlen_ent_placebo", "runlen_asym_placebo", "runlen_up_ent_placebo",
-    "runlen_down_ent_placebo",
+    "ies_mean_spacing_dev", "ies_spacing_ent_dev",
+    "ies_mean_spacing_placebo", "ies_spacing_ent_placebo",
 )
-# 8 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost = 2592 = N_TRIALS
+# 4 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost = 1296 = N_TRIALS
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
 REBALANCES = (1, 4, 12)                            # bars
 FEES = (0.0004, 0.0007, 0.0010)
@@ -115,36 +111,30 @@ COST_VARIANTS = ("taker", "maker_blend")
 FRAC = 1.0 / 3.0
 ALPHA = 0.05
 MIN_PERIODS_BASELINE = 3
-PLACEBO_SEED = 20261287
+PLACEBO_SEED = 20261288
 TRAIN_M, TEST_M, ROLL_M = 12, 3, 3
 STABILITY_MIN_SIGN_CONSISTENCY = 0.70
 STABILITY_MIN_SHARPE_CORR = 0.50
 DOMINANT_SHARE_MIN = 0.50
 
 N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
-              len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 2592
+              len(REBALANCES) * len(FEES) * len(SLIPS) * len(COST_VARIANTS))  # 1296
 
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "runlen_ent_dev": ("runlen_ent", "dev"),
-    "runlen_asym_dev": ("runlen_asym", "dev"),
-    "runlen_up_ent_dev": ("runlen_up_ent", "dev"),
-    "runlen_down_ent_dev": ("runlen_down_ent", "dev"),
-    "runlen_ent_placebo": ("runlen_ent", "placebo_dev"),
-    "runlen_asym_placebo": ("runlen_asym", "placebo_dev"),
-    "runlen_up_ent_placebo": ("runlen_up_ent", "placebo_dev"),
-    "runlen_down_ent_placebo": ("runlen_down_ent", "placebo_dev"),
+    "ies_mean_spacing_dev": ("ies_mean_spacing", "dev"),
+    "ies_spacing_ent_dev": ("ies_spacing_ent", "dev"),
+    "ies_mean_spacing_placebo": ("ies_mean_spacing", "placebo_dev"),
+    "ies_spacing_ent_placebo": ("ies_spacing_ent", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "runlen_ent_dev": "runlen_ent_dev",
-    "runlen_asym_dev": "runlen_asym_dev",
-    "runlen_up_ent_dev": "runlen_up_ent_dev",
-    "runlen_down_ent_dev": "runlen_down_ent_dev",
+    "ies_mean_spacing_dev": "ies_mean_spacing_dev",
+    "ies_spacing_ent_dev": "ies_spacing_ent_dev",
 }
 
-RUNLEN_W = 256
+IESD_W = 256
 
 
 def sha256_file(p: Path) -> str:
@@ -316,35 +306,30 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- RUNLEN: run-length
-# distribution entropy and up/down asymmetry of consecutive return signs
-def compute_runlen_metrics(log_return, W=RUNLEN_W):
-    """Vectorized RUNLEN kernel for the full (n_assets, T) return matrix R.
+# ------------------------------------------------------- IESD: inter-extremum
+# spacing distribution (mean spacing + spacing entropy of local-extremum gaps)
+def compute_iesd_metrics(close, W=IESD_W):
+    """Vectorized IESD kernel for the full (n_assets, T) close-price matrix C.
 
-    For each asset i and bar t (t>=W), window X=r_i[t-W+1..t] (length W):
-      s_k = sign(X_k) in {-1,+1}, zeros dropped
-      runs = maximal blocks of identical signs in s
-      U = lengths of positive runs, D = lengths of negative runs
+    For each asset i and bar t (t>=W), window C=c_i[t-W..t] (length W+1):
+      mark each interior position k in 1..W-1 a local max if C[k]>C[k-1] and C[k]>C[k+1],
+      a local min if C[k]<C[k-1] and C[k]<C[k+1] (strict; ties not extrema)
+      extremum times e_1<...<e_M (relative positions in the window)
+      spacings g_m = e_{m+1}-e_m (bars)
 
-      runlen_ent[i,t] = -sum_k p_k log p_k over ALL run lengths (up+down pooled)
-      runlen_asym[i,t] = (mean(U) - mean(D)) / (mean(U) + mean(D))   (in [-1,1])
-      runlen_up_ent[i,t]  = entropy of positive-run-length distribution only
-      runlen_down_ent[i,t] = entropy of negative-run-length distribution only
+      ies_mean_spacing[i,t] = mean(g)
+      ies_spacing_ent[i,t]  = -sum_k p_k log p_k, p_k = freq(spacing==k)/(M-1)
 
-    NaN if t<W, any NaN/non-finite in the W-bar window (global across assets),
-    fewer than 2 runs, or not finite. Vectorized per-asset via
-    sliding_window_view in bounded chunks — no Python loop over 315,648 bars
-    for the run detection; a lightweight per-window loop over the (small)
-    per-window run-length histogram computes the entropy/asymmetry scalars.
-    Matches the brute-force per-window reference (explicit run-length
-    extraction + entropy) to maxdiff < 1e-9."""
-    R = np.asarray(log_return, dtype=float)
+    NaN if t<W, any NaN/non-finite in C[t-W..t], M<2, or not finite.
+    Per-bar local-extremum flags computed once over the whole series; per-window
+    spacing extraction via sliding windows in bounded chunks. Matches the
+    brute-force per-window reference (explicit extrema + spacing + entropy)
+    to maxdiff < 1e-12."""
+    R = np.asarray(close, dtype=float)
     n_assets, T = R.shape
     out = {
-        "runlen_ent": np.full((n_assets, T), np.nan, dtype=float),
-        "runlen_asym": np.full((n_assets, T), np.nan, dtype=float),
-        "runlen_up_ent": np.full((n_assets, T), np.nan, dtype=float),
-        "runlen_down_ent": np.full((n_assets, T), np.nan, dtype=float),
+        "ies_mean_spacing": np.full((n_assets, T), np.nan, dtype=float),
+        "ies_spacing_ent": np.full((n_assets, T), np.nan, dtype=float),
     }
     if T < W + 1:
         return out
@@ -352,154 +337,116 @@ def compute_runlen_metrics(log_return, W=RUNLEN_W):
     finite_bar = np.isfinite(R).all(axis=0)                          # (T,) global finiteness
     CFW = np.concatenate([[0.0], np.cumsum(finite_bar.astype(float))])  # (T+1,)
     t_idx = np.arange(W, T)                                          # outputs t = W..T-1
-    full_ok = (CFW[t_idx + 1] - CFW[t_idx + 1 - W]) == W             # full W-bar window finite
     n_win = T - W                                                    # windows end t=W..T-1
     CHUNK = 8192
-    pos_idx = np.arange(W)[None, :]
+    # full_ok[t]: window [t-W, t] (W+1 bars) all finite (global across assets)
+    full_ok = (CFW[t_idx + 1] - CFW[t_idx - W]) == (W + 1)
+    mean_spacing_all = np.full((n_assets, T), np.nan, dtype=float)
+    spacing_ent_all = np.full((n_assets, T), np.nan, dtype=float)
     for i in range(n_assets):
-        sw = sliding_window_view(R[i], W)[1:]    # (n_win, W); window jj = bars jj+1..jj+W
-        ent = np.full(n_win, np.nan, dtype=float)
-        asym = np.full(n_win, np.nan, dtype=float)
-        up_ent = np.full(n_win, np.nan, dtype=float)
-        down_ent = np.full(n_win, np.nan, dtype=float)
+        # per-bar local-extremum flags at interior positions j=1..T-2
+        is_max = (R[i, 1:-1] > R[i, :-2]) & (R[i, 1:-1] > R[i, 2:])
+        is_min = (R[i, 1:-1] < R[i, :-2]) & (R[i, 1:-1] < R[i, 2:])
+        extremum = np.zeros(T, dtype=bool)
+        extremum[1:-1] = is_max | is_min
+        E_pos = np.flatnonzero(extremum)                              # sorted extremum positions
+        K = len(E_pos)
+        if K < 2:
+            continue                                                  # all NaN: fewer than 2 extrema ever
+        S_int = np.diff(E_pos)                                        # spacings between consecutive extrema, length K-1
+        S = S_int.astype(float)
+        cumS = np.concatenate([[0.0], np.cumsum(S)])                  # length K
+        # prefix counts for each distinct spacing value present in S
+        unique_spacings = np.unique(S_int)
+        n_u = len(unique_spacings)
+        prefix = np.zeros((n_u, K), dtype=np.float64)                 # prefix[si, m] = count S[0:m]==unique_spacings[si]
+        for si, k in enumerate(unique_spacings):
+            prefix[si] = np.concatenate([[0.0], np.cumsum((S_int == k).astype(np.float64))])
         for c0 in range(0, n_win, CHUNK):
             c1 = min(c0 + CHUNK, n_win)
-            X = sw[c0:c1]                                   # (cc, W)
-            X = np.where(np.isfinite(X), X, 0.0)            # non-finite -> dropped as zero; window masked by full_ok later
-            cc = X.shape[0]
-            s = np.sign(X)                                  # (cc, W) in {-1,0,1}
-            nonzero = s != 0.0
-            # last nonzero sign up to each position (forward fill of nonzero signs)
-            last_nz_pos = np.where(nonzero, pos_idx, -1)
-            last_nz_pos = np.maximum.accumulate(last_nz_pos, axis=1)
-            last_nz_sign = np.where(
-                last_nz_pos >= 0,
-                np.take_along_axis(s, np.maximum(last_nz_pos, 0), axis=1),
-                0.0,
-            )
-            prev = np.roll(last_nz_sign, 1, axis=1)
-            prev[:, 0] = 0.0
-            # a new run starts at each nonzero position whose previous nonzero
-            # sign differs (or none exists); zeros are dropped and never start a run
-            run_start = nonzero & ((prev == 0.0) | (prev != s))
-            run_id = np.cumsum(run_start, axis=1)           # zeros inherit previous id (weight 0 below)
-            valid = nonzero
-            row_idx = np.repeat(np.arange(cc), W)
-            key = run_id.ravel() + (row_idx * (W + 1))      # unique key per (window, run id)
-            counts = np.bincount(key, minlength=cc * (W + 1)).reshape(cc, W + 1)
-            sign_sum = np.bincount(
-                key, weights=(s * valid).ravel(), minlength=cc * (W + 1)
-            ).reshape(cc, W + 1)
-            run_sign = np.sign(sign_sum)                    # +1/-1 per run, 0 where absent
-            for r in range(cc):
-                nz_cols = np.flatnonzero(counts[r])
-                if nz_cols.size < 2:                        # fewer than 2 runs -> NaN
-                    continue
-                lens = counts[r, nz_cols].astype(float)
-                rs = run_sign[r, nz_cols]
-                total = float(lens.sum())
-                p = lens / total
-                e = float(-(p * np.log(p)).sum())
-                up = lens[rs > 0]
-                down = lens[rs < 0]
-                if up.size == 0 or down.size == 0:
-                    a = np.nan
-                else:
-                    a = float((up.mean() - down.mean()) / (up.mean() + down.mean()))
-                if up.size == 0:
-                    ue = np.nan
-                else:
-                    uu, uc = np.unique(up, return_counts=True)
-                    pp = uc / float(uc.sum())
-                    ue = float(-(pp * np.log(pp)).sum())
-                if down.size == 0:
-                    de = np.nan
-                else:
-                    dd, dc = np.unique(down, return_counts=True)
-                    pp2 = dc / float(dc.sum())
-                    de = float(-(pp2 * np.log(pp2)).sum())
-                ent[c0 + r] = e
-                asym[c0 + r] = a
-                up_ent[c0 + r] = ue
-                down_ent[c0 + r] = de
-        ok = full_ok
-        out["runlen_ent"][i, t_idx] = np.where(ok, ent, np.nan)
-        out["runlen_asym"][i, t_idx] = np.where(ok, asym, np.nan)
-        out["runlen_up_ent"][i, t_idx] = np.where(ok, up_ent, np.nan)
-        out["runlen_down_ent"][i, t_idx] = np.where(ok, down_ent, np.nan)
+            ts = t_idx[c0:c1]                                         # window end times
+            cc = c1 - c0
+            # interior positions of window ending at t: [t-W+1, t-1]
+            a = np.searchsorted(E_pos, ts - W + 1, side="left")       # first extremum >= t-W+1
+            b = np.searchsorted(E_pos, ts - 1, side="right") - 1      # last extremum <= t-1
+            M_minus_1 = b - a                                         # number of spacings within window (= M-1)
+            valid = (b > a) & (a >= 0) & (M_minus_1 > 0)
+            # clamp for safe indexing; valid mask ensures correctness
+            a_safe = np.clip(a, 0, K - 1)
+            b_safe = np.clip(b, 0, K - 1)
+            # mean spacing = sum(S[a:b]) / (b-a) = (cumS[b]-cumS[a]) / (b-a)
+            with np.errstate(divide="ignore", invalid="ignore"):
+                mean_sp = np.where(valid, (cumS[b_safe] - cumS[a_safe]) / np.maximum(M_minus_1, 1), np.nan)
+            # spacing entropy: p_k = count(S[a:b]==k) / (b-a), entropy=-sum p log p
+            cnt_matrix = np.zeros((cc, n_u), dtype=np.float64)
+            for si in range(n_u):
+                cnt_matrix[:, si] = prefix[si, b_safe] - prefix[si, a_safe]
+            M_minus_1_f = np.maximum(M_minus_1.astype(np.float64), 1.0)
+            p = cnt_matrix / M_minus_1_f[:, None]
+            with np.errstate(divide="ignore", invalid="ignore"):
+                plogp = np.where(p > 0, p * np.log(p), 0.0)
+                ent = -plogp.sum(axis=1)
+            ent = np.where(valid, ent, np.nan)
+            mean_spacing_all[i, ts] = np.where(valid, mean_sp, np.nan)
+            spacing_ent_all[i, ts] = np.where(valid, ent, np.nan)
+    # full_ok[c] corresponds to global bar ts=t_idx[c]=W+c
+    full_ok_global = np.zeros(T, dtype=bool)
+    full_ok_global[t_idx] = full_ok
+    # global finiteness gate: NaN out any window where [t-W, t] has a non-finite close
+    mean_spacing_all = np.where(full_ok_global[None, :], mean_spacing_all, np.nan)
+    spacing_ent_all = np.where(full_ok_global[None, :], spacing_ent_all, np.nan)
+    out["ies_mean_spacing"] = mean_spacing_all
+    out["ies_spacing_ent"] = spacing_ent_all
     return out
 
 
-def _runlen_bruteforce(log_return, W):
-    """Per-window reference RUNLEN kernel. For each asset i and bar t (t>=W),
-    window X=r_i[t-W+1..t]; signs with zeros dropped; runs of consecutive
-    identical signs; runlen_ent=-sum p log p over all run lengths;
-    runlen_asym=(mean(U)-mean(D))/(mean(U)+mean(D)); runlen_up_ent/runlen_down_ent
-    = entropy of up/down run-length distributions. NaN if t<W, any NaN in the
-    W-bar panel span (global across assets), fewer than 2 runs, or not finite.
-    Matches compute_runlen_metrics (maxdiff<1e-9)."""
-    X = np.asarray(log_return, dtype=float)
+def _iesd_bruteforce(close, W):
+    """Per-window reference IESD kernel. For each asset i and bar t (t>=W),
+    window C=c_i[t-W..t]; mark interior positions k in 1..W-1 as local extrema
+    (strict >/<, ties excluded); extremum times e_1<...<e_M; spacings
+    g_m=e_{m+1}-e_m; ies_mean_spacing=mean(g); ies_spacing_ent=-sum p_k log p_k,
+    p_k=freq(spacing==k)/(M-1). NaN if t<W, any NaN in the W+1-bar close span
+    (global across assets), M<2, or not finite. Matches compute_iesd_metrics
+    (maxdiff<1e-12)."""
+    X = np.asarray(close, dtype=float)
     n_assets, n = X.shape
     out = {
-        "runlen_ent": np.full((n_assets, n), np.nan, dtype=float),
-        "runlen_asym": np.full((n_assets, n), np.nan, dtype=float),
-        "runlen_up_ent": np.full((n_assets, n), np.nan, dtype=float),
-        "runlen_down_ent": np.full((n_assets, n), np.nan, dtype=float),
+        "ies_mean_spacing": np.full((n_assets, n), np.nan, dtype=float),
+        "ies_spacing_ent": np.full((n_assets, n), np.nan, dtype=float),
     }
     if n < W + 1:
         return out
     for t in range(W, n):
-        span = X[:, t - W + 1:t + 1]
+        span = X[:, t - W:t + 1]
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            x = span[i]
-            s = np.sign(x)
-            s2 = s[s != 0.0]
-            if len(s2) < 2:
+            C = span[i]
+            is_max = (C[1:-1] > C[:-2]) & (C[1:-1] > C[2:])
+            is_min = (C[1:-1] < C[:-2]) & (C[1:-1] < C[2:])
+            ext_rel = np.flatnonzero(is_max | is_min)  # indices into C[1:-1]
+            if len(ext_rel) < 2:
                 continue
-            change = s2[1:] != s2[:-1]
-            starts = np.concatenate([[0], np.nonzero(change)[0] + 1])
-            lens = np.diff(np.concatenate([starts, [len(s2)]])).astype(float)
-            signs_r = s2[starts]
-            total = float(lens.sum())
-            p = lens / total
+            ext_pos = ext_rel + 1  # relative positions in C (1..W-1)
+            spacings = np.diff(ext_pos).astype(float)
+            mean_g = float(spacings.mean())
+            vals, counts = np.unique(spacings, return_counts=True)
+            p = counts / float(counts.sum())
             ent = float(-(p * np.log(p)).sum())
-            up = lens[signs_r > 0]
-            down = lens[signs_r < 0]
-            if up.size == 0 or down.size == 0:
-                a = np.nan
-            else:
-                a = float((up.mean() - down.mean()) / (up.mean() + down.mean()))
-            if up.size == 0:
-                ue = np.nan
-            else:
-                uu, uc = np.unique(up, return_counts=True)
-                pp = uc / float(uc.sum())
-                ue = float(-(pp * np.log(pp)).sum())
-            if down.size == 0:
-                de = np.nan
-            else:
-                dd, dc = np.unique(down, return_counts=True)
-                pp2 = dc / float(dc.sum())
-                de = float(-(pp2 * np.log(pp2)).sum())
-            out["runlen_ent"][i, t] = ent
-            out["runlen_asym"][i, t] = a
-            out["runlen_up_ent"][i, t] = ue
-            out["runlen_down_ent"][i, t] = de
+            out["ies_mean_spacing"][i, t] = mean_g
+            out["ies_spacing_ent"][i, t] = ent
     return out
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar RUNLEN metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): runlen_ent, runlen_asym,
-    runlen_up_ent, runlen_down_ent."""
+    """Compute the causal per-bar IESD metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): ies_mean_spacing, ies_spacing_ent."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
-    log_return = np.asarray(bs["log_return"], dtype=float)
+    perp_close = np.asarray(bs["perp_close"], dtype=float)
     series: dict = {}
-    METRIC_KEYS = ("runlen_ent", "runlen_asym", "runlen_up_ent", "runlen_down_ent")
-    result = compute_runlen_metrics(log_return, W=RUNLEN_W)
+    METRIC_KEYS = ("ies_mean_spacing", "ies_spacing_ent")
+    result = compute_iesd_metrics(perp_close, W=IESD_W)
     for k in METRIC_KEYS:
         series[k] = np.asarray(result[k], dtype=float)
     return series
@@ -530,9 +477,9 @@ def build_scores(series: dict, bucket: np.ndarray) -> dict:
 
 def verify_cache() -> tuple:
     if not CACHE_DIR.exists():
-        raise SystemExit(f"FATAL: C423 shard dir missing: {CACHE_DIR}")
+        raise SystemExit(f"FATAL: C424 shard dir missing: {CACHE_DIR}")
     if not CACHE_META.exists():
-        raise SystemExit(f"FATAL: C423 meta missing: {CACHE_META}")
+        raise SystemExit(f"FATAL: C424 meta missing: {CACHE_META}")
     meta_sha = sha256_file(CACHE_META)
     prov_sha = sha256_file(CACHE_PROV) if CACHE_PROV.exists() else None
     meta = json.loads(CACHE_META.read_text())
@@ -581,9 +528,9 @@ def build_series(payload: dict):
     index = pd.DatetimeIndex(pd.to_datetime(idx_ms, unit="ms", utc=True))
     n_b = len(index)
     if n_b == 0:
-        raise SystemExit("FATAL: C423 common grid is empty")
+        raise SystemExit("FATAL: C424 common grid is empty")
     if n_b % 288 != 0:
-        raise SystemExit("FATAL: C423 grid is not a whole number of 288-bar days")
+        raise SystemExit("FATAL: C424 grid is not a whole number of 288-bar days")
 
     def mat(key):
         out = np.zeros((n_assets, n_b), dtype=float)
@@ -723,7 +670,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="runlen_ent_dev", L=240, H=4,
+    ref_cfg = dict(signal="ies_mean_spacing_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -846,36 +793,34 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     sweep_obj = {
-        "generated_at_utc": ts, "campaign": 423, "part": "oos_sweep",
-        "analysis": "c423_runlen_xsec_stat_arb_oos_5m",
+        "generated_at_utc": ts, "campaign": 424, "part": "oos_sweep",
+        "analysis": "c424_iesd_xsec_stat_arb_oos_5m",
         "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C423 — test the price-only RUNLEN: run-length distribution entropy "
-            "and up/down asymmetry of consecutive return signs stat-arb family on "
-            "10 USDT-M linear perps at native 5m (2592 pre-registered configs). "
-            "Per-bar primitives: perp_close real 5m kline close; "
+            "C424 — test the price-only IESD: inter-extremum spacing distribution "
+            "(mean spacing and spacing entropy of local-extremum gaps) stat-arb "
+            "family on 10 USDT-M linear perps at native 5m (1296 pre-registered "
+            "configs). Per-bar primitives: perp_close real 5m kline close; "
             "log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. Over "
-            "fixed intrinsic window W=256 trailing returns X=r_i[t-W+1..t]: "
-            "s_k=sign(X_k) in {-1,+1} with zeros dropped; runs = maximal blocks "
-            "of identical signs; U = lengths of positive runs, D = lengths of "
-            "negative runs; runlen_ent=-sum_k p_k log p_k over ALL run lengths "
-            "(up+down pooled); runlen_asym=(mean(U)-mean(D))/(mean(U)+mean(D)); "
-            "runlen_up_ent/runlen_down_ent = entropy of up/down run-length "
-            "distributions only. NaN if t<W or any NaN/non-finite in the W-bar "
-            "span (global across assets), fewer than 2 runs, or not finite. "
+            "fixed intrinsic window W=256 trailing closes C=c_i[t-W..t]: mark "
+            "each interior position k in 1..W-1 a local max if C[k]>C[k-1] and "
+            "C[k]>C[k+1], a local min if C[k]<C[k-1] and C[k]<C[k+1] (strict; "
+            "ties not extrema); extremum times e_1<...<e_M; spacings "
+            "g_m=e_{m+1}-e_m (bars); ies_mean_spacing=mean(g); "
+            "ies_spacing_ent=-sum_k p_k log p_k, p_k=freq(spacing==k)/(M-1). "
+            "NaN if t<W or any NaN/non-finite in C[t-W..t], M<2, or not finite. "
             "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket "
             "from history strictly before bar t (causal shift(1)), NaN-aware, "
             "excluding NaN obs. Signals: 4 real "
-            "(runlen_ent_dev, runlen_asym_dev, runlen_up_ent_dev, "
-            "runlen_down_ent_dev) + 4 placebos (phase-randomized surrogates, "
-            "never edges). Single-leg dollar-neutral perp PnL with costs on "
-            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH "
-            "at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
-            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs; "
-            "seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score "
-            "bars weight 0."
+            "(ies_mean_spacing_dev, ies_spacing_ent_dev) + 4 placebos "
+            "(phase-randomized surrogates, never edges). Single-leg dollar-neutral "
+            "perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). "
+            "Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, "
+            "signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric "
+            "NaN unless sufficient finite obs; seasonal stats NaN-aware "
+            "min_periods excluding NaN obs; NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
@@ -892,15 +837,15 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA, "n_trials": N_TRIALS, "total_runs": n_total,
-            "runlen_params": {"window_W": RUNLEN_W},
+            "iesd_params": {"window_W": IESD_W},
         },
         "gates": {
             "fail_closed": True,
             "multiple_testing": {"holm_alpha": ALPHA, "bh_alpha": ALPHA,
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
-            "runlen_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                           "observed_mean_bps_per_split": obs_mean_bps},
+            "iesd_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
+                         "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -912,21 +857,19 @@ def main(argv: list[str] | None = None) -> int:
             "data_quality": {
                 "reference_signal": ref_cfg["signal"], "reference_lookback": int(ref_cfg["L"]),
                 "reference_score_nan_share": sc_ref_nan_share,
-                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W-bar window).",
+                "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W+1-bar close window).",
             },
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
-            "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 trailing log-returns X=r_i[t-W+1..t]; "
-                          "s_k=sign(X_k) in {-1,+1} with zeros dropped; "
-                          "runs = maximal blocks of identical signs; U = lengths "
-                          "of positive runs, D = lengths of negative runs; "
-                          "runlen_ent=-sum_k p_k log p_k over all run lengths "
-                          "(up+down pooled); runlen_asym=(mean(U)-mean(D))/"
-                          "(mean(U)+mean(D)); runlen_up_ent/runlen_down_ent = "
-                          "entropy of up/down run-length distributions only.",
-            "signals": "runlen_ent/runlen_asym/runlen_up_ent/runlen_down_ent over fixed W=256; "
+            "raw_features": "perp_close real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|.",
+            "primitives": "fixed intrinsic window W=256 trailing closes C=c_i[t-W..t]; "
+                          "local-extremum position k in 1..W-1: local max if C[k]>C[k-1] and C[k]>C[k+1], "
+                          "local min if C[k]<C[k-1] and C[k]<C[k+1] (strict; ties not extrema); "
+                          "extremum times e_1<...<e_M; spacings g_m=e_{m+1}-e_m (bars); "
+                          "ies_mean_spacing=mean(g); ies_spacing_ent=-sum_k p_k log p_k, "
+                          "p_k=freq(spacing==k)/(M-1).",
+            "signals": "ies_mean_spacing/ies_spacing_ent over fixed W=256; "
                        "score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); "
                        "cross-sectional rank, dollar-neutral gross 1.0; "
@@ -934,19 +877,19 @@ def main(argv: list[str] | None = None) -> int:
             "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
             "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
             "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
-            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
+            "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
             "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
-            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+            "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "runlen_vectorization_note": "return matrix R=(T,10) built once; per asset, sliding_window_view "
-                          "over W-bar windows in bounded chunks; signs with zeros "
-                          "dropped; runs detected via last-nonzero-sign forward "
-                          "fill + run-start marking; per-window run-length "
-                          "histogram (bincount) feeds entropy/asymmetry scalars; "
-                          "global W-bar finiteness gate; validated against "
-                          "brute-force per-window loop with explicit run-length "
-                          "extraction + entropy, maxdiff < 1e-9 in tests.",
+            "iesd_vectorization_note": "close matrix C=(T,10) built once; per asset, local-extremum flags "
+                          "computed once over the whole series; per-window spacing "
+                          "extraction via searchsorted over extremum positions in "
+                          "bounded chunks; mean spacing from prefix sums of the "
+                          "global spacing array; spacing entropy from prefix counts "
+                          "of each distinct spacing value; global W+1-bar finiteness "
+                          "gate; validated against brute-force per-window loop with "
+                          "explicit extrema + spacing + entropy, maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -967,15 +910,15 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign423_oos_sweep_{ts}.json"
+    op = reports / f"campaign424_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign423_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign424_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
     registry = {
-        "generated_at_utc": ts, "campaign": 423, "part": "registry",
+        "generated_at_utc": ts, "campaign": 424, "part": "registry",
         "analysis": "tradable_edge_registry",
         "n_tradable": len(surviving),
         "n_edge_proven_deterministic": int(n_edge),
@@ -988,12 +931,12 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign423_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign424_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
     summary = {
-        "generated_at_utc": ts, "campaign": 423, "part": "summary",
+        "generated_at_utc": ts, "campaign": 424, "part": "summary",
         "analysis": "validation_summary", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "universe": sweep_obj["universe"], "config": sweep_obj["config"],
@@ -1002,26 +945,26 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign423_summary_{ts}.json"
+    op_sum = reports / f"campaign424_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C423 price-only RUNLEN run-length-distribution entropy stat-arb edge {verdict} "
+        f"C424 price-only IESD inter-extremum-spacing-distribution stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C423 price-only RUNLEN run-length-distribution entropy stat-arb edge validated: "
+        else f"C424 price-only IESD inter-extremum-spacing-distribution stat-arb edge validated: "
         f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
         f"{N_TRIALS}; edge_proven:{edge_proven}."
     )
     verdict_obj = {
-        "generated_at_utc": ts, "campaign": 423, "part": "verdict",
+        "generated_at_utc": ts, "campaign": 424, "part": "verdict",
         "analysis": "final_verdict", "verdict": verdict, "edge_proven": edge_proven,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "finding": finding,
-        "basis": "c423_runlen_xsec_stat_arb_costed_oos_5m",
+        "basis": "c424_iesd_xsec_stat_arb_costed_oos_5m",
         "dataset": dataset_block,
         "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
         "registry_artifact": str(op_reg.relative_to(ROOT)), "registry_sha256": reg_sha,
@@ -1036,14 +979,14 @@ def main(argv: list[str] | None = None) -> int:
         "hard_bans_honored": [
             "No synthetic/fabricated data; no relabeling existing caches as new",
             "No threshold/gate weakening; no cherry-picked windows/costs",
-            "No edge claim unless the costed OOS test survives Holm+BH over all 2592 configs",
+            "No edge claim unless the costed OOS test survives Holm+BH over all 1296 configs",
             "Real USDT-M linear 5m perp_close; funding excluded (control leg)",
             "Single-leg PnL with costs on turnover; executed_fills: false",
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
 
-    op_ver = reports / f"campaign423_verdict_{ts}.json"
+    op_ver = reports / f"campaign424_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 
@@ -1051,7 +994,7 @@ def main(argv: list[str] | None = None) -> int:
     bind_path = None
     if binding is not None:
         binding_obj = {
-            "generated_at_utc": ts, "campaign": 423, "part": "binding_constraint",
+            "generated_at_utc": ts, "campaign": 424, "part": "binding_constraint",
             "analysis": "binding_constraint_diagnosis", "verdict": verdict,
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
             "oos_sweep_artifact": str(op.relative_to(ROOT)), "oos_sweep_sha256": sweep_sha,
@@ -1060,34 +1003,30 @@ def main(argv: list[str] | None = None) -> int:
             "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
             "n_survive_both": n_survive_both,
             "attribution_shares": attrib_share, "dominant_attribution": dominant,
-            "attribution_ok": attribution_ok,
-            "stability": stability_ref,
-            "diagnosis": (
-                "C423 price-only RUNLEN run-length-distribution entropy "
-                "stat-arb does not survive validation; formal negative. Binding "
-                "constraint: {binding}."
-            ).format(binding=binding),
-            "note": "Diagnosis only; never an edge claim. No threshold weakening.",
+            "dominant_share": dominant_share,
         }
-        op_bind = reports / f"campaign423_binding_constraint_{ts}.json"
+        op_bind = reports / f"campaign424_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
-        verdict_obj["binding_constraint_artifact"] = bind_path
-        verdict_obj["binding_constraint_sha256"] = bind_sha
-        op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
-        ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 423, "verdict": verdict, "edge_proven": edge_proven,
-        "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
-        "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
-        "n_survive_both": n_survive_both,
-        "binding_constraint": binding,
-        "attribution_shares": attrib_share, "dominant_attribution": dominant,
-        "dominant_share": dominant_share,
-        "mde_bps_mean": mde_bps, "observed_mean_bps_per_split": obs_mean_bps,
-    }, indent=2))
+        "campaign": 424, "part": "run_complete", "verdict": verdict,
+        "edge_proven": edge_proven, "binding_constraint": binding,
+        "n_total": n_total, "n_edge": n_edge, "n_survive_both": n_survive_both,
+        "dominant": dominant, "dominant_share": dominant_share,
+        "attribution_ok": attribution_ok,
+        "ts": ts,
+        "artifacts": {
+            "oos_sweep": str(op), "oos_sweep_sha256": sweep_sha,
+            "registry": str(op_reg), "registry_sha256": reg_sha,
+            "summary": str(op_sum), "summary_sha256": sum_sha,
+            "verdict": str(op_ver), "verdict_sha256": ver_sha,
+            "binding_constraint": bind_path, "binding_constraint_sha256": bind_sha,
+        },
+    }, indent=2, default=jdefault))
+    return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

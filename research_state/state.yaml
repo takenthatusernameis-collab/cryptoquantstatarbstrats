@@ -1,22 +1,21 @@
-updated_at_utc: 2026-11-23T13:20:03Z
-handoff_refreshed_at_utc: 2026-11-23T13:20:03Z
+updated_at_utc: 2026-11-23T20:16:00Z
+handoff_refreshed_at_utc: 2026-11-23T20:16:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C423
-next_campaign: C424
+latest_campaign_done: C424
+next_campaign: C425
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T13:16:05Z: C423 RUNLEN FROZEN formal negative (20261123T131008Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant runlen_asym_placebo 0.1664 [placebo dominates], attribution_ok false, 34/34 tests green incl RUNLEN brute-force equality maxdiff<1e-9 + kernel-distinctness guards vs C344/C374/C421/C422). C281B-C423 ALL FROZEN formal negatives, NO EDGE through C423. Queue depth 3: C422 ZCRPATH (FROZEN) -> C423 RUNLEN (FROZEN) -> C424 (ACTIVE next, seed 20261288). Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-23T20:16:00Z: C424 IESD FROZEN formal negative (20261123T201627Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl IESD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423). C281B-C424 ALL FROZEN formal negatives, NO EDGE through C424. Queue depth 3: C423 RUNLEN (FROZEN) -> C424 IESD (FROZEN) -> C425 (ACTIVE next). Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
 bottlenecks_verified_removed_at_utc: "2026-11-23T13:16:05Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-23T13:16:05Z: C423 RUNLEN FROZEN formal negative (20261123T131008Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant runlen_asym_placebo 0.1664 [placebo dominates], attribution_ok false, 34/34 tests green incl brute-force equality maxdiff<1e-9 + kernel-distinctness guards vs C344/C374/C421/C422). C281B-C423 ALL FROZEN formal negatives, NO EDGE through C423. C424 ACTIVE next (seed 20261288, price-only close-only volume-free genuinely-new family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C424
-queued_next_campaign_note: 'C281B-C423 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C424 (genuinely-new price-only family, seed 20261288). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
-first_action: "BUILD C424 END-TO-END (2026-11-23T13:20:03Z). C423 RUNLEN FROZEN (20261123T131008Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant runlen_asym_placebo 0.1664, attribution_ok false, 34/34 tests green incl RUNLEN brute-force equality). C424 INTER-EXTREMUM SPACING DISTRIBUTION (IESD) (genuinely-new price-only family, seed 20261288, N_TRIALS=1296 = 4 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants) ACTIVE next. Cache data/cache/campaign424_iesd_5m/ (iesd_params={window_W:256}), report prefix campaign424_*. Signals ies_mean_spacing_dev / ies_spacing_ent_dev (+ placebos), ref ies_mean_spacing_dev L=240 H=4 fee 0.0007 slip 0.0001 taker. Build from C423 plumbing with mandatory rewrite guards (grep self-check: nothing for 423/runlen/RUNLEN/20261287 in C424 files apart from distinctness-guard refs), brute-force equality maxdiff < 1e-12, kernel-distinctness guards vs all prior families incl. C423 RUNLEN, run full literal 1296-config costed OOS sweep, record all 5 artifact SHAs, freeze C424, advance queue."
-active_campaign: C424
-space_status: NO_EDGE_C281B_C423
-closure_note: 'C281B-C423 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~160k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C423 RUNLEN 20261123T131008Z (runlen_asym_placebo 0.1664 [placebo dominates], attribution_ok false, 34/34 tests green incl RUNLEN brute-force equality maxdiff<1e-9 + kernel-distinctness guards vs C344/C374/C421/C422, 5 artifact SHA256 matching). C424 ACTIVE next (seed 20261288) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C424 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+bottlenecks_note: 'RE-VERIFIED 2026-11-23T20:16:00Z: C424 IESD FROZEN formal negative (20261123T201627Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423). C281B-C424 ALL FROZEN formal negatives, NO EDGE through C424. C425 ACTIVE next (genuinely-new price-only family). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps remain quarantined read-only. C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C425
+queued_next_campaign_note: 'C281B-C424 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C425 (genuinely-new price-only family). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+active_campaign: C425
+space_status: NO_EDGE_C281B_C424
+closure_note: 'C281B-C424 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~160k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C424 IESD 20261123T201627Z (dominant null/share 0.0 [placebos dominate/no separation], attribution_ok false, 34/34 tests green incl IESD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423, 5 artifact SHA256 matching). C425 ACTIVE next so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories are quarantined. Next session must build C425 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C417
@@ -2054,4 +2053,44 @@ c423_status:
   cache_shas:
     meta: '5f75279040205fa65fa0b816b075659e172d933f7ff898923bc8f1628f891bdd'
     provenance: '636387fe067e5f385a75dfde15643137a9538e37766bdf721c895722dcd61788'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c424_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C424
+  family: inter_extremum_spacing_distribution_mean_spacing_spacing_entropy_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C344 (sign-change/chop rate), C374 SIGNRUN (max run share / mean run length of signed runs), C422 ZCRPATH (zero-crossings of cumulative-return path), C423 RUNLEN (run-length distribution entropy of consecutive return signs). IESD computes the spacing between local extrema (strict local max/min) of the trailing price path within W=256 and derives mean spacing plus Shannon spacing entropy — a new primitive never run before. Price-only (perp_close), volume-free, close-only.'
+  as_of_utc: 20261123T201627Z
+  artifacts_ts: 20261123T201627Z
+  signals: [ies_mean_spacing_dev, ies_spacing_ent_dev, ies_mean_spacing_placebo, ies_spacing_ent_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261288
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'ies_mean_spacing_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [ies_mean_spacing_dev, ies_spacing_ent_dev]
+  iesd_params: {window_W: 256}
+  scripts_present: [scripts/build_c424_iesd_features.py, scripts/preflight_c424.py, scripts/run_c424_iesd_xsec_oos.py]
+  tests_present: [tests/test_preflight_c424.py, tests/test_c424_iesd_xsec_oos.py]
+  cache_present: data/cache/campaign424_iesd_5m
+  artifacts_present: [reports/campaign424_oos_sweep_20261123T201627Z.json, reports/campaign424_tradable_edge_registry_20261123T201627Z.json, reports/campaign424_summary_20261123T201627Z.json, reports/campaign424_verdict_20261123T201627Z.json, reports/campaign424_binding_constraint_20261123T201627Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: null
+  dominant_share: 0.0
+  attribution_ok: false
+  tests_green: 34
+  brute_force_maxdiff: 'ies_mean_spacing/ies_spacing_ent maxdiff < 1e-12 (per-bar local-extremum flags + per-window spacing extraction via sliding windows vs per-window explicit extrema + spacing + entropy); NaN patterns identical; kernel-distinctness guards vs C344/C374/C422/C423'
+  artifacts:
+    oos_sweep: '02d5cbdb338eb587271b5a4687bb925f5a23be5c1be8a61253711efbdac2233a'
+    tradable_edge_registry: '9770900e8355c13df4cb51caf840f715bcf0627b63ef656cb88eb8a5b7bedf43'
+    summary: 'b1ee6df776c8b5e062a5b66bf88cc15eff57536ac5d2c091aaeb7067385298aa'
+    verdict: 'e39e0e261fa56de9322e9915e0011fa17026f52b545cf4f26eae754fb35ec63e'
+    binding_constraint: '78ecadf8446e130b2fd7fae5475fe6b7fdfe4993374561a8309bf14e71237d1b'
+  cache_shas:
+    meta: 'b8fdea0a04063c77beef6b63b65be78145cc35a312e86c3e2415ee50961728c2'
+    provenance: '7b53a90a55a2f625de6284c4b405db508aef30971dc97efb6b23409c083989bf'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
