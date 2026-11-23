@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261123T100626Z",
+  "campaign": 420,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign420_oos_sweep_20261123T100626Z.json",
+  "oos_sweep_sha256": "9c9cd5df28d5d2e7f27dc8619a53b178a8bc2ac3af05e2bf320f6614a424f288",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "coh_mean_dev": 0.13612468661916605,
+    "coh_low_dev": 0.23749337480038357,
+    "coh_mean_placebo": 0.22798289957926424,
+    "coh_low_placebo": 0.3983990390011861
+  },
+  "dominant_attribution": "coh_low_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "coh_mean_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.0326187726423528,
+      -1.0281497982783752,
+      -1.1515765953919095,
+      -1.3249825914792688,
+      -0.7402606147708521,
+      -1.1472992861845266,
+      -0.9347855500134649,
+      -1.0512911792030148
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.398646050321707,
+    "second_half_sharpe": -6.3836480876070985,
+    "sharpe_corr": 0.996612597424556,
+    "stable": false
+  },
+  "diagnosis": "C420 price-only SCOH spectral coherence vs equal-weight market stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

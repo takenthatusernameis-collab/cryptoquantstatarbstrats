@@ -1,8 +1,8 @@
-"""Tests for C419 runner (scripts/run_c419_rcf_xsec_oos.py): pure-function
+"""Tests for C420 runner (scripts/run_c420_scoh_xsec_oos.py): pure-function
 tests on synthetic arrays (including a brute-force equality test for the
-vectorized RCF standardized empirical-characteristic-function kernel vs the
-per-window cos/sin reference) plus schema/flag validation of emitted real-data
-artifacts. No network, no fabricated market data."""
+vectorized SCOH spectral-coherence / Welch cross-spectrum kernel vs the
+per-window explicit np.fft.rfft reference) plus schema/flag validation of
+emitted real-data artifacts. No network, no fabricated market data."""
 from __future__ import annotations
 
 import json
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-import run_c419_rcf_xsec_oos as R  # noqa: E402
+import run_c420_scoh_xsec_oos as R  # noqa: E402
 
 
 # ---------------------------------------------------------------- multiple testing
@@ -46,9 +46,9 @@ def test_n_trials_matches_pre_registered_grid_product():
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("rcf_mod_placebo", "rcf_imag_placebo"):
+    for pb in ("coh_mean_placebo", "coh_low_placebo"):
         assert pb in R.SIGNALS
-    for real in ("rcf_mod_dev", "rcf_imag_dev"):
+    for real in ("coh_mean_dev", "coh_low_dev"):
         assert real in R.SIGNALS
 
 
@@ -110,119 +110,128 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- RCF kernel (brute-force equality)
-def test_rcf_matches_brute_force():
-    """The vectorized RCF kernel MUST equal the brute-force reference
-    (per-window loop with explicit np.cos/np.sin). Compared with maxdiff < 1e-12
-    and matching NaN patterns."""
-    rng = np.random.default_rng(20261283)
+# ---------------------------------------------------------------- SCOH kernel (brute-force equality)
+def test_scoh_matches_brute_force():
+    """The vectorized SCOH kernel MUST equal the brute-force reference
+    (per-window loop with explicit np.fft.rfft per segment). Compared with
+    maxdiff < 1e-9 (FFT round-off) and matching NaN patterns."""
+    rng = np.random.default_rng(20261284)
     n_assets, n_bars = 5, 4000
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    fast = R.compute_rcf_metrics(log_return, R.RCF_W, R.RCF_U0)
-    brute = R._rcf_bruteforce(log_return, R.RCF_W, R.RCF_U0)
-    for key in ("rcf_mod", "rcf_imag"):
+    fast = R.compute_scoh_metrics(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                                  R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    brute = R._scoh_bruteforce(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                               R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    for key in ("coh_mean", "coh_low"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN pattern mismatch"
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
-        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
+        assert maxdiff < 1e-9, f"{key}: maxdiff={maxdiff} >= 1e-9"
 
 
-def test_rcf_matches_brute_force_10_assets():
+def test_scoh_matches_brute_force_10_assets():
     """Brute-force equality with the full 10-asset panel (the real universe width)."""
-    rng = np.random.default_rng(4192)
+    rng = np.random.default_rng(4202)
     n_assets, n_bars = 10, 1500
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    fast = R.compute_rcf_metrics(log_return, R.RCF_W, R.RCF_U0)
-    brute = R._rcf_bruteforce(log_return, R.RCF_W, R.RCF_U0)
-    for key in ("rcf_mod", "rcf_imag"):
+    fast = R.compute_scoh_metrics(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                                  R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    brute = R._scoh_bruteforce(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                               R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    for key in ("coh_mean", "coh_low"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, key
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin])))
-        assert maxdiff < 1e-12, f"rcf_{key}: maxdiff={maxdiff}"
+        assert maxdiff < 1e-9, f"scoh_{key}: maxdiff={maxdiff}"
 
 
-def test_rcf_matches_brute_force_with_nan():
-    """Brute-force equality when the panel contains NaNs."""
+def test_scoh_matches_brute_force_with_nan():
+    """Brute-force equality when the panel contains NaNs (global across assets)."""
     rng = np.random.default_rng(99)
     n_assets, n_bars = 4, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
     log_return[1, 400] = np.nan
     log_return[2, 401] = np.nan
-    fast = R.compute_rcf_metrics(log_return, R.RCF_W, R.RCF_U0)
-    brute = R._rcf_bruteforce(log_return, R.RCF_W, R.RCF_U0)
-    for key in ("rcf_mod", "rcf_imag"):
+    fast = R.compute_scoh_metrics(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                                  R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    brute = R._scoh_bruteforce(log_return, R.SCOH_W, R.SCOH_SEG_LEN,
+                               R.SCOH_N_SEG, R.SCOH_SEG_STARTS, R.SCOH_EPS)
+    for key in ("coh_mean", "coh_low"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN mismatch"
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin]))) if fin.sum() else 0.0
-        assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff}"
+        assert maxdiff < 1e-9, f"{key}: maxdiff={maxdiff}"
 
 
-def test_rcf_defined_after_window_nan_before():
+def test_scoh_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     n_assets, n_bars = 3, 600
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.005
-    W = R.RCF_W
-    m = R.compute_rcf_metrics(log_return, W)
-    for key in ("rcf_mod", "rcf_imag"):
+    W = R.SCOH_W
+    m = R.compute_scoh_metrics(log_return, W)
+    for key in ("coh_mean", "coh_low"):
         assert np.isnan(m[key][:, :W]).all(), key
         assert np.isfinite(m[key][:, W:]).any(), key
 
 
-def test_rcf_non_finite_return_propagates():
-    """A non-finite return in any asset at a bar -> NaN for all RCF outputs in
-    every window covering that bar."""
+def test_scoh_non_finite_return_propagates():
+    """A non-finite return in any asset at a bar -> NaN for all SCOH outputs in
+    every window covering that bar (global-across-assets finiteness gate)."""
     rng = np.random.default_rng(9)
     n_assets, n_bars = 4, 600
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.005
     log_return[0, 300] = np.inf
-    W = R.RCF_W
-    m = R.compute_rcf_metrics(log_return, W)
+    W = R.SCOH_W
+    m = R.compute_scoh_metrics(log_return, W)
     for t in range(300, min(300 + W, n_bars)):
-        for key in ("rcf_mod", "rcf_imag"):
-            assert np.isnan(m[key][:, t]).all(), f"rcf_{key} t={t} should be NaN"
+        for key in ("coh_mean", "coh_low"):
+            assert np.isnan(m[key][:, t]).all(), f"scoh_{key} t={t} should be NaN"
     for t in range(W, 300):
-        for key in ("rcf_mod", "rcf_imag"):
-            assert np.isfinite(m[key][:, t]).any(), f"rcf_{key} t={t} should be finite"
+        for key in ("coh_mean", "coh_low"):
+            assert np.isfinite(m[key][:, t]).any(), f"scoh_{key} t={t} should be finite"
 
 
-def test_rcf_params():
-    assert R.RCF_W == 256
-    assert R.RCF_U0 == 1.0
+def test_scoh_params():
+    assert R.SCOH_W == 256
+    assert R.SCOH_SEG_LEN == 128
+    assert R.SCOH_N_SEG == 3
+    assert R.SCOH_SEG_STARTS == (0, 64, 128)
+    assert R.SCOH_EPS == 1e-12
 
 
-def test_rcf_mod_range_and_imag_range():
-    """rcf_mod (ECF modulus) in [0,1]; rcf_imag (imaginary part) in [-1,1]."""
+def test_coh_range_and_low_band_subset():
+    """coh_mean and coh_low are magnitude-squared coherences in [0,1]. coh_low
+    (low-frequency band, mean of j=1..8) is the mean over a subset of the bins
+    averaged by coh_mean, so it is also in [0,1]."""
     rng = np.random.default_rng(11)
     n_assets, n_bars = 10, 800
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    m = R.compute_rcf_metrics(log_return, R.RCF_W, R.RCF_U0)
-    mod = m["rcf_mod"]
-    imag = m["rcf_imag"]
-    fin = np.isfinite(mod)
-    assert fin.sum() > 0
-    assert (mod[fin] >= 0.0).all() and (mod[fin] <= 1.0).all()
-    ifin = np.isfinite(imag)
-    assert ifin.sum() > 0
-    assert (imag[ifin] >= -1.0).all() and (imag[ifin] <= 1.0).all()
+    m = R.compute_scoh_metrics(log_return, R.SCOH_W)
+    for key in ("coh_mean", "coh_low"):
+        arr = m[key]
+        fin = np.isfinite(arr)
+        assert fin.sum() > 0, key
+        assert (arr[fin] >= 0.0).all() and (arr[fin] <= 1.0).all(), key
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "rcf_mod_dev": "rcf_mod_dev",
-        "rcf_imag_dev": "rcf_imag_dev",
+        "coh_mean_dev": "coh_mean_dev",
+        "coh_low_dev": "coh_low_dev",
     }
-    assert R.PLACEBO_SEED == 20261283
+    assert R.PLACEBO_SEED == 20261284
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.RCF_W == 256
-    assert R.RCF_U0 == 1.0
-    assert R.SIGNALS[0] == "rcf_mod_dev"
+    assert R.SCOH_W == 256
+    assert R.SCOH_SEG_LEN == 128
+    assert R.SCOH_SEG_STARTS == (0, 64, 128)
+    assert R.SIGNALS[0] == "coh_mean_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -251,8 +260,8 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"rcf_mod", "rcf_imag"}
-    for k in ("rcf_mod", "rcf_imag"):
+    assert set(series.keys()) == {"coh_mean", "coh_low"}
+    for k in ("coh_mean", "coh_low"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -269,68 +278,26 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_rcf_kernel_not_degenerate():
-    """Rewrite guard: RCF metrics are not degenerate (not allclose to 0 where defined)."""
+def test_scoh_kernel_not_degenerate():
+    """Rewrite guard: SCOH coherence metrics are not degenerate (not allclose to
+    0 where defined)."""
     rng = np.random.default_rng(55)
     n_assets, n_bars = 5, 1600
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    for name in ("rcf_mod", "rcf_imag"):
+    W = R.SCOH_W
+    mm = R.compute_scoh_metrics(log_return, W)
+    for name in ("coh_mean", "coh_low"):
         arr = mm[name]
         fin = np.isfinite(arr)
-        assert fin.sum() > 0, f"rcf_{name}: no finite values"
-        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"rcf_{name} collapses to 0"
+        assert fin.sum() > 0, f"scoh_{name}: no finite values"
+        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"scoh_{name} collapses to 0"
 
 
 # ---- inline prior-family reference statistics (distinctness guards)
-def _acovk_style_stat(log_return, W, lags=(1, 2, 4, 8)):
-    """Inline C375 ACOVK unnormalized realized autocovariance gamma_k (own-lag
-    covariance), not the value-distribution ECF."""
-    X = np.asarray(log_return, dtype=float)
-    n_assets, n = X.shape
-    m = X.mean(axis=0, keepdims=True)
-    Xc = X - m
-    out = np.full((n_assets, n), np.nan)
-    for t in range(W, n):
-        span = Xc[:, t - W + 1:t + 1]
-        if not np.isfinite(span).all():
-            continue
-        for i in range(n_assets):
-            vals = []
-            for k in lags:
-                a = span[i, :-k] if k < W else span[i, :0]
-                b = span[i, k:] if k < W else span[i, :0]
-                if len(a) < 3:
-                    continue
-                vals.append(float(np.mean(a * b)))
-            out[i, t] = float(np.mean(vals)) if vals else np.nan
-    return out
-
-
-def _poly_skew_stat(log_return, W):
-    """Inline C361 RSKEW / C371 RSK-style statistic: rolling third standardized
-    moment (unbounded polynomial moment = a derivative of phi at 0), not the ECF."""
-    X = np.asarray(log_return, dtype=float)
-    n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
-    for t in range(W, n):
-        span = X[:, t - W + 1:t + 1]
-        if not np.isfinite(span).all():
-            continue
-        for i in range(n_assets):
-            s = span[i]
-            sd = s.std()
-            if sd <= 0:
-                continue
-            out[i, t] = float(np.mean(((s - s.mean()) / sd) ** 3))
-    return out
-
-
 def _domfreq_style_stat(log_return, W):
     """Inline C404 DOMFREQ-style statistic: dominant cycle length (argmax of the
-    rfft power spectrum of the detrended window) — an FFT of the TIME SERIES, not
-    the value distribution."""
+    rfft power spectrum of the detrended own window) — an FFT of the own TIME
+    SERIES, not a cross-spectrum/coherence."""
     X = np.asarray(log_return, dtype=float)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -347,9 +314,9 @@ def _domfreq_style_stat(log_return, W):
     return out
 
 
-def _qatm_style_stat(log_return, W):
-    """Inline C363 QATM / C376 QSPREAD-style statistic: (q90-q10) quantile spread
-    of the window — an order-statistic object, not the ECF."""
+def _specfm_style_stat(log_return, W):
+    """Inline C397 SPECFM-style statistic: spectral flatness (geometric/arithmetic
+    mean ratio of the own-window power spectrum) — own spectrum, not coherence."""
     X = np.asarray(log_return, dtype=float)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -358,14 +325,40 @@ def _qatm_style_stat(log_return, W):
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            q = np.percentile(span[i], [10, 90])
-            out[i, t] = float(q[1] - q[0])
+            y = span[i] - span[i].mean()
+            P = np.abs(np.fft.rfft(y)) ** 2
+            P = P[1:]  # exclude DC
+            s = P.sum()
+            if s <= 0:
+                continue
+            gm = np.exp(np.mean(np.log(P + 1e-300)))
+            am = np.mean(P)
+            out[i, t] = float(gm / am) if am > 0 else np.nan
     return out
 
 
-def _magnet_style_stat(log_return, W):
-    """Inline C396 MAGNET-style statistic: Shannon entropy of magnitude bins — a
-    magnitude-bin entropy object, not the ECF."""
+def _xcorr_style_stat(log_return, W):
+    """Inline C410 XCORR-style statistic: average pairwise time-domain Pearson
+    correlation of the asset vs the other assets over the window — a time-domain
+    co-movement, not a frequency-localized coherence."""
+    X = np.asarray(log_return, dtype=float)
+    n_assets, n = X.shape
+    out = np.full((n_assets, n), np.nan)
+    for t in range(W, n):
+        span = X[:, t - W + 1:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        C = np.corrcoef(span)
+        for i in range(n_assets):
+            others = [C[i, j] for j in range(n_assets) if j != i]
+            vals = [v for v in others if np.isfinite(v)]
+            out[i, t] = float(np.mean(vals)) if vals else np.nan
+    return out
+
+
+def _autocf_style_stat(log_return, W):
+    """Inline C418 AUTOCF-style statistic: lag-1..4 autocorrelation of the OWN
+    return series (own-return autocorrelation), not a cross-spectrum/coherence."""
     X = np.asarray(log_return, dtype=float)
     n_assets, n = X.shape
     out = np.full((n_assets, n), np.nan)
@@ -374,131 +367,129 @@ def _magnet_style_stat(log_return, W):
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            a = np.abs(span[i])
-            hist, _ = np.histogram(a, bins=8)
-            p = hist[hist > 0] / hist.sum()
-            out[i, t] = float(-np.sum(p * np.log(p)))
+            x = span[i] - span[i].mean()
+            sd = x.std()
+            if sd <= 0:
+                continue
+            vals = []
+            for k in (1, 2, 3, 4):
+                vals.append(float(np.mean(x[:-k] * x[k:]) / (sd * sd)))
+            out[i, t] = float(np.mean(vals)) if vals else np.nan
     return out
 
 
 def _assert_distinct(sa, ref, name):
     fin = np.isfinite(sa) & np.isfinite(ref)
     assert fin.sum() > 0, name
-    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"RCF degenerates to {name}"
+    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"SCOH degenerates to {name}"
 
 
-def test_rcf_kernel_distinct_from_acovk():
-    """C375 ACOVK (unnormalized own-lag autocovariance): legitimate distinctness-guard ref."""
+def test_scoh_kernel_distinct_from_domfreq():
+    """C404 DOMFREQ (own time-series FFT dominant cycle): legitimate distinctness-guard ref."""
     rng = np.random.default_rng(214)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    sa = mm["rcf_mod"][0, W:]
-    ref = _acovk_style_stat(log_return, W)[0, W:]
-    _assert_distinct(sa, ref, "ACOVK")
-
-
-def test_rcf_kernel_distinct_from_poly_skew():
-    """C361 RSKEW / C371 RSK (polynomial moment): legitimate distinctness-guard ref."""
-    rng = np.random.default_rng(215)
-    n_assets, n_bars = 5, 1200
-    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    sa = mm["rcf_imag"][0, W:]
-    ref = _poly_skew_stat(log_return, W)[0, W:]
-    _assert_distinct(sa, ref, "RSKEW")
-
-
-def test_rcf_kernel_distinct_from_domfreq():
-    """C404 DOMFREQ (time-series FFT dominant cycle): legitimate distinctness-guard ref."""
-    rng = np.random.default_rng(216)
-    n_assets, n_bars = 5, 1200
-    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    sa = mm["rcf_mod"][0, W:]
+    W = R.SCOH_W
+    mm = R.compute_scoh_metrics(log_return, W)
+    sa = mm["coh_mean"][0, W:]
     ref = _domfreq_style_stat(log_return, W)[0, W:]
     _assert_distinct(sa, ref, "DOMFREQ")
 
 
-def test_rcf_kernel_distinct_from_qatm():
-    """C363 QATM / C376 QSPREAD (quantile spread): legitimate distinctness-guard ref."""
+def test_scoh_kernel_distinct_from_specfm():
+    """C397 SPECFM (own-spectrum flatness): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(215)
+    n_assets, n_bars = 5, 1200
+    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
+    W = R.SCOH_W
+    mm = R.compute_scoh_metrics(log_return, W)
+    sa = mm["coh_low"][0, W:]
+    ref = _specfm_style_stat(log_return, W)[0, W:]
+    _assert_distinct(sa, ref, "SPECFM")
+
+
+def test_scoh_kernel_distinct_from_xcorr():
+    """C410 XCORR (time-domain average pairwise correlation): legitimate
+    distinctness-guard ref (coherence is frequency-localized, XCORR is broadband)."""
+    rng = np.random.default_rng(216)
+    n_assets, n_bars = 5, 1200
+    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
+    W = R.SCOH_W
+    mm = R.compute_scoh_metrics(log_return, W)
+    sa = mm["coh_mean"][0, W:]
+    ref = _xcorr_style_stat(log_return, W)[0, W:]
+    _assert_distinct(sa, ref, "XCORR")
+
+
+def test_scoh_kernel_distinct_from_autocf():
+    """C418 AUTOCF (own-return autocorrelation): legitimate distinctness-guard ref
+    (SCOH is a vs-market cross-spectrum, AUTOCF is own-return autocorrelation)."""
     rng = np.random.default_rng(217)
     n_assets, n_bars = 5, 1200
     log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    sa = mm["rcf_imag"][0, W:]
-    ref = _qatm_style_stat(log_return, W)[0, W:]
-    _assert_distinct(sa, ref, "QATM")
-
-
-def test_rcf_kernel_distinct_from_magnet():
-    """C396 MAGNET (magnitude-bin entropy): legitimate distinctness-guard ref."""
-    rng = np.random.default_rng(218)
-    n_assets, n_bars = 5, 1200
-    log_return = rng.standard_normal((n_assets, n_bars)) * 0.001
-    W = R.RCF_W
-    mm = R.compute_rcf_metrics(log_return, W, R.RCF_U0)
-    sa = mm["rcf_mod"][0, W:]
-    ref = _magnet_style_stat(log_return, W)[0, W:]
-    _assert_distinct(sa, ref, "MAGNET")
+    W = R.SCOH_W
+    mm = R.compute_scoh_metrics(log_return, W)
+    sa = mm["coh_low"][0, W:]
+    ref = _autocf_style_stat(log_return, W)[0, W:]
+    _assert_distinct(sa, ref, "AUTOCF")
 
 
 # ---------------------------------------------------------------- guard tests (rewrite guards)
-def test_artifact_campaign_is_419():
-    """Rewrite guard: every emitted artifact self-identifies campaign 419."""
+def test_artifact_campaign_is_420():
+    """Rewrite guard: every emitted artifact self-identifies campaign 420."""
     for part in ("verdict", "summary", "registry", "oos_sweep"):
-        files = sorted((ROOT / "reports").glob(f"campaign419_{part}_*.json"))
+        files = sorted((ROOT / "reports").glob(f"campaign420_{part}_*.json"))
         files = [f for f in files if ".full." not in f.name]
         if not files:
             continue
         obj = json.loads(files[-1].read_text())
-        assert obj["campaign"] == 419, f"{part} artifact campaign != 419: {obj.get('campaign')}"
+        assert obj["campaign"] == 420, f"{part} artifact campaign != 420: {obj.get('campaign')}"
 
 
-def test_mandate_contains_rcf():
-    """Rewrite guard: the C419 mandate names the RCF standardized empirical
-    characteristic function (never prior families)."""
-    p = sorted((ROOT / "reports").glob("campaign419_oos_sweep_*.json"))
+def test_mandate_contains_scoh():
+    """Rewrite guard: the C420 mandate names the SCOH spectral-coherence family
+    (never prior families)."""
+    p = sorted((ROOT / "reports").glob("campaign420_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert "RCF" in mandate, "mandate missing RCF"
-    assert "EMPIRICAL CHARACTERISTIC" in mandate.upper(), "mandate missing EMPIRICAL CHARACTERISTIC"
-    assert "rcf_mod" in mandate, "mandate missing rcf_mod"
-    assert "rcf_imag" in mandate, "mandate missing rcf_imag"
-    for bad in ("AUTOCF", "AUTOCORRELATION", "DECORRELATION", "RHO",
-                "CDOMIN", "DOMINANCE", "ARGMAX", "TAILDEP", "EXCEEDANCE",
-                "TAILBETA", "TAIL BETA", "SIGNPOWER", "FRACTIONAL", "XCORR",
-                "SEMCORR", "RESIDVOL", "IDIOSYNCRATIC", "RESIDUAL", "LEADLAG",
-                "LEADER-FOLLOWER", "BETAASYM", "COSKEW", "COKURT", "ASYMCURV",
-                "TSCALE", "HILL", "RVQUART", "QUARTICITY", "KTREND", "CBREAK",
-                "SPECFM", "MAGNET", "OUHALFLIFE", "CTES", "VTERM", "DDRUN",
-                "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX", "PRROUGH",
-                "HALFRANGE", "LMOM", "SEMICOV", "LVAC", "DSRV", "RSKEK",
-                "ACOVK", "TIRV", "XSRANK", "RANK-PERSISTENCE", "SIGNRUN",
+    assert "SCOH" in mandate, "mandate missing SCOH"
+    assert "SPECTRAL COHERENCE" in mandate.upper(), "mandate missing SPECTRAL COHERENCE"
+    assert "CROSS-SPECTRUM" in mandate.upper() or "WELCH" in mandate.upper(), \
+        "mandate missing cross-spectrum/Welch"
+    assert "coh_mean" in mandate, "mandate missing coh_mean"
+    assert "coh_low" in mandate, "mandate missing coh_low"
+    for bad in ("RCF", "EMPIRICAL CHARACTERISTIC", "AUTOCF", "AUTOCORRELATION",
+                "DECORRELATION", "RHO", "CDOMIN", "DOMINANCE", "ARGMAX",
+                "TAILDEP", "EXCEEDANCE", "TAILBETA", "TAIL BETA", "SIGNPOWER",
+                "FRACTIONAL", "XCORR", "SEMCORR", "RESIDVOL", "IDIOSYNCRATIC",
+                "RESIDUAL", "LEADLAG", "LEADER-FOLLOWER", "BETAASYM", "COSKEW",
+                "COKURT", "ASYMCURV", "TSCALE", "HILL", "RVQUART", "QUARTICITY",
+                "KTREND", "CBREAK", "SPECFM", "MAGNET", "OUHALFLIFE", "CTES",
+                "VTERM", "DDRUN", "XSKEW3", "XCOEX", "MINRV", "MADR", "BANDX",
+                "PRROUGH", "HALFRANGE", "LMOM", "SEMICOV", "LVAC", "DSRV",
+                "RSKEK", "ACOVK", "TIRV", "XSRANK", "RANK-PERSISTENCE", "SIGNRUN",
                 "RUN-LENGTH", "SIGNCO-MOTION", "SAME-SIGN", "QREG",
-                "QUANTILE-REGRESSION", "QUANTILE REGRESSION", "QATM", "QSPREAD"):
+                "QUANTILE-REGRESSION", "QUANTILE REGRESSION", "QATM", "QSPREAD",
+                "DOMFREQ", "DOMINANT SPECTRAL", "SPECTRAL CENTROID"):
         assert bad not in mandate, f"mandate must not reference {bad} (prior campaign)"
 
 
-def test_placebo_seed_is_20261283():
-    assert R.PLACEBO_SEED == 20261283
+def test_placebo_seed_is_20261284():
+    assert R.PLACEBO_SEED == 20261284
 
 
 def test_placebo_seed_unique_not_reserved():
-    """Rewrite guard: C419 placebo seed must not collide with reserved seeds
+    """Rewrite guard: C420 placebo seed must not collide with reserved seeds
     used by prior campaigns."""
-    assert not (20261224 <= R.PLACEBO_SEED <= 20261281), "placebo seed must be outside 20261224-20261281"
+    assert not (20261224 <= R.PLACEBO_SEED <= 20261283), \
+        "placebo seed must be outside 20261224-20261283"
 
 
 # ---------------------------------------------------------------- real artifacts schema (if present)
 def _find_latest(prefix: str):
-    files = sorted((ROOT / "reports").glob(f"campaign419_{prefix}_*.json"))
+    files = sorted((ROOT / "reports").glob(f"campaign420_{prefix}_*.json"))
     files = [f for f in files if ".full." not in f.name]
     return files[-1] if files else None
 
@@ -508,7 +499,7 @@ def test_artifacts_if_present_have_required_flags():
     if p is None:
         return
     v = json.loads(p.read_text())
-    assert v["campaign"] == 419
+    assert v["campaign"] == 420
     assert v["real_data_only"] is True and v["fabricated_data"] is False
     assert v["executed_fills"] is False
     assert v["verdict"] in ("EDGE_PROVEN", "RETRACTED")
@@ -522,8 +513,9 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["rcf_params"]["window_W"] == 256
-    assert sw["config"]["rcf_params"]["u0"] == 1.0
+    assert sw["config"]["scoh_params"]["window_W"] == 256
+    assert sw["config"]["scoh_params"]["seg_len"] == 128
+    assert sw["config"]["scoh_params"]["n_seg"] == 3
 
 
 if __name__ == "__main__":
@@ -536,26 +528,25 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_rcf_matches_brute_force()
-    test_rcf_matches_brute_force_10_assets()
-    test_rcf_matches_brute_force_with_nan()
-    test_rcf_defined_after_window_nan_before()
-    test_rcf_non_finite_return_propagates()
-    test_rcf_params()
-    test_rcf_mod_range_and_imag_range()
+    test_scoh_matches_brute_force()
+    test_scoh_matches_brute_force_10_assets()
+    test_scoh_matches_brute_force_with_nan()
+    test_scoh_defined_after_window_nan_before()
+    test_scoh_non_finite_return_propagates()
+    test_scoh_params()
+    test_coh_range_and_low_band_subset()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_rcf_kernel_not_degenerate()
-    test_rcf_kernel_distinct_from_acovk()
-    test_rcf_kernel_distinct_from_poly_skew()
-    test_rcf_kernel_distinct_from_domfreq()
-    test_rcf_kernel_distinct_from_qatm()
-    test_rcf_kernel_distinct_from_magnet()
-    test_artifact_campaign_is_419()
-    test_mandate_contains_rcf()
-    test_placebo_seed_is_20261283()
+    test_scoh_kernel_not_degenerate()
+    test_scoh_kernel_distinct_from_domfreq()
+    test_scoh_kernel_distinct_from_specfm()
+    test_scoh_kernel_distinct_from_xcorr()
+    test_scoh_kernel_distinct_from_autocf()
+    test_artifact_campaign_is_420()
+    test_mandate_contains_scoh()
+    test_placebo_seed_is_20261284()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    print("All C419 RCF runner tests passed")
+    print("All C420 SCOH runner tests passed")
