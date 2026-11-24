@@ -1,0 +1,184 @@
+{
+  "generated_at_utc": "20261124T044940Z",
+  "campaign": 429,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "signentropy_trans_entropy_dev",
+      "signentropy_trans_asym_dev",
+      "signentropy_p_stay_dev",
+      "signentropy_p_switch_dev",
+      "signentropy_trans_entropy_placebo",
+      "signentropy_trans_asym_placebo",
+      "signentropy_p_stay_placebo",
+      "signentropy_p_switch_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261293,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 2592,
+    "total_runs": 2592,
+    "signentropy_params": {
+      "window_W": 256
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "signet_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "signentropy_trans_entropy_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -1.409130777069045,
+        -1.4992521446957248,
+        -1.695001842189243,
+        -1.324908264246008,
+        -1.5148678328231344,
+        -1.4369007636235176,
+        -1.5604612414665138,
+        -1.400418566691398
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -10.776567555546636,
+      "second_half_sharpe": -23.469533182992322,
+      "sharpe_corr": 0.999640386792192,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "signentropy_trans_entropy_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "signentropy_trans_entropy_dev_net": -1.4363112148107895,
+      "signentropy_trans_asym_dev_net": -0.9306046338196062,
+      "signentropy_p_stay_dev_net": -0.9134130991775954,
+      "signentropy_p_switch_dev_net": -0.9875388684149972,
+      "signentropy_trans_entropy_placebo_net": -1.4788927345106477,
+      "signentropy_trans_asym_placebo_net": -1.0555039825467951,
+      "signentropy_p_stay_placebo_net": -0.97725406051771,
+      "signentropy_p_switch_placebo_net": -0.9671526613286419,
+      "shares": {
+        "signentropy_trans_entropy_dev": 0.1642123240848807,
+        "signentropy_trans_asym_dev": 0.1063952910399074,
+        "signentropy_p_stay_dev": 0.10442979649454717,
+        "signentropy_p_switch_dev": 0.11290453700728265,
+        "signentropy_trans_entropy_placebo": 0.16908063552106273,
+        "signentropy_trans_asym_placebo": 0.12067493469908577,
+        "signentropy_p_stay_placebo": 0.11172868306270244,
+        "signentropy_p_switch_placebo": 0.11057379809053118
+      },
+      "dominant": "signentropy_trans_entropy_placebo",
+      "dominant_share": 0.16908063552106273,
+      "attribution_ok": false,
+      "placebo_seed": 20261293
+    },
+    "data_quality": {
+      "reference_signal": "signentropy_trans_entropy_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019974782035685368,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W=256 or NaN in trailing W+1-bar close window)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign429_oos_sweep_20261124T044940Z.json",
+      "sha256": "2bb0f97c877d1a78005b225e819c69c050db562f83005c9f45411815e7046e4c"
+    },
+    "registry": {
+      "path": "reports/campaign429_tradable_edge_registry_20261124T044940Z.json",
+      "sha256": "3594b30a1f0f01d61de58f29fefbaf29536cf859abc6049fbe522db0ce4592df"
+    }
+  },
+  "summary": {
+    "n_total_runs": 2592,
+    "n_with_exposure": 2592,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

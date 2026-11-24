@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "20261124T013244Z",
+  "generated_at_utc": "20261124T044928Z",
   "campaign": 429,
   "part": "feature_build",
   "interval": "5m",
@@ -34,7 +34,8 @@
     "perp_close",
     "log_return",
     "abs_ret",
-    "funding_rate"
+    "funding_rate",
+    "sign"
   ],
   "storage": "per_asset_float32_npz_shards",
   "shard_dir": "data/cache/campaign429_signet_5m",
@@ -69,11 +70,10 @@
   "under_push_limit": true,
   "under_cache_budget": true,
   "n_buckets_tod_dow": 2016,
-  "signet_params": {
-    "window_W": 256,
-    "n_bins": 32
+  "signentropy_params": {
+    "window_W": 256
   },
-  "field_definition": "perp_close: real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding unreachable). Runner builds SIGNET scalars over fixed intrinsic window W=256 trailing closes C=c_i[t-W..t]: running maximum M=max(C) and running minimum m=min(C); discretize C into B=32 equal-width bins between min(C) and max(C); peak local time L_peak=count of visits to the bin containing M; trough local time L_trough=count of visits to the bin containing m; signet_max_occ=L_peak/(W+1) (occupation share at peak); signet_min_occ=L_trough/(W+1) (occupation share at trough); signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough) (peak/trough occupation imbalance); signet_extreme_recency=(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin) (extreme recency asymmetry). NaN if t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets), degenerate window (min==max), or not finite. Seasonal deviation of each SIGNET scalar at the same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.",
+  "field_definition": "perp_close: real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding unreachable); sign=sign(log_return) (+1/-1/0, sign[0]=0). Runner builds SIGNENTROPY scalars over fixed intrinsic window W=256 trailing signs s_i[t-W..t]: order-1 Markov 2x2 transition matrix on {+1,-1}; transition entropy H_trans = -\u03a3 p_ij log p_ij; transition asymmetry asym = p_+- - p_-+; persistence p_stay = (p_++ + p_--)/2; switching p_switch = 1 - p_stay. NaN if t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets), degenerate window (all same sign), or not finite. Seasonal deviation of each SIGNENTROPY scalar at the same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.",
   "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
   "network_ingest": false,
   "resample": false,
@@ -87,7 +87,8 @@
     "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
     "abs_ret": "|log_return|; always finite",
     "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; SIGNET scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or degenerate window or not finite.",
+    "sign": "sign(log_return) (+1/-1/0); always finite",
+    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; SIGNENTROPY scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or degenerate window or not finite.",
     "raw_nan_observed": {
       "ADAUSDT": {
         "log_return": 0,

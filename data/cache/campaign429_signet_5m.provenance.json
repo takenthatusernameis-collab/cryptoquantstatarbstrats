@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "20261124T013244Z",
+  "generated_at_utc": "20261124T044928Z",
   "campaign": 429,
   "part": "provenance",
   "source_host": "https://data.binance.vision",
-  "note": "C429 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
+  "note": "C429 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret, sign derived); no network, no fabrication, no resampling.",
   "interval": "5m",
   "bar_ms": 300000,
   "window_start_month": "2023-01",
@@ -169,6 +169,6 @@
   "fabricated_data": false,
   "executed_fills": false,
   "manifest_sha256": "ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f",
-  "meta_sha256": "d7d9847647e3644487286a82f1b8111ea1706c7062508a1550416b951621c909",
-  "provenance_sha256": "2d96519f3163fa69b6b758c6c4ddabc7c826914914a7b59d810b9c276b877f08"
+  "meta_sha256": "569f13bc820d0b52483b7d59927e7ac8aea27fb5b8295b519067d8be1a18ca4b",
+  "provenance_sha256": "e92774641ade55791ac2fdfccb9b0ef4764197edfb6d58fbe03967883b550a9d"
 }

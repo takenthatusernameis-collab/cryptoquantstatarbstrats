@@ -179,7 +179,7 @@ def test_signetropy_matches_brute_force_with_nan():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
 
-    fast = R.compute_signetropy_metrics(sign, W=R.SIGNENTROPY_W)
+    fast = R.compute_signentropy_metrics(sign, W=R.SIGNENTROPY_W)
     brute = R._signentropy_bruteforce(sign, W=R.SIGNENTROPY_W)
     for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
                 "signentropy_p_stay", "signentropy_p_switch"):
@@ -199,7 +199,7 @@ def test_signetropy_defined_after_window_nan_before():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
                 "signentropy_p_stay", "signentropy_p_switch"):
         assert np.isnan(m[key][:, :W]).all(), key
@@ -218,7 +218,7 @@ def test_signetropy_non_finite_close_propagates():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     for t in range(300, min(300 + W + 1, n_bars)):
         for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
                     "signentropy_p_stay", "signentropy_p_switch"):
@@ -241,7 +241,7 @@ def test_signetropy_trans_entropy_range():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     fin = np.isfinite(m["signentropy_trans_entropy"])
     assert (m["signentropy_trans_entropy"][fin] >= -1e-9).all(), "trans_entropy must be >= 0"
     assert (m["signentropy_trans_entropy"][fin] <= np.log(4) + 1e-9).all(), "trans_entropy must be <= log(4)"
@@ -257,7 +257,7 @@ def test_signetropy_trans_asym_range():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     fin = np.isfinite(m["signentropy_trans_asym"])
     assert (m["signentropy_trans_asym"][fin] >= -1.0 - 1e-9).all(), "trans_asym must be >= -1"
     assert (m["signentropy_trans_asym"][fin] <= 1.0 + 1e-9).all(), "trans_asym must be <= 1"
@@ -273,7 +273,7 @@ def test_signetropy_p_stay_range():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     fin = np.isfinite(m["signentropy_p_stay"])
     assert (m["signentropy_p_stay"][fin] >= -1e-9).all(), "p_stay must be >= 0"
     assert (m["signentropy_p_stay"][fin] <= 1.0 + 1e-9).all(), "p_stay must be <= 1"
@@ -289,7 +289,7 @@ def test_signetropy_p_switch_range():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     fin = np.isfinite(m["signentropy_p_switch"])
     assert (m["signentropy_p_switch"][fin] >= -1e-9).all(), "p_switch must be >= 0"
     assert (m["signentropy_p_switch"][fin] <= 1.0 + 1e-9).all(), "p_switch must be <= 1"
@@ -305,7 +305,7 @@ def test_signetropy_p_stay_plus_p_switch_equals_one():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    m = R.compute_signetropy_metrics(sign, W=W)
+    m = R.compute_signentropy_metrics(sign, W=W)
     fin = np.isfinite(m["signentropy_p_stay"]) & np.isfinite(m["signentropy_p_switch"])
     assert fin.sum() > 0
     sum_vals = m["signentropy_p_stay"][fin] + m["signentropy_p_switch"][fin]
@@ -386,7 +386,7 @@ def test_signetropy_kernel_not_degenerate():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(sign, W=W)
+    mm = R.compute_signentropy_metrics(sign, W=W)
     for name in ("signentropy_trans_entropy", "signentropy_trans_asym",
                  "signentropy_p_stay", "signentropy_p_switch"):
         arr = mm[name]
@@ -655,7 +655,7 @@ def test_signetropy_kernel_distinct_from_c329_sign_entropy():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(sign, W=W)
+    mm = R.compute_signentropy_metrics(sign, W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c329_sign_entropy_style_stat(sign, W)[0, W:]
     _assert_distinct(sa, ref, "C329_SIGN_ENTROPY")
@@ -671,7 +671,7 @@ def test_signetropy_kernel_distinct_from_c329_maxrun():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(sign, W=W)
+    mm = R.compute_signentropy_metrics(sign, W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c329_maxrun_style_stat(sign, W)[0, W - 1:]
     _assert_distinct(sa, ref, "C329_MAXRUN")
@@ -687,7 +687,7 @@ def test_signetropy_kernel_distinct_from_c328_signstreak():
     sign = np.sign(log_ret).astype(int)
     sign[:, 0] = 0
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(sign, W=W)
+    mm = R.compute_signentropy_metrics(sign, W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c328_signstreak_style_stat(sign, W)[0, W - 1:]
     _assert_distinct(sa, ref, "C328_SIGNSTREAK")
@@ -699,7 +699,7 @@ def test_signetropy_kernel_distinct_from_zcrpath():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c422_zcrpath_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "ZCRPATH")
@@ -711,7 +711,7 @@ def test_signetropy_kernel_distinct_from_runlen():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c423_runlen_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "RUNLEN")
@@ -723,7 +723,7 @@ def test_signetropy_kernel_distinct_from_iesd():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c424_iesd_style_stat(close, W)[0, W:]
     _assert_distinct(sa, ref, "IESD")
@@ -735,7 +735,7 @@ def test_signetropy_kernel_distinct_from_wlmf():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c426_wlmf_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "WLMF")
@@ -747,7 +747,7 @@ def test_signetropy_kernel_distinct_from_mfdfa():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c358_mfdfa_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "MF-DFA")
@@ -759,7 +759,7 @@ def test_signetropy_kernel_distinct_from_permutation_entropy():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c349_permutation_entropy_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "PERMUTATION_ENTROPY")
@@ -771,7 +771,7 @@ def test_signetropy_kernel_distinct_from_sample_entropy():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     ref = _c355_sample_entropy_style_stat(close, W)[0, W - 1:]
     _assert_distinct(sa, ref, "SAMPLE_ENTROPY")
@@ -783,7 +783,7 @@ def test_signetropy_kernel_distinct_from_ptlt():
     n_assets, n_bars = 5, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
     W = R.SIGNENTROPY_W
-    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    mm = R.compute_signentropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
     sa = mm["signentropy_trans_entropy"][0, W:]
     # PTLT uses price path bins, so we compute a simplified PTLT-like stat on close
     n_assets, n = close.shape
