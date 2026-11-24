@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261124T163545Z",
+  "campaign": 432,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign432_oos_sweep_20261124T163545Z.json",
+  "oos_sweep_sha256": "b3694b4345f74cf80a31e3da636e290c81f2b9d1b2fc6750a722a00efffd9792",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "edf_ad_dev": 0.12148929081621539,
+    "edf_cvm_dev": 0.12739969367462514,
+    "edf_ks_dev": 0.17361775437053176,
+    "edf_kuiper_dev": 0.130123894643067,
+    "edf_ad_placebo": 0.10301176469246916,
+    "edf_cvm_placebo": 0.10672951500736148,
+    "edf_ks_placebo": 0.13760970483343246,
+    "edf_kuiper_placebo": 0.10001838196229762
+  },
+  "dominant_attribution": "edf_ks_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "edf_ad_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.7228186114502235,
+      -0.8510720887771652,
+      -0.8222972372925854,
+      -0.9228880421411986,
+      -0.7850713324218628,
+      -0.8551630639734866,
+      -0.9963823060678539,
+      -0.8413643461452837
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -11.557167127701272,
+    "second_half_sharpe": -11.173004263712897,
+    "sharpe_corr": 0.998622073511525,
+    "stable": false
+  },
+  "diagnosis": "C432 price-only EDF-GOODNESS-OF-FIT normality-departure stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

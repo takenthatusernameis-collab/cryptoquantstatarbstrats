@@ -1,0 +1,191 @@
+{
+  "generated_at_utc": "20261124T163545Z",
+  "campaign": 432,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "edf_ad_dev",
+      "edf_cvm_dev",
+      "edf_ks_dev",
+      "edf_kuiper_dev",
+      "edf_ad_placebo",
+      "edf_cvm_placebo",
+      "edf_ks_placebo",
+      "edf_kuiper_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261296,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 2592,
+    "total_runs": 2592,
+    "edfgof_params": {
+      "window_W_q": 256,
+      "fallback_W_q": 128,
+      "statistics": [
+        "anderson_darling",
+        "cramer_von_mises",
+        "kolmogorov_smirnov",
+        "kuiper"
+      ]
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "cq_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "edf_ad_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -0.7228186114502235,
+        -0.8510720887771652,
+        -0.8222972372925854,
+        -0.9228880421411986,
+        -0.7850713324218628,
+        -0.8551630639734866,
+        -0.9963823060678539,
+        -0.8413643461452837
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -11.557167127701272,
+      "second_half_sharpe": -11.173004263712897,
+      "sharpe_corr": 0.998622073511525,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "edf_ad_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "edf_ad_dev_net": -0.786060908401905,
+      "edf_cvm_dev_net": -0.824302440710551,
+      "edf_ks_dev_net": -1.1233428790168192,
+      "edf_kuiper_dev_net": -0.8419285859743518,
+      "edf_ad_placebo_net": -0.6665074821511585,
+      "edf_cvm_placebo_net": -0.6905620977481547,
+      "edf_ks_placebo_net": -0.8903633304594807,
+      "edf_kuiper_placebo_net": -0.6471396750607976,
+      "shares": {
+        "edf_ad_dev": 0.12148929081621539,
+        "edf_cvm_dev": 0.12739969367462514,
+        "edf_ks_dev": 0.17361775437053176,
+        "edf_kuiper_dev": 0.130123894643067,
+        "edf_ad_placebo": 0.10301176469246916,
+        "edf_cvm_placebo": 0.10672951500736148,
+        "edf_ks_placebo": 0.13760970483343246,
+        "edf_kuiper_placebo": 0.10001838196229762
+      },
+      "dominant": "edf_ks_dev",
+      "dominant_share": 0.17361775437053176,
+      "attribution_ok": false,
+      "placebo_seed": 20261296
+    },
+    "data_quality": {
+      "reference_signal": "edf_ad_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.05672521289537713,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W_q or \u03c3[t]\u22640 or p\u2208{0,1} or NaN in trailing window)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign432_oos_sweep_20261124T163545Z.json",
+      "sha256": "b3694b4345f74cf80a31e3da636e290c81f2b9d1b2fc6750a722a00efffd9792"
+    },
+    "registry": {
+      "path": "reports/campaign432_tradable_edge_registry_20261124T163545Z.json",
+      "sha256": "6b743bdb9c13f4fe6f000737251fe6dada823eefbc7c08f004836d157ad38f93"
+    }
+  },
+  "summary": {
+    "n_total_runs": 2592,
+    "n_with_exposure": 2592,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}
