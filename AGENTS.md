@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-24T08:51:32Z (repo = `cryptoquantstatarbstrats` = crypto quant **stat-arb strategies** → top priority is the next costed OOS stat-arb EDGE campaign; **C422–C431 ALL FROZEN formal negatives** (C430 DISTCOR DONE / RETRACTED 20261124T071440Z; C431 CQ DONE / RETRACTED 20261124T080617Z, 2592 configs, 0 Holm+BH survivors, dominant cq_market_placebo 0.2057, 64 tests green); **C432 ACTIVE next**) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-24T09:11:13Z (repo = `cryptoquantstatarbstrats` = crypto quant **stat-arb strategies** → top priority is the next costed OOS stat-arb EDGE campaign; **C422–C431 ALL FROZEN formal negatives** (C430 DISTCOR DONE / RETRACTED 20261124T071440Z; C431 CQ DONE / RETRACTED 20261124T080617Z, 2592 configs, 0 Holm+BH survivors, dominant cq_market_placebo 0.2057, 64 tests green); **C432 ACTIVE next**) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-24T08:51:32Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-24T09:11:13Z; supersedes every earlier session message; the ONLY active directive)
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): the single most relevant next unit of work is the next pre-registered, fully-costed, real-data-only, walk-forward OOS stat-arb EDGE campaign on the C312 USDT-M 5m `perp_close` universe. C430 DISTCOR is DONE (RETRACTED formal negative). C431 CQ (cross-quantilogram) is DONE (RETRACTED formal negative). The queue advances to **C432**.
 
