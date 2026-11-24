@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-24T07:50:36Z
-handoff_refreshed_at_utc: 2026-11-24T07:50:36Z
+updated_at_utc: 2026-11-24T08:51:32Z
+handoff_refreshed_at_utc: 2026-11-24T08:51:32Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C430
-next_campaign: C431
+latest_campaign_done: C431
+next_campaign: C432
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-24T07:50:36Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant dcor_signmag_dev/share 0.1684 [<0.50, attribution_ok false; placebos comparable], 50/50 tests green incl brute-force dCor equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372). C430 5 artifact SHAs + cache SHAs recorded under c430_status. C281B-C430 ALL FROZEN formal negatives, NO EDGE through C430. Active next: C431 CQ cross-quantilogram (seed 20261295) = directional quantile-tail dependence profile rho_tau(k) (Han-Linton-Oka 2016) on own returns / volatility / equal-weight market / sign-magnitude, DISTINCT from all Pearson/linear/sign/spectral/tail/Markov/entropy/dCor families; grid = 8 signals (4 dev + 4 placebo) x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592. Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps re-verified read-only this session (git does not persist write bits; re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-24T07:50:36Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-24T07:50:36Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant dcor_signmag_dev/share 0.1684 [<0.50, attribution_ok false; placebos comparable], 50/50 tests green incl brute-force dCor equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372). C281B-C430 ALL FROZEN formal negatives, NO EDGE through C430. C431 CQ ACTIVE next (genuinely-new cross-quantilogram directional quantile-tail dependence family; seed 20261295). BOTTLENECKS REMOVED THIS SESSION: the previous handoff still pointed the queue at C430 (already complete, artifacts committed 20261124T071440Z) - that stale pointer is now corrected; the queue points at C431, not the already-done C430, so no session will wastefully re-run C430. All 9 archive/void_* dirs re-verified read-only (dr-xr-xr-x) this session so no writable clone-traps remain (re-apply chmod -R a-w archive/void_* if found writable after a fresh checkout). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C431
-queued_next_campaign_note: 'C281B-C430 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C431 CQ cross-quantilogram (genuinely-new price-only directional quantile-tail dependence family; seed 20261295). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
-active_campaign: C431
-space_status: NO_EDGE_C281B_C430
-closure_note: 'C281B-C430 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge; binding universally multiple_testing; edge_claim NONE). Frozen boundary C430 DISTCOR RETRACTED 20261124T071440Z (dominant dcor_signmag_dev/share 0.1684 [no separation, placebos comparable], attribution_ok false, 50/50 tests green incl distance-correlation brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372, 5 artifact SHA256 + cache SHAs matching, recorded under c430_status). C431 CQ ACTIVE next (seed 20261295) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories re-verified read-only this session (re-apply chmod if found writable after checkout). Next session must build C431 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-24T08:51:32Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant dcor_signmag_dev/share 0.1684 [<0.50, attribution_ok false; placebos comparable], 50/50 tests green incl brute-force dCor equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372). C430 5 artifact SHAs + cache SHAs recorded under c430_status. C431 CQ COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T080617Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cq_market_placebo/share 0.2057 [<0.50, attribution_ok false; placebos comparable], 64 tests green incl brute-force CQ equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families). C431 cache SHAs + artifact SHAs recorded under c431_status. C281B-C431 ALL FROZEN formal negatives, NO EDGE through C431. Active next: C432 EDF-GOF empirical-distribution-function goodness-of-fit normality departure (seed 20261296) — Anderson-Darling A^2 / Cramer-von-Mises W^2 / Kolmogorov-Smirnov D / Kuiper V of causal trailing-window standardized returns vs N(0,1), genuinely-new first EDF-GOF family, DISTINCT from QATM/CTES/LMOM/dCor/cross-quantilogram/Markov/sign/entropy/spectral/moment families; grid = 8 signals (4 dev + 4 placebo) x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592. Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps re-verified read-only this session (git does not persist write bits; re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+bottlenecks_verified_removed_at_utc: "2026-11-24T08:51:32Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-24T08:51:32Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant dcor_signmag_dev/share 0.1684 [<0.50, attribution_ok false; placebos comparable], 50/50 tests green incl brute-force dCor equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372). C431 CQ COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T080617Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant cq_market_placebo/share 0.2057 [<0.50, attribution_ok false; placebos comparable], 64 tests green incl brute-force CQ equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families). C281B-C431 ALL FROZEN formal negatives, NO EDGE through C431. Active next: C432 EDF-GOF empirical-distribution-function goodness-of-fit normality departure (seed 20261296). BOTTLENECKS REMOVED THIS SESSION: the previous handoff still pointed the queue at C431 (already complete, artifacts committed 20261124T080617Z) - that stale pointer is now corrected; the queue points at C432, not the already-done C431, so no session will wastefully re-run C431. All 9 archive/void_* dirs re-verified read-only (dr-xr-xr-x) this session so no writable clone-traps remain (re-apply chmod -R a-w archive/void_* if found writable after a fresh checkout). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
+queued_next_campaign: C432
+queued_next_campaign_note: 'C281B-C431 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C432 EDF-GOF empirical-distribution-function goodness-of-fit normality-departure family (genuinely-new price-only tail/shape departure family; seed 20261296). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+active_campaign: C432
+space_status: NO_EDGE_C281B_C431
+closure_note: 'C281B-C431 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge; binding universally multiple_testing; edge_claim NONE). Frozen boundary C430 DISTCOR RETRACTED 20261124T071440Z (dominant dcor_signmag_dev/share 0.1684 [no separation, placebos comparable], attribution_ok false, 50/50 tests green incl distance-correlation brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372, 5 artifact SHA256 + cache SHAs matching, recorded under c430_status). C431 CQ RETRACTED 20261124T080617Z (dominant cq_market_placebo/share 0.2057 [no separation, placebos comparable], attribution_ok false, 64 tests green incl cross-quantilogram brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, cache SHAs recorded under c431_status). C432 EDF-GOF ACTIVE next (seed 20261296) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories re-verified read-only this session (re-apply chmod if found writable after checkout). Next session must build C432 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C417
@@ -1125,7 +1125,7 @@ family_backlog_c373_plus:
   - 'C387 COMPLETE_FORMAL_NEGATIVE: BANDX normalized-band crossing intensity asymmetry (seed 20261251)'
   - 'C388 COMPLETE_FORMAL_NEGATIVE: MADR first-moment upside/downside capture ratio (seed 20261252)'
 
-handoff_as_of_utc: 2026-11-22T14:20:00Z
+handoff_as_of_utc: 2026-11-24T08:51:32Z
 queue_depth: 3
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry
@@ -2332,3 +2332,45 @@ c430_status:
   cache_shas:
     meta: '0c2bfaea1deb3952fe0a9bcbaaebb58d9ea7ec0f14b22adcc2d8c60bf4cc1c7f'
     provenance: '477c55e46db09110836573fa93e55850ab291b6d5e987b9b5522a7b2b877fd0d'
+
+c431_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C431
+  family: cross_quantilogram_directional_quantile_tail_dependence_vs_equal_weight_market_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First cross-quantilogram directional quantile-tail dependence PROFILE family ever run (Han-Linton-Oka 2016). Distinct from C416 QREG (quantile-regression slope), C415 TAILDEP (extremal tail-dependence coefficient only), C430 dCor (one scalar nonlinear-dependence measure over the joint distribution), C429 first-order Markov sign-transition, C421 sign autocorrelation profile, C329 sign-count Shannon entropy, C328/C423 sign streak/run-length, C414 sign-agreement-motion, C412 sign_power, C421 sign_coherence/sign_comotion — all sign/level statistics, not quantile-lag hit correlations; C375 multi-lag realized autocovariance profile, C410 average pairwise cross-correlation profile, C411 semiconcorr, C408 leadlag, C417 cdom, C407 xsrank — Pearson/rank/linear or cross-sectional; C405 co-skewness/co-kurtosis, C406 betaasym, C391 xskew3 — co-moments; C419 empirical characteristic function (Fourier characteristic functional, not EDF-vs-normal GOF); C376 realized quantile spread, C363 quantile-at-market, C398 L-moments — quantile/L-moment shape, not EDF-vs-normal GOF; C420 spectral coherence, C404 dominant spectral frequency, C397 spectral flatness — frequency-domain; C425 RQA, C355 sample entropy, C356 multiscale entropy, C349 permutation entropy, C358 MF-DFA, C426 wavelet-leader multifractal, C427 local time/PTLT, C428 PTLT, C424 inter-extremum spacing, C422 zero-crossing-rate path, C423 run-length distribution — recurrence/neighbor/ordinal/entropy/path families; C392 max drawdown/runup asymmetry, C394 expected shortfall/CTES — path/tail functionals; and every moment/vol-of-vol/fractal family C281B-C430. No cross-quantilogram family has been run before C431. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261124T080617Z
+  artifacts_ts: 20261124T080617Z
+  signals: [cq_serial_dev, cq_volserial_dev, cq_market_dev, cq_signmag_dev, cq_serial_placebo, cq_volserial_placebo, cq_market_placebo, cq_signmag_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261295
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'cq_market_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [cq_serial_dev, cq_volserial_dev, cq_market_dev, cq_signmag_dev]
+  cq_params: {window_W: 256, taus: [0.10, 0.25, 0.75, 0.90], lags: [1, 2, 4]}
+  scripts_present: [scripts/build_c431_cq_features.py, scripts/preflight_c431.py, scripts/run_c431_cq_xsec_oos.py]
+  tests_present: [tests/test_preflight_c431.py, tests/test_c431_cq_xsec_oos.py]
+  cache_present: data/cache/campaign431_cq_5m
+  artifacts_present: [reports/campaign431_oos_sweep_20261124T080617Z.json, reports/campaign431_tradable_edge_registry_20261124T080617Z.json, reports/campaign431_summary_20261124T080617Z.json, reports/campaign431_verdict_20261124T080617Z.json, reports/campaign431_binding_constraint_20261124T080617Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: cq_market_placebo
+  dominant_share: 0.2057
+  attribution_ok: false
+  tests_green: 64
+  brute_force_maxdiff: 'cq_serial/volserial/market/signmag maxdiff < 1e-12 (vectorized cumulative-sum cross-quantilogram vs independent naive per-window double-loop reference); NaN patterns identical; kernel-distinctness guards vs ALL prior families'
+  artifacts:
+    oos_sweep: '3ecb08f188abea5c3e4778e981d2fc157be49d572f972de37ae59d97d10dc069'
+    tradable_edge_registry: '931889ff8b21989122b78bb655405dbfcb14e504419ad5c6efe87f06b0ba2791'
+    summary: '43e7e021d9bee391390ac9a79fcfff22632afa9f7707e067594a033d9d2b00e6'
+    verdict: 'e7453343e2f19e4ea7a3ee31fdcdb0479fd88942f37c1950411c2156a902201a'
+    binding_constraint: '60971bbe4d61ccc05a9c7c7383238fb941a52935bb3ab2b74a768e8e3d4fff1e'
+  cache_shas:
+    meta: '208e824b6a88531e347067bfc9aa15cdb083819e26600b35920baa9b2ea0e87c'
+    provenance: '9d6f970d1903711eed222533305a18017d1d0108519ca5bd9bf28398f8afc0fb'
