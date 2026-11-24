@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """C430 preflight: fail-closed verification of the real C430 USDT-M price-only
-DISTCOR order-1 Markov sign-transition feature cache before the
+DISTCOR (distance-correlation dCor) feature cache before the
 C430 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:

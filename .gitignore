@@ -71,3 +71,7 @@ data/cache/recovery/*.pkl.orig
 
 # Full-size OOS sweep provenance blobs (>100 MB; kept on disk for audit, never pushed)
 reports/*.full.json
+
+# Derived per-campaign metric caches (regenerable from the committed source shards;
+# full-length float64 concept series exceed the 100 MB push limit, so never committed)
+data/cache/*_metrics.npz
