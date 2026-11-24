@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261124T175008Z",
+  "campaign": 433,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign433_oos_sweep_20261124T175008Z.json",
+  "oos_sweep_sha256": "e85363fd267b53924c07825104ef92dfa909a562ad71d54c0e26d8cb619c7ed3",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "hvg_mean_degree_dev": 0.08384243342853069,
+    "hvg_degree_entropy_dev": 0.035476214587437604,
+    "hvg_assortativity_dev": 0.023245943182429892,
+    "hvg_clustering_dev": 0.08594323870105725,
+    "hvg_mean_degree_placebo": 0.1920025278271358,
+    "hvg_degree_entropy_placebo": 0.1942788185337639,
+    "hvg_assortativity_placebo": 0.1932488038702924,
+    "hvg_clustering_placebo": 0.19196201986935255
+  },
+  "dominant_attribution": "hvg_degree_entropy_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "hvg_mean_degree_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -4.299572116039598,
+      -4.465080311375191,
+      -4.44055974263266,
+      -4.403206988846549,
+      -4.124492788032146,
+      -4.345078946653906,
+      -4.464802231534002,
+      -4.556450446384976
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -69.69303678188083,
+    "second_half_sharpe": -27.038312861181783,
+    "sharpe_corr": 0.9999057707032303,
+    "stable": false
+  },
+  "diagnosis": "C433 price-only HORIZONTAL VISIBILITY GRAPH topology stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
