@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-24T05:55:32Z (repo = `cryptoquantstatarbstrats` = crypto quant **stat-arb strategies** → top priority is the next costed OOS stat-arb EDGE campaign; **C422–C429 ALL FROZEN formal negatives** (C429 SIGNENTROPY DONE / RETRACTED 20261124T054818Z, 0 Holm+BH survivors, dominant signentropy_trans_entropy_placebo 0.1691, 44 tests green); **C430 DISTCOR ACTIVE next, placebo seed 20261294**) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-24T07:05:21Z (repo = `cryptoquantstatarbstrats` = crypto quant **stat-arb strategies** → top priority is the next costed OOS stat-arb EDGE campaign; **C422–C429 ALL FROZEN formal negatives** (C429 SIGNENTROPY DONE / RETRACTED 20261124T054818Z, 0 Holm+BH survivors, dominant signentropy_trans_entropy_placebo 0.1691, 44 tests green); **C430 DISTCOR ACTIVE next, placebo seed 20261294**) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
