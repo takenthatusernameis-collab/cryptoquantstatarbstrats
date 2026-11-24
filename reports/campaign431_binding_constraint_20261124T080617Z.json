@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261124T080617Z",
+  "campaign": 431,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign431_oos_sweep_20261124T080617Z.json",
+  "oos_sweep_sha256": "3ecb08f188abea5c3e4778e981d2fc157be49d572f972de37ae59d97d10dc069",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "cq_serial_dev": 0.11393921146616301,
+    "cq_volserial_dev": 0.10006237703371541,
+    "cq_market_dev": 0.10952952811688242,
+    "cq_signmag_dev": 0.11227493849070863,
+    "cq_serial_placebo": 0.14856554233484864,
+    "cq_volserial_placebo": 0.09908388742018141,
+    "cq_market_placebo": 0.20570279548276021,
+    "cq_signmag_placebo": 0.11084171965474028
+  },
+  "dominant_attribution": "cq_market_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "cq_serial_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9761263354451561,
+      -0.9533310270088272,
+      -0.9992028311387765,
+      -0.9303678904766658,
+      -0.9038192524560323,
+      -0.8753732831282971,
+      -0.7918148511148994,
+      -0.951765873981905
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -37.63202092650378,
+    "second_half_sharpe": -15.151859150426246,
+    "sharpe_corr": 0.9988847549406491,
+    "stable": false
+  },
+  "diagnosis": "C431 price-only CROSS-QUANTILOGRAM \u03c1_\u03c4(k) quantile-conditional stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
