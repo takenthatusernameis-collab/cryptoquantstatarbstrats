@@ -1,5 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
+**Handoff written:** 2026-11-24T19:03:59Z — C434 Lyapunov files exist on disk but are BROKEN: 42/63 tests failing (distinctness guards raise IndexError shape mismatch (64,1) vs (1,126) vs (52,126)); C434 campaign NOT complete; no reports/cache metrics verified. Next session must FIX the distinctness-guard shape mismatch and complete C434 (full 2592 sweep + 5 reports + c434_status). C430-C433 frozen formal negatives. Queue: C434 -> C435.
+
+## INITIAL TASK MESSAGE (2026-11-24T19:03:59Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
+
+**NEXT SESSION MUST FIX AND COMPLETE C434 END-TO-END.** C434 Largest Lyapunov Exponent family (4 lyap stats m=3..6, 8 signals incl placebo seed 20261298, grid 2592, W_q=256) files already authored but tests fail with IndexError shape mismatch in kernel-distinctness guards. Bottleneck to remove: align array shapes in `_guarded_assert` comparisons (ref series length vs lyap output length). Then run full sweep, produce 5 reports + cache metrics, record c434_status, move queue to C435. NO EDGE through C433 (all frozen). Do not re-run C430-C433.
+
+---
+# Durable Handoff — cryptoquantstatarbstrats (single authoritative)
+
 **Handoff written:** 2026-11-24T18:33:17Z (on-disk verified: C433 HVG BUILT — scripts/build_c433_hvg_features.py, scripts/preflight_c433.py, scripts/run_c433_hvg_xsec_oos.py, tests/test_preflight_c433.py, tests/test_c433_hvg_xsec_oos.py present; data/cache/campaign433_hvg_5m/ 10 shards + meta/provenance/metrics; reports/campaign433_*_20261124T175008Z.json 5 artifacts; research_state/state.yaml active_campaign: C434 / next_campaign: C434 / latest_campaign_done: C433; numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0; archive/void_* dr-xr-xr-x read-only; C312 5m source intact 10 x 315648 bars) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
