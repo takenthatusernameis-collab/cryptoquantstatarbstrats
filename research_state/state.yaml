@@ -2,8 +2,8 @@ updated_at_utc: 2026-11-24T01:17:08Z
 handoff_refreshed_at_utc: 2026-11-24T01:17:08Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C428
-next_campaign: C429
+latest_campaign_done: C429
+next_campaign: C430
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -11,10 +11,10 @@ handoff:
   note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-24T01:17:08Z: C428 PTLT FROZEN formal negative (20261124T002456Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant ptlt_min_occ_placebo/share 0.1957 [<0.50, attribution_ok false; placebos dominate/no separation], 41/41 tests green incl brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423/C424/C358/C425/C426). 5 artifact SHAs recorded in AGENTS.md. C281B-C428 ALL FROZEN formal negatives, NO EDGE through C428. Active next: C429 SIGNENTROPY (seed 20261293) = first-order Markov sign-transition dynamics (transition entropy / asymmetry / persistence / switching), DISTINCT from prior C329 sign-count Shannon entropy + max-run; grid = 8 signals (4 dev + 4 placebo) x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592. Bottlenecks: NONE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps RE-QUARANTINED read-only this session (git does not persist write bits; re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
 bottlenecks_verified_removed_at_utc: "2026-11-24T01:17:08Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-24T01:17:08Z: C428 PTLT FROZEN formal negative (20261124T002456Z, 2592 configs, 0 Holm+BH survivors, edge_proven:false, binding multiple_testing, dominant ptlt_min_occ_placebo/share 0.1957 [<0.50, attribution_ok false; placebos dominate/no separation], 41/41 tests green incl brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423/C424/C358/C425/C426). C281B-C428 ALL FROZEN formal negatives, NO EDGE through C428. C429 SIGNENTROPY ACTIVE next (genuinely-new first-order Markov sign-transition family; seed 20261293). BOTTLENECK REMOVED this session: all 9 archive/void_* dirs were found WRITABLE (drwxr-xr-x) and have been chmod -R a-w quarantined (now dr-xr-xr-x); stray 0-byte sweep_c416.log removed. NOTE git does not persist write bits, so the next session MUST re-apply chmod -R a-w archive/void_* if it finds them writable. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-queued_next_campaign: C429
+queued_next_campaign: C430
 queued_next_campaign_note: 'C281B-C428 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C429 SIGNENTROPY (genuinely-new price-only family). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
-active_campaign: C429
-space_status: NO_EDGE_C281B_C428
+active_campaign: C430
+space_status: NO_EDGE_C281B_C429
 closure_note: 'C281B-C428 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~165k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). Frozen boundary C428 PTLT 20261124T002456Z (dominant ptlt_min_occ_placebo/share 0.1957 [placebos dominate/no separation], attribution_ok false, 41/41 tests green incl PTLT brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C344/C374/C422/C423/C424/C358/C425/C426, 5 artifact SHA256 matching). C429 SIGNENTROPY ACTIVE next (seed 20261293) so the next session has an unavoidable, fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories re-quarantined read-only this session (re-apply chmod if found writable after checkout). Next session must build C429 end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -2250,3 +2250,43 @@ c428_status:
     meta: '891def18d9e2a3c0e16d420d7918aee5b705e5be1c71136e9734fec3919abd0d'
     provenance: '0d8a27b80f1a6c7f185b7d8d09cd2152b74b4e3f86525b5bfee416132d927a48'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c429_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C429
+  family: price_only_first_order_markov_sign_transition_dynamics_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First price-only order-1 Markov sign-transition family ever run. Per-bar sign s[t]=sign(r[t]) from causal r[t]=log(c[t]/c[t-1]) over trailing W=256; estimates the 2x2 order-1 transition matrix: transition entropy H_trans=-sum p_ij log p_ij, transition asymmetry (up->down vs down->up flip asymmetry), persistence p_stay=P(s[t+1]=s[t]) (diagonal mass), switching p_switch=1-p_stay (off-diagonal flip mass), each seasonally-deviated per (weekday,tod) bucket causally. Distinct from C329 SIGNENTROPY (sign-count Shannon entropy + max same-sign run length — count/level statistics, not transition probabilities), C328 SIGNSTREAK (current run length ending at t), C422 ZCRPATH (zero-crossing rate/path), C423 RUNLEN (run-length distribution), C424 IESD (inter-event/occupation entropy), C426 WLMF (windowed level/width moments), C358/C425 RQA, C349 permutation entropy, C356 multiscale entropy, C355 sample entropy. C429 is the first campaign to estimate an order-1 Markov transition matrix on the perp sign sequence. Price-only (perp_close), volume-free, close-only.'
+  as_of_utc: 20261124T044940Z
+  artifacts_ts: 20261124T044940Z
+  signals: [signentropy_trans_entropy_dev, signentropy_trans_asym_dev, signentropy_p_stay_dev, signentropy_p_switch_dev, signentropy_trans_entropy_placebo, signentropy_trans_asym_placebo, signentropy_p_stay_placebo, signentropy_p_switch_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261293
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'signentropy_trans_entropy_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [signentropy_trans_entropy_dev, signentropy_trans_asym_dev, signentropy_p_stay_dev, signentropy_p_switch_dev]
+  signentropy_params: {window_W: 256}
+  scripts_present: [scripts/build_c429_signet_features.py, scripts/preflight_c429.py, scripts/run_c429_signet_xsec_oos.py]
+  tests_present: [tests/test_preflight_c429.py, tests/test_c429_signet_xsec_oos.py]
+  cache_present: data/cache/campaign429_signet_5m
+  artifacts_present: [reports/campaign429_oos_sweep_20261124T044940Z.json, reports/campaign429_tradable_edge_registry_20261124T044940Z.json, reports/campaign429_summary_20261124T044940Z.json, reports/campaign429_verdict_20261124T044940Z.json, reports/campaign429_binding_constraint_20261124T044940Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: signentropy_trans_entropy_placebo
+  dominant_share: 0.1691
+  attribution_ok: false
+  tests_green: 44
+  brute_force_maxdiff: 'signentropy_trans_entropy/trans_asym/p_stay/p_switch maxdiff < 1e-12 (vectorized order-1 Markov transition-matrix entropy/asymmetry/persistence/switching vs independent brute-force reference); NaN patterns identical; kernel-distinctness guards vs C329 sign-count Shannon entropy + max-run, C328 signstreak, C422 ZCRPATH, C423 RUNLEN, C424 IESD, C426 WLMF, C358/C425 RQA, C349 permutation entropy, C356 multiscale entropy, C355 sample entropy, C428 PTLT'
+  artifacts:
+    oos_sweep: '2bb0f97c877d1a78005b225e819c69c050db562f83005c9f45411815e7046e4c'
+    tradable_edge_registry: '3594b30a1f0f01d61de58f29fefbaf29536cf859abc6049fbe522db0ce4592df'
+    summary: 'f1d7766169836d8e83a62922a78ed880fc6d119150d4aa530212ab86d210545a'
+    verdict: 'dcdbf743f07936b74118345ab116b660ed909d1050d1d865b38832a7091cef72'
+    binding_constraint: 'dd4e9a3e972a1424cd2099096eb4601ac1c4e2bf64c6b7ba217130b79ac1d661'
+  cache_shas:
+    meta: '569f13bc820d0b52483b7d59927e7ac8aea27fb5b8295b519067d8be1a18ca4b'
+    provenance: 'e92774641ade55791ac2fdfccb9b0ef4764197edfb6d58fbe03967883b550a9d'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'

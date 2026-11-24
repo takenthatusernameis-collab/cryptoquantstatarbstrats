@@ -344,6 +344,8 @@ def _signentropy_window(signs: np.ndarray, W: int):
     Order-1 Markov 2x2 transition matrix on {+1, -1}."""
     if not np.isfinite(signs).all():
         return (np.nan, np.nan, np.nan, np.nan)
+    if not np.isin(signs, [-1, 0, 1]).all():
+        return (np.nan, np.nan, np.nan, np.nan)
     # signs in {-1, 0, +1}, transitions from 0 are excluded
     # we look at pairs (s[k], s[k+1]) for k in [0, W-1]
     s_curr = signs[:-1]  # length W

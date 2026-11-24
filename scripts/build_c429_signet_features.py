@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
-"""C429 feature build — real USDT-M linear perp price-only SIGNET: price-path
-peak/trough local time plus extreme recency asymmetry over trailing log-price
-paths. Raw inputs: trailing close prices over a fixed intrinsic window W=256 from
+"""C429 feature build — real USDT-M linear perp price-only SIGNENTROPY:
+order-1 Markov sign-transition dynamics over trailing sign sequence.
+
+Raw inputs: trailing close prices over a fixed intrinsic window W=256 from
 which the runner derives, per bar t, for each asset i:
 
     C = c[t-W..t]                                    (trailing price path, W+1 bars)
-    discretize C into B=32 equal-width bins between min(C) and max(C)
-    running maximum M=max(C) and running minimum m=min(C)
-    L_peak[t] = count of visits to the bin containing M     (peak local time)
-    L_trough[t] = count of visits to the bin containing m   (trough local time)
+    r[t] = log(c[t]/c[t-1])                          (causal log-return, r[0]=0)
+    s[t] = sign(r[t])                                (per-bar sign: +1/-1/0)
 
-    signet_max_occ[t]   = L_peak/(W+1)     (occupation share at peak level)
-    signet_min_occ[t]   = L_trough/(W+1)   (occupation share at trough level)
-    signet_maxmin_imb[t] = (L_peak-L_trough)/(L_peak+L_trough)  (peak/trough imbalance)
-    signet_extreme_recency[t] = (t-last_idx_at_max_bin)-(t-last_idx_at_min_bin)
-                              (extreme recency asymmetry)
+    Over the trailing window of signs s[t-W..t] (W+1 signs):
+    Build 2x2 transition matrix of order-1 Markov chain:
+        N_++ = count(s[k]=+1, s[k+1]=+1)
+        N_+- = count(s[k]=+1, s[k+1]=-1)
+        N_-+ = count(s[k]=-1, s[k+1]=+1)
+        N_-- = count(s[k]=-1, s[k+1]=-1)
+        (transitions from 0 are excluded; 0 sign is not a state)
 
-NaN if t<W, any NaN/non-finite in C[t-W..t], degenerate window (min==max), or not finite.
-Price-only (perp_close), volume-free.
+    p_ij = N_ij / (N_i+ + N_i-)  for i in {+, -}
+    H_trans = -Σ p_ij log p_ij          (transition entropy)
+    asym    = p_+- - p_-+                (transition asymmetry: up→down vs down→up)
+    p_stay  = (p_++ + p_--)/2            (persistence: P(s[t+1]=s[t]))
+    p_switch = (p_+- + p_-+)/2           (switching: P(s[t+1]≠s[t]))
+
+NaN if t<W, any NaN/non-finite in C[t-W..t], degenerate window (all same sign),
+or not finite. Price-only (perp_close), volume-free.
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
@@ -30,23 +37,25 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         log_return      float32 causal log-return (r[t]=log(c[t]/c[t-1]), r[0]=0)
         abs_ret         float32 |log_return_t| (absolute return magnitude)
         funding_rate    float32 all-NaN (control)
+        sign            int8    sign(log_return) (+1/-1/0, sign[0]=0)
 
-    The runner builds SIGNET scalars over fixed intrinsic window W=256 trailing
-    closes C=c_i[t-W..t]: running maximum M=max(C) and running minimum m=min(C);
-    discretize C into B=32 equal-width bins between min(C) and max(C); peak local
-    time L_peak=count of visits to the bin containing M; trough local time
-    L_trough=count of visits to the bin containing m; signet_max_occ=L_peak/(W+1);
-    signet_min_occ=L_trough/(W+1); signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough);
-    signet_extreme_recency=(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin). NaN-aware,
-    causal. SIGNET is genuinely distinct from all prior families C281B–C426: it is
-    the first family whose primitive is the OCCUPATION OF THE PATH AT ITS RUNNING
-    EXTREMES plus EXTREME RECENCY ASYMMETRY — not MF-DFA (C358), not R/S (C346),
-    not DFA (C350), not GPH (C351), not Local-Whittle (C352), not variance-ratio
-    (C353), not Higuchi FD (C354), not VOVR (C378), not SPECFM (C397), not DOMFREQ
-    (C404), not recurrence quantification (C425), not wavelet-leader multifractal
-    spectrum (C426), not full-distribution local-time entropy (the preceding
-    path-local-time-occupation family). Never used before. Price-only (perp_close),
-    volume-free.
+    The runner builds SIGNENTROPY scalars over fixed intrinsic window W=256
+    trailing signs s_i[t-W..t]: order-1 Markov 2x2 transition matrix on {+1,-1};
+    transition entropy H_trans = -Σ p_ij log p_ij; transition asymmetry
+    asym = p_+- - p_-+; persistence p_stay = (p_++ + p_--)/2;
+    switching p_switch = 1 - p_stay. NaN-aware, causal.
+    SIGNENTROPY is genuinely distinct from C329 SIGNENTROPY (which uses
+    sign-COUNT Shannon entropy = directional disorder/balance, plus historical
+    max same-sign run length — count/level statistics, NOT transition
+    probabilities), and from C328 signstreak (current run length ending at t),
+    C422 ZCRPATH (zero-crossing rate/path), C423 RUNLEN (run-length distribution),
+    C424 IESD (inter-event/occupation entropy), C426 WLMF (windowed level/width
+    moments), C358/425 RQA, C349 permutation entropy, C356 multiscale entropy,
+    C355 sample entropy. C429 is the FIRST campaign to estimate an order-1 Markov
+    transition matrix (entropy/asymmetry/persistence/switching) on the perp sign
+    sequence. The test file MUST include a kernel-distinctness guard vs C329 (and
+    the other named families) and a brute-force equality check (maxdiff < 1e-12)
+    against an independent reference implementation.
 """
 
 from __future__ import annotations
@@ -76,7 +85,7 @@ N_BUCKETS = WEEKDAYS * TOD_BARS
 WINDOW_START = "2023-01"
 WINDOW_END = "2025-12"
 
-FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
+FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate", "sign"]
 
 
 def sha256_file(path: Path) -> str:
@@ -101,8 +110,9 @@ def _content_ok(path: Path) -> bool:
             lr = np.asarray(z["log_return"], dtype=float)
             ar = np.asarray(z["abs_ret"], dtype=float)
             fr = np.asarray(z["funding_rate"], dtype=float)
+            sg = np.asarray(z["sign"], dtype=int)
         n = len(idx)
-        if not (n > 0 and all(len(a) == n for a in (pc, lr, ar, fr))):
+        if not (n > 0 and all(len(a) == n for a in (pc, lr, ar, fr, sg))):
             return False
         if not (np.isfinite(pc).all() and (pc > 0).all()):
             return False
@@ -111,6 +121,8 @@ def _content_ok(path: Path) -> bool:
         if not np.isfinite(ar).all():
             return False
         if not np.isnan(fr).all():
+            return False
+        if not np.isin(sg, [-1, 0, 1]).all():
             return False
         return True
     except Exception:  # noqa: BLE001
@@ -347,29 +359,25 @@ def main(argv: list[str] | None = None) -> int:
         "under_push_limit": bool(total < PUSH_LIMIT_BYTES and max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total < CACHE_BUDGET_BYTES),
         "n_buckets_tod_dow": int(N_BUCKETS),
-        "signet_params": {
+        "signentropy_params": {
             "window_W": 256,
-            "n_bins": 32,
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
-            "unreachable). Runner builds SIGNET scalars over fixed intrinsic "
-            "window W=256 trailing closes C=c_i[t-W..t]: running maximum M=max(C) "
-            "and running minimum m=min(C); discretize C into B=32 equal-width bins "
-            "between min(C) and max(C); peak local time L_peak=count of visits to "
-            "the bin containing M; trough local time L_trough=count of visits to "
-            "the bin containing m; signet_max_occ=L_peak/(W+1) (occupation share at "
-            "peak); signet_min_occ=L_trough/(W+1) (occupation share at trough); "
-            "signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough) (peak/trough "
-            "occupation imbalance); signet_extreme_recency=(t-last_idx_at_max_bin)-"
-            "(t-last_idx_at_min_bin) (extreme recency asymmetry). NaN if t<W or "
-            "any NaN/non-finite in the W+1-bar trailing close span (global across "
-            "assets), degenerate window (min==max), or not finite. Seasonal "
-            "deviation of each SIGNET scalar at the same (weekday,tod) bucket from "
-            "history strictly before bar t (causal shift(1)), NaN-aware "
-            "min_periods=3."
+            "unreachable); sign=sign(log_return) (+1/-1/0, sign[0]=0). "
+            "Runner builds SIGNENTROPY scalars over fixed intrinsic "
+            "window W=256 trailing signs s_i[t-W..t]: order-1 Markov 2x2 "
+            "transition matrix on {+1,-1}; transition entropy "
+            "H_trans = -Σ p_ij log p_ij; transition asymmetry "
+            "asym = p_+- - p_-+; persistence p_stay = (p_++ + p_--)/2; "
+            "switching p_switch = 1 - p_stay. NaN if t<W or any "
+            "NaN/non-finite in the W+1-bar trailing close span (global "
+            "across assets), degenerate window (all same sign), or not finite. "
+            "Seasonal deviation of each SIGNENTROPY scalar at the same "
+            "(weekday,tod) bucket from history strictly before bar t (causal "
+            "shift(1)), NaN-aware min_periods=3."
         ),
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
         "network_ingest": False,
@@ -384,7 +392,8 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; SIGNET scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or degenerate window or not finite.",
+            "sign": "sign(log_return) (+1/-1/0); always finite",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; SIGNENTROPY scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or degenerate window or not finite.",
             "raw_nan_observed": raw_nan_observed,
         },
     }
@@ -395,7 +404,7 @@ def main(argv: list[str] | None = None) -> int:
         "campaign": 429,
         "part": "provenance",
         "source_host": "https://data.binance.vision",
-        "note": "C429 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
+        "note": "C429 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret, sign derived); no network, no fabrication, no resampling.",
         "interval": "5m",
         "bar_ms": BAR_MS,
         "window_start_month": WINDOW_START,
