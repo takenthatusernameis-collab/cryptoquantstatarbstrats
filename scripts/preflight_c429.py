@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """C429 preflight: fail-closed verification of the real C429 USDT-M price-only
-SIGNET price-path peak/trough-local-time-and-extreme-recency feature cache before the
+SIGNENTROPY order-1 Markov sign-transition feature cache before the
 C429 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
@@ -13,11 +13,11 @@ Verifies:
   under the 100 MB budget;
 - the common 5m grid is non-empty and inside 2023-01..2025-12;
 - all 10 symbols present with finite, positive perp_close AND finite log_return,
-  abs_ret on the common grid (derived from perp_close, r[0]=0);
+  abs_ret, sign on the common grid (derived from perp_close, r[0]=0, sign[0]=0);
 - the ``funding_rate`` leg is present and all-NaN (control only, USDT-M funding is
   unreachable in this environment);
-- PRE-REGISTERED NaN POLICY fail-closed gate: perp_close and log_return carry ZERO
-  NaN (real, gap-free derived inputs); abs_ret always finite; funding all-NaN.
+- PRE-REGISTERED NaN POLICY fail-closed gate: perp_close, log_return, abs_ret, sign
+  carry ZERO NaN (real, gap-free derived inputs); funding all-NaN.
 
 Never fetches, imputes, resamples, or fabricates data. Exit 0 iff ready:true.
 """
@@ -43,7 +43,7 @@ EXPECTED_SOURCE_INTERVAL = "usdt_m_5m_klines_taker_delta_ms"
 EXPECTED_SOURCE_CAMPAIGN = 312
 N_SYMBOLS = 10
 
-FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
+FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate", "sign"]
 
 
 def sha256_file(path: Path) -> str:
@@ -51,10 +51,11 @@ def sha256_file(path: Path) -> str:
 
 
 def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, ar: np.ndarray,
-                              fr: np.ndarray) -> dict:
+                              fr: np.ndarray, sg: np.ndarray) -> dict:
     lr_nan = int(np.isnan(lr).sum())
     ar_nan = int(np.isnan(ar).sum())
-    raw_nan_total = int(np.isnan(pc).sum()) + lr_nan
+    sg_nan = int(np.isnan(sg.astype(float)).sum())
+    raw_nan_total = int(np.isnan(pc).sum()) + lr_nan + ar_nan + sg_nan
     return {
         "len": int(len(pc)),
         "perp_close_all_finite": bool(np.isfinite(pc).all()),
@@ -65,11 +66,15 @@ def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, ar: np.ndarray,
         "abs_ret_nan": ar_nan,
         "abs_ret_all_finite": bool(np.isfinite(ar).all()),
         "abs_ret_nonnegative": bool((ar[np.isfinite(ar)] >= 0).all()) if np.isfinite(ar).any() else False,
+        "sign_nan": sg_nan,
+        "sign_all_finite": bool(np.isfinite(sg.astype(float)).all()),
+        "sign_values_valid": bool(np.isin(sg, [-1, 0, 1]).all()),
         "funding_all_nan_control_only": bool(np.isnan(fr).all()),
         "raw_nan_total": raw_nan_total,
         "ok": bool(np.isfinite(pc).all() and (pc[np.isfinite(pc)] > 0).all()
                    and np.isfinite(lr).all()
                    and np.isfinite(ar).all()
+                   and np.isfinite(sg.astype(float)).all()
                    and np.isnan(fr).all()
                    and raw_nan_total == 0),
     }
@@ -133,8 +138,7 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("signet_params", {}).get("window_W") == 256
-        and meta.get("signet_params", {}).get("n_bins") == 32
+        and meta.get("signentropy_params", {}).get("window_W") == 256
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -150,7 +154,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "signet_params": meta.get("signet_params"),
+        "signentropy_params": meta.get("signentropy_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -163,7 +167,7 @@ def main() -> int:
         "ok": bool(flags_ok),
     }
     if not flags_ok:
-        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/signet_params mismatch")
+        blocked.append("meta flags/interval/source/no-network/no-resample/size/fields/signentropy_params mismatch")
     checks["shards"] = {"n_shards": len(shard_sha_meta), "ok": bool(shard_ok), "detail": shard_detail}
     if not shard_ok:
         blocked.append("one or more shards missing / sha or size mismatch / over push limit")
@@ -221,7 +225,8 @@ def main() -> int:
             lr = np.asarray(z["log_return"], dtype=float)
             ar = np.asarray(z["abs_ret"], dtype=float)
             fr = np.asarray(z["funding_rate"], dtype=float)
-        rep = _feature_integrity_report(pc, lr, ar, fr)
+            sg = np.asarray(z["sign"], dtype=int)
+        rep = _feature_integrity_report(pc, lr, ar, fr, sg)
         d["fields"] = rep
         feature_integrity[s] = rep
         ok &= rep["ok"]
@@ -231,13 +236,13 @@ def main() -> int:
 
     checks["per_symbol"] = {"n_symbols": n_symbols, "detail": detail, "ok": bool(all_ok)}
     if not all_ok:
-        blocked.append("one or more symbols failed perp_close/log_return/abs_ret/funding/grid checks")
+        blocked.append("one or more symbols failed perp_close/log_return/abs_ret/sign/funding/grid checks")
     fi_ok = bool(feature_integrity and all(v.get("ok") is True for v in feature_integrity.values()))
     raw_nan_total = int(sum(v.get("raw_nan_total", 0) for v in feature_integrity.values()))
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/abs_ret carry ZERO NaN; funding_rate all-NaN control; runner NaN where SIGNET scalars t<W or any NaN/non-finite in W+1-bar close span or degenerate window. NaN-score bars weight 0",
+        "policy": "perp_close/log_return/abs_ret/sign carry ZERO NaN; funding_rate all-NaN control; runner NaN where SIGNENTROPY scalars t<W or any NaN/non-finite in W+1-bar close span or degenerate window. NaN-score bars weight 0",
         "per_shard": feature_integrity,
     }
     if not fi_ok:

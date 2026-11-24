@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""C429 — rigorous costed out-of-sample test of the price-only SIGNET:
-price-path peak/trough local time plus extreme recency asymmetry
-(occupation share at the running peak signet_max_occ, occupation share at the
-running trough signet_min_occ, peak/trough occupation imbalance signet_maxmin_imb,
-and extreme recency asymmetry signet_extreme_recency) stat-arb family on 10
-USDT-M linear perps at native 5m (2592 pre-registered configs).
+"""C429 — rigorous costed out-of-sample test of the price-only SIGNENTROPY:
+order-1 Markov sign-transition dynamics (transition entropy, transition asymmetry,
+persistence, switching) stat-arb family on 10 USDT-M linear perps at native 5m
+(2592 pre-registered configs).
 
 GENUINELY NEW FAMILY (not a re-skin of any frozen prior campaign)
-----------------------------------------------------------------
-All prior campaigns (all FROZEN formal negatives) exhausted carry,
+--------------------------------------------------------------
+All prior campaigns C281B–C428 (all FROZEN formal negatives) exhausted carry,
 OFI/microstructure, premium/index/mark basis, quarterly term-structure,
 same-asset spot-perp lead-lag, autocorrelation/chop/vol-clustering/close-envelope/
 rescaled-range/drawdown-duration/realized-variance-concentration/permutation-entropy/
@@ -55,32 +53,45 @@ C422) / run-length distribution entropy of consecutive return signs (RUNLEN,
 C423) / inter-extremum spacing distribution of the trailing price path (IESD,
 C424) / recurrence quantification analysis of diagonal/vertical line structures
 in delay-embedding space (RQA, C425) / wavelet-leader multifractal spectrum
-D(h) via the wavelet leader Legendre transform (WLMF, C426) / the preceding
-path-local-time-occupation family.
+D(h) via the wavelet leader Legendre transform (WLMF, C426) / path-local-time-
+occupation family (C428 PTLT).
 
-C429 is the first campaign whose primitive is the OCCUPATION OF THE PATH AT ITS
-RUNNING EXTREMES plus EXTREME RECENCY ASYMMETRY — never run before. For each
+C429 is the FIRST campaign to estimate an order-1 Markov transition matrix
+(entropy/asymmetry/persistence/switching) on the perp sign sequence. For each
 asset i and trailing window W=256 of closes C=c[t-W..t] (W+1 bars):
 
-    running maximum M=max(C) and running minimum m=min(C)
-    discretize C into B=32 equal-width bins between min(C) and max(C)
-    peak local time L_peak[t] = count of visits to the bin containing M
-    trough local time L_trough[t] = count of visits to the bin containing m
-    signet_max_occ[t] = L_peak/(W+1)                      (occupation share at peak)
-    signet_min_occ[t] = L_trough/(W+1)                    (occupation share at trough)
-    signet_maxmin_imb[t] = (L_peak - L_trough)/(L_peak + L_trough)  (peak/trough imbalance)
-    signet_extreme_recency[t] = (t - last_idx_at_max_bin) - (t - last_idx_at_min_bin)
-                              (recency asymmetry of the extremes)
+    r[t] = log(c[t]/c[t-1])                     (causal log-return, r[0]=0)
+    s[t] = sign(r[t])                           (per-bar sign: +1/-1/0)
 
-NaN if t<W, any NaN/non-finite in C[t-W..t], degenerate window (min==max), or not
-finite. Distinct from C344 (sign-flips/chop), C374 SIGNRUN (run lengths of signed
-returns), C423 RUNLEN (run-length distribution of return signs), C422 ZCRPATH
-(zero-crossings of cumulative path), C424 IESD (spacing between price extrema),
-C358 MF-DFA, C425 RQA (recurrence-plot topology in delay-embedding space),
-C426 WLMF (wavelet-leader multifractal spectrum), and the preceding
-path-local-time-occupation family. SIGNET quantifies occupation of the path at its
-running extremes plus extreme recency asymmetry — a nonlinear path primitive
-never run. Price-only (perp_close), volume-free.
+    Over trailing signs s[t-W..t] (W+1 signs, transitions at t-W..t-1):
+    N_++ = count(s[k]=+1, s[k+1]=+1)
+    N_+- = count(s[k]=+1, s[k+1]=-1)
+    N_-+ = count(s[k]=-1, s[k+1]=+1)
+    N_-- = count(s[k]=-1, s[k+1]=-1)
+    (transitions from s[k]=0 are excluded; 0 is not a state)
+
+    p_++ = N_++/(N_+++N_+-) if N_+++N_+->0 else NaN
+    p_+- = N_+-/(N_+++N_+-) if N_+++N_+->0 else NaN
+    p_-+ = N_-+/(N_-++N_--) if N_-++N_-->0 else NaN
+    p_-- = N_--/(N_-++N_--) if N_-++N_-->0 else NaN
+
+    H_trans = -p_++*log(p_++) - p_+-*log(p_+-) - p_-+*log(p_-+) - p_--
+                *log(p_--)   (transition entropy; 0*log(0)=0)
+    asym    = p_+- - p_-+    (transition asymmetry: up→down vs down→up)
+    p_stay  = (p_++ + p_--)/2   (persistence: P(s[t+1]=s[t]))
+    p_switch = (p_+- + p_-+)/2   (switching: P(s[t+1]≠s[t]))
+
+NaN if t<W, any NaN/non-finite in C[t-W..t], degenerate window (all same sign
+or no transitions), or not finite. Distinct from C329 SIGNENTROPY (which uses
+sign-COUNT Shannon entropy = directional disorder/balance, plus historical max
+same-sign run length — count/level statistics, NOT transition probabilities),
+C328 signstreak (current run length ending at t), C422 ZCRPATH (zero-crossing
+rate/path), C423 RUNLEN (run-length distribution), C424 IESD
+(inter-event/occupation entropy), C426 WLMF (windowed level/width moments),
+C358/425 RQA, C349 permutation entropy, C356 multiscale entropy, C355 sample
+entropy. C429 is the FIRST campaign to estimate an order-1 Markov transition
+matrix (entropy/asymmetry/persistence/switching) on the perp sign sequence.
+Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -107,12 +118,14 @@ CACHE_DIR = cache_dir / "campaign429_signet_5m"
 CACHE_META = cache_dir / "campaign429_signet_5m.meta.json"
 CACHE_PROV = cache_dir / "campaign429_signet_5m.provenance.json"
 METRICS_CACHE = cache_dir / "campaign429_signet_metrics.npz"
-REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate"]
+REQUIRED_FIELDS = ["index_ms", "perp_close", "log_return", "abs_ret", "funding_rate", "sign"]
 
 # ---- pre-registered grid ----
 SIGNALS = (
-    "signet_max_occ_dev", "signet_min_occ_dev", "signet_maxmin_imb_dev", "signet_extreme_recency_dev",
-    "signet_max_occ_placebo", "signet_min_occ_placebo", "signet_maxmin_imb_placebo", "signet_extreme_recency_placebo",
+    "signentropy_trans_entropy_dev", "signentropy_trans_asym_dev",
+    "signentropy_p_stay_dev", "signentropy_p_switch_dev",
+    "signentropy_trans_entropy_placebo", "signentropy_trans_asym_placebo",
+    "signentropy_p_stay_placebo", "signentropy_p_switch_placebo",
 )
 # 8 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost = 2592 = N_TRIALS
 LOOKBACKS = (60, 120, 240, 480, 960, 1920)          # bars (seasonal baseline history)
@@ -135,25 +148,24 @@ N_TRIALS = (len(SIGNALS) * len(LOOKBACKS) *
 # signal -> (base_metric_key, kind)
 # kind in {"dev","placebo_dev"}
 SIGNAL_FAMILY = {
-    "signet_max_occ_dev": ("signet_max_occ", "dev"),
-    "signet_min_occ_dev": ("signet_min_occ", "dev"),
-    "signet_maxmin_imb_dev": ("signet_maxmin_imb", "dev"),
-    "signet_extreme_recency_dev": ("signet_extreme_recency", "dev"),
-    "signet_max_occ_placebo": ("signet_max_occ", "placebo_dev"),
-    "signet_min_occ_placebo": ("signet_min_occ", "placebo_dev"),
-    "signet_maxmin_imb_placebo": ("signet_maxmin_imb", "placebo_dev"),
-    "signet_extreme_recency_placebo": ("signet_extreme_recency", "placebo_dev"),
+    "signentropy_trans_entropy_dev": ("signentropy_trans_entropy", "dev"),
+    "signentropy_trans_asym_dev": ("signentropy_trans_asym", "dev"),
+    "signentropy_p_stay_dev": ("signentropy_p_stay", "dev"),
+    "signentropy_p_switch_dev": ("signentropy_p_switch", "dev"),
+    "signentropy_trans_entropy_placebo": ("signentropy_trans_entropy", "placebo_dev"),
+    "signentropy_trans_asym_placebo": ("signentropy_trans_asym", "placebo_dev"),
+    "signentropy_p_stay_placebo": ("signentropy_p_stay", "placebo_dev"),
+    "signentropy_p_switch_placebo": ("signentropy_p_switch", "placebo_dev"),
 }
 
 ATTR_REPRESENTATIVES = {
-    "signet_max_occ_dev": "signet_max_occ_dev",
-    "signet_min_occ_dev": "signet_min_occ_dev",
-    "signet_maxmin_imb_dev": "signet_maxmin_imb_dev",
-    "signet_extreme_recency_dev": "signet_extreme_recency_dev",
+    "signentropy_trans_entropy_dev": "signentropy_trans_entropy_dev",
+    "signentropy_trans_asym_dev": "signentropy_trans_asym_dev",
+    "signentropy_p_stay_dev": "signentropy_p_stay_dev",
+    "signentropy_p_switch_dev": "signentropy_p_switch_dev",
 }
 
-SIGNET_W = 256
-SIGNET_B = 32
+SIGNENTROPY_W = 256
 
 
 def sha256_file(p: Path) -> str:
@@ -325,62 +337,72 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
     return out_m, out_s
 
 
-# ------------------------------------------------------- SIGNET: price-path
-# peak/trough local time and extreme recency over trailing close windows.
-def _signet_window(C: np.ndarray, W: int, B: int):
-    """SIGNET scalars for one trailing window C = c[t-W..t] (length W+1).
-    Returns (signet_max_occ, signet_min_occ, signet_maxmin_imb, signet_extreme_recency);
-    all-NaN if the window is degenerate (min==max) or contains non-finite values."""
-    N = int(len(C))
-    if not np.isfinite(C).all():
+# ------------------------------------------------------- SIGNENTROPY: order-1 Markov sign-transition
+def _signentropy_window(signs: np.ndarray, W: int):
+    """SIGNENTROPY scalars for one trailing window signs[t-W..t] (length W+1).
+    Returns (H_trans, asym, p_stay, p_switch); all-NaN if degenerate or non-finite.
+    Order-1 Markov 2x2 transition matrix on {+1, -1}."""
+    if not np.isfinite(signs).all():
         return (np.nan, np.nan, np.nan, np.nan)
-    cmin = float(C.min())
-    cmax = float(C.max())
-    if cmin == cmax:
+    # signs in {-1, 0, +1}, transitions from 0 are excluded
+    # we look at pairs (s[k], s[k+1]) for k in [0, W-1]
+    s_curr = signs[:-1]  # length W
+    s_next = signs[1:]   # length W
+    # mask out transitions from 0
+    mask = (s_curr != 0)
+    s_curr = s_curr[mask]
+    s_next = s_next[mask]
+    if len(s_curr) == 0:
         return (np.nan, np.nan, np.nan, np.nan)
-    edges = np.linspace(cmin, cmax, B + 1)
-    bins = np.searchsorted(edges, C, side="right") - 1
-    bins = np.clip(bins, 0, B - 1)
-    # running maximum M = max(C) and running minimum m = min(C); occupation of the
-    # path at the bin containing M (peak) and at the bin containing m (trough).
-    max_bin = int(bins[np.argmax(C)])
-    min_bin = int(bins[np.argmin(C)])
-    L_peak = float(np.count_nonzero(bins == max_bin))
-    L_trough = float(np.count_nonzero(bins == min_bin))
-    total = float(N)
-    signet_max_occ = L_peak / total
-    signet_min_occ = L_trough / total
-    denom = L_peak + L_trough
-    signet_maxmin_imb = (L_peak - L_trough) / denom if denom > 0 else np.nan
-    # recency asymmetry: (t - last_idx_at_max_bin) - (t - last_idx_at_min_bin)
-    # = last_idx_at_min_bin - last_idx_at_max_bin (in local window indices).
-    max_pos = np.flatnonzero(bins == max_bin)
-    min_pos = np.flatnonzero(bins == min_bin)
-    last_max = int(max_pos[-1])
-    last_min = int(min_pos[-1])
-    signet_extreme_recency = float(last_min - last_max)
-    return (signet_max_occ, signet_min_occ, signet_maxmin_imb, signet_extreme_recency)
+    # count transitions
+    pos_curr = (s_curr == 1)
+    neg_curr = (s_curr == -1)
+    pos_next = (s_next == 1)
+    neg_next = (s_next == -1)
+
+    N_pp = int(np.count_nonzero(pos_curr & pos_next))   # +1 -> +1
+    N_pm = int(np.count_nonzero(pos_curr & neg_next))   # +1 -> -1
+    N_mp = int(np.count_nonzero(neg_curr & pos_next))   # -1 -> +1
+    N_mm = int(np.count_nonzero(neg_curr & neg_next))   # -1 -> -1
+
+    denom_p = N_pp + N_pm
+    denom_n = N_mp + N_mm
+
+    if denom_p == 0 or denom_n == 0:
+        return (np.nan, np.nan, np.nan, np.nan)
+
+    p_pp = N_pp / denom_p
+    p_pm = N_pm / denom_p
+    p_mp = N_mp / denom_n
+    p_mm = N_mm / denom_n
+
+    # transition entropy: -Σ p_ij log p_ij (0*log(0)=0)
+    def _xlogx(p):
+        return -p * np.log(p) if p > 0 else 0.0
+
+    H_trans = _xlogx(p_pp) + _xlogx(p_pm) + _xlogx(p_mp) + _xlogx(p_mm)
+    asym = p_pm - p_mp
+    p_stay = (p_pp + p_mm) / 2.0
+    p_switch = (p_pm + p_mp) / 2.0
+
+    return (float(H_trans), float(asym), float(p_stay), float(p_switch))
 
 
-def compute_signet_metrics(close, W=SIGNET_W, B=SIGNET_B, chunk=4096, progress=False):
-    """Vectorized SIGNET kernel for the full (n_assets, T) close-price matrix C.
+def compute_signentropy_metrics(sign, W=SIGNENTROPY_W, chunk=4096, progress=False):
+    """Vectorized SIGNENTROPY kernel for the full (n_assets, T) sign matrix.
 
-    For each asset i and bar t (t>=W), window C=c[t-W..t] (W+1 bars): discretize
-    into B=32 equal-width bins between min and max; running maximum M=max(C) and
-    running minimum m=min(C); peak local time L_peak=count of visits to the bin
-    containing M; trough local time L_trough=count of visits to the bin containing m;
-    signet_max_occ=L_peak/(W+1); signet_min_occ=L_trough/(W+1);
-    signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough);
-    signet_extreme_recency=(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin). NaN if
-    t<W, any NaN/non-finite in the window, degenerate window, or not finite.
-    Matches the brute-force per-window reference (_signet_bruteforce) exactly."""
-    C = np.asarray(close, dtype=float)
-    n_assets, T = C.shape
+    For each asset i and bar t (t>=W), window s[t-W..t] (W+1 signs):
+    order-1 Markov 2x2 transition matrix on {+1,-1}; transition entropy,
+    asymmetry, persistence, switching. NaN if t<W, any NaN/non-finite in
+    the window, degenerate window, or not finite.
+    Matches the brute-force per-window reference (_signentropy_bruteforce) exactly."""
+    S = np.asarray(sign, dtype=int)
+    n_assets, T = S.shape
     out = {
-        "signet_max_occ": np.full((n_assets, T), np.nan, dtype=float),
-        "signet_min_occ": np.full((n_assets, T), np.nan, dtype=float),
-        "signet_maxmin_imb": np.full((n_assets, T), np.nan, dtype=float),
-        "signet_extreme_recency": np.full((n_assets, T), np.nan, dtype=float),
+        "signentropy_trans_entropy": np.full((n_assets, T), np.nan, dtype=float),
+        "signentropy_trans_asym": np.full((n_assets, T), np.nan, dtype=float),
+        "signentropy_p_stay": np.full((n_assets, T), np.nan, dtype=float),
+        "signentropy_p_switch": np.full((n_assets, T), np.nan, dtype=float),
     }
     if T <= W:
         return out
@@ -389,26 +411,26 @@ def compute_signet_metrics(close, W=SIGNET_W, B=SIGNET_B, chunk=4096, progress=F
     ar = np.arange(W + 1)
     ch = int(chunk)
     for i in range(n_assets):
-        ci = C[i]
-        po_i = out["signet_max_occ"][i]
-        mo_i = out["signet_min_occ"][i]
-        im_i = out["signet_maxmin_imb"][i]
-        er_i = out["signet_extreme_recency"][i]
+        si = S[i]
+        te_i = out["signentropy_trans_entropy"][i]
+        ta_i = out["signentropy_trans_asym"][i]
+        ps_i = out["signentropy_p_stay"][i]
+        psw_i = out["signentropy_p_switch"][i]
         for c0 in range(0, n_win, ch):
             c1 = min(c0 + ch, n_win)
             ts = t_idx[c0:c1]
-            seg = ci[ts[:, None] - W + ar[None, :]]            # (chunk, W+1)
-            results = [_signet_window(seg[k], W, B) for k in range(len(ts))]
+            seg = si[ts[:, None] - W + ar[None, :]]            # (chunk, W+1)
+            results = [_signentropy_window(seg[k], W) for k in range(len(ts))]
             for k in range(len(ts)):
-                pocc, minocc, imb, rec = results[k]
-                po_i[ts[k]] = pocc
-                mo_i[ts[k]] = minocc
-                im_i[ts[k]] = imb
-                er_i[ts[k]] = rec
+                h, a, ps, psw = results[k]
+                te_i[ts[k]] = h
+                ta_i[ts[k]] = a
+                ps_i[ts[k]] = ps
+                psw_i[ts[k]] = psw
         if progress:
-            print(f"[C429] SIGNET asset {i + 1}/{n_assets} done", flush=True)
+            print(f"[C429] SIGNENTROPY asset {i + 1}/{n_assets} done", flush=True)
 
-    finite = np.isfinite(C).all(axis=0)
+    finite = np.isfinite(S).all(axis=0)
     CFW = np.concatenate([[0.0], np.cumsum(finite.astype(float))])
     ok = np.zeros(T, dtype=bool)
     ok[t_idx] = (CFW[t_idx + 1] - CFW[t_idx - W]) == (W + 1)
@@ -417,105 +439,105 @@ def compute_signet_metrics(close, W=SIGNET_W, B=SIGNET_B, chunk=4096, progress=F
     return out
 
 
-def _signet_bruteforce(close, W=SIGNET_W, B=SIGNET_B):
-    """Per-window reference SIGNET kernel. For each asset i and bar t (t>=W),
-    window C=c[t-W..t]: running maximum M=max(C), running minimum m=min(C),
-    bin into B equal-width bins, L_peak=count of visits to bin containing M,
-    L_trough=count of visits to bin containing m; signet_max_occ=L_peak/(W+1),
-    signet_min_occ=L_trough/(W+1), signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough),
-    signet_extreme_recency=(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin).
-    NaN if t<W, any NaN/non-finite in the window (global across assets),
-    degenerate window, or not finite. Matches compute_signet_metrics exactly."""
-    C = np.asarray(close, dtype=float)
-    n_assets, n = C.shape
+def _signentropy_bruteforce(sign, W=SIGNENTROPY_W):
+    """Per-window reference SIGNENTROPY kernel. For each asset i and bar t (t>=W),
+    window s[t-W..t]: order-1 Markov 2x2 transition matrix on {+1,-1};
+    transition entropy, asymmetry, persistence, switching. NaN if t<W, any
+    NaN/non-finite in the window (global across assets), degenerate window,
+    or not finite. Matches compute_signentropy_metrics exactly."""
+    S = np.asarray(sign, dtype=int)
+    n_assets, n = S.shape
     out = {
-        "signet_max_occ": np.full((n_assets, n), np.nan, dtype=float),
-        "signet_min_occ": np.full((n_assets, n), np.nan, dtype=float),
-        "signet_maxmin_imb": np.full((n_assets, n), np.nan, dtype=float),
-        "signet_extreme_recency": np.full((n_assets, n), np.nan, dtype=float),
+        "signentropy_trans_entropy": np.full((n_assets, n), np.nan, dtype=float),
+        "signentropy_trans_asym": np.full((n_assets, n), np.nan, dtype=float),
+        "signentropy_p_stay": np.full((n_assets, n), np.nan, dtype=float),
+        "signentropy_p_switch": np.full((n_assets, n), np.nan, dtype=float),
     }
     if n <= W:
         return out
     for t in range(W, n):
-        span = C[:, t - W:t + 1]
+        span = S[:, t - W:t + 1]
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            pocc, minocc, imb, rec = _signet_window(span[i], W, B)
-            out["signet_max_occ"][i, t] = pocc
-            out["signet_min_occ"][i, t] = minocc
-            out["signet_maxmin_imb"][i, t] = imb
-            out["signet_extreme_recency"][i, t] = rec
+            h, a, ps, psw = _signentropy_window(span[i], W)
+            out["signentropy_trans_entropy"][i, t] = h
+            out["signentropy_trans_asym"][i, t] = a
+            out["signentropy_p_stay"][i, t] = ps
+            out["signentropy_p_switch"][i, t] = psw
     return out
 
 
-def _signet_one_asset(close_row):
-    """Worker: SIGNET metric series for a single asset row (1, T)."""
-    res = compute_signet_metrics(np.asarray(close_row, dtype=float)[None, :],
-                                  W=SIGNET_W, B=SIGNET_B, chunk=4096, progress=False)
+def _signentropy_one_asset(sign_row):
+    """Worker: SIGNENTROPY metric series for a single asset row (1, T)."""
+    res = compute_signentropy_metrics(np.asarray(sign_row, dtype=int)[None, :],
+                                       W=SIGNENTROPY_W, chunk=4096, progress=False)
     return {k: np.asarray(res[k][0], dtype=float)
-            for k in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency")}
+            for k in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                      "signentropy_p_stay", "signentropy_p_switch")}
 
 
 def _apply_global_finite_gate(series: dict, close) -> dict:
     """NaN out any bar whose [t-W, t] close span has a non-finite value in ANY
-    asset (global-across-assets gate, matching compute_signet_metrics)."""
+    asset (global-across-assets gate, matching compute_signentropy_metrics)."""
     n_assets, T = close.shape
     finite = np.isfinite(close).all(axis=0)
     CFW = np.concatenate([[0.0], np.cumsum(finite.astype(float))])
     ok = np.zeros(T, dtype=bool)
-    idx = np.arange(SIGNET_W, T)
-    ok[idx] = (CFW[idx + 1] - CFW[idx - SIGNET_W]) == (SIGNET_W + 1)
+    idx = np.arange(SIGNENTROPY_W, T)
+    ok[idx] = (CFW[idx + 1] - CFW[idx - SIGNENTROPY_W]) == (SIGNENTROPY_W + 1)
     for k in series:
         series[k] = np.where(ok[None, :], series[k], np.nan)
     return series
 
 
 def build_underlying(bs: dict) -> dict:
-    """Compute the causal per-bar SIGNET metric series used by every signal.
-    Returns dict with matrices (n_assets, n_bars): signet_max_occ, signet_min_occ,
-    signet_maxmin_imb, signet_extreme_recency. Resumable via METRICS_CACHE and
-    computed per-asset in parallel (<=4 workers) so the SIGNET kernel fits the
-    session budget."""
+    """Compute the causal per-bar SIGNENTROPY metric series used by every signal.
+    Returns dict with matrices (n_assets, n_bars): signentropy_trans_entropy,
+    signentropy_trans_asym, signentropy_p_stay, signentropy_p_switch.
+    Resumable via METRICS_CACHE and computed per-asset in parallel (<=4 workers)
+    so the SIGNENTROPY kernel fits the session budget."""
     n_assets = int(bs["n_assets"])
     n_bars = int(bs["n_bars"])
+    sign = np.asarray(bs["sign"], dtype=int)
     perp_close = np.asarray(bs["perp_close"], dtype=float)
-    keys = ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency")
+    keys = ("signentropy_trans_entropy", "signentropy_trans_asym",
+            "signentropy_p_stay", "signentropy_p_switch")
 
     if METRICS_CACHE.exists():
         try:
             with np.load(METRICS_CACHE) as z:
                 if all(k in z.files and z[k].shape == (n_assets, n_bars) for k in keys):
-                    print(f"[C429] reusing cached SIGNET metrics: {METRICS_CACHE}", flush=True)
+                    print(f"[C429] reusing cached SIGNENTROPY metrics: {METRICS_CACHE}", flush=True)
                     return {k: np.asarray(z[k], dtype=float) for k in keys}
         except Exception as exc:  # noqa: BLE001
             print(f"[C429] metrics cache unreadable ({exc}); recomputing", flush=True)
 
     series = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in keys}
-    rows = [perp_close[i] for i in range(n_assets)]
+    rows = [sign[i] for i in range(n_assets)]
     nproc = min(4, n_assets)
     done = False
     try:
         import multiprocessing as mp
         with mp.Pool(processes=nproc) as pool:
-            for i, part in enumerate(pool.imap(_signet_one_asset, rows)):
+            for i, part in enumerate(pool.imap(_signentropy_one_asset, rows)):
                 for k in keys:
                     series[k][i] = part[k]
-                print(f"[C429] SIGNET asset {i + 1}/{n_assets} done", flush=True)
+                print(f"[C429] SIGNENTROPY asset {i + 1}/{n_assets} done", flush=True)
         done = True
     except Exception as exc:  # noqa: BLE001
-        print(f"[C429] parallel SIGNET failed ({exc}); falling back to serial", flush=True)
+        print(f"[C429] parallel SIGNENTROPY failed ({exc}); falling back to serial", flush=True)
     if not done:
         for i, row in enumerate(rows):
-            part = _signet_one_asset(row)
+            part = _signentropy_one_asset(row)
             for k in keys:
                 series[k][i] = part[k]
-            print(f"[C429] SIGNET asset {i + 1}/{n_assets} done", flush=True)
+            print(f"[C429] SIGNENTROPY asset {i + 1}/{n_assets} done", flush=True)
 
     series = _apply_global_finite_gate(series, perp_close)
     try:
         np.savez(METRICS_CACHE, **series)
-        print(f"[C429] wrote SIGNET metrics cache: {METRICS_CACHE}", flush=True)
+        print(f"[C429] wrote SIGNENTROPY metrics cache: {METRICS_CACHE}", flush=True)
     except Exception as exc:  # noqa: BLE001
         print(f"[C429] could not write metrics cache: {exc}", flush=True)
     return series
@@ -610,6 +632,7 @@ def build_series(payload: dict):
     perp_close = mat("perp_close")
     log_return = mat("log_return")
     abs_ret = mat("abs_ret")
+    sign = mat("sign").astype(np.int8)
 
     if not (np.isfinite(perp_close).all() and (perp_close > 0).all()):
         raise SystemExit("FATAL: non-finite/non-positive perp_close")
@@ -617,6 +640,8 @@ def build_series(payload: dict):
         raise SystemExit("FATAL: non-finite log_return in cache")
     if not np.isfinite(abs_ret).all():
         raise SystemExit("FATAL: non-finite abs_ret in cache")
+    if not np.isfinite(sign.astype(float)).all():
+        raise SystemExit("FATAL: non-finite sign in cache")
 
     bucket = _bucket_of(idx_ms)
     day_ord = (idx_ms // (86400 * 1000) - idx_ms[0] // (86400 * 1000)).astype(np.int64)
@@ -630,7 +655,7 @@ def build_series(payload: dict):
 
     return {"symbols": symbols, "n_assets": n_assets, "index": index, "n_bars": n_b,
              "n_days": n_days, "perp_close": perp_close, "log_return": log_return,
-             "abs_ret": abs_ret, "bucket": bucket, "splits": splits}
+             "abs_ret": abs_ret, "sign": sign, "bucket": bucket, "splits": splits}
 
 
 def xsec_positions(score: np.ndarray, frac: float, H: int) -> np.ndarray:
@@ -739,7 +764,7 @@ def main(argv: list[str] | None = None) -> int:
             "cost_rate_bps_effective": float(cost_rate_val * 10000.0),
         }
 
-    ref_cfg = dict(signal="signet_max_occ_dev", L=240, H=4,
+    ref_cfg = dict(signal="signentropy_trans_entropy_dev", L=240, H=4,
                    fee=0.0007, slip=0.0001, cv="taker")
     if args.reference_config_only or args.smoke:
         run_config(ref_cfg["signal"], ref_cfg["L"], ref_cfg["H"],
@@ -868,35 +893,32 @@ def main(argv: list[str] | None = None) -> int:
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C429 — test the price-only SIGNET: price-path peak/trough local time "
-            "plus extreme recency asymmetry (occupation share at the running peak "
-            "signet_max_occ, occupation share at the running trough signet_min_occ, "
-            "peak/trough occupation imbalance signet_maxmin_imb, and extreme recency "
-            "asymmetry signet_extreme_recency) stat-arb family on 10 USDT-M linear "
+            "C429 — test the price-only SIGNENTROPY: order-1 Markov sign-transition "
+            "dynamics (transition entropy H_trans = -Σ p_ij log p_ij, transition "
+            "asymmetry asym = p_+- - p_-+, persistence p_stay = (p_++ + p_--)/2, "
+            "switching p_switch = (p_+- + p_-+)/2) stat-arb family on 10 USDT-M linear "
             "perps at native 5m (2592 pre-registered configs). Per-bar primitives: "
             "perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); "
-            "abs_ret=|log_return|. Over fixed intrinsic window W=256 trailing "
-            "closes C=c_i[t-W..t] (W+1 bars): running maximum M=max(C) and running "
-            "minimum m=min(C); discretize C into B=32 equal-width bins between "
-            "min(C) and max(C); peak local time L_peak=count of visits to the bin "
-            "containing M; trough local time L_trough=count of visits to the bin "
-            "containing m; signet_max_occ=L_peak/(W+1) (occupation share at peak); "
-            "signet_min_occ=L_trough/(W+1) (occupation share at trough); "
-            "signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough) (peak/trough "
-            "occupation imbalance); signet_extreme_recency=(t-last_idx_at_max_bin)-"
-            "(t-last_idx_at_min_bin) (recency asymmetry of the extremes). NaN if "
-            "t<W or any NaN/non-finite in C[t-W..t], degenerate window (min==max), "
-            "or not finite. Seasonal baseline = trailing mean/std at same "
-            "(weekday,tod) bucket from history strictly before bar t (causal "
+            "abs_ret=|log_return|; sign=sign(log_return) (+1/-1/0, sign[0]=0). Over "
+            "fixed intrinsic window W=256 trailing signs s_i[t-W..t] (W+1 signs): "
+            "order-1 Markov 2x2 transition matrix on {+1,-1}; N_++ = count(s[k]=+1, "
+            "s[k+1]=+1), N_+- = count(+1,-1), N_-+ = count(-1,+1), N_-- = count(-1,-1); "
+            "p_++ = N_++/(N_+++N_+-), p_+- = N_+-/(N_+++N_+-), p_-+ = N_-+/(N_-++N_--), "
+            "p_-- = N_--/(N_-++N_--); H_trans = -p_++*log(p_++) - p_+-*log(p_+-) - "
+            "p_-+*log(p_-+) - p_--*log(p_--); asym = p_+- - p_-+; p_stay = (p_+++p_--)/2; "
+            "p_switch = (p_+-+p_-+)/2. NaN if t<W or any NaN/non-finite in the W+1-bar "
+            "trailing close span (global across assets), degenerate window (all same sign "
+            "or no transitions), or not finite. Seasonal baseline = trailing mean/std at "
+            "same (weekday,tod) bucket from history strictly before bar t (causal "
             "shift(1)), NaN-aware, excluding NaN obs. Signals: 8 real+placebo "
-            "(signet_max_occ_dev, signet_min_occ_dev, signet_maxmin_imb_dev, "
-            "signet_extreme_recency_dev) + 4 placebos (phase-randomized surrogates, "
-            "never edges). Single-leg dollar-neutral perp PnL with costs on "
-            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH "
-            "at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
-            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs; "
-            "seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars "
-            "weight 0."
+            "(signentropy_trans_entropy_dev, signentropy_trans_asym_dev, "
+            "signentropy_p_stay_dev, signentropy_p_switch_dev) + 4 placebos "
+            "(phase-randomized surrogates, never edges). Single-leg dollar-neutral perp "
+            "PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). "
+            "Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo "
+            "attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient "
+            "finite obs; seasonal stats NaN-aware min_periods excluding NaN obs; "
+            "NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
@@ -913,7 +935,7 @@ def main(argv: list[str] | None = None) -> int:
             "placebo_seed": int(PLACEBO_SEED),
             "min_periods_baseline": MIN_PERIODS_BASELINE,
             "alpha": ALPHA,             "n_trials": N_TRIALS, "total_runs": n_total,
-            "signet_params": {"window_W": SIGNET_W, "n_bins": SIGNET_B},
+            "signentropy_params": {"window_W": SIGNENTROPY_W},
         },
         "gates": {
             "fail_closed": True,
@@ -921,7 +943,7 @@ def main(argv: list[str] | None = None) -> int:
                                  "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
                                  "n_survive_both": n_survive_both, "n_edge_proven": n_edge},
             "signet_mde": {"n_splits": int(n_splits), "mde_bps_mean": mde_bps,
-                            "observed_mean_bps_per_split": obs_mean_bps},
+                           "observed_mean_bps_per_split": obs_mean_bps},
             "stability": stability_ref,
             "attribution": {
                 "reference_config": ref_cfg,
@@ -938,20 +960,18 @@ def main(argv: list[str] | None = None) -> int:
         },
         "methodology": {
             "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
-            "raw_features": "perp_close real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|.",
-            "primitives": "fixed intrinsic window W=256 trailing closes C=c_i[t-W..t] "
-                          "(W+1 bars); running maximum M=max(C) and running minimum "
-                          "m=min(C); discretize C into B=32 equal-width bins between "
-                          "min(C) and max(C); peak local time L_peak=count of visits "
-                          "to the bin containing M; trough local time L_trough=count "
-                          "of visits to the bin containing m; signet_max_occ=L_peak/"
-                          "(W+1) (occupation share at peak); signet_min_occ=L_trough/"
-                          "(W+1) (occupation share at trough); signet_maxmin_imb="
-                          "(L_peak-L_trough)/(L_peak+L_trough) (peak/trough "
-                          "occupation imbalance); signet_extreme_recency="
-                          "(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin) (recency "
-                          "asymmetry of the extremes).",
-            "signals": "signet_max_occ_dev/signet_min_occ_dev/signet_maxmin_imb_dev/signet_extreme_recency_dev plus "
+            "raw_features": "perp_close real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|; sign=sign(log_return) (+1/-1/0, sign[0]=0).",
+            "primitives": "fixed intrinsic window W=256 trailing signs s_i[t-W..t] "
+                          "(W+1 signs); order-1 Markov 2x2 transition matrix on {+1,-1}; "
+                          "N_++ = count(s[k]=+1, s[k+1]=+1), N_+- = count(+1,-1), "
+                          "N_-+ = count(-1,+1), N_-- = count(-1,-1); "
+                          "p_++ = N_++/(N_+++N_+-), p_+- = N_+-/(N_+++N_+-), "
+                          "p_-+ = N_-+/(N_-++N_--), p_-- = N_--/(N_-++N_--); "
+                          "H_trans = -p_++*log(p_++) - p_+-*log(p_+-) - "
+                          "p_-+*log(p_-+) - p_--*log(p_--); "
+                          "asym = p_+- - p_-+; p_stay = (p_+++p_--)/2; "
+                          "p_switch = (p_+-+p_-+)/2.",
+            "signals": "signentropy_trans_entropy_dev/signentropy_trans_asym_dev/signentropy_p_stay_dev/signentropy_p_switch_dev plus "
                        "phase-randomized-surrogate placebos over fixed W=256; "
                        "score=-(v-m)/sd with m/sd trailing same-bucket mean/std "
                        "(min_periods=3, excluding NaN, causal shift(1)); "
@@ -965,17 +985,13 @@ def main(argv: list[str] | None = None) -> int:
             "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
             "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
             "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
-            "signet_vectorization_note": "close matrix C=(T,10) built once; per asset, close series "
-                           "c[j]; per window ending at t, trailing W+1=257 closes "
-                           "c[t-W..t]; running maximum M=max(C) and running minimum "
-                           "m=min(C); discretize into B=32 equal-width bins; peak "
-                           "local time L_peak=count of visits to the bin containing M; "
-                           "trough local time L_trough=count of visits to the bin "
-                           "containing m; signet_max_occ/signet_min_occ/signet_maxmin_imb/"
-                           "signet_extreme_recency per window; validated against "
-                           "brute-force per-window loop with explicit peak/trough "
-                           "local-time binning + extreme-recency extraction, "
-                           "maxdiff < 1e-12 in tests.",
+            "signentropy_vectorization_note": "sign matrix S=(T,10) built once; per asset, sign series "
+                               "s[j]; per window ending at t, trailing W+1=257 signs "
+                               "s[t-W..t]; transitions s[k]->s[k+1] for k in [t-W, t-1]; "
+                               "mask out transitions from s[k]=0; count N_++, N_+-, N_-+, N_--; "
+                               "transition entropy/asymmetry/persistence/switching per window; "
+                               "validated against brute-force per-window loop with explicit "
+                               "transition counting, maxdiff < 1e-12 in tests.",
             "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
             "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         },
@@ -1036,14 +1052,14 @@ def main(argv: list[str] | None = None) -> int:
     sum_sha = sha256_file(op_sum)
 
     finding = (
-        f"C429 price-only SIGNET price-path-peak-trough-local-time-plus-extreme-recency-asymmetry stat-arb edge {verdict} "
+        f"C429 price-only SIGNENTROPY order-1 Markov sign-transition stat-arb edge {verdict} "
         f"({n_edge} deterministic edge configs, {n_survive_both} survive "
         f"Holm+BH over {N_TRIALS}); binding constraint: {binding}; dominant "
         f"attribution: {dominant} ({dominant_share:.4f})."
         if binding is not None
-        else f"C429 price-only SIGNET price-path-peak-trough-local-time-plus-extreme-recency-asymmetry stat-arb edge validated: "
-        f"{n_survive_both} of {n_edge} deterministic edge configs survive Holm+BH over "
-        f"{N_TRIALS}; edge_proven:{edge_proven}."
+        else f"C429 price-only SIGNENTROPY order-1 Markov sign-transition stat-arb edge validated: {n_survive_both} of "
+        f"{n_edge} deterministic edge configs survive Holm+BH over {N_TRIALS}; "
+        f"edge_proven:{edge_proven}."
     )
     verdict_obj = {
         "generated_at_utc": ts, "campaign": 429, "part": "verdict",
@@ -1068,10 +1084,8 @@ def main(argv: list[str] | None = None) -> int:
             "No edge claim unless the costed OOS test survives Holm+BH over all 2592 configs",
             "Real USDT-M linear 5m perp_close; funding excluded (control leg)",
             "Single-leg PnL with costs on turnover; executed_fills: false",
-            "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-
     op_ver = reports / f"campaign429_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
@@ -1089,28 +1103,39 @@ def main(argv: list[str] | None = None) -> int:
             "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
             "n_survive_both": n_survive_both,
             "attribution_shares": attrib_share, "dominant_attribution": dominant,
-            "dominant_share": dominant_share,
+            "attribution_ok": attribution_ok,
+            "stability": stability_ref,
+            "diagnosis": (
+                "C429 price-only SIGNENTROPY order-1 Markov sign-transition stat-arb "
+                "does not survive validation; formal negative. Binding constraint: "
+                f"{binding}."
+            ),
+            "note": "Diagnosis only; never an edge claim. No threshold weakening.",
         }
         op_bind = reports / f"campaign429_binding_constraint_{ts}.json"
         op_bind.write_text(json.dumps(binding_obj, indent=2, default=jdefault) + "\n")
         bind_sha = sha256_file(op_bind)
         bind_path = str(op_bind.relative_to(ROOT))
+        verdict_obj["binding_constraint_artifact"] = bind_path
+        verdict_obj["binding_constraint_sha256"] = bind_sha
+        op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
+        ver_sha = sha256_file(op_ver)
 
     print(json.dumps({
-        "campaign": 429, "part": "run_complete", "verdict": verdict,
-        "edge_proven": edge_proven, "binding_constraint": binding,
-        "n_total": n_total, "n_edge": n_edge, "n_survive_both": n_survive_both,
-        "dominant": dominant, "dominant_share": dominant_share,
-        "attribution_ok": attribution_ok,
-        "ts": ts,
-        "artifacts": {
-            "oos_sweep": str(op), "oos_sweep_sha256": sweep_sha,
-            "registry": str(op_reg), "registry_sha256": reg_sha,
-            "summary": str(op_sum), "summary_sha256": sum_sha,
-            "verdict": str(op_ver), "verdict_sha256": ver_sha,
-            "binding_constraint": bind_path, "binding_constraint_sha256": bind_sha,
-        },
-    }, indent=2, default=jdefault))
+        "campaign": 429, "verdict": verdict, "edge_proven": edge_proven,
+        "n_total_runs": int(n_total), "n_deterministic_edge": int(n_edge),
+        "n_survive_holm": n_survive_holm, "n_survive_bh": n_survive_bh,
+        "n_survive_both": n_survive_both,
+        "binding_constraint": binding,
+        "attribution_shares": attrib_share, "dominant_attribution": dominant,
+        "dominant_share": dominant_share,
+        "mde_bps_mean": mde_bps, "observed_mean_bps_per_split": obs_mean_bps,
+        "artifacts": {"oos_sweep": str(op.relative_to(ROOT)), "registry": str(op_reg.relative_to(ROOT)),
+                      "summary": str(op_sum.relative_to(ROOT)), "verdict": str(op_ver.relative_to(ROOT)),
+                      "binding_constraint": bind_path},
+        "sha256": {"oos_sweep": sweep_sha, "registry": reg_sha, "summary": sum_sha,
+                   "verdict": ver_sha, "binding_constraint": bind_sha},
+    }, indent=2))
     return 0
 
 

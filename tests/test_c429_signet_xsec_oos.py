@@ -1,7 +1,7 @@
 """Tests for C429 runner (scripts/run_c429_signet_xsec_oos.py): pure-function
 tests on synthetic arrays (including a brute-force equality test for the
-vectorized SIGNET kernel vs the per-window explicit peak/trough local-time binning
-+ extreme-recency extraction reference) plus schema/flag validation of emitted
+vectorized SIGNENTROPY kernel vs the per-window explicit order-1 Markov
+transition matrix reference) plus schema/flag validation of emitted
 real-data artifacts. No network, no fabricated market data."""
 from __future__ import annotations
 
@@ -47,11 +47,11 @@ def test_n_trials_matches_pre_registered_grid_product():
     assert len(R.FEES) == 3 and len(R.SLIPS) == 3 and len(R.COST_VARIANTS) == 2
     assert R.N_TRIALS == (len(R.SIGNALS) * len(R.LOOKBACKS) * len(R.REBALANCES)
                           * len(R.FEES) * len(R.SLIPS) * len(R.COST_VARIANTS))
-    for pb in ("signet_max_occ_placebo", "signet_min_occ_placebo", "signet_maxmin_imb_placebo",
-               "signet_extreme_recency_placebo"):
+    for pb in ("signentropy_trans_entropy_placebo", "signentropy_trans_asym_placebo",
+               "signentropy_p_stay_placebo", "signentropy_p_switch_placebo"):
         assert pb in R.SIGNALS
-    for real in ("signet_max_occ_dev", "signet_min_occ_dev", "signet_maxmin_imb_dev",
-                 "signet_extreme_recency_dev"):
+    for real in ("signentropy_trans_entropy_dev", "signentropy_trans_asym_dev",
+                 "signentropy_p_stay_dev", "signentropy_p_switch_dev"):
         assert real in R.SIGNALS
 
 
@@ -113,17 +113,24 @@ def test_wf_splits_count_2023_2025():
     assert len(splits) == 8
 
 
-# ---------------------------------------------------------------- SIGNET kernel (brute-force equality)
-def test_signet_matches_brute_force():
-    """The vectorized SIGNET kernel MUST equal the brute-force reference
-    (per-window loop with explicit peak/trough local-time binning + extreme-recency
-    extraction). Compared with maxdiff < 1e-12 and matching NaN patterns."""
+# ---------------------------------------------------------------- SIGNENTROPY kernel (brute-force equality)
+def test_signentropy_matches_brute_force():
+    """The vectorized SIGNENTROPY kernel MUST equal the brute-force reference
+    (per-window loop with explicit order-1 Markov transition matrix computation).
+    Compared with maxdiff < 1e-12 and matching NaN patterns."""
     rng = np.random.default_rng(20261293)
     n_assets, n_bars = 5, 4000
+    # Generate price paths, derive signs
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    fast = R.compute_signet_metrics(close, W=R.SIGNET_W)
-    brute = R._signet_bruteforce(close, W=R.SIGNET_W)
-    for key in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+
+    fast = R.compute_signentropy_metrics(sign, W=R.SIGNENTROPY_W)
+    brute = R._signentropy_bruteforce(sign, W=R.SIGNENTROPY_W)
+    for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                "signentropy_p_stay", "signentropy_p_switch"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, f"{key}: no finite overlapping points"
@@ -132,32 +139,50 @@ def test_signet_matches_brute_force():
         assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} >= 1e-12"
 
 
-def test_signet_matches_brute_force_10_assets():
+def test_signentropy_matches_brute_force_10_assets():
     """Brute-force equality with the full 10-asset panel (the real universe width)."""
     rng = np.random.default_rng(4294)
     n_assets, n_bars = 10, 1500
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    fast = R.compute_signet_metrics(close, W=R.SIGNET_W)
-    brute = R._signet_bruteforce(close, W=R.SIGNET_W)
-    for key in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+
+    fast = R.compute_signentropy_metrics(sign, W=R.SIGNENTROPY_W)
+    brute = R._signentropy_bruteforce(sign, W=R.SIGNENTROPY_W)
+    for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                "signentropy_p_stay", "signentropy_p_switch"):
         fv, fb = fast[key], brute[key]
         fin = np.isfinite(fv) & np.isfinite(fb)
         assert fin.sum() > 0, key
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), key
         maxdiff = float(np.max(np.abs(fv[fin] - fb[fin])))
-        assert maxdiff < 1e-12, f"signet_{key}: maxdiff={maxdiff} (float64 noise floor)"
+        assert maxdiff < 1e-12, f"signentropy_{key}: maxdiff={maxdiff} (float64 noise floor)"
 
 
-def test_signet_matches_brute_force_with_nan():
+def test_signetropy_matches_brute_force_with_nan():
     """Brute-force equality when the panel contains NaNs (global across assets)."""
     rng = np.random.default_rng(99)
     n_assets, n_bars = 4, 1200
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    # Inject NaN in close -> propagates to NaN in sign
     close[1, 400] = np.nan
     close[2, 401] = np.nan
-    fast = R.compute_signet_metrics(close, W=R.SIGNET_W)
-    brute = R._signet_bruteforce(close, W=R.SIGNET_W)
-    for key in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    log_ret = np.where(np.isfinite(log_ret), log_ret, np.nan)
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+
+    fast = R.compute_signetropy_metrics(sign, W=R.SIGNENTROPY_W)
+    brute = R._signentropy_bruteforce(sign, W=R.SIGNENTROPY_W)
+    for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                "signentropy_p_stay", "signentropy_p_switch"):
         fv, fb = fast[key], brute[key]
         assert np.array_equal(np.isnan(fv), np.isnan(fb)), f"{key}: NaN mismatch"
         fin = np.isfinite(fv) & np.isfinite(fb)
@@ -165,105 +190,142 @@ def test_signet_matches_brute_force_with_nan():
         assert maxdiff < 1e-12, f"{key}: maxdiff={maxdiff} (float64 noise floor)"
 
 
-def test_signet_defined_after_window_nan_before():
+def test_signetropy_defined_after_window_nan_before():
     rng = np.random.default_rng(3)
     n_assets, n_bars = 3, 600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.005, axis=1))
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
-    for key in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                "signentropy_p_stay", "signentropy_p_switch"):
         assert np.isnan(m[key][:, :W]).all(), key
         assert np.isfinite(m[key][:, W:]).any(), key
 
 
-def test_signet_non_finite_close_propagates():
-    """A non-finite close in any asset at a bar -> NaN for all SIGNET outputs
+def test_signetropy_non_finite_close_propagates():
+    """A non-finite close in any asset at a bar -> NaN for all SIGNENTROPY outputs
     in every window covering that bar (global-across-assets finiteness gate)."""
     rng = np.random.default_rng(9)
     n_assets, n_bars = 4, 600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.005, axis=1))
     close[0, 300] = np.inf
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
     for t in range(300, min(300 + W + 1, n_bars)):
-        for key in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
-            assert np.isnan(m[key][:, t]).all(), f"signet_{key} t={t} should be NaN"
+        for key in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                    "signentropy_p_stay", "signentropy_p_switch"):
+            assert np.isnan(m[key][:, t]).all(), f"signentropy_{key} t={t} should be NaN"
     for t in range(W, 300):
-        assert np.isfinite(m["signet_max_occ"][:, t]).any(), f"signet_max_occ t={t} should be finite"
+        assert np.isfinite(m["signentropy_trans_entropy"][:, t]).any(), f"signentropy_trans_entropy t={t} should be finite"
 
 
-def test_signet_params():
-    assert R.SIGNET_W == 256
-    assert R.SIGNET_B == 32
+def test_signetropy_params():
+    assert R.SIGNENTROPY_W == 256
 
 
-def test_signet_max_occ_range():
-    """signet_max_occ = L_peak/(W+1), L_peak>=1 (max always visited at least once):
-    in [1/(W+1), 1]."""
+def test_signetropy_trans_entropy_range():
+    """Transition entropy H_trans = -Σ p_ij log p_ij: in [0, log(4)] = [0, ~1.386]."""
     rng = np.random.default_rng(2026)
     n_assets, n_bars = 2, 1000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
-    fin = np.isfinite(m["signet_max_occ"])
-    lo = 1.0 / (W + 1)
-    assert (m["signet_max_occ"][fin] >= lo - 1e-9).all(), "signet_max_occ must be >= 1/(W+1)"
-    assert (m["signet_max_occ"][fin] <= 1.0 + 1e-9).all(), "signet_max_occ must be <= 1"
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    fin = np.isfinite(m["signentropy_trans_entropy"])
+    assert (m["signentropy_trans_entropy"][fin] >= -1e-9).all(), "trans_entropy must be >= 0"
+    assert (m["signentropy_trans_entropy"][fin] <= np.log(4) + 1e-9).all(), "trans_entropy must be <= log(4)"
 
 
-def test_signet_min_occ_range():
-    """signet_min_occ = L_trough/(W+1): in [1/(W+1), 1]."""
+def test_signetropy_trans_asym_range():
+    """Transition asymmetry asym = p_+- - p_-+: in [-1, 1]."""
     rng = np.random.default_rng(2027)
     n_assets, n_bars = 2, 1000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
-    fin = np.isfinite(m["signet_min_occ"])
-    lo = 1.0 / (W + 1)
-    assert (m["signet_min_occ"][fin] >= lo - 1e-9).all(), "signet_min_occ must be >= 1/(W+1)"
-    assert (m["signet_min_occ"][fin] <= 1.0 + 1e-9).all(), "signet_min_occ must be <= 1"
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    fin = np.isfinite(m["signentropy_trans_asym"])
+    assert (m["signentropy_trans_asym"][fin] >= -1.0 - 1e-9).all(), "trans_asym must be >= -1"
+    assert (m["signentropy_trans_asym"][fin] <= 1.0 + 1e-9).all(), "trans_asym must be <= 1"
 
 
-def test_signet_maxmin_imb_range():
-    """signet_maxmin_imb = (L_peak-L_trough)/(L_peak+L_trough): in (-1, 1)."""
+def test_signetropy_p_stay_range():
+    """Persistence p_stay = (p_++ + p_--)/2: in [0, 1]."""
     rng = np.random.default_rng(2028)
     n_assets, n_bars = 2, 1000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
-    fin = np.isfinite(m["signet_maxmin_imb"])
-    assert (m["signet_maxmin_imb"][fin] > -1.0 - 1e-9).all(), "imbalance must be > -1"
-    assert (m["signet_maxmin_imb"][fin] < 1.0 + 1e-9).all(), "imbalance must be < 1"
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    fin = np.isfinite(m["signentropy_p_stay"])
+    assert (m["signentropy_p_stay"][fin] >= -1e-9).all(), "p_stay must be >= 0"
+    assert (m["signentropy_p_stay"][fin] <= 1.0 + 1e-9).all(), "p_stay must be <= 1"
 
 
-def test_signet_extreme_recency_range():
-    """signet_extreme_recency = last_min - last_max, both local indices in [0, W]:
-    in [-W, W]."""
+def test_signetropy_p_switch_range():
+    """Switching p_switch = (p_+- + p_-+)/2 = 1 - p_stay: in [0, 1]."""
     rng = np.random.default_rng(2029)
     n_assets, n_bars = 2, 1000
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    m = R.compute_signet_metrics(close, W=W)
-    fin = np.isfinite(m["signet_extreme_recency"])
-    assert (m["signet_extreme_recency"][fin] >= -W - 1e-9).all(), "recency >= -W"
-    assert (m["signet_extreme_recency"][fin] <= W + 1e-9).all(), "recency <= W"
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    fin = np.isfinite(m["signentropy_p_switch"])
+    assert (m["signentropy_p_switch"][fin] >= -1e-9).all(), "p_switch must be >= 0"
+    assert (m["signentropy_p_switch"][fin] <= 1.0 + 1e-9).all(), "p_switch must be <= 1"
+
+
+def test_signetropy_p_stay_plus_p_switch_equals_one():
+    """p_stay + p_switch == 1 (where both finite)."""
+    rng = np.random.default_rng(2030)
+    n_assets, n_bars = 3, 800
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    m = R.compute_signetropy_metrics(sign, W=W)
+    fin = np.isfinite(m["signentropy_p_stay"]) & np.isfinite(m["signentropy_p_switch"])
+    assert fin.sum() > 0
+    sum_vals = m["signentropy_p_stay"][fin] + m["signentropy_p_switch"][fin]
+    assert np.allclose(sum_vals, 1.0, atol=1e-12), "p_stay + p_switch must equal 1"
 
 
 def test_reference_config_matches_pre_registered_spec():
     assert R.ATTR_REPRESENTATIVES == {
-        "signet_max_occ_dev": "signet_max_occ_dev",
-        "signet_min_occ_dev": "signet_min_occ_dev",
-        "signet_maxmin_imb_dev": "signet_maxmin_imb_dev",
-        "signet_extreme_recency_dev": "signet_extreme_recency_dev",
+        "signentropy_trans_entropy_dev": "signentropy_trans_entropy_dev",
+        "signentropy_trans_asym_dev": "signentropy_trans_asym_dev",
+        "signentropy_p_stay_dev": "signentropy_p_stay_dev",
+        "signentropy_p_switch_dev": "signentropy_p_switch_dev",
     }
     assert R.PLACEBO_SEED == 20261293
     assert R.STABILITY_MIN_SIGN_CONSISTENCY == 0.70
     assert R.STABILITY_MIN_SHARPE_CORR == 0.50
     assert R.DOMINANT_SHARE_MIN == 0.50
     assert R.TRAIN_M == 12 and R.TEST_M == 3 and R.ROLL_M == 3
-    assert R.SIGNET_W == 256
-    assert R.SIGNET_B == 32
-    assert R.SIGNALS[0] == "signet_max_occ_dev"
+    assert R.SIGNENTROPY_W == 256
+    assert R.SIGNALS[0] == "signentropy_trans_entropy_dev"
 
 
 # ---------------------------------------------------------------- phase-randomized surrogate
@@ -282,8 +344,10 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
     T = 288
     lr = rng.standard_normal((n_assets, n_days * T)) * 0.001
     c = 100.0 * np.exp(np.cumsum(lr, axis=1))
+    s = np.sign(lr).astype(int)
+    s[:, 0] = 0
     return {
-        "perp_close": c, "log_return": lr,
+        "perp_close": c, "log_return": lr, "sign": s,
         "bucket": np.tile(np.arange(T), n_days),
         "n_assets": n_assets, "n_days": n_days, "n_bars": n_days * T,
     }
@@ -292,9 +356,10 @@ def _synthetic_bs(n_assets=3, n_days=8, seed=1):
 def test_build_underlying_shapes_and_keys():
     bs = _synthetic_bs()
     series = R.build_underlying(bs)
-    assert set(series.keys()) == {"signet_max_occ", "signet_min_occ", "signet_maxmin_imb",
-                                  "signet_extreme_recency"}
-    for k in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    assert set(series.keys()) == {"signentropy_trans_entropy", "signentropy_trans_asym",
+                                  "signentropy_p_stay", "signentropy_p_switch"}
+    for k in ("signentropy_trans_entropy", "signentropy_trans_asym",
+              "signentropy_p_stay", "signentropy_p_switch"):
         assert series[k].shape == (bs["n_assets"], bs["n_bars"])
 
 
@@ -311,65 +376,98 @@ def test_build_scores_signals_lookbacks_causal():
 
 
 # ---------------------------------------------------------------- kernel distinctness guards
-def test_signet_kernel_not_degenerate():
-    """Rewrite guard: SIGNET metrics are not degenerate (not allclose to 0 where defined)."""
+def test_signetropy_kernel_not_degenerate():
+    """Rewrite guard: SIGNENTROPY metrics are not degenerate (not allclose to 0 where defined)."""
     rng = np.random.default_rng(55)
     n_assets, n_bars = 5, 1600
     close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    for name in ("signet_max_occ", "signet_min_occ", "signet_maxmin_imb", "signet_extreme_recency"):
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(sign, W=W)
+    for name in ("signentropy_trans_entropy", "signentropy_trans_asym",
+                 "signentropy_p_stay", "signentropy_p_switch"):
         arr = mm[name]
         fin = np.isfinite(arr)
-        assert fin.sum() > 0, f"signet_{name}: no finite values"
-        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"signet_{name} collapses to 0"
+        assert fin.sum() > 0, f"signentropy_{name}: no finite values"
+        # at least some values should be non-zero
+        assert not np.allclose(arr[fin], 0.0, atol=1e-12), f"signentropy_{name} collapses to 0"
 
 
 # ---- inline prior-family reference statistics (distinctness guards)
-def _signchop_style_stat(close, W):
-    """Inline C344-style statistic: sign-change / chop rate of the return sign
-    sequence over the window — sign flips of the return sign, NOT SIGNET occupation."""
-    X = np.diff(np.log(close), axis=1)
-    n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
+def _c329_sign_entropy_style_stat(sign, W):
+    """Inline C329-style statistic: Shannon entropy of sign COUNTS over window
+    (directional disorder/balance) — count/level statistics, NOT transition probabilities."""
+    n_assets, n = sign.shape
+    out = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
-        span = X[:, t - W + 1:t + 1]
+        span = sign[:, t - W:t + 1]
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            s = np.sign(span[i])
-            out[i, t] = float(np.mean(s[1:] != s[:-1])) if W > 1 else np.nan
+            s = span[i]
+            pos = int(np.count_nonzero(s == 1))
+            neg = int(np.count_nonzero(s == -1))
+            total = pos + neg
+            if total == 0:
+                continue
+            p_pos = pos / total if pos > 0 else 0.0
+            p_neg = neg / total if neg > 0 else 0.0
+            H = -(p_pos * np.log(p_pos) if p_pos > 0 else 0.0) - (p_neg * np.log(p_neg) if p_neg > 0 else 0.0)
+            out[i, t] = float(H)
     return out
 
 
-def _signrun_style_stat(close, W):
-    """Inline C374 SIGNRUN-style statistic: max run share / mean run length of
-    signed runs — a single max/mean summary, NOT SIGNET occupation."""
-    X = np.diff(np.log(close), axis=1)
-    n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
+def _c329_maxrun_style_stat(sign, W):
+    """Inline C329-style maxrun: maximum same-sign run length within window."""
+    n_assets, n = sign.shape
+    out = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
-        span = X[:, t - W + 1:t + 1]
+        span = sign[:, t - W:t + 1]
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            s = np.sign(span[i])
+            s = span[i]
             s2 = s[s != 0]
             if len(s2) < 2:
                 continue
             change = s2[1:] != s2[:-1]
             starts = np.concatenate([[0], np.nonzero(change)[0] + 1])
             lens = np.diff(np.concatenate([starts, [len(s2)]]))
-            out[i, t] = float(lens.max() / lens.mean()) if lens.mean() > 0 else np.nan
+            out[i, t] = float(lens.max())
     return out
 
 
-def _zcrpath_style_stat(close, W):
-    """Inline C422 ZCRPATH-style statistic: zero-crossing rate of the
-    cumulative-return path — crossings of cumsum(X), NOT SIGNET occupation."""
+def _c328_signstreak_style_stat(sign, W):
+    """Inline C328 signstreak-style: current run length ending at t."""
+    n_assets, n = sign.shape
+    out = np.full((n_assets, n), np.nan, dtype=float)
+    for t in range(W, n):
+        span = sign[:, t - W:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        for i in range(n_assets):
+            s = span[i]
+            if s[-1] == 0:
+                out[i, t] = 0.0
+                continue
+            run = 1
+            for k in range(len(s) - 2, -1, -1):
+                if s[k] == s[-1] and s[k] != 0:
+                    run += 1
+                else:
+                    break
+            out[i, t] = float(run)
+    return out
+
+
+def _c422_zcrpath_style_stat(close, W):
+    """Inline C422 ZCRPATH-style: zero-crossing rate of cumulative-return path."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
+    out = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
         span = X[:, t - W + 1:t + 1]
         if not np.isfinite(span).all():
@@ -382,12 +480,11 @@ def _zcrpath_style_stat(close, W):
     return out
 
 
-def _runlen_style_stat(close, W):
-    """Inline C423 RUNLEN-style statistic: run-length distribution entropy of
-    consecutive same-sign returns — full run-length entropy, NOT SIGNET occupation."""
+def _c423_runlen_style_stat(close, W):
+    """Inline C423 RUNLEN-style: run-length distribution entropy of consecutive same-sign returns."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
+    out = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
         span = X[:, t - W + 1:t + 1]
         if not np.isfinite(span).all():
@@ -407,11 +504,10 @@ def _runlen_style_stat(close, W):
     return out
 
 
-def _iesd_style_stat(close, W):
-    """Inline C424 IESD-style statistic: mean spacing of local-extremum gaps —
-    inter-extremum spacing distribution, NOT SIGNET occupation."""
+def _c424_iesd_style_stat(close, W):
+    """Inline C424 IESD-style: mean spacing of local-extremum gaps."""
     n_assets, n = close.shape
-    out_mean = np.full((n_assets, n), np.nan)
+    out_mean = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
         span = close[:, t - W:t + 1]
         if not np.isfinite(span).all():
@@ -429,12 +525,44 @@ def _iesd_style_stat(close, W):
     return out_mean
 
 
-def _mfdfa_style_stat(close, W):
-    """Inline C358 MF-DFA style statistic: fluctuation function F(s) over scales,
-    generalized Hurst from log-log slope — NOT SIGNET occupation."""
+def _c426_wlmf_style_stat(close, W):
+    """Inline C426 WLMF-style: db3 wavelet finest-detail energy over the window."""
+    s10 = math.sqrt(10.0)
+    s52 = math.sqrt(5.0 + 2.0 * s10)
+    sqrt2 = math.sqrt(2.0)
+    h = np.array([
+        (1.0 + s10 + s52) / (16.0 * sqrt2),
+        (5.0 + s10 + 3.0 * s52) / (16.0 * sqrt2),
+        (10.0 - 2.0 * s10 + 2.0 * s52) / (16.0 * sqrt2),
+        (10.0 - 2.0 * s10 - 2.0 * s52) / (16.0 * sqrt2),
+        (5.0 + s10 - 3.0 * s52) / (16.0 * sqrt2),
+        (1.0 + s10 - s52) / (16.0 * sqrt2),
+    ])
+    g = ((-1.0) ** np.arange(len(h))) * h[::-1]
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
+    out = np.full((n_assets, n), np.nan, dtype=float)
+    Lh = len(h)
+    for t in range(W, n):
+        span = X[:, t - W + 1:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        for i in range(n_assets):
+            a = span[i]
+            nn = len(a)
+            half = nn // 2
+            k = np.arange(half)
+            idx = (2 * k[:, None] - np.arange(Lh)[None, :]) % nn
+            d = a[idx] @ g
+            out[i, t] = float(np.std(d)) if half > 0 else np.nan
+    return out
+
+
+def _c358_mfdfa_style_stat(close, W):
+    """Inline C358 MF-DFA style: fluctuation function F(s) over scales."""
+    X = np.diff(np.log(close), axis=1)
+    n_assets, n = X.shape
+    out = np.full((n_assets, n), np.nan, dtype=float)
     scales = np.array([8, 16, 32, 64, 128], dtype=int)
     for t in range(W, n):
         span = X[:, t - W + 1:t + 1]
@@ -453,87 +581,214 @@ def _mfdfa_style_stat(close, W):
     return out
 
 
-def _rqa_det_style_stat(close, W):
-    """Inline C425 RQA det: diagonal-line determinism of delay-embedding recurrence
-    matrix — NOT SIGNET occupation."""
+def _c349_permutation_entropy_style_stat(close, W):
+    """Inline C349 permutation entropy style."""
     X = np.diff(np.log(close), axis=1)
     n_assets, n = X.shape
-    m = 3
-    tau = 1
-    emb = np.stack([X[:, k:n - (m - 1 - k) * tau] for k in range(m)], axis=-1)
-    out = np.full((n_assets, n), np.nan)
-    eps = 0.1
-    for t in range(W, n):
-        span = emb[:, t - W + 1:t + 1]
-        if not np.isfinite(span).all():
-            continue
-        for i in range(n_assets):
-            E = span[i]
-            N = E.shape[0]
-            D = np.max(np.abs(E[:, None, :] - E[None, :, :]), axis=-1)
-            Rm = (D <= eps * np.std(X[i])).astype(float)
-            np.fill_diagonal(Rm, 0.0)
-            total_diag = 0
-            total_all = 0
-            for off in range(-(N - 2), N - 1):
-                d = np.diag(Rm, k=off)
-                runs = []
-                cur = 0
-                for v in d:
-                    if v:
-                        cur += 1
-                    else:
-                        if cur >= 2:
-                            runs.append(cur)
-                        cur = 0
-                if cur >= 2:
-                    runs.append(cur)
-                total_diag += sum(runs)
-                total_all += len(d)
-            out[i, t] = float(total_diag / total_all) if total_all > 0 else np.nan
-    return out
-
-
-def _wlmf_style_stat(close, W):
-    """Inline C426 WLMF-style statistic: db3 wavelet finest-detail energy over the
-    window — a wavelet-leader multifractal proxy, NOT SIGNET occupation."""
-    s10 = math.sqrt(10.0)
-    s52 = math.sqrt(5.0 + 2.0 * s10)
-    sqrt2 = math.sqrt(2.0)
-    h = np.array([
-        (1.0 + s10 + s52) / (16.0 * sqrt2),
-        (5.0 + s10 + 3.0 * s52) / (16.0 * sqrt2),
-        (10.0 - 2.0 * s10 + 2.0 * s52) / (16.0 * sqrt2),
-        (10.0 - 2.0 * s10 - 2.0 * s52) / (16.0 * sqrt2),
-        (5.0 + s10 - 3.0 * s52) / (16.0 * sqrt2),
-        (1.0 + s10 - s52) / (16.0 * sqrt2),
-    ])
-    g = ((-1.0) ** np.arange(len(h))) * h[::-1]
-    X = np.diff(np.log(close), axis=1)
-    n_assets, n = X.shape
-    out = np.full((n_assets, n), np.nan)
-    Lh = len(h)
+    out = np.full((n_assets, n), np.nan, dtype=float)
     for t in range(W, n):
         span = X[:, t - W + 1:t + 1]
         if not np.isfinite(span).all():
             continue
         for i in range(n_assets):
-            a = span[i]
-            nn = len(a)
-            half = nn // 2
-            k = np.arange(half)
-            idx = (2 * k[:, None] - np.arange(Lh)[None, :]) % nn
-            d = a[idx] @ g
-            out[i, t] = float(np.std(d)) if half > 0 else np.nan
+            x = span[i]
+            if len(x) < 3:
+                continue
+            # simple order-3 permutation entropy
+            patterns = []
+            for k in range(len(x) - 2):
+                trip = x[k:k+3]
+                order = tuple(np.argsort(trip, kind="mergesort"))
+                patterns.append(order)
+            if not patterns:
+                continue
+            _, counts = np.unique(patterns, return_counts=True)
+            p = counts / len(patterns)
+            out[i, t] = float(-(p * np.log(p)).sum())
     return out
 
 
-def _prior_occupation_entropy_stat(close, W, B=32):
-    """Inline reference for the preceding path-local-time-occupation family:
-    Shannon entropy of the equal-width local-time distribution over the window
-    (full-distribution occupation), NOT SIGNET peak/trough occupation + recency."""
+def _c355_sample_entropy_style_stat(close, W):
+    """Inline C355 sample entropy style."""
+    X = np.diff(np.log(close), axis=1)
+    n_assets, n = X.shape
+    out = np.full((n_assets, n), np.nan, dtype=float)
+    for t in range(W, n):
+        span = X[:, t - W + 1:t + 1]
+        if not np.isfinite(span).all():
+            continue
+        for i in range(n_assets):
+            x = span[i]
+            m = 2
+            r = 0.2 * np.std(x) if np.std(x) > 0 else 0.0
+            if r == 0:
+                continue
+            N = len(x)
+            if N <= m + 1:
+                continue
+            # sample entropy
+            def _count(m_val):
+                templates = x[:N - m_val + 1, None] - x[m_val - 1:]
+                dist = np.max(np.abs(templates), axis=1)
+                return np.count_nonzero(dist < r)
+            A = _count(m + 1)
+            B = _count(m)
+            if B > 0 and A > 0:
+                out[i, t] = float(-np.log(A / B))
+    return out
+
+
+def _assert_distinct(sa, ref, name):
+    fin = np.isfinite(sa) & np.isfinite(ref)
+    assert fin.sum() > 0, name
+    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"SIGNENTROPY degenerates to {name}"
+
+
+def test_signetropy_kernel_distinct_from_c329_sign_entropy():
+    """C329 sign entropy (Shannon entropy of sign COUNTS): legitimate
+    distinctness-guard ref (count/level statistics vs order-1 Markov transition dynamics)."""
+    rng = np.random.default_rng(214)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(sign, W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c329_sign_entropy_style_stat(sign, W)[0, W:]
+    _assert_distinct(sa, ref, "C329_SIGN_ENTROPY")
+
+
+def test_signetropy_kernel_distinct_from_c329_maxrun():
+    """C329 maxrun (max same-sign run length): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(217)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(sign, W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c329_maxrun_style_stat(sign, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "C329_MAXRUN")
+
+
+def test_signetropy_kernel_distinct_from_c328_signstreak():
+    """C328 signstreak (current run length ending at t): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(219)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    log_ret = np.zeros_like(close)
+    log_ret[:, 1:] = np.log(close[:, 1:] / close[:, :-1])
+    sign = np.sign(log_ret).astype(int)
+    sign[:, 0] = 0
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(sign, W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c328_signstreak_style_stat(sign, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "C328_SIGNSTREAK")
+
+
+def test_signetropy_kernel_distinct_from_zcrpath():
+    """C422 ZCRPATH (zero-crossing rate of cumulative-return path): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(219)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c422_zcrpath_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "ZCRPATH")
+
+
+def test_signetropy_kernel_distinct_from_runlen():
+    """C423 RUNLEN (run-length distribution entropy of consecutive return signs): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(220)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c423_runlen_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "RUNLEN")
+
+
+def test_signetropy_kernel_distinct_from_iesd():
+    """C424 IESD (inter-extremum spacing distribution): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(224)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c424_iesd_style_stat(close, W)[0, W:]
+    _assert_distinct(sa, ref, "IESD")
+
+
+def test_signetropy_kernel_distinct_from_wlmf():
+    """C426 WLMF (wavelet-leader multifractal spectrum): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(236)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c426_wlmf_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "WLMF")
+
+
+def test_signetropy_kernel_distinct_from_mfdfa():
+    """C358 MF-DFA (fluctuation-function generalized Hurst): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(230)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c358_mfdfa_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "MF-DFA")
+
+
+def test_signetropy_kernel_distinct_from_permutation_entropy():
+    """C349 permutation entropy: legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(240)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c349_permutation_entropy_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "PERMUTATION_ENTROPY")
+
+
+def test_signetropy_kernel_distinct_from_sample_entropy():
+    """C355 sample entropy: legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(242)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    ref = _c355_sample_entropy_style_stat(close, W)[0, W - 1:]
+    _assert_distinct(sa, ref, "SAMPLE_ENTROPY")
+
+
+def test_signetropy_kernel_distinct_from_ptlt():
+    """C428 PTLT (path-local-time peak/trough occupation + extreme recency): legitimate distinctness-guard ref."""
+    rng = np.random.default_rng(244)
+    n_assets, n_bars = 5, 1200
+    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
+    W = R.SIGNENTROPY_W
+    mm = R.compute_signetropy_metrics(np.sign(np.diff(np.log(close), axis=1)).astype(int), W=W)
+    sa = mm["signentropy_trans_entropy"][0, W:]
+    # PTLT uses price path bins, so we compute a simplified PTLT-like stat on close
     n_assets, n = close.shape
-    out = np.full((n_assets, n), np.nan)
+    out = np.full((n_assets, n), np.nan, dtype=float)
+    B = 32
     for t in range(W, n):
         span = close[:, t - W:t + 1]
         if not np.isfinite(span).all():
@@ -546,136 +801,14 @@ def _prior_occupation_entropy_stat(close, W, B=32):
             edges = np.linspace(cmin, cmax, B + 1)
             bins = np.searchsorted(edges, C, side="right") - 1
             bins = np.clip(bins, 0, B - 1)
-            L = np.bincount(bins, minlength=B).astype(float)
+            max_bin = int(bins[np.argmax(C)])
+            min_bin = int(bins[np.argmin(C)])
+            L_peak = float(np.count_nonzero(bins == max_bin))
+            L_trough = float(np.count_nonzero(bins == min_bin))
             total = float(len(C))
-            p = L / total
-            pos = p > 0
-            out[i, t] = float(-(p[pos] * np.log(p[pos])).sum())
-    return out
-
-
-def _assert_distinct(sa, ref, name):
-    fin = np.isfinite(sa) & np.isfinite(ref)
-    assert fin.sum() > 0, name
-    assert not np.allclose(sa[fin], ref[fin], atol=1e-6), f"SIGNET degenerates to {name}"
-
-
-def test_signet_kernel_distinct_from_signchop():
-    """C344 sign-change/chop rate: legitimate distinctness-guard ref
-    (sign flips of the return sign vs SIGNET peak/trough occupation + recency)."""
-    rng = np.random.default_rng(214)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _signchop_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "SIGNCHOP")
-
-
-def test_signet_kernel_distinct_from_signrun():
-    """C374 SIGNRUN (max run share / mean run length): legitimate
-    distinctness-guard ref (single max/mean summary vs SIGNET occupation)."""
-    rng = np.random.default_rng(217)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _signrun_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "SIGNRUN")
-
-
-def test_signet_kernel_distinct_from_zcrpath():
-    """C422 ZCRPATH (zero-crossing rate of cumulative-return path): legitimate
-    distinctness-guard ref (cumulative-path crossings vs SIGNET occupation)."""
-    rng = np.random.default_rng(219)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _zcrpath_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "ZCRPATH")
-
-
-def test_signet_kernel_distinct_from_runlen():
-    """C423 RUNLEN (run-length distribution entropy of consecutive return signs):
-    legitimate distinctness-guard ref (run-length entropy vs SIGNET occupation)."""
-    rng = np.random.default_rng(220)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _runlen_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "RUNLEN")
-
-
-def test_signet_kernel_distinct_from_iesd():
-    """C424 IESD (inter-extremum spacing distribution): legitimate
-    distinctness-guard ref (spacing between local extrema vs SIGNET occupation)."""
-    rng = np.random.default_rng(224)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _iesd_style_stat(close, W)[0, W:]
-    _assert_distinct(sa, ref, "IESD")
-
-
-def test_signet_kernel_distinct_from_mfdfa():
-    """C358 MF-DFA (fluctuation-function generalized Hurst): legitimate
-    distinctness-guard ref (fluctuation-function scaling vs SIGNET occupation)."""
-    rng = np.random.default_rng(230)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _mfdfa_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "MF-DFA")
-
-
-def test_signet_kernel_distinct_from_rqa():
-    """C425 RQA (diagonal-line determinism of delay-embedding recurrence matrix):
-    legitimate distinctness-guard ref (recurrence-plot topology vs SIGNET occupation)."""
-    rng = np.random.default_rng(232)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _rqa_det_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "RQA")
-
-
-def test_signet_kernel_distinct_from_wlmf():
-    """C426 WLMF (wavelet-leader multifractal spectrum): legitimate
-    distinctness-guard ref (wavelet detail energy vs SIGNET occupation)."""
-    rng = np.random.default_rng(236)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _wlmf_style_stat(close, W)[0, W - 1:]
-    _assert_distinct(sa, ref, "WLMF")
-
-
-def test_signet_kernel_distinct_from_prior_occupation_entropy():
-    """Preceding path-local-time-occupation family (full-distribution local-time
-    entropy): legitimate distinctness-guard ref (occupation entropy vs SIGNET
-    peak/trough occupation + extreme recency)."""
-    rng = np.random.default_rng(240)
-    n_assets, n_bars = 5, 1200
-    close = 100.0 * np.exp(np.cumsum(rng.standard_normal((n_assets, n_bars)) * 0.001, axis=1))
-    W = R.SIGNET_W
-    mm = R.compute_signet_metrics(close, W=W)
-    sa = mm["signet_max_occ"][0, W:]
-    ref = _prior_occupation_entropy_stat(close, W)[0, W:]
-    _assert_distinct(sa, ref, "PRIOR_OCCUPATION_ENTROPY")
+            out[i, t] = L_peak / total if total > 0 else np.nan
+    ref = out[0, W:]
+    _assert_distinct(sa, ref, "PTLT")
 
 
 # ---------------------------------------------------------------- guard tests (rewrite guards)
@@ -690,19 +823,19 @@ def test_artifact_campaign_is_429():
         assert obj["campaign"] == 429, f"{part} artifact campaign != 429: {obj.get('campaign')}"
 
 
-def test_mandate_contains_signet():
-    """Rewrite guard: the C429 mandate names the SIGNET peak/trough-local-time
-    family (never prior families)."""
+def test_mandate_contains_signentropy():
+    """Rewrite guard: the C429 mandate names the SIGNENTROPY order-1 Markov family."""
     p = sorted((ROOT / "reports").glob("campaign429_oos_sweep_*.json"))
     p = [f for f in p if ".full." not in f.name]
     if not p:
         return
     mandate = json.loads(p[-1].read_text())["mandate"]
-    assert ("SIGNET" in mandate), "mandate missing SIGNET"
-    assert "signet_max_occ" in mandate, "mandate missing signet_max_occ"
-    assert "signet_min_occ" in mandate, "mandate missing signet_min_occ"
-    assert "signet_maxmin_imb" in mandate, "mandate missing signet_maxmin_imb"
-    assert "signet_extreme_recency" in mandate, "mandate missing signet_extreme_recency"
+    assert ("SIGNENTROPY" in mandate), "mandate missing SIGNENTROPY"
+    assert "signentropy_trans_entropy" in mandate, "mandate missing signentropy_trans_entropy"
+    assert "signentropy_trans_asym" in mandate, "mandate missing signentropy_trans_asym"
+    assert "signentropy_p_stay" in mandate, "mandate missing signentropy_p_stay"
+    assert "signentropy_p_switch" in mandate, "mandate missing signentropy_p_switch"
+    assert "order-1 Markov" in mandate, "mandate missing order-1 Markov"
 
 
 def test_placebo_seed_is_20261293():
@@ -742,7 +875,7 @@ def test_artifacts_if_present_have_required_flags():
     assert sw["config"]["n_trials"] == R.N_TRIALS
     assert sw["real_data_only"] is True and sw["fabricated_data"] is False
     assert sw["config"]["placebo_seed"] == R.PLACEBO_SEED
-    assert sw["config"]["signet_params"]["window_W"] == 256
+    assert sw["config"]["signentropy_params"]["window_W"] == 256
 
 
 if __name__ == "__main__":
@@ -755,33 +888,36 @@ if __name__ == "__main__":
     test_positions_nan_asset_gets_zero_weight()
     test_wf_splits_month_aligned_non_overlapping()
     test_wf_splits_count_2023_2025()
-    test_signet_matches_brute_force()
-    test_signet_matches_brute_force_10_assets()
-    test_signet_matches_brute_force_with_nan()
-    test_signet_defined_after_window_nan_before()
-    test_signet_non_finite_close_propagates()
-    test_signet_params()
-    test_signet_max_occ_range()
-    test_signet_min_occ_range()
-    test_signet_maxmin_imb_range()
-    test_signet_extreme_recency_range()
+    test_signetropy_matches_brute_force()
+    test_signetropy_matches_brute_force_10_assets()
+    test_signetropy_matches_brute_force_with_nan()
+    test_signetropy_defined_after_window_nan_before()
+    test_signetropy_non_finite_close_propagates()
+    test_signetropy_params()
+    test_signetropy_trans_entropy_range()
+    test_signetropy_trans_asym_range()
+    test_signetropy_p_stay_range()
+    test_signetropy_p_switch_range()
+    test_signetropy_p_stay_plus_p_switch_equals_one()
     test_reference_config_matches_pre_registered_spec()
     test_phase_randomized_surrogate_same_marginal_deterministic()
     test_build_underlying_shapes_and_keys()
     test_build_scores_signals_lookbacks_causal()
-    test_signet_kernel_not_degenerate()
-    test_signet_kernel_distinct_from_signchop()
-    test_signet_kernel_distinct_from_signrun()
-    test_signet_kernel_distinct_from_zcrpath()
-    test_signet_kernel_distinct_from_runlen()
-    test_signet_kernel_distinct_from_iesd()
-    test_signet_kernel_distinct_from_mfdfa()
-    test_signet_kernel_distinct_from_rqa()
-    test_signet_kernel_distinct_from_wlmf()
-    test_signet_kernel_distinct_from_prior_occupation_entropy()
+    test_signetropy_kernel_not_degenerate()
+    test_signetropy_kernel_distinct_from_c329_sign_entropy()
+    test_signetropy_kernel_distinct_from_c329_maxrun()
+    test_signetropy_kernel_distinct_from_c328_signstreak()
+    test_signetropy_kernel_distinct_from_zcrpath()
+    test_signetropy_kernel_distinct_from_runlen()
+    test_signetropy_kernel_distinct_from_iesd()
+    test_signetropy_kernel_distinct_from_wlmf()
+    test_signetropy_kernel_distinct_from_mfdfa()
+    test_signetropy_kernel_distinct_from_permutation_entropy()
+    test_signetropy_kernel_distinct_from_sample_entropy()
+    test_signetropy_kernel_distinct_from_ptlt()
     test_artifact_campaign_is_429()
-    test_mandate_contains_signet()
+    test_mandate_contains_signetropy()
     test_placebo_seed_is_20261293()
     test_placebo_seed_unique_not_reserved()
     test_artifacts_if_present_have_required_flags()
-    print("All C429 SIGNET runner tests passed")
+    print("All C429 SIGNENTROPY runner tests passed")

@@ -1,0 +1,144 @@
+{
+  "generated_at_utc": "20261124T013244Z",
+  "campaign": 429,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "abs_ret",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign429_signet_5m",
+  "shard_sha256": {
+    "ADAUSDT": "b0a52c60b71a2f7d802705199ea4f1d3cf7029b268bfd618174941c97dc6ddca",
+    "AVAXUSDT": "ffce4935c563646c5391f97f2031f94b3b0a3c73af21d2fce7031a353cd4e0d7",
+    "BNBUSDT": "f360ae0cce15f6c1ad566e2c169d5a2582e6c52c8700cce4eff7d936d5a92807",
+    "BTCUSDT": "e436ba8fd9658d85cead10fda892297c1171a01b3f022c62246e0c23165ef230",
+    "DOGEUSDT": "bc4c945d7eed18c60d36a72e6a27da00b9c873763f9da4d7ee8f01f8b3bfdfa6",
+    "DOTUSDT": "6464a547ef79a42fb0993c14014e1f1ce478531a1afb1daebb98df6b5736cacc",
+    "ETHUSDT": "80e73985e29f8bdaf5a59edce31b3a71ab85cdd3030b0a6687f80dbfd20cc35c",
+    "LINKUSDT": "acc88a73191fdb95b807d04538f15f4fa266088404c652351458f48a367ae988",
+    "SOLUSDT": "ac65781db43bea7d6ddd10b41da46e338d30548576efe94f5f6c894cc7cdf0ab",
+    "XRPUSDT": "af7256ba0f66e92124723c958494838e718d4c868b3e5d92b4df33004270c79d"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 3525062,
+    "AVAXUSDT": 4038939,
+    "BNBUSDT": 4039121,
+    "BTCUSDT": 4156245,
+    "DOGEUSDT": 3917268,
+    "DOTUSDT": 3537922,
+    "ETHUSDT": 4195563,
+    "LINKUSDT": 3906061,
+    "SOLUSDT": 4094549,
+    "XRPUSDT": 3652945
+  },
+  "total_shard_bytes": 39063675,
+  "max_shard_bytes": 4195563,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "signet_params": {
+    "window_W": 256,
+    "n_bins": 32
+  },
+  "field_definition": "perp_close: real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding unreachable). Runner builds SIGNET scalars over fixed intrinsic window W=256 trailing closes C=c_i[t-W..t]: running maximum M=max(C) and running minimum m=min(C); discretize C into B=32 equal-width bins between min(C) and max(C); peak local time L_peak=count of visits to the bin containing M; trough local time L_trough=count of visits to the bin containing m; signet_max_occ=L_peak/(W+1) (occupation share at peak); signet_min_occ=L_trough/(W+1) (occupation share at trough); signet_maxmin_imb=(L_peak-L_trough)/(L_peak+L_trough) (peak/trough occupation imbalance); signet_extreme_recency=(t-last_idx_at_max_bin)-(t-last_idx_at_min_bin) (extreme recency asymmetry). NaN if t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets), degenerate window (min==max), or not finite. Seasonal deviation of each SIGNET scalar at the same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware min_periods=3.",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "abs_ret": "|log_return|; always finite",
+    "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
+    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; SIGNET scalars NaN where t<W or any NaN/non-finite in the W+1-bar trailing close span (global across assets) or degenerate window or not finite.",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "abs_ret": 0,
+        "sign": 0
+      }
+    }
+  }
+}

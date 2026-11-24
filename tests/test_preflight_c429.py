@@ -45,24 +45,22 @@ def test_preflight_artifact_flags():
     assert checks["meta"]["executed_fills"] is False
     assert checks["meta"]["under_push_limit"] is True
     assert checks["meta"]["under_cache_budget"] is True
-    assert checks["meta"]["signet_params"]["window_W"] == 256
-    assert checks["meta"]["signet_params"]["n_bins"] == 32
+    assert checks["meta"]["signentropy_params"]["window_W"] == 256
     assert checks["feature_integrity"]["ok"] is True
     assert checks["feature_integrity"]["raw_nan_total"] == 0
     assert checks["per_symbol"]["ok"] is True
     assert checks["provenance"]["ok"] is True
 
 
-def test_cache_meta_signet_params_distinct():
-    """Verify C429 cache meta has distinct SIGNET params (not other campaign params)."""
+def test_cache_meta_signent_params_distinct():
+    """Verify C429 cache meta has distinct SIGNENTROPY params (not other campaign params)."""
     meta_path = ROOT / "data" / "cache" / "campaign429_signet_5m.meta.json"
     if not meta_path.exists():
         return
     meta = json.loads(meta_path.read_text())
     assert meta["campaign"] == 429
     assert meta["source_campaign"] == 312
-    assert meta["signet_params"]["window_W"] == 256
-    assert meta["signet_params"]["n_bins"] == 32
+    assert meta["signentropy_params"]["window_W"] == 256
     for other in ("wlmf_params", "rqa_params", "loctime_params", "iesd_params", "runlen_params", "zcrpath_params", "coh_params",
                   "rcf_params", "qreg_params", "taildep_params", "tailbeta_params",
                   "signpower_params", "semcorr_params", "xcorr_params", "residvol_params",
@@ -79,12 +77,12 @@ def test_cache_meta_signet_params_distinct():
                   "ou_params", "ou_halflife_params", "lmom_params", "tscale_params",
                   "rar_params", "asymcurv_params", "betaasym_params", "beta_params",
                   "market_beta_params", "coskew_params", "cokurt_params", "xsrank_params",
-                  "signcomotion_params"):
+                  "signcomotion_params", "signet_params", "ptlt_params"):
         assert other not in meta, f"meta must not contain {other} (prior campaign params)"
 
 
 if __name__ == "__main__":
     test_preflight_ready_true_on_real_cache()
     test_preflight_artifact_flags()
-    test_cache_meta_signet_params_distinct()
-    print("All C429 SIGNET preflight tests passed")
+    test_cache_meta_signent_params_distinct()
+    print("All C429 SIGNENTROPY preflight tests passed")

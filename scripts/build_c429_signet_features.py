@@ -266,6 +266,9 @@ def main(argv: list[str] | None = None) -> int:
 
         abs_ret = np.abs(log_return)
 
+        sign = np.zeros_like(log_return, dtype=np.int8)
+        sign[1:] = np.sign(log_return[1:]).astype(np.int8)
+
         funding = np.full(len(grid), np.nan, dtype=np.float64)
 
         out = {
@@ -274,6 +277,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": log_return.astype(np.float32),
             "abs_ret": abs_ret.astype(np.float32),
             "funding_rate": funding.astype(np.float32),
+            "sign": sign.astype(np.int8),
         }
         dst = DST_DIR / f"{s}.npz"
         np.savez_compressed(dst, **out)
@@ -296,6 +300,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return_nan": int(np.isnan(log_return).sum()),
             "abs_ret_nan": int(np.isnan(abs_ret).sum()),
             "funding_all_nan": bool(np.isnan(funding).all()),
+            "sign_nan": int(np.isnan(sign.astype(float)).sum()),
         }
 
     manifest = {s: shard_sha256[s] for s in sorted(shard_sha256)}
@@ -307,6 +312,7 @@ def main(argv: list[str] | None = None) -> int:
             raw_nan_observed[s] = {
                 "log_return": int(np.isnan(np.asarray(z["log_return"], dtype=float)).sum()),
                 "abs_ret": int(np.isnan(np.asarray(z["abs_ret"], dtype=float)).sum()),
+                "sign": int(np.isnan(np.asarray(z["sign"], dtype=float)).sum()),
             }
 
     meta = {
