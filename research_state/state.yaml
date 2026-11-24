@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-24T09:56:25Z
-handoff_refreshed_at_utc: 2026-11-24T09:56:25Z
+updated_at_utc: 2026-11-24T16:47:45Z
+handoff_refreshed_at_utc: 2026-11-24T16:47:45Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C431
-next_campaign: C432
+latest_campaign_done: C432
+next_campaign: C433
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -2374,3 +2374,46 @@ c431_status:
   cache_shas:
     meta: '208e824b6a88531e347067bfc9aa15cdb083819e26600b35920baa9b2ea0e87c'
     provenance: '9d6f970d1903711eed222533305a18017d1d0108519ca5bd9bf28398f8afc0fb'
+
+c432_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C432
+  family: empirical_distribution_function_goodness_of_fit_normality_departure_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First empirical-distribution-function goodness-of-fit / normality-departure family ever run. For each trailing window of standardized returns z (causal mean/std W_q=256, fallback 128) vs N(0,1): Anderson–Darling A² (tail-sensitive), Cramér–von Mises W² (integrated squared), Kolmogorov–Smirnov D (sup), Kuiper V (tail-sensitive invariant). Captures tail+shape departure that linear, quantile, moment, spectral, sign, entropy, Markov, dCor, and cross-quantilogram statistics miss. Distinct from C431 CQ (cross-quantilogram, quantile-hit correlation profile), C430 dCor (one scalar nonlinear-dependence), C429 first-order Markov sign-transition, C421 sign autocorrelation profile, C329 sign-count Shannon entropy, C328/C423 sign streak/run-length, C414 sign-agreement-motion, C412 sign_power, C421 sign_coherence/sign_comotion — all sign/level statistics; C375 multi-lag realized autocovariance, C410 average pairwise cross-correlation, C411 semiconcorr, C408 leadlag, C417 cdom, C407 xsrank — Pearson/rank/linear or cross-sectional; C405 co-skewness/co-kurtosis, C406 betaasym, C391 xskew3 — co-moments; C419 empirical characteristic function (Fourier characteristic functional, not EDF-vs-normal GOF); C376 QSPREAD, C363 QATM, C398 LMOM — quantile/L-moment shape, not EDF-vs-normal GOF; C420 spectral coherence, C404 DOMFREQ, C397 SPECFM — frequency-domain; C425 RQA, C355 sample entropy, C356 multiscale entropy, C349 permutation entropy, C358 MF-DFA, C426 WLMF, C427/428 PTLT, C424 IESD, C422 ZCRPATH, C423 RUNLEN — recurrence/neighbor/ordinal/entropy/path families; C392 max drawdown/runup asymmetry, C394 expected shortfall/CTES — path/tail functionals; and every moment/vol-of-vol/fractal family C281B-C431. No EDF/goodness-of-fit normality-departure family has been run before C432. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261124T163545Z
+  artifacts_ts: 20261124T163545Z
+  signals: [edf_ad_dev, edf_cvm_dev, edf_ks_dev, edf_kuiper_dev, edf_ad_placebo, edf_cvm_placebo, edf_ks_placebo, edf_kuiper_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261296
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'edf_ad_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [edf_ad_dev, edf_cvm_dev, edf_ks_dev, edf_kuiper_dev]
+  edfgof_params: {window_W_q: 256, fallback_W_q: 128, statistics: [anderson_darling, cramer_von_mises, kolmogorov_smirnov, kuiper]}
+  scripts_present: [scripts/build_c432_edfgof_features.py, scripts/preflight_c432.py, scripts/run_c432_edfgof_xsec_oos.py]
+  tests_present: [tests/test_preflight_c432.py, tests/test_c432_edfgof_xsec_oos.py]
+  cache_present: data/cache/campaign432_edfgof_5m
+  artifacts_present: [reports/campaign432_oos_sweep_20261124T163545Z.json, reports/campaign432_tradable_edge_registry_20261124T163545Z.json, reports/campaign432_summary_20261124T163545Z.json, reports/campaign432_verdict_20261124T163545Z.json, reports/campaign432_binding_constraint_20261124T163545Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: edf_ks_dev
+  dominant_share: 0.17361775437053176
+  attribution_ok: false
+  tests_green: 65
+  brute_force_maxdiff: 'edf_ad/cvm/ks/kuiper maxdiff < 1e-12 (vectorized cumulative-sum EDF-GOF vs independent naive per-window EDF-GOF reference); NaN patterns identical; kernel-distinctness guards vs ALL prior families'
+  artifacts:
+    oos_sweep: 'b3694b4345f74cf80a31e3da636e290c81f2b9d1b2fc6750a722a00efffd9792'
+    tradable_edge_registry: '6b743bdb9c13f4fe6f000737251fe6dada823eefbc7c08f004836d157ad38f93'
+    summary: '641645c7594c1cd5e9508f25cd5dcfd476d54d6283e8a805d2642ee63850bfea'
+    verdict: 'da547e0309a7eccda956af632c9d334a1db9c603cad6ac4f76f4110411704586'
+    binding_constraint: '96bb777569bf48dbafacc34095886722110d62923c3c80233610be3d640023f6'
+  cache_shas:
+    meta: 'dd38a0a5718d2406f1850209749b3de1056870df1221325aabbdd744958af3a0'
+    provenance: 'ab079d6eaa0d7877590ccb36b65c749bfa252f8a7aa4df6de38ef50e058eb490'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'

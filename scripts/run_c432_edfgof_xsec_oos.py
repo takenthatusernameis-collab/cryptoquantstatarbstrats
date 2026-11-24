@@ -342,19 +342,30 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
 # ------------------------------------------------------- EDF-GOF kernel
 def _rolling_mean_std(r: np.ndarray, W_q: int):
     """Causal trailing mean/std of r over window [t-W_q+1, t] (expanding for the
-    first W_q-1 bars). Returns (mean, std, count). Population std (ddof=0)."""
+    first W_q-1 bars). Returns (mean, std, count). Population std (ddof=0).
+    NaN-aware: window is NaN if it contains ANY NaN (matching np.mean/np.std behavior)."""
     T = len(r)
-    cs = np.concatenate([[0.0], np.cumsum(r)])
-    cs2 = np.concatenate([[0.0], np.cumsum(r * r)])
+    fin = np.isfinite(r)
+    # Window is valid only if ALL values in it are finite
+    # Use cumulative count of finite values to check if window is all-finite
+    cf = np.concatenate([[0.0], np.cumsum(fin.astype(float))])
     idx = np.arange(T)
     gstart = np.maximum(idx - (W_q - 1), 0)
+    cnt_finite = cf[idx + 1] - cf[gstart]
+    window_all_finite = (cnt_finite == np.maximum(idx + 1 - gstart, 1.0))
+
+    # Compute mean/std only for all-finite windows using clean arrays
+    r_clean = np.where(fin, r, 0.0)
+    r2_clean = np.where(fin, r * r, 0.0)
+    cs = np.concatenate([[0.0], np.cumsum(r_clean)])
+    cs2 = np.concatenate([[0.0], np.cumsum(r2_clean)])
     cnt = (idx + 1) - gstart
     s1 = cs[idx + 1] - cs[gstart]
     s2 = cs2[idx + 1] - cs2[gstart]
-    mean = s1 / np.maximum(cnt, 1.0)
-    var = s2 / np.maximum(cnt, 1.0) - mean * mean
+    mean = np.where(window_all_finite, s1 / cnt, np.nan)
+    var = np.where(window_all_finite, s2 / cnt - mean * mean, np.nan)
     var = np.maximum(var, 0.0)
-    sd = np.sqrt(var)
+    sd = np.where(window_all_finite, np.sqrt(var), np.nan)
     return mean, sd, cnt
 
 
