@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""C431 feature build — real USDT-M linear perp price-only CROSS-QUANTILOGRAM:
-quantile-conditional directional tail dependence ρ_τ(k) (Han–Linton–Oka 2016)
-over a trailing estimation window.
+"""C432 feature build — real USDT-M linear perp price-only EMPIRICAL-DISTRIBUTION-FUNCTION
+GOODNESS-OF-FIT normality departure: Anderson-Darling A^2, Cramer-von-Mises W^2,
+Kolmogorov-Smirnov D and Kuiper V of causal trailing-window standardized returns vs N(0,1).
 
 Raw inputs: trailing close prices from which the runner derives, per bar t,
 for each asset i:
@@ -12,39 +12,27 @@ for each asset i:
     a[t] = |r[t]|                                    (return magnitude)
     m[t] = mean_i r_i[t]                             (equal-weight market return)
 
-    Quantile levels τ ∈ {0.10, 0.25, 0.75, 0.90} (0.50 deliberately excluded so
-    the family is not sign-autocorrelation). Causal trailing quantile
-    q_τ^X[t] = τ-quantile of {X[t-W_q+1..t]} with W_q = 256 (fallback 128).
-    Quantile-hit process h_τ^X[t] = 1{X[t] ≤ q_τ^X[t]}.
+    Causal trailing mean mu[t] and std sigma[t] of {r[t-W_q+1..t]} with W_q = 256
+    (fallback 128). Standardized return z[t] = (r[t]-mu[t])/sigma[t] (z[t]=0 if
+    sigma[t]<=0 or non-finite; NaN if t<W_q).
 
-    Sample cross-quantilogram at lag k≥0 between X and Y:
+    For each trailing window of z, sort to order statistics z_(1)<=...<=z_(n),
+    evaluate standard normal CDF p_(i)=Phi(z_(i)), and compute the four EDF
+    goodness-of-fit statistics vs N(0,1):
 
-        ρ_τ(k; X,Y) = [ (1/(T-k)) Σ_t (h_τ^X[t]-τ)(h_τ^Y[t-k]-τ) ] / (τ(1-τ))
+        Anderson-Darling  A^2 = -n - (1/n) Sum_i (2i-1)[ ln(p_(i)) + ln(1-p_(n+1-i)) ]
+        Cramer-von Mises  W^2 = (1/(12n)) + Sum_i (p_(i) - (2i-1)/(2n))^2
+        Kolmogorov-Smirnov D = max_i max( |p_(i)-i/n|, |p_(i)-(i-1)/n| )
+        Kuiper            V = D^+ + D^-  where D^+ = max_i(i/n-p_(i)), D^- = max_i(p_(i)-(i-1)/n)
 
-    equivalently the Pearson correlation of the two hit-indicator series
-    (Han–Linton–Oka normalization). The causal per-bar feature uses the
-    trailing-window average of (h_τ^X[t]-τ)(h_τ^Y[t-k]-τ) divided by τ(1-τ).
-
-    The runner builds four CQ concept scalars per asset i:
-
-        1. cq_serial      = mean over τ∈{0.10,0.25,0.75,0.90}, k∈{1,2,4}
-                            of ρ_τ(k; r[t], r[t-k])   (own tail serial dependence)
-        2. cq_volserial   = mean over τ,k of ρ_τ(k; a[t], a[t-k])
-                            (magnitude/volatility quantile clustering)
-        3. cq_market      = mean over τ,k of ρ_τ(k; r_i[t], m[t-k])
-                            (asset-vs-equal-weight-market quantile co-movement)
-        4. cq_signmag     = mean over τ of ρ_τ(0; 1{r[t]>0}, 1{a[t] ≤ q_τ^a[t]})
-                            (contemporaneous sign/magnitude coupling in quantile domain)
-
-    NaN if t < W_q, any NaN/non-finite in the trailing window, degenerate window,
-    or not finite. Price-only (perp_close), volume-free.
+    NaN if t<W_q, any NaN/non-finite in the window, sigma[t]<=0, or any p in {0,1}.
 
 Reads the REAL, SHA-verified 5m USDT-M kline close from the C312 USDT-M OFI
 cache (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz), aligns the common 5m
 grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
 (real only):
 
-    data/cache/campaign431_cq_5m/<SYM>.npz
+    data/cache/campaign432_edfgof_5m/<SYM>.npz
         index_ms        int64   common 5m grid (ms)
         perp_close      float32 real 5m kline close (execution price)
         log_return      float32 causal log-return (r[t]=log(c[t]/c[t-1]), r[0]=0)
@@ -52,24 +40,15 @@ grid across all 10 perps, and stores genuinely-distinct per-bar raw inputs
         funding_rate    float32 all-NaN (control)
         sign            int8    sign(log_return) (+1/-1/0, sign[0]=0)
 
-    CQ is genuinely distinct from every prior family (carry/OFI/basis/linear/sign/
-    spectral/entropy/distance families C281B-C429 plus the distance-correlation
-    campaign): it is a
-    quantile-conditional, directional, multi-lag hit-indicator correlation
-    profile (4 non-0.5 τ levels × lags 1/2/4), not Pearson/rank/linear
-    (multi-lag autocovariance, average pairwise cross-correlation, lead-lag,
-    xcorr/semcorr are =0 under nonlinear-only tail dependence), not moments
-    (co-skewness/co-kurtosis, betaasym, xskew3), not sign/level statistics
-    (sign count Shannon entropy, sign streak/run-length, sign agreement motion,
-    sign power, sign coherence, sign comotion, first-order Markov sign
-    transition), not frequency-domain (spectral coherence, signcoh, domfreq,
-    specfm), not recurrence/entropy (RQA, sample entropy, multiscale entropy,
-    permutation entropy, MF-DFA, transfer entropy), and not distance correlation
-    dCor (one scalar over the whole joint distribution, not quantile-conditional
-    or a multi-τ lag profile). The test file MUST include a kernel-distinctness
-    guard vs ALL of the above AND a brute-force equality check (maxdiff < 1e-12)
-    against an independent naive per-window cross-quantilogram reference, plus
-    NaN-propagation checks.
+    EDF-GOF is genuinely distinct from every prior family (carry/OFI/basis/linear/
+    sign/spectral/entropy/distance/moment/quantile families): it compares the FULL
+    windowed empirical CDF of standardized returns to the normal CDF via four EDF
+    goodness-of-fit statistics, capturing tail + shape departure from Gaussian
+    normality that linear, quantile, moment, spectral, sign, entropy, Markov, dCor,
+    and quantile-hit statistics miss. The test file MUST include a
+    kernel-distinctness guard vs ALL of the above AND a brute-force equality check
+    (maxdiff < 1e-12) against an independent naive per-window EDF-GOF reference,
+    plus NaN-propagation checks.
 """
 
 from __future__ import annotations
@@ -86,9 +65,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 SRC_DIR = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m"
 SRC_META = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m.meta.json"
-DST_DIR = ROOT / "data" / "cache" / "campaign431_cq_5m"
-DST_META = ROOT / "data" / "cache" / "campaign431_cq_5m.meta.json"
-DST_PROV = ROOT / "data" / "cache" / "campaign431_cq_5m.provenance.json"
+DST_DIR = ROOT / "data" / "cache" / "campaign432_edfgof_5m"
+DST_META = ROOT / "data" / "cache" / "campaign432_edfgof_5m.meta.json"
+DST_PROV = ROOT / "data" / "cache" / "campaign432_edfgof_5m.provenance.json"
 
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
@@ -150,7 +129,7 @@ def _verify_existing(symbols: list[str]) -> bool:
         meta = json.loads(DST_META.read_text())
     except Exception:  # noqa: BLE001
         return False
-    if int(meta.get("campaign") or 0) != 431:
+    if int(meta.get("campaign") or 0) != 432:
         return False
     if meta.get("real_data_only") is not True or meta.get("fabricated_data") is not False:
         return False
@@ -246,8 +225,8 @@ def main(argv: list[str] | None = None) -> int:
         summary = {
             "built": False,
             "verified": True,
-            "note": "C431 cache already present and faithful (SHA/size/content OK); left untouched.",
-            "campaign": 431,
+            "note": "C432 cache already present and faithful (SHA/size/content OK); left untouched.",
+            "campaign": 432,
             "part": "feature_build",
             "symbols": symbols,
             "n_symbols": len(symbols),
@@ -343,7 +322,7 @@ def main(argv: list[str] | None = None) -> int:
 
     meta = {
         "generated_at_utc": ts,
-        "campaign": 431,
+        "campaign": 432,
         "part": "feature_build",
         "interval": "5m",
         "bar_ms": BAR_MS,
@@ -373,28 +352,24 @@ def main(argv: list[str] | None = None) -> int:
         "under_push_limit": bool(total < PUSH_LIMIT_BYTES and max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total < CACHE_BUDGET_BYTES),
         "n_buckets_tod_dow": int(N_BUCKETS),
-        "cq_params": {
+        "edfgof_params": {
             "window_W_q": 256,
             "fallback_W_q": 128,
-            "taus": [0.10, 0.25, 0.75, 0.90],
-            "lags": [1, 2, 4],
         },
         "field_definition": (
             "perp_close: real 5m kline close from C312 (strictly positive, gap-free); "
             "log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; "
             "abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding "
             "unreachable); sign=sign(log_return) (+1/-1/0, sign[0]=0). "
-            "Runner builds CROSS-QUANTILOGRAM ρ_τ(k) (Han–Linton–Oka 2016) concept "
-            "scalars over trailing quantile window W_q=256 (fallback 128): "
-            "q_τ^X[t]=τ-quantile of {X[t-W_q+1..t]}, h_τ^X[t]=1{X[t]≤q_τ^X[t]}, "
-            "ρ_τ(k;X,Y)=mean_t (h_τ^X[t]-τ)(h_τ^Y[t-k]-τ)/(τ(1-τ)). Concepts: "
-            "cq_serial=mean over τ in {0.10,0.25,0.75,0.90}, k in {1,2,4} of "
-            "ρ_τ(k;r[t],r[t-k]); cq_volserial=mean over τ,k of ρ_τ(k;a[t],a[t-k]); "
-            "cq_market=mean over τ,k of ρ_τ(k;r_i[t],m[t-k]); "
-            "cq_signmag=mean over τ of ρ_τ(0;1{r[t]>0},1{a[t]≤q_τ^a[t]}). "
-            "τ=0.50 excluded (not sign-autocorrelation). NaN if t<W_q or any "
-            "NaN/non-finite in the trailing window or degenerate window or not "
-            "finite. Seasonal deviation of each CQ scalar at the same "
+            "Runner builds EMPIRICAL-DISTRIBUTION-FUNCTION goodness-of-fit normality "
+            "departure of causal trailing standardized returns z[t]=(r[t]-mu[t])/sigma[t] "
+            "vs N(0,1), W_q=256 (fallback 128): order statistics z_(1)<=...<=z_(n), "
+            "p_(i)=Phi(z_(i)); Anderson-Darling A^2, Cramer-von-Mises W^2, "
+            "Kolmogorov-Smirnov D and Kuiper V statistics. Concepts: "
+            "edf_ad_dev, edf_cvm_dev, edf_ks_dev, edf_kuiper_dev (each seasonally "
+            "deviated per (weekday,tod) bucket) plus matched placebos. "
+            "NaN if t<W_q or any NaN/non-finite in the trailing window or sigma<=0 "
+            "or any p in {0,1}. Seasonal deviation of each EDF-GOF scalar at the same "
             "(weekday,tod) bucket from history strictly before bar t (causal "
             "shift(1)), NaN-aware min_periods=3."
         ),
@@ -412,7 +387,7 @@ def main(argv: list[str] | None = None) -> int:
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
             "sign": "sign(log_return) (+1/-1/0); always finite",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; CQ scalars NaN where t<W_q or any NaN/non-finite in the trailing window or degenerate window or not finite.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; EDF-GOF scalars NaN where t<W_q or any NaN/non-finite in the trailing window or sigma<=0 or any p in {0,1}.",
             "raw_nan_observed": raw_nan_observed,
         },
     }
@@ -420,10 +395,10 @@ def main(argv: list[str] | None = None) -> int:
 
     prov = {
         "generated_at_utc": ts,
-        "campaign": 431,
+        "campaign": 432,
         "part": "provenance",
         "source_host": "https://data.binance.vision",
-        "note": "C431 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret, sign derived); no network, no fabrication, no resampling.",
+        "note": "C432 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret, sign derived); no network, no fabrication, no resampling.",
         "interval": "5m",
         "bar_ms": BAR_MS,
         "window_start_month": WINDOW_START,
@@ -445,7 +420,7 @@ def main(argv: list[str] | None = None) -> int:
 
     summary = {
         "built": True,
-        "campaign": 431,
+        "campaign": 432,
         "part": "feature_build",
         "symbols": symbols,
         "n_symbols": len(symbols),

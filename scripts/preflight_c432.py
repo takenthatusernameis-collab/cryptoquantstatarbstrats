@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""C431 preflight: fail-closed verification of the real C431 USDT-M price-only
-CROSS-QUANTILOGRAM ρ_τ(k) (Han–Linton–Oka 2016) feature cache before the
-C431 runner sweeps the pre-registered costed OOS grid.
+"""C432 preflight: fail-closed verification of the real C432 USDT-M price-only
+EMPIRICAL-DISTRIBUTION-FUNCTION goodness-of-fit (Anderson-Darling A^2 /
+Cramer-von-Mises W^2 / Kolmogorov-Smirnov D / Kuiper V) feature cache before the
+C432 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign431_cq_5m/`` and every shard SHA256 + byte size
+  ``data/cache/campaign432_edfgof_5m/`` and every shard SHA256 + byte size
   matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -32,9 +33,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign431_cq_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign431_cq_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign431_cq_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign432_edfgof_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign432_edfgof_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign432_edfgof_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -89,7 +90,7 @@ def main() -> int:
     blocked: list[str] = []
 
     if not CACHE_META.exists():
-        print(json.dumps({"ready": False, "blocked_reasons": ["C431 meta missing"]}, indent=2))
+        print(json.dumps({"ready": False, "blocked_reasons": ["C432 meta missing"]}, indent=2))
         return 1
     try:
         meta = json.loads(CACHE_META.read_text())
@@ -138,9 +139,7 @@ def main() -> int:
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
-        and meta.get("cq_params", {}).get("window_W_q") == 256
-        and list(meta.get("cq_params", {}).get("taus") or []) == [0.10, 0.25, 0.75, 0.90]
-        and list(meta.get("cq_params", {}).get("lags") or []) == [1, 2, 4]
+        and int(meta.get("edfgof_params", {}).get("window_W_q") or 0) == 256
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -156,7 +155,7 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "cq_params": meta.get("cq_params"),
+        "edfgof_params": meta.get("edfgof_params"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -189,9 +188,9 @@ def main() -> int:
     grid_start = meta.get("grid_start_utc")
     grid_end = meta.get("grid_end_utc")
     if n_grid == 0 or not symbols:
-        blocked.append("C431 common grid is empty")
+        blocked.append("C432 common grid is empty")
     if n_symbols < N_SYMBOLS:
-        blocked.append(f"C431 has {n_symbols} symbols (< {N_SYMBOLS} required)")
+        blocked.append(f"C432 has {n_symbols} symbols (< {N_SYMBOLS} required)")
     in_window = bool(str(grid_start).startswith("2023-01") and str(grid_end).startswith("2025-12"))
     checks["grid"] = {
         "n_symbols": n_symbols, "symbols": symbols, "n_grid_bars": n_grid,
