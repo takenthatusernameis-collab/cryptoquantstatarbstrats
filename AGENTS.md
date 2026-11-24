@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-24T00:31:44Z (C422 ZCRPATH FROZEN; C423 RUNLEN FROZEN; C424 IESD FROZEN; C425 RQA FROZEN; C426 WLMF FROZEN; C427 LOCTIME FROZEN; C428 PTLT FROZEN formal negative 20261124T002456Z; C429 SIGNENTROPY ACTIVE next, seed 20261293) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
+**Handoff written:** 2026-11-24T00:33:52Z (C422 ZCRPATH FROZEN; C423 RUNLEN FROZEN; C424 IESD FROZEN; C425 RQA FROZEN; C426 WLMF FROZEN; C427 LOCTIME FROZEN; C428 PTLT FROZEN formal negative 20261124T002456Z; C429 SIGNENTROPY ACTIVE next, seed 20261293) — **THE ONLY AUTHORITATIVE HANDOFF. There is no HANDOFF.md and none may be created.**
 
 This block is the SINGLE active directive. Everything below the first `---` under it is history/archived evidence only and never overrides this message.
 
-## INITIAL TASK MESSAGE (2026-11-24T00:31:44Z; supersedes every earlier session message; the ONLY active directive)
+## INITIAL TASK MESSAGE (2026-11-24T00:33:52Z; supersedes every earlier session message; the ONLY active directive)
 
 **NEXT SESSION MUST BUILD C429 SIGNENTROPY END-TO-END — NO EXCEPTIONS, NO STOPPING, NO SHORTCUTS.**
 
