@@ -387,7 +387,7 @@ def _lyap_series_for_asset(z: np.ndarray, sigma: np.ndarray, W_q: int,
     wnf = CF[t_idx + 1] - CF[t_idx - W_q + 1]
     valid = (wnf == 0) & (sigma[t_idx] > 0)
     valid_t = t_idx[valid]
-    n_valid = int(valid_t.sum())
+    n_valid = int(valid.sum())
     if n_valid == 0:
         return out
     ii = np.arange(N)
@@ -420,13 +420,16 @@ def _lyap_series_for_asset(z: np.ndarray, sigma: np.ndarray, W_q: int,
             if not ok.any():
                 continue
             rws, cls = np.nonzero(ok)
-            dk = D[rws, cls + k, j_idx[rws, cls]]
+            dk = D[rws, cls + k, jk[rws, cls]]
             d0v = d0[rws, cls]
             ratio = dk / d0v
             ok2 = np.isfinite(ratio) & (ratio > 0.0)
             if ok2.any():
-                sum_lr[c0:c1][rws[ok2], k - 1] += np.log(ratio[ok2])
-                cnt[c0:c1][rws[ok2], k - 1] += 1
+                rws2 = rws[ok2]
+                cls2 = cls[ok2]
+                log_ratios = np.log(ratio[ok2])
+                np.add.at(sum_lr[c0:c1], (rws2, np.full_like(rws2, k - 1)), log_ratios)
+                np.add.at(cnt[c0:c1], (rws2, np.full_like(rws2, k - 1)), 1)
     L = np.where(cnt > 0, sum_lr / np.maximum(cnt, 1), np.nan)  # (n_valid, K)
     finite = np.isfinite(L)
     n_fin = finite.sum(axis=1)
