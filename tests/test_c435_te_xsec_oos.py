@@ -281,7 +281,7 @@ def test_te_matches_brute_force_10_assets():
     for k in R.TE_KEYS:
         fin = np.isfinite(fast[k]) & np.isfinite(brute[k])
         assert fin.sum() > 0, f"{k}"
-        assert np.array_equal(np.isnan(fast[k]), np.isfinite(brute[k]) and np.isfinite(fast[k])), f"{k}: NaN mismatch"
+        assert np.array_equal(np.isnan(fast[k]), np.isnan(brute[k])), f"{k}: NaN mismatch"
         maxdiff = float(np.max(np.abs(fast[k][fin] - brute[k][fin])))
         assert maxdiff < 1e-12, f"{k}: maxdiff={maxdiff} (float64 noise floor)"
 

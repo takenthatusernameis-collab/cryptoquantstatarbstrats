@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-25T01:39:24Z
-handoff_refreshed_at_utc: 2026-11-25T01:39:24Z
+updated_at_utc: 2026-11-25T02:03:24Z
+handoff_refreshed_at_utc: 2026-11-25T02:03:24Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C434
@@ -18,7 +18,7 @@ active_campaign: C435
 space_status: NO_EDGE_C281B_C434
 
 c435_lookahead:
-  state: QUEUED_FULLY_SPECIFIED
+  state: IN_PROGRESS_SWEEP_IN_FLIGHT
   campaign: C435
   family: cross_asset_transfer_entropy_directed_information_flow_causal_trailing_window_standardized_returns_usdt_m_5m
   genuinely_new: true
@@ -80,6 +80,41 @@ c434_status:
     provenance: 'e0a287ddf25a54300f6cde0386759c3e6d4176298932f112d291d7131a9f0291'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
     metrics: '43db1aa325f3a6f712032d04bae182bc5cc8453acacae457083cfd791b10c669'
+
+c435_status:
+  state: IN_PROGRESS_SWEEP_IN_FLIGHT
+  campaign: C435
+  family: cross_asset_transfer_entropy_directed_information_flow_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  as_of_utc: 20261125T020324Z
+  signals: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev, te_mean_placebo, te_asym_placebo, te_max_placebo, te_conc_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261299
+  standardization: {W_q: 256, fallback: 128}
+  te_params: {bins_B: 8, lags_k: 1, lags_l: 1}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'te_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev]
+  scripts_present: [scripts/build_c435_te_features.py, scripts/preflight_c435.py, scripts/run_c435_te_xsec_oos.py]
+  tests_present: [tests/test_preflight_c435.py, tests/test_c435_te_xsec_oos.py]
+  cache_present: data/cache/campaign435_te_5m (10 shards + meta + provenance; 39 MB total; under budget; SHA/size/content verified faithful)
+  cache_shas:
+    meta: 'bddfd6d6172160e05d212f075441dcd3f4e78b509cc536d82743140aec6f877a'
+    provenance: '771652fc8a95943a796b688f20d2dd9e0b85e50ccb30f48754bd9655cf3e8d11'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+  preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all shards under push limit + budget, raw NaN total 0, funding all-NaN control)
+  tests_green: 65
+  brute_force_maxdiff: 'vectorized TE (sliding_window_view + per-window bincount 3D histograms) == naive O(W^2) per-window triple-loop reference, maxdiff < 1e-12 for te_mean/asym/max/conc; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C434'
+  kernel_bugs_fixed: 'run_c435_te_xsec_oos.py _te_series_for_panel: yy_idx now broadcast over source-asset axis and computed as y_future*B + y_past (was missing source dim + wrong pair index); validity gate now global-across-assets per trailing window (was flattened cumsum); tests/test_c435_te_xsec_oos.py line 284: np.isfinite(...).and(...) replaced with np.isnan equality check'
+  sweep: IN_FLIGHT (PID 18396, background_process id bgp_21083d7210015Y7qvvsQkGz5j3; build_underlying TE metrics over ~315k bars; reap via background_process status/logs)
+  verdict: PENDING
+  edge_proven: PENDING
+  n_survive_holm: PENDING
+  n_survive_bh: PENDING
+  n_survive_both: PENDING
+  n_deterministic_edge: PENDING
+  next_action: 'reap sweep; record truthful c435_result + all 5 report SHAs + cache SHAs under c435_status; move queue C435 -> C436'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE

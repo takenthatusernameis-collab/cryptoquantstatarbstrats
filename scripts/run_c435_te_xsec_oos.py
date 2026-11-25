@@ -445,11 +445,13 @@ def _te_series_for_panel(z: np.ndarray, W_q: int, B: int) -> dict:
     n_valid_total = T - W_q + 1
     t_idx = np.arange(W_q - 1, T)   # window end indices
 
-    # Validity: all finite in the trailing window [t-W_q+1, t]
-    fin = np.isfinite(z)
-    CF = np.concatenate([[0.0], np.cumsum((~fin).astype(float))])
-    wnf = CF[t_idx + 1] - CF[t_idx - W_q + 1]
-    valid = (wnf == 0)
+    # Validity: all finite in the trailing window [t-W_q+1, t] across ALL assets
+    # (global-across-assets gate, matches the brute-force reference).
+    fin = np.isfinite(z)                                   # (n_assets, T)
+    all_finite_bar = fin.all(axis=0)                       # (T,)
+    CF = np.concatenate([[0.0], np.cumsum(all_finite_bar.astype(float))])
+    wnf = CF[t_idx + 1] - CF[t_idx - W_q + 1]              # #finite bars in trailing window
+    valid = (wnf == W_q)
     valid_t = t_idx[valid]
     n_valid = int(valid.sum())
     if n_valid == 0:
@@ -482,7 +484,10 @@ def _te_series_for_panel(z: np.ndarray, W_q: int, B: int) -> dict:
         joint_idx = yf_B2[None, :, :, :] + yp_B[None, :, :, :] + x_past[:, None, :, :]
         # (n_assets, n_assets, Cn, Wm1): joint_idx[i,j,c,t]
         yx_idx = yp_B[None, :, :, :] + x_past[:, None, :, :]   # (n_assets, n_assets, Cn, Wm1)
-        yy_idx = yf_B2[None, :, :, :] + yp_B[None, :, :, :]    # (n_assets, n_assets, Cn, Wm1)
+        # Pair counts (y_future, y_past) for target j -- independent of source i,
+        # so broadcast over the source axis to match (n_assets, n_assets, Cn, Wm1).
+        yy_idx = np.broadcast_to((y_future * B + y_past)[None, :, :, :],
+                                 (n_assets, n_assets, Cn, Wm1))   # (source i, target j, c, t)
 
         n_rows = n_assets * n_assets * Cn
         flat = joint_idx.reshape(-1)
