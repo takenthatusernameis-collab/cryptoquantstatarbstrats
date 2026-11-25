@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T11:32:39Z (refreshed; C430-C439 COMPLETE_FORMAL_NEGATIVE frozen; queue on C440; C440 family NAMED concretely = ordinal permutation-pattern entropy (Bandt-Pompe); archive/void_* clone-traps re-verified read-only dr-xr-xr-x; bottlenecks removed). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+**Handoff written:** 2026-11-25T11:33:56Z (refreshed; C430-C439 COMPLETE_FORMAL_NEGATIVE frozen; queue on C440; C440 family NAMED concretely = ordinal permutation-pattern entropy (Bandt-Pompe); archive/void_* clone-traps re-verified read-only dr-xr-xr-x; bottlenecks removed). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
 
-## INITIAL TASK MESSAGE (2026-11-25T11:32:39Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
+## INITIAL TASK MESSAGE (2026-11-25T11:33:56Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): C439 Cross-Asset HSIC is COMPLETE end-to-end (RETRACTED formal negative, recorded below). The queue is on C440 — the next stat-arb family campaign on the C312 USDT-M 5m `perp_close` universe following the established C430-C439 pattern.**
 
