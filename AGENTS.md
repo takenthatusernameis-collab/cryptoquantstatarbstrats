@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T22:05:41Z (refreshed; C441 sweep STILL RUNNING as persistent bgp_2144de4c4001OEqCTbHJq1t1CF PID 15097; 30-min wakeup scheduled to poll; next session MUST check poller immediately and proceed Steps 7-8 + C442 on completion). C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441.**
+**Handoff written:** 2026-11-25T22:07:55Z (refreshed; C441 sweep STILL RUNNING as persistent bgp_2144de4c4001OEqCTbHJq1t1CF PID 15163 + workers; ~27.4h remaining; sweep must NOT be interrupted). C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441.**
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T22:03:47Z; THE ONLY ACTIVE DIRECTIVE)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T22:07:55Z; THE ONLY ACTIVE DIRECTIVE)
 
 **C441 SWEEP STILL RUNNING — DO NOT INTERRUPT.** The full literal 2592-config costed OOS sweep is running as persistent background process bgp_2144de4c4001OEqCTbHJq1t1CF (PID 15097, started 2026-11-25T20:02:00Z, ~122m elapsed of ~30h, ~27.5h remaining). **Next session MUST execute this exact sequence — NO DEVIATION, NO WAITING FOR EXTERNAL TRIGGER:**
 
