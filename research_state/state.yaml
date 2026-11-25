@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-25T05:36:00Z
-handoff_refreshed_at_utc: 2026-11-25T05:36:00Z
+updated_at_utc: 2026-11-25T08:23:40Z
+handoff_refreshed_at_utc: 2026-11-25T08:23:40Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C438
-next_campaign: C439
+latest_campaign_done: C439
+next_campaign: C440
 oos_edge_proven: false
-active_campaign: C439
+active_campaign: C440
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T05:36:00Z: C430-C438 ALL FROZEN formal negatives, NO EDGE through C438. Active next: C439 = Cross-Asset Hilbert-Schmidt Independence Criterion (HSIC) kernel-dependence family (RBF gamma=0.5, 8 signals 4dev+4placebo seed 20261303, literal 2592 configs, W_q=256, 12m/3m WF 8 splits, Holm+BH, costed OOS, real-data-only perp_close volume-free). Full unavoidable spec in AGENTS.md INITIAL TASK MESSAGE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 assets, 2023-01..2025-12, 315648 grid bars). Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T05:36:00Z"
-bottlenecks_note: 'C438 WASSERSTEIN COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z). No C439 artifacts exist yet (verified 2026-11-25T05:36:00Z: no scripts/tests/cache/reports for C439). Handoff refreshed to C439 = Cross-Asset HSIC with full spec so the next agent cannot avoid heavy work: 5 files FROM SCRATCH (build_c439_hsic_features.py, preflight_c439.py, run_c439_hsic_xsec_oos.py, test_preflight_c439.py, test_c439_hsic_xsec_oos.py), cache data/cache/campaign439_hsic_5m/, preflight ready:true, literal-2592 costed OOS sweep, 5 SHA256 reports, >=21 green tests, c439_status, queue C439->C440. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). C430-C438 frozen, never re-run. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
-queued_next_campaign: C439
-queued_next_campaign_note: 'C281B-C438 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C438 COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z, full 2592 configs, dominant wass_mean_dev/share 0.125, attribution_ok false, 45 tests green). Active next: C439 = Cross-Asset HSIC kernel-dependence (see AGENTS.md INITIAL TASK MESSAGE for the unavoidable fully-specified heavy task).'
-active_campaign: C439
-space_status: NO_EDGE_C281B_C438
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T08:23:40Z: C430-C439 ALL FROZEN formal negatives, NO EDGE through C439. Active next: C440 = the next stat-arb family on the C312 USDT-M 5m perp_close universe; do NOT clone-and-rename C439, do NOT reuse the C439 HSIC kernel. Full unavoidable spec in AGENTS.md INITIAL TASK MESSAGE. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 assets, 2023-01..2025-12, 315648 grid bars). Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
+bottlenecks_verified_removed_at_utc: "2026-11-25T08:23:40Z"
+bottlenecks_note: 'C438 WASSERSTEIN COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z). C439 HSIC COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T082340Z). PRIOR STALE CLAIM CORRECTED: all 5 C439 scripts/tests already existed from scratch (build_c439_hsic_features.py, preflight_c439.py, run_c439_hsic_xsec_oos.py, test_preflight_c439.py, test_c439_hsic_xsec_oos.py); cache data/cache/campaign439_hsic_5m built (10 shards + meta + provenance + campaign439_hsic_metrics.npz); preflight ready:true; full literal-2592-config costed OOS sweep complete; 5 SHA256 reports written; 46 tests green (.venv/bin/python -m pytest tests/test_preflight_c439.py tests/test_c439_hsic_xsec_oos.py, 70.61s). RESULT: verdict RETRACTED, edge_proven false, binding multiple_testing, n_survive_holm=0, n_survive_bh=0, n_survive_both=0, n_deterministic_edge=0 (n_total_runs=2592); dominant attribution hsic_mean_dev (share 0.125), attribution_ok false (all 8 signals share exactly 0.125 — no dev/placebo separation). Queue advanced C439 -> C440. No other session blocked.'
+queued_next_campaign: C440
+queued_next_campaign_note: 'C281B-C439 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C439 HSIC COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T082340Z, full 2592 configs, dominant hsic_mean_dev/share 0.125, attribution_ok false, 46 tests green). Active next: C440 = the next un-run stat-arb family on the C312 USDT-M 5m perp_close universe; do NOT clone-and-rename C439, do NOT reuse the C439 HSIC kernel. TEST-COMMAND: always .venv/bin/python -m pytest.'
+active_campaign: C440
+space_status: NO_EDGE_C281B_C439
 
 
 
@@ -249,6 +249,53 @@ c438_status:
     provenance: '32dbdabaddfacc8eb7ffa7d7c3493f8f01e0057ca44514f97eecfa90cd52deb6'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
     metrics: '60f17438f4c3e71362321c4fdff154f2e93b903c0f177f0f8897708e7db11805'
+
+c439_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C439
+  family: cross_asset_hilbert_schmidt_independence_criterion_kernel_dependence_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First symmetric cross-asset Hilbert-Schmidt Independence Criterion (HSIC) kernel-dependence family ever run. For each trailing window (W_q=256 standardized returns) and each UNORDERED asset pair (i,j), i<j, compute the normalized biased HSIC between the asset-i and asset-j standardized-return series using RBF kernels k(a,b)=exp(-0.5*(a-b)^2) (fixed gamma=0.5 on unit-variance standardized returns): K=k(x_i,x_i), L=k(x_j,x_j), centering H=I-11^T/W_q, Kc=HKH, Lc=HLH, HSIC=(1/(W_q-1)^2)*sum(Kc*Lc). HSIC is zero iff independence and captures ANY nonlinear joint dependence (not just marginals). From the HSIC matrix four DISTINCT scalar symmetric cross-asset HSIC statistics per bar: hsic_mean (mean pairwise HSIC = dependence intensity), hsic_max (max pairwise HSIC = most dependent channel pair), hsic_conc (HHI concentration of HSIC across unordered pairs = how few pair channels carry dependence), hsic_disp (dispersion/std of HSIC across pairs = how uniform dependence is). Distinct from C436 MI (symmetric joint-histogram dependence), C435 TE (directed TE_{i->j}), C437 JSD (marginal-histogram KL divergence), C438 Wasserstein (sorted-quantile-L1 optimal transport), C434 Lyapunov (univariate dynamical divergence), C433 HVG (static graph invariants), C432 EDF-GOF, C431 CQ, C430 dCor, and every family C281B-C438. Price-only (perp_close), volume-free, close-only.'
+  as_of_utc: 20261125T082340Z
+  artifacts_ts: 20261125T082340Z
+  signals: [hsic_mean_dev, hsic_max_dev, hsic_conc_dev, hsic_disp_dev, hsic_mean_placebo, hsic_max_placebo, hsic_conc_placebo, hsic_disp_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261303
+  standardization: {W_q: 256, fallback: 128}
+  hsic_params: {window_W: 256, fallback_W: 128, rbf_gamma: 0.5, statistics: [hsic_mean, hsic_max, hsic_conc, hsic_disp], pairs: unordered_i_lt_j, kernel: biased_normalized_hsic_rbf_gamma_0.5}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'hsic_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [hsic_mean_dev, hsic_max_dev, hsic_conc_dev, hsic_disp_dev]
+  scripts_present: [scripts/build_c439_hsic_features.py, scripts/preflight_c439.py, scripts/run_c439_hsic_xsec_oos.py]
+  tests_present: [tests/test_preflight_c439.py, tests/test_c439_hsic_xsec_oos.py]
+  cache_present: data/cache/campaign439_hsic_5m (10 shards + meta + provenance + campaign439_hsic_metrics.npz)
+  artifacts_present: [reports/campaign439_oos_sweep_20261125T082340Z.json, reports/campaign439_tradable_edge_registry_20261125T082340Z.json, reports/campaign439_summary_20261125T082340Z.json, reports/campaign439_verdict_20261125T082340Z.json, reports/campaign439_binding_constraint_20261125T082340Z.json]
+  preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all 10 shards under push limit + budget, raw NaN total 0, funding all-NaN control)
+  tests_green: 46
+  brute_force_maxdiff: 'vectorized HSIC (sliding trailing windows of z + per-window per-asset RBF Gram + pairwise centered-trace via chunked GEMM) == independent naive per-window explicit double-loop HSIC reference, maxdiff < 1e-12 for hsic_mean/max/conc/disp; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C438 (incl. C436 MI, C435 TE, C437 JSD, C438 Wasserstein, C434 Lyapunov, C433 HVG, C432 EDF-GOF, C431 CQ, C430 dCor)'
+  sweep: COMPLETE (full literal-2592-config costed OOS sweep ran reusing cache, no recompute; wrote campaign439_hsic_metrics.npz + 5 reports ts 20261125T082340Z)
+  artifacts:
+    oos_sweep: '2cb0db4abd3a660bb09063ee1e3af130662f8cfb558dd73536000ed7ab109257'
+    tradable_edge_registry: '6ac9f5a80c76a8e83325e51d2f8f0d0bc8d09e8e07453945de3cfe2919510c70'
+    summary: '980510170ecc3e6aabbe1e5fdf3e301cfef748700d44be0ff67c26c15d3476f7'
+    verdict: '2bb6a601aa3e1053e4a245a528b36d589cf22f693173835f8c01e3dbd403fad0'
+    binding_constraint: 'aa11c477e84c1fed0b700736f17b7a63759cead07580e4249110dd52f5b62a84'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: hsic_mean_dev
+  dominant_share: 0.125
+  attribution_ok: false (all 8 signals share exactly 0.125 — no dev/placebo separation)
+  cache_shas:
+    meta: '51f2bcc838e5cb4a3458fe5cffc5496901d518fa927cefb33458bec11bb0a87a'
+    provenance: '5f0bb4685f2a7e698925b6880e433dfb83b11a6d16c77673c1487a23e530abd6'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: '0c1d77bb2612f5df2aecb032827b1757138f69f259ecb31f40aa41ccc1aa236e'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE
