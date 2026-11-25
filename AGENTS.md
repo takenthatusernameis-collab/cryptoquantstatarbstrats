@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T22:03:47Z (refreshed; C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441; **BOTTLENECK REMOVED: Step 6 sweep RUNNING as PERSISTENT background process** bgp_2144de4c4001OEqCTbHJq1t1CF (PID 15097) running `.venv/bin/python scripts/run_c441_tda_xsec_oos.py`, started 2026-11-25T20:02:00Z, ~30h total, ~27h remaining), ~30h/12.6M ripser calls, 4 workers/15GiB RAM/4 CPU — **monitor background-process logs until completion, then Steps 7-8 state + queue advance. Sweep-done poller at `scripts/poll_c441_sweep_done.py` writes `.c441_sweep_done` when the sweep exits — run it on a 30-minute poll; next session MUST check it immediately and proceed to Steps 7-8 without waiting for a manual nudge.** C441 artifacts all PRESENT and VERIFIED: `data/cache/campaign441_tda_5m/` has 10 shards + meta + provenance, n_grid_bars=315648. TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+**Handoff written:** 2026-11-25T22:05:41Z (refreshed; C441 sweep STILL RUNNING as persistent bgp_2144de4c4001OEqCTbHJq1t1CF PID 15097; 30-min wakeup scheduled to poll; next session MUST check poller immediately and proceed Steps 7-8 + C442 on completion). C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441.**
 
 ## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T22:03:47Z; THE ONLY ACTIVE DIRECTIVE)
 
