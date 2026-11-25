@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T23:30:46Z (refreshed; C441 sweep STILL RUNNING as persistent bgp_2144de4c4001OEqCTbHJq1t1CF PID 15097 + workers; ~25h remaining; sweep must NOT be interrupted; NO wakeup currently scheduled — one must be scheduled on next check if sweep still running). C30-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441. C442 ALL 5 FILES AUTHORED AND VERIFIED COMPILE OK (build/preflight/run + 2 tests).**
+**Handoff written:** 2026-11-25T23:32:59Z (refreshed; C441 sweep STILL RUNNING as persistent bgp_2144de4c4001OEqCTbHJq1t1CF PID 15097 + workers; ~25h remaining; sweep must NOT be interrupted; wakeup wku_2150e55030010fkEP1tDLLi16k scheduled 30m). C30-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441. C442 ALL 5 FILES AUTHORED AND VERIFIED COMPILE OK (build/preflight/run + 2 tests).**
 
 ## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T23:30:46Z; THE ONLY ACTIVE DIRECTIVE)
 
