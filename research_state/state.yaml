@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-25T00:53:29Z
-handoff_refreshed_at_utc: 2026-11-25T00:53:29Z
+updated_at_utc: 2026-11-25T00:59:20Z
+handoff_refreshed_at_utc: 2026-11-25T00:59:20Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C433
@@ -10,12 +10,31 @@ handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-24T17:32:13Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, dominant dcor_signmag_dev/share 0.1684, 50/50 tests green, c430_status). C431 CQ COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T080617Z, 2592 configs, dominant cq_market_placebo/share 0.2057, 64 tests green, c431_status). C432 EDF-GOF COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T163545Z, 2592 configs, dominant edf_ks_dev/share 0.1736, 65 tests green incl brute-force EDF-GOF equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact + cache SHAs recorded under c432_status). C281B-C432 ALL FROZEN formal negatives, NO EDGE through C433. Active next: C434; C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297) — genuinely-new graph/network-theoretic price-only family; per causal trailing-window standardized returns build HVG (connect i<j iff z_i,z_j > all z_k between) and compute mean_degree / degree_entropy / assortativity / clustering; 8 signals (4 dev + 4 placebo) x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592; brute-force O(W^2) reference equality maxdiff<1e-12 required. Bottlenecks: NONE (no C433 files on disk, no clone-trap; author all five from scratch by adapting C432 counterparts). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps re-verified read-only this session (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T00:53:29Z"
-bottlenecks_note: 'C434 sweep IN PROGRESS (6 background run_c434_lyap_xsec_oos.py --smoke processes, PIDs 3840-3853, ~44 min at 92% CPU; build_underlying Lyapunov kernel on 315648 bars x 10 assets is the compute bottleneck — DO NOT KILL). No campaign434 reports yet; data/cache/campaign434_lyap_metrics.npz MISSING; no c434_status block yet. When sweep completes: verify 5 SHA256 reports + metrics NPZ, record c434_status, move C434 -> C435.'
+bottlenecks_verified_removed_at_utc: "2026-11-25T00:59:20Z"
+bottlenecks_note: 'CLONE-TRAP FIXED: archive/void_* were WRITABLE -> re-locked READ-ONLY (chmod -R a-w archive/void_*; git tree clean, write-bit untracked). TEST-COMMAND FIXED: system /usr/bin/python3 has NO numpy/pytest -> use .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0); never bare pytest, never system python3 -m pytest. C434 sweep IN PROGRESS (6 background run_c434_lyap_xsec_oos.py --smoke processes, PIDs 3840/3843/3850-3853, 4 compute workers ~92% CPU ~52 min; build_underlying Lyapunov kernel on 315648 bars x 10 assets is the compute bottleneck — DO NOT KILL). No campaign434 reports yet; data/cache/campaign434_lyap_metrics.npz MISSING (sweep writes it AFTER the kernel completes); no c434_status block yet. When sweep completes: verify 5 SHA256 reports + metrics NPZ, record c434_status, move C434 -> C435 (C435 fully specified below). C312 5m source intact (data/cache/campaign312_usdt_m_ofi_5m/ 10 shards + meta).'
 queued_next_campaign: C434
-queued_next_campaign_note: 'C281B-C432 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active next: C434 (see AGENTS.md C434_INITIAL_TASK); C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (genuinely-new graph/network-theoretic price-only family; seed 20261297; 8 signals = 4 dev [hvg_mean_degree/hvg_degree_entropy/hvg_assortativity/hvg_clustering] + 4 placebo; grid 8 x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592). Never re-order, never reuse a kernel, never clone-and-rename. Queue depth 3 so it can never run dry.'
+queued_next_campaign_note: 'C281B-C433 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C434 (sweep IN PROGRESS, see AGENTS.md INITIAL_TASK_MESSAGE). C435 is now FULLY SPECIFIED (see c435_lookahead) as the queued next campaign so the queue can never run dry: cross-asset transfer entropy / directed information flow, 8 signals (4 dev [te_mean/te_asym/te_max/te_conc] + 4 placebo, seed 20261299), literal 2592-config grid, brute-force O(W^2) reference equality maxdiff<1e-12, >=21 green tests. Never re-order, never reuse a kernel, never clone-and-rename; author from scratch once C434 freezes.'
 active_campaign: C434
 space_status: NO_EDGE_C281B_C433
+
+c435_lookahead:
+  state: QUEUED_FULLY_SPECIFIED
+  campaign: C435
+  family: cross_asset_transfer_entropy_directed_information_flow_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First directed-information / transfer-entropy family ever run. Directed, cross-asset, information-theoretic flow TE_{i->j} = sum p(y_{t+1},y_t,x_t)*log2[p(y_{t+1}|y_t,x_t)/p(y_{t+1}|y_t)] over ordered pairs, B=8 quantile bins, lags k=l=1. Distinct from C434 Lyapunov (univariate dynamical divergence), C433 HVG (static graph invariants), C429 Markov sign-transition (univariate order-1 sign matrix), C408 LEADLAG (linear regression), C410 XCORR (symmetric corr), C411 SEMCORR, C417 CDOM, C420 SCOH, every univariate entropy family C349/C355/C356/C338/C396/C357/C419, and every moment/sign/spectral/path family C281B-C434. Price-only (perp_close), volume-free.'
+  signals: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev, te_mean_placebo, te_asym_placebo, te_max_placebo, te_conc_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  te_params: {window_W: 256, bins_B: 8, lags_k: 1, lags_l: 1}
+  placebo_seed: 20261299
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'te_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev]
+  brute_force_maxdiff: 'vectorized TE (sliding_window_view + per-window bincount 3D histograms) == naive O(W^2) per-window explicit triple-loop reference, maxdiff < 1e-12; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C434'
+  deliverables: '3 scripts (build_c435_te_features.py, preflight_c435.py, run_c435_te_xsec_oos.py) + 2 tests + cache data/cache/campaign435_te_5m/ (10 shards + meta + provenance + campaign435_te_metrics.npz) + preflight ready:true + full 2592-config costed OOS sweep + 5 SHA256 reports + >=21 green tests, then record c435_status, move C435 -> C436'
+  author_from_scratch: true
+  note: 'Author all five files FROM SCRATCH once C434 freezes; NEVER clone-and-rename, NEVER reuse a kernel, NEVER freeze by fiat. Run tests with .venv/bin/python -m pytest.'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE
