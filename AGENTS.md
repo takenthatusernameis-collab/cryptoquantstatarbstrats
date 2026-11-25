@@ -1,12 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T03:52:00Z (refreshed; C436 Mutual Information COMPLETE end-to-end RETRACTED 20261125T034638Z; queue moved C436 -> C437; C430-C436 ALL FROZEN formal negatives RETRACTED; C437 not yet started — next heavy campaign). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+**Handoff written:** 2026-11-25T03:56:13Z (refreshed; C436 Mutual Information COMPLETE end-to-end RETRACTED 20261125T034638Z; queue moved C436 -> C437; C430-C436 ALL FROZEN formal negatives RETRACTED; C437 not yet started — next heavy campaign). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
 
-## INITIAL TASK MESSAGE (2026-11-25T03:52:00Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
+## INITIAL TASK MESSAGE (2026-11-25T03:56:13Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): the single most relevant next unit of work is the next pre-registered, fully-costed, real-data-only, walk-forward OOS stat-arb EDGE campaign on the C312 USDT-M 5m `perp_close` universe. C430 DISTCOR, C431 CQ, C432 EDF-GOF, C433 HVG, C434 LYAP, C435 TE, C436 MI are ALL DONE (formal negatives, RETRACTED). The queue is on C437.**
 
 **NEXT SESSION MUST COMPLETE C437 END-TO-END — NO EXCEPTIONS, NO STOPPING, NO SHORTCUTS, NO LIGHT-WORK. THIS IS THE ONLY ACCEPTABLE OUTCOME.**
+
+**C437 = Cross-Asset Entropic Distance (JSD) — symmetric information divergence of standardized-return distributions across unordered asset pairs. 8 signals (4 dev + 4 placebo), literal 2592-config grid, brute-force JSD equality maxdiff<1e-12, kernel-distinctness vs ALL prior families C281B-C436. Author 5 files FROM SCRATCH: scripts/build_c437_jsd_features.py, scripts/preflight_c437.py, scripts/run_c437_jsd_xsec_oos.py, tests/test_preflight_c437.py, tests/test_c437_jsd_xsec_oos.py. Cache to data/cache/campaign437_jsd_5m/ (10 shards + meta + provenance + campaign437_jsd_metrics.npz). Preflight ready:true. Full 2592-config costed OOS sweep. 5 SHA256 reports. ≥21 green tests. Record truthful RESULT + all SHAs under c437_status. Move queue C437 -> C438. Run tests with `.venv/bin/python -m pytest`. NO clone-and-rename, NO kernel reuse, NO freeze by fiat.**
 
 **CURRENT STATE (read first):**
 - C430-C436 COMPLETE_FORMAL_NEGATIVE and frozen (see status blocks below). Do NOT re-run any of C430-C436.
