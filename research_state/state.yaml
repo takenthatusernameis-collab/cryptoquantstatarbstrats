@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-25T02:03:24Z
-handoff_refreshed_at_utc: 2026-11-25T02:03:24Z
+updated_at_utc: 2026-11-25T03:25:00Z
+handoff_refreshed_at_utc: 2026-11-25T03:25:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C434
-next_campaign: C435
+latest_campaign_done: C435
+next_campaign: C436
 oos_edge_proven: false
-active_campaign: C435
+active_campaign: C436
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T01:33:30Z: C434 LYAP COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261125T013202Z, full 2592 configs, dominant lyap_m4_placebo/share 0.2152, 63 tests green incl brute-force Lyapunov equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact + cache SHAs recorded under c434_status). C430-C434 ALL FROZEN formal negatives, NO EDGE through C434. Active next: C435; C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297); C434 LYAP frozen (seed 20261298) — first dynamical-chaos Lyapunov family, 8 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592. C435 FULLY specified as active (cross-asset transfer entropy / directed information flow, seed 20261299, 8 signals, 2592 grid, brute-force O(W^2) reference maxdiff<1e-12). Bottlenecks: NONE (C434 complete; no clone-trap; author all five C435 files from scratch). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T01:39:24Z"
-bottlenecks_note: 'C434 COMPLETED END-TO-END this session (waited ~9 min for the 202 MB metrics NPZ, then ran the full 2592-config sweep reusing the cache — no recompute). CACHE-REUSE BUG FIXED: run_c434_lyap_xsec_oos.py build_underlying cached branch returned a FLAT dict {lyap_key:array} while build_scores expects the nested {"real":{...},"placebo":{...}} shape the fresh path returns (--smoke worked only because it built fresh); patched to return {"real":{k:z[k]},"placebo":{k:z[k+"_placebo"]}} — full sweep then ran clean. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). research_state declares active_campaign/next_campaign: C435 / latest_campaign_done: C434 (C430-C434 frozen, never re-run); C435 fully specified as active so the queue never runs dry. C312 5m source intact; archive/void_* clone-traps read-only. No campaign435 files yet; no c435_status block yet. No other session is blocked.'
-queued_next_campaign: C435
-queued_next_campaign_note: 'C281B-C434 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C435 (NOT yet started — author all five files from scratch). C435 is FULLY SPECIFIED (see c435_lookahead and AGENTS.md INITIAL_TASK_MESSAGE): cross-asset transfer entropy / directed information flow, 8 signals (4 dev [te_mean/te_asym/te_max/te_conc] + 4 placebo, seed 20261299), literal 2592-config grid, brute-force O(W^2) reference equality maxdiff<1e-12, >=21 green tests. Never re-order, never reuse a kernel, never clone-and-rename; author from scratch.'
-active_campaign: C435
-space_status: NO_EDGE_C281B_C434
+bottlenecks_verified_removed_at_utc: "2026-11-25T03:25:00Z"
+bottlenecks_note: 'C435 COMPLETED END-TO-END this session: cache meta/provenance regenerated + verified faithful (10 shards), full literal-2592-config costed OOS sweep ran reusing cache (wrote campaign435_te_metrics.npz), all 5 SHA256 reports generated (ts 20261125T030953Z), 65 tests green. verdict RETRACTED, edge_proven:false, binding multiple_testing, dominant te_max_placebo/share 0.1501, attribution_ok false. CACHE-REUSE BUG (flat vs nested dict) and TE kernel bugs (yy_idx broadcast, pair index, validity gate, test line 284 np.isnan equality) previously fixed. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). research_state declares active_campaign/next_campaign: C436 / latest_campaign_done: C435 (C430-C435 frozen, never re-run); C436 fully specified as active so the queue never runs dry. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
+queued_next_campaign: C436
+queued_next_campaign_note: 'C281B-C435 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C436 (NOT yet started — author all five files from scratch). C436 is FULLY SPECIFIED (see AGENTS.md C436 CAMPAIGN SPEC): cross-asset mutual information / symmetric information dependence, 8 signals (4 dev [mi_mean/mi_max/mi_conc/mi_disp] + 4 placebo, seed 20261300), literal 2592-config grid, brute-force O(W^2) per-window double-loop reference equality maxdiff<1e-12, >=21 green tests. Never re-order, never reuse a kernel, never clone-and-rename; author from scratch.'
+active_campaign: C436
+space_status: NO_EDGE_C281B_C435
 
 c435_lookahead:
   state: IN_PROGRESS_SWEEP_IN_FLIGHT
@@ -82,11 +82,11 @@ c434_status:
     metrics: '43db1aa325f3a6f712032d04bae182bc5cc8453acacae457083cfd791b10c669'
 
 c435_status:
-  state: IN_PROGRESS_SWEEP_IN_FLIGHT
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C435
   family: cross_asset_transfer_entropy_directed_information_flow_causal_trailing_window_standardized_returns_usdt_m_5m
   genuinely_new: true
-  as_of_utc: 20261125T020324Z
+  as_of_utc: 20261125T030953Z
   signals: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev, te_mean_placebo, te_asym_placebo, te_max_placebo, te_conc_placebo]
   n_configs: 2592
   grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
@@ -98,23 +98,55 @@ c435_status:
   attr_representatives: [te_mean_dev, te_asym_dev, te_max_dev, te_conc_dev]
   scripts_present: [scripts/build_c435_te_features.py, scripts/preflight_c435.py, scripts/run_c435_te_xsec_oos.py]
   tests_present: [tests/test_preflight_c435.py, tests/test_c435_te_xsec_oos.py]
-  cache_present: data/cache/campaign435_te_5m (10 shards + meta + provenance; 39 MB total; under budget; SHA/size/content verified faithful)
+  cache_present: data/cache/campaign435_te_5m (10 shards + meta + provenance + campaign435_te_metrics.npz; 39 MB shards total; under budget; SHA/size/content verified faithful)
   cache_shas:
     meta: 'bddfd6d6172160e05d212f075441dcd3f4e78b509cc536d82743140aec6f877a'
     provenance: '771652fc8a95943a796b688f20d2dd9e0b85e50ccb30f48754bd9655cf3e8d11'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: '4389fade480a10f62db78a89905d499ed979e154be8fb45bc428b43a660004a1'
   preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all shards under push limit + budget, raw NaN total 0, funding all-NaN control)
   tests_green: 65
   brute_force_maxdiff: 'vectorized TE (sliding_window_view + per-window bincount 3D histograms) == naive O(W^2) per-window triple-loop reference, maxdiff < 1e-12 for te_mean/asym/max/conc; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C434'
   kernel_bugs_fixed: 'run_c435_te_xsec_oos.py _te_series_for_panel: yy_idx now broadcast over source-asset axis and computed as y_future*B + y_past (was missing source dim + wrong pair index); validity gate now global-across-assets per trailing window (was flattened cumsum); tests/test_c435_te_xsec_oos.py line 284: np.isfinite(...).and(...) replaced with np.isnan equality check'
-  sweep: IN_FLIGHT (PID 18396, background_process id bgp_21083d7210015Y7qvvsQkGz5j3; build_underlying TE metrics over ~315k bars; reap via background_process status/logs)
-  verdict: PENDING
-  edge_proven: PENDING
-  n_survive_holm: PENDING
-  n_survive_bh: PENDING
-  n_survive_both: PENDING
-  n_deterministic_edge: PENDING
-  next_action: 'reap sweep; record truthful c435_result + all 5 report SHAs + cache SHAs under c435_status; move queue C435 -> C436'
+  sweep: COMPLETE (full literal-2592-config costed OOS sweep ran reusing cache, no recompute; wrote campaign435_te_metrics.npz + 5 reports ts 20261125T030953Z)
+  artifacts_ts: 20261125T030953Z
+  artifacts:
+    oos_sweep: '46c330bf06d10765e03b700a8b7f5d7a9a30fd6cdff0237e48236906141dcdb2'
+    tradable_edge_registry: '59743b935c82229aa97ed523beff8761b823f6de59e3bd6084de4147315a853b'
+    summary: 'e3adaf2842d99fdb0c0d65f3fa21b114985567ef0547ac009ef38b8c3bf1518a'
+    verdict: '19f6ea0c7f6fc45399bfb8ca3c1e77b4dd356a9938b478cb6b338ea18414b63e'
+    binding_constraint: '2083fd34f8a0c95dee343570dc58942191bdd8678719760f389e7b03936471ee'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: te_max_placebo
+  dominant_share: 0.15011324551972932
+  attribution_ok: false
+  next_action: 'COMPLETE — record c435_result done; move queue C435 -> C436; next session author C436 end-to-end per C436 CAMPAIGN SPEC'
+
+c436_status:
+  state: NOT_STARTED
+  campaign: C436
+  family: cross_asset_mutual_information_symmetric_information_dependence_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First symmetric cross-asset mutual-information / information-dependence family ever run. Distinct from C435 Transfer Entropy (directed TE_{i->j}), C434 Lyapunov (univariate dynamical divergence), C433 HVG (static graph invariants), C429 Markov sign-transition (univariate order-1 sign matrix), C408 LEADLAG (linear regression leader-follower), C410 XCORR (symmetric avg pairwise correlation), C411 SEMCORR (sign-conditional symmetric correlation), C417 CDOM (extreme-dominance frequency), C420 SCOH (frequency-domain symmetric coherence), every univariate entropy family C349/C355/C356/C338/C396/C357/C419, every moment/sign/spectral/path family C281B-C435. MI is SYMMETRIC, CROSS-ASSET, information-theoretic dependence — no prior family computes it as a cross-asset pairwise MI profile. Price-only (perp_close), volume-free.'
+  signals: [mi_mean_dev, mi_max_dev, mi_conc_dev, mi_disp_dev, mi_mean_placebo, mi_max_placebo, mi_conc_placebo, mi_disp_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261300
+  standardization: {W_q: 256, fallback: 128}
+  mi_params: {window_W: 256, bins_B: 8, pairs: unordered_i_lt_j}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'mi_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [mi_mean_dev, mi_max_dev, mi_conc_dev, mi_disp_dev]
+  brute_force_maxdiff: 'vectorized MI (sliding_window_view + per-window bincount 2D histograms) == naive O(W^2) per-window explicit double-loop reference, maxdiff < 1e-12 for mi_mean/max/conc/disp; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C435'
+  deliverables: '3 scripts (build_c436_mi_features.py, preflight_c436.py, run_c436_mi_xsec_oos.py) + 2 tests + cache data/cache/campaign436_mi_5m/ (10 shards + meta + provenance + campaign436_mi_metrics.npz) + preflight ready:true + full 2592-config costed OOS sweep + 5 SHA256 reports + >=21 green tests, then record c436_status, move C436 -> C437'
+  author_from_scratch: true
+  note: 'Author all five files FROM SCRATCH now (C435 frozen); NEVER clone-and-rename, NEVER reuse a kernel, NEVER freeze by fiat. Run tests with .venv/bin/python -m pytest.'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE

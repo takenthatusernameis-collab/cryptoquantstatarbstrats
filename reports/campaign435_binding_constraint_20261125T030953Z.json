@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261125T030953Z",
+  "campaign": 435,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign435_oos_sweep_20261125T030953Z.json",
+  "oos_sweep_sha256": "46c330bf06d10765e03b700a8b7f5d7a9a30fd6cdff0237e48236906141dcdb2",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "te_mean_dev": 0.06097906017233709,
+    "te_asym_dev": 0.13526480745540836,
+    "te_max_dev": 0.13931035986964627,
+    "te_conc_dev": 0.11181980616957302,
+    "te_mean_placebo": 0.11709991775343426,
+    "te_asym_placebo": 0.13868797106830213,
+    "te_max_placebo": 0.15011324551972932,
+    "te_conc_placebo": 0.14672483199156958
+  },
+  "dominant_attribution": "te_max_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "te_mean_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.419613187438361,
+      -1.347947647695739,
+      -1.3595568469005528,
+      -1.3046833567443168,
+      -1.160352062774563,
+      -1.453495845827268,
+      -1.187583074695694,
+      -1.456607586603763
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -33.0757273944721,
+    "second_half_sharpe": -9.330986193279225,
+    "sharpe_corr": 0.9989746148967265,
+    "stable": false
+  },
+  "diagnosis": "C435 price-only CROSS-ASSET TRANSFER ENTROPY directed-flow stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
