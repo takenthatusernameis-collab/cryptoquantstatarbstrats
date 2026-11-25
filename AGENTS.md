@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T04:42:42Z (refreshed; C430-C437 COMPLETE_FORMAL_NEGATIVE frozen; queue on C438). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+**Handoff written:** 2026-11-25T04:43:21Z (refreshed; C430-C437 COMPLETE_FORMAL_NEGATIVE frozen; queue on C438; INITIAL TASK MESSAGE below unchanged and still THE ONLY ACTIVE DIRECTIVE). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
 
 ## INITIAL TASK MESSAGE (2026-11-25T04:42:42Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
 
