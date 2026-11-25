@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261125T124702Z",
+  "campaign": 440,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign440_oos_sweep_20261125T124702Z.json",
+  "oos_sweep_sha256": "e63422df83c7bbf77774472c9c3035a33faefcfe58623f9849c23aafc52ce4f2",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "sig_area_dev": 0.12592860618564256,
+    "sig_norm_dev": 0.12398307454426724,
+    "sig_asym_dev": 0.12173270350828222,
+    "sig_eent_dev": 0.12662306266914344,
+    "sig_area_placebo": 0.12551681024635825,
+    "sig_norm_placebo": 0.1267577640975428,
+    "sig_asym_placebo": 0.12285578747646703,
+    "sig_eent_placebo": 0.12660219127229647
+  },
+  "dominant_attribution": "sig_norm_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "sig_area_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -7.14053537502536,
+      -7.132940400255598,
+      -7.381361200812339,
+      -7.101212535878699,
+      -6.9210978086350226,
+      -7.114687458888348,
+      -7.253271287597759,
+      -7.456866906477825
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -64.17164605975778,
+    "second_half_sharpe": -36.726952045997244,
+    "sharpe_corr": 0.9999001330814441,
+    "stable": false
+  },
+  "diagnosis": "C440 price-only TRUNCATED PATH SIGNATURE (Chen iterated integrals / (rough-path signature method) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
