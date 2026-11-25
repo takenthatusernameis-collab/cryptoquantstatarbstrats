@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-25T04:09:05Z
-handoff_refreshed_at_utc: 2026-11-25T04:09:05Z
+updated_at_utc: 2026-11-25T04:28:47Z
+handoff_refreshed_at_utc: 2026-11-25T04:28:47Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C436
-next_campaign: C437
+latest_campaign_done: C437
+next_campaign: C438
 oos_edge_proven: false
-active_campaign: C437
+active_campaign: C438
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T04:09:05Z: C436 MI COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T034638Z, full 2592 configs, dominant mi_mean_dev/share 0.125, 66 tests green); C430-C436 ALL FROZEN formal negatives, NO EDGE through C436. Active next: C437 PARTIAL — build_c437_jsd_features.py + preflight_c437.py present and C437-specific; run_c437_jsd_xsec_oos.py, both tests, cache, preflight run, 2592-config sweep, and reports MISSING. C437 remains fully specified (JSD, seed 20261301, 8 signals, 2592 grid, brute-force O(W^2) reference maxdiff<1e-12). Bottlenecks removed: stale NOT_STARTED/author-all-five and stale c435_lookahead IN_PROGRESS contradictions. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact. Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T04:09:05Z"
-bottlenecks_note: 'Removed stale C437 NOT_STARTED / author-all-five-from-scratch contradiction and stale c435_lookahead IN_PROGRESS_SWEEP_IN_FLIGHT block. C437 partial scaffold is explicit: scripts/build_c437_jsd_features.py + scripts/preflight_c437.py exist and are C437-specific; next session must audit them, author run_c437_jsd_xsec_oos.py + both tests from scratch, build cache, run preflight, run full literal-2592-config costed OOS sweep, generate 5 SHA256 reports, get >=21 green tests, record c437_status, and move C437 -> C438. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). C430-C436 frozen, never re-run. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
-queued_next_campaign: C437
-queued_next_campaign_note: 'C281B-C436 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C437 PARTIAL — build + preflight scripts present; runner, both tests, cache, preflight execution, sweep, reports, and c437_status result are NOT done. C437 is FULLY SPECIFIED (see AGENTS.md C437 CAMPAIGN SPEC): cross-asset entropic distance / symmetric information divergence (Jensen-Shannon divergence), 8 signals (4 dev [jsd_mean/jsd_max/jsd_conc/jsd_disp] + 4 placebo, seed 20261301), literal 2592-config grid, brute-force O(W^2) per-window double-loop reference equality maxdiff<1e-12, >=21 green tests. Audit the two existing C437 files; do not re-author them without a demonstrated defect. Never reuse a kernel, never clone-and-rename, never freeze by fiat.'
-active_campaign: C437
-space_status: NO_EDGE_C281B_C436
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T04:28:47Z: C436 MI COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T034638Z, full 2592 configs, dominant mi_mean_dev/share 0.125, 66 tests green); C437 JSD COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z, full 2592 configs, dominant_attribution null/share 0.0, attribution_ok false, 67 tests green); C430-C437 ALL FROZEN formal negatives, NO EDGE through C437. Active next: C438. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact. Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
+bottlenecks_verified_removed_at_utc: "2026-11-25T04:28:47Z"
+bottlenecks_note: 'C437 JSD COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z). All work done: scripts/build_c437_jsd_features.py + scripts/preflight_c437.py audited; scripts/run_c437_jsd_xsec_oos.py + tests/test_preflight_c437.py + tests/test_c437_jsd_xsec_oos.py authored from scratch; cache built (10 shards + meta + provenance + campaign437_jsd_metrics.npz); preflight ready:true; full literal-2592-config costed OOS sweep ran; 5 SHA256 reports generated; 67/67 tests green; c437_status recorded; queue moved C437 -> C438. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). C430-C437 frozen, never re-run. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
+queued_next_campaign: C438
+queued_next_campaign_note: 'C281B-C436 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C437 COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z, full 2592 configs, dominant_attribution null/share 0.0, attribution_ok false, 67 tests green incl JSD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact SHA256 + cache SHAs recorded under c437_status). Active next: C438.'
+active_campaign: C438
+space_status: NO_EDGE_C281B_C437
 
 
 
@@ -157,11 +157,13 @@ c436_status:
     metrics: 'cc3bd9e2a366ef8418671f9e92d98e6b665220e3900359d09a81abf33bd47f26'
 
 c437_status:
-  state: PARTIAL_SCAFFOLD_NOT_RUN
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C437
   family: cross_asset_jsd_symmetric_information_divergence_causal_trailing_window_standardized_returns_usdt_m_5m
   genuinely_new: true
   distinct_from: 'First symmetric cross-asset Jensen-Shannon divergence / entropic distance family ever run. Distinct from C436 Mutual Information (symmetric dependence), C435 Transfer Entropy (directed TE_{i->j}), C434 Lyapunov (univariate dynamical divergence), C433 HVG (static graph invariants), C429 Markov sign-transition (univariate order-1 sign matrix), C408 LEADLAG (linear regression leader-follower), C410 XCORR (symmetric avg pairwise correlation), C411 SEMCORR (sign-conditional symmetric correlation), C417 CDOM (extreme-dominance frequency), C420 SCOH (frequency-domain symmetric coherence), every univariate entropy family C349/C355/C356/C338/C396/C357/C419, every moment/sign/spectral/path family C281B-C436. JSD is SYMMETRIC, CROSS-ASSET, information-geometric distributional divergence — no prior family computes it as a cross-asset pairwise JSD profile. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261125T042847Z
+  artifacts_ts: 20261125T042847Z
   signals: [jsd_mean_dev, jsd_max_dev, jsd_conc_dev, jsd_disp_dev, jsd_mean_placebo, jsd_max_placebo, jsd_conc_placebo, jsd_disp_placebo]
   n_configs: 2592
   grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
@@ -171,16 +173,35 @@ c437_status:
   wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
   stability_ref: 'jsd_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
   attr_representatives: [jsd_mean_dev, jsd_max_dev, jsd_conc_dev, jsd_disp_dev]
+  scripts_present: [scripts/build_c437_jsd_features.py, scripts/preflight_c437.py, scripts/run_c437_jsd_xsec_oos.py]
+  tests_present: [tests/test_preflight_c437.py, tests/test_c437_jsd_xsec_oos.py]
+  cache_present: data/cache/campaign437_jsd_5m
+  artifacts_present: [reports/campaign437_oos_sweep_20261125T042847Z.json, reports/campaign437_tradable_edge_registry_20261125T042847Z.json, reports/campaign437_summary_20261125T042847Z.json, reports/campaign437_verdict_20261125T042847Z.json, reports/campaign437_binding_constraint_20261125T042847Z.json]
+  preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all shards under push limit + budget, raw NaN total 0, funding all-NaN control)
+  tests_green: 67
   brute_force_maxdiff: 'vectorized JSD (sliding_window_view + per-window bincount 2D histograms + KL) == naive O(W^2) per-window explicit double-loop reference, maxdiff < 1e-12 for jsd_mean/max/conc/disp; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C436'
-  deliverables: '3 scripts total (build_c437_jsd_features.py + preflight_c437.py ALREADY PRESENT; author run_c437_jsd_xsec_oos.py FROM SCRATCH) + 2 tests FROM SCRATCH + cache data/cache/campaign437_jsd_5m/ (10 shards + meta + provenance + campaign437_jsd_metrics.npz) + preflight ready:true + full 2592-config costed OOS sweep + 5 SHA256 reports + >=21 green tests, then record c437_status, move C437 -> C438'
-  partial_files_present: [scripts/build_c437_jsd_features.py, scripts/preflight_c437.py]
-  remaining_files: [scripts/run_c437_jsd_xsec_oos.py, tests/test_preflight_c437.py, tests/test_c437_jsd_xsec_oos.py]
-  cache_present: false
-  preflight: NOT_RUN
-  sweep: NOT_RUN
-  tests_green: 0
-  author_from_scratch: remaining_files_only
-  note: 'C437 PARTIAL: audit the two existing C437-specific files against the spec; fix only demonstrated defects; do NOT re-author or clone-and-rename them. Author the runner and both tests FROM SCRATCH, build cache, run preflight, full 2592-config costed OOS sweep, 5 SHA256 reports, >=21 green tests, record truthful RESULT + all SHAs, move C437 -> C438. NEVER reuse a kernel, NEVER freeze by fiat. Run tests with .venv/bin/python -m pytest.'
+  sweep: COMPLETE (full literal-2592-config costed OOS sweep ran reusing cache, no recompute; wrote campaign437_jsd_metrics.npz + 5 reports ts 20261125T042847Z)
+  artifacts:
+    oos_sweep: 'baf44903f454ba2b003f70816073298b277ca24e480cecf57f12ff4e577383c9'
+    tradable_edge_registry: 'bbd689a8201466038031e2aab62c0259d4112ac465a89fa6256b4ab8df7d5d5d'
+    summary: '931633a652e009be315c942e36ac9a1ab757aa8babe8ce95c585a441b28a58af'
+    verdict: '0712e7999a09b04b2d22156ff5ebfba05854b2f998185fa7856585c8dd566ba0'
+    binding_constraint: '1b7519a6c8d8f25c8ab05b1e212d62e939df060190a33d531124e8115957430e'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: null
+  dominant_share: 0.0
+  attribution_ok: false
+  cache_shas:
+    meta: 'c1e7f4f0b62fa84377b72c43acba93aed5defa1f96390957d85a417e42889624'
+    provenance: '5c5daa1df0ff4dc5bf6da1ed2141c91371989500b7bbbcccacca721d383a27ee'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: '928dbf718c8d46e0a70c89fdb6d1c006e260fe72f77b70f760027e076e226c28'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE

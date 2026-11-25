@@ -1,0 +1,193 @@
+{
+  "generated_at_utc": "20261125T042847Z",
+  "campaign": 437,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "jsd_mean_dev",
+      "jsd_max_dev",
+      "jsd_conc_dev",
+      "jsd_disp_dev",
+      "jsd_mean_placebo",
+      "jsd_max_placebo",
+      "jsd_conc_placebo",
+      "jsd_disp_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261301,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 2592,
+    "total_runs": 2592,
+    "jsd_params": {
+      "window_W": 256,
+      "fallback_W": 128,
+      "bins_B": 8,
+      "statistics": [
+        "jsd_mean",
+        "jsd_max",
+        "jsd_conc",
+        "jsd_disp"
+      ],
+      "pairs": "unordered_i_lt_j"
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "jsd_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "jsd_mean_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": 0.0,
+      "second_half_sharpe": 0.0,
+      "sharpe_corr": NaN,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "jsd_mean_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "jsd_mean_dev_net": 0.0,
+      "jsd_max_dev_net": 0.0,
+      "jsd_conc_dev_net": 0.0,
+      "jsd_disp_dev_net": 0.0,
+      "jsd_mean_placebo_net": 0.0,
+      "jsd_max_placebo_net": 0.0,
+      "jsd_conc_placebo_net": 0.0,
+      "jsd_disp_placebo_net": 0.0,
+      "shares": {
+        "jsd_mean_dev": 0.0,
+        "jsd_max_dev": 0.0,
+        "jsd_conc_dev": 0.0,
+        "jsd_disp_dev": 0.0,
+        "jsd_mean_placebo": 0.0,
+        "jsd_max_placebo": 0.0,
+        "jsd_conc_placebo": 0.0,
+        "jsd_disp_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261301
+    },
+    "data_quality": {
+      "reference_signal": "jsd_mean_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 1.0,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W_q or sigma[t]<=0 or NaN in trailing window)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign437_oos_sweep_20261125T042847Z.json",
+      "sha256": "baf44903f454ba2b003f70816073298b277ca24e480cecf57f12ff4e577383c9"
+    },
+    "registry": {
+      "path": "reports/campaign437_tradable_edge_registry_20261125T042847Z.json",
+      "sha256": "bbd689a8201466038031e2aab62c0259d4112ac465a89fa6256b4ab8df7d5d5d"
+    }
+  },
+  "summary": {
+    "n_total_runs": 2592,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}
