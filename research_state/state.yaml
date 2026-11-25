@@ -2789,3 +2789,44 @@ c440_status:
     provenance: '6d9d782a8ad34011116fe4e1643f1d4cac67cd98e1e232f0bffc19d2749d866f'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
     metrics: '117369a3afd62afbd4411cdf9b81762461f85a53ddf45c8b7ba47fa6b3e5aadd'
+c441_status:
+  state: IN_PROGRESS
+  campaign: C441
+  family: tda_persistent_homology_h1_persistence_entropy_delay_embedded_perp_close_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First persistent-homology / TDA H1 persistence entropy family ever run. Vietoris-Rips filtration on the causal trailing-window standardized-return delay embedding (delay tau=1, embeddings m in {3,4,5,6}, window W_q=256 fallback 128), per-window scalar H1 persistence entropy H=-sum_k p_k log(p_k), p_k=(death_k-birth_k)/sum_j(death_j-birth_j). 4 dev (real embeddings) + 4 placebo (seeded iid permutation seed 20261441 of standardized returns). Distinct from C349 permutation/ordinal entropy (rank orderings), C365 KER (net-displacement/path-length ratio), C422 ZCRPATH/C376 QSPREAD/C392 DDRRUN (path functionals), C425 RQA/C433 HVG (static graph/topology), C434 Lyapunov (dynamical divergence), C430 dCor/C431 CQ/C432 EDF-GOF/C435 TE/C436 MI/C437 JSD/C438 Wasserstein/C439 HSIC (dependence/divergence), C440 truncated path signature (Chen iterated integrals). Price-only (perp_close), volume-free.'
+  as_of_utc: 20261125T194401Z
+  artifacts_ts: null
+  signals: [tda_m3_dev, tda_m4_dev, tda_m5_dev, tda_m6_dev, tda_m3_placebo, tda_m4_placebo, tda_m5_placebo, tda_m6_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261441
+  standardization: {W_q: 256, fallback: 128}
+  tda_params: {window_W_q: 256, fallback_W: 128, delay_tau: 1, embeddings_m: [3,4,5,6], filtration: vietoris_rips, homology_dimension: 1, scalar: h1_persistence_entropy_nats, entropy_formula: "H = -sum_k p_k * log(p_k), p_k = (death_k - birth_k) / sum_j (death_j - birth_j)", signals_dev: [tda_m3_dev, tda_m4_dev, tda_m5_dev, tda_m6_dev], signals_placebo: [tda_m3_placebo, tda_m4_placebo, tda_m5_placebo, tda_m6_placebo], placebo: seeded_iid_permutation_of_standardized_returns}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'tda_m3_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [tda_m3_dev, tda_m4_dev, tda_m5_dev, tda_m6_dev]
+  scripts_present: [scripts/build_c441_tda_features.py, scripts/preflight_c441.py, scripts/run_c441_tda_xsec_oos.py]
+  tests_present: [tests/test_preflight_c441.py, tests/test_c441_tda_xsec_oos.py]
+  cache_present: data/cache/campaign441_tda_5m (10 shards + meta + provenance; metrics.npz not yet written — sweep pending)
+  artifacts_present: []
+  preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all 10 shards under push limit + budget, raw NaN total 0, funding all-NaN control)
+  tests_green: 41
+  brute_force_maxdiff: 'vectorized H1 persistence entropy (sliding_window_view delay embedding + chunked Vietoris-Rips via ripser) == independent naive explicit per-window reference (explicit mean/std + explicit delay-embed loop + explicit pairwise-distance loop + ripser), maxdiff < 1e-12 for tda_m3/m4/m5/m6; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C440 incl. C349/C365/C422/C376/C392/C425/C433/C434/C429/C430/C431/C432/C435/C436/C437/C438/C439/C440'
+  sweep: PENDING (heavy compute: compute_tda_metrics on full 315648-bar panel x 10 assets x 4 embeddings = ~12.6M ripser calls, ~30h at 4 workers; NOT feasible in-session — next session must run scripts/run_c441_tda_xsec_oos.py to completion)
+  artifacts: {}
+  verdict: not_yet_determined (sweep pending)
+  edge_proven: false
+  binding_constraint: not_yet_determined
+  n_survive_holm: null
+  n_survive_bh: null
+  n_survive_both: null
+  n_deterministic_edge: null
+  dominant_attribution: null
+  dominant_share: null
+  attribution_ok: false
+  cache_shas:
+    meta: '40dd021ce269feec86a396be1b2a922abcbaa044d07760d63eb310abda7fa419'
+    provenance: 'cbd157e89a89d8b90812ab53cb728413366cf53396ae4d107f9ffe96b8d3f62e'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: null
