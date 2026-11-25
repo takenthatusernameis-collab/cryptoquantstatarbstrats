@@ -1,0 +1,245 @@
+{
+  "generated_at_utc": "20261125T000720Z",
+  "campaign": 434,
+  "part": "oos_sweep",
+  "analysis": "c434_lyap_xsec_stat_arb_oos_5m",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "fail_closed": true,
+  "mandate": "C434 \u2014 test the price-only LARGEST LYAPUNOV EXPONENT dynamical-systems chaos stat-arb family on 10 USDT-M linear perps at native 5m (2592 pre-registered configs). Per-bar primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|; sign=sign(log_return) (+1/-1/0, sign[0]=0); m[t]=mean_i r_i[t] (equal-weight market return). Causal trailing mean mu[t] and std sigma[t] of {r[t-W_q+1..t]}, W_q=256 (fallback 128). Standardized return z[t]=(r[t]-mu[t])/sigma[t] (z[t]=0 if sigma[t]<=0 or non-finite). Per trailing window of z: build a delay embedding E (m x tau, tau=1) for m in {3,4,5,6}; largest Lyapunov exponent = slope of mean log-divergence L[k]=mean_i ln(||Y[i+k]-Y[j(i)+k]||/||Y[i]-Y[j(i)]||) on k=1..K (K=8), where j(i) is the nearest neighbor of trajectory point i with |i-j|>Theiler window=1. lyap_m3, lyap_m4, lyap_m5, lyap_m6. NaN if t<W_q or any NaN/non-finite in window or sigma[t]<=0. Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 8 real+placebo (lyap_m3_dev, lyap_m4_dev, lyap_m5_dev, lyap_m6_dev) + 4 placebos (i.i.d. permutation seed 20261298 of the standardized returns, same marginal, destroyed serial geometry). Single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs; seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0.",
+  "preflight": {
+    "cache": "data/cache/campaign434_lyap_5m",
+    "cache_sha256": "ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f",
+    "cache_meta": "data/cache/campaign434_lyap_5m.meta.json",
+    "cache_meta_sha256": "6aea6c995848294867a81f7393ab9169270bae33b3e642320cdfb9762885f4f9",
+    "cache_provenance": "data/cache/campaign434_lyap_5m.provenance.json",
+    "cache_provenance_sha256": "e0a287ddf25a54300f6cde0386759c3e6d4176298932f112d291d7131a9f0291",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 39063675,
+    "max_shard_bytes": 4195563,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "data_source": {
+    "cache": "data/cache/campaign434_lyap_5m",
+    "cache_sha256": "ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f",
+    "cache_meta": "data/cache/campaign434_lyap_5m.meta.json",
+    "cache_meta_sha256": "6aea6c995848294867a81f7393ab9169270bae33b3e642320cdfb9762885f4f9",
+    "cache_provenance": "data/cache/campaign434_lyap_5m.provenance.json",
+    "cache_provenance_sha256": "e0a287ddf25a54300f6cde0386759c3e6d4176298932f112d291d7131a9f0291",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 39063675,
+    "max_shard_bytes": 4195563,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "lyap_m3_dev",
+      "lyap_m4_dev",
+      "lyap_m5_dev",
+      "lyap_m6_dev",
+      "lyap_m3_placebo",
+      "lyap_m4_placebo",
+      "lyap_m5_placebo",
+      "lyap_m6_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261298,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 2592,
+    "total_runs": 0,
+    "lyap_params": {
+      "window_W_q": 256,
+      "fallback_W_q": 128,
+      "embedding_m": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "delay_tau": 1,
+      "theiler_window": 1,
+      "divergence_horizon_K": 8,
+      "statistics": [
+        "lyap_m3",
+        "lyap_m4",
+        "lyap_m5",
+        "lyap_m6"
+      ]
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "lyap_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "lyap_m3_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -2.253293784881488,
+        -2.167422005937389,
+        -2.0620793959877397,
+        -2.1769216231530764,
+        -2.039585623487314,
+        -1.996377327346677,
+        -2.062050873689368,
+        -2.0547512906350884
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -31.80246841674247,
+      "second_half_sharpe": -80.03892566465306,
+      "sharpe_corr": 0.9998885025599185,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "lyap_m3_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "lyap_m3_dev_net": 0.0,
+      "lyap_m4_dev_net": 0.0,
+      "lyap_m5_dev_net": 0.0,
+      "lyap_m6_dev_net": 0.0,
+      "lyap_m3_placebo_net": 0.0,
+      "lyap_m4_placebo_net": 0.0,
+      "lyap_m5_placebo_net": 0.0,
+      "lyap_m6_placebo_net": 0.0,
+      "shares": {
+        "lyap_m3_dev": 0.0,
+        "lyap_m4_dev": 0.0,
+        "lyap_m5_dev": 0.0,
+        "lyap_m6_dev": 0.0,
+        "lyap_m3_placebo": 0.0,
+        "lyap_m4_placebo": 0.0,
+        "lyap_m5_placebo": 0.0,
+        "lyap_m6_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261298
+    },
+    "data_quality": {
+      "reference_signal": "lyap_m3_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.01997509884428228,
+      "note": "metric NaN share dominated by finite-obs requirements (t<W_q or sigma[t]<=0 or NaN in trailing window)."
+    }
+  },
+  "methodology": {
+    "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
+    "raw_features": "perp_close real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|; sign=sign(log_return) (+1/-1/0, sign[0]=0).",
+    "primitives": "causal trailing mean/std mu[t], sigma[t] of {r[t-W_q+1..t]}, W_q=256 (fallback 128); standardized return z[t]=(r[t]-mu[t])/sigma[t]; delay embedding E (m x tau, tau=1) for m in {3,4,5,6}; largest Lyapunov exponent = slope of mean log-divergence L[k] on k=1..K (K=8) over nearest-neighbor trajectory pairs with Theiler window=1; lyap_m3, lyap_m4, lyap_m5, lyap_m6.",
+    "signals": "lyap_m3_dev/lyap_m4_dev/lyap_m5_dev/lyap_m6_dev plus i.i.d.-permutation-surrogate placebos over W_q=256 (seed 20261298); score=-(v-m)/sd with m/sd trailing same-bucket mean/std (min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; NaN-score assets weight 0.",
+    "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
+    "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
+    "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
+    "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 2592 configs at alpha=0.05.",
+    "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
+    "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 8 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+    "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
+    "placebo": "i.i.d. permutation (seed 20261298) of the standardized returns z before the Lyapunov pipeline; same marginal distribution, destroyed serial geometry; deterministic seed recorded; never market data, never fabricated.",
+    "lyap_vectorization_note": "rolling mean/std via cumulative sums O(N); sliding trailing windows of z; delay embedding via sliding_window_view; chunked pairwise nearest-neighbor distance matrix; divergence accumulation over horizon K; linear-regression slope of mean log-divergence on k. Validated against a naive per-window O(W^2) all-pairs nearest-neighbor Lyapunov reference with maxdiff < 1e-12 in tests.",
+    "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "results": [],
+  "summary": {
+    "n_total_runs": 0,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  }
+}

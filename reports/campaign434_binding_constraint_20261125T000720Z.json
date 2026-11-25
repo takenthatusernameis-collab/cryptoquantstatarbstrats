@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261125T000720Z",
+  "campaign": 434,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign434_oos_sweep_20261125T000720Z.json",
+  "oos_sweep_sha256": "8eb8f5c3decd28857eb80e870db04712b09f43b9bd273d67e0a68d147d331a2b",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "lyap_m3_dev": 0.0,
+    "lyap_m4_dev": 0.0,
+    "lyap_m5_dev": 0.0,
+    "lyap_m6_dev": 0.0,
+    "lyap_m3_placebo": 0.0,
+    "lyap_m4_placebo": 0.0,
+    "lyap_m5_placebo": 0.0,
+    "lyap_m6_placebo": 0.0
+  },
+  "dominant_attribution": null,
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "lyap_m3_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -2.253293784881488,
+      -2.167422005937389,
+      -2.0620793959877397,
+      -2.1769216231530764,
+      -2.039585623487314,
+      -1.996377327346677,
+      -2.062050873689368,
+      -2.0547512906350884
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -31.80246841674247,
+    "second_half_sharpe": -80.03892566465306,
+    "sharpe_corr": 0.9998885025599185,
+    "stable": false
+  },
+  "diagnosis": "C434 price-only LARGEST LYAPUNOV EXPONENT chaos stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

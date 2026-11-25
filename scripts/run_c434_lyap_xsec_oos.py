@@ -523,7 +523,9 @@ def build_underlying(bs: dict) -> dict:
             with np.load(METRICS_CACHE) as z:
                 if all(k in z.files and z[k].shape == (n_assets, n_bars) for k in KEYS_ALL):
                     print(f"[C434] reusing cached Lyapunov metrics: {METRICS_CACHE}", flush=True)
-                    return {k: np.asarray(z[k], dtype=float) for k in KEYS_ALL}
+                    real_c = {k: np.asarray(z[k], dtype=float) for k in LYAP_KEYS}
+                    placebo_c = {k: np.asarray(z[k + "_placebo"], dtype=float) for k in LYAP_KEYS}
+                    return {"real": real_c, "placebo": placebo_c}
         except Exception as exc:  # noqa: BLE001
             print(f"[C434] metrics cache unreadable ({exc}); recomputing", flush=True)
 

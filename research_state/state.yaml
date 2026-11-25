@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-25T01:04:00Z
-handoff_refreshed_at_utc: 2026-11-25T01:04:00Z
+updated_at_utc: 2026-11-25T01:33:30Z
+handoff_refreshed_at_utc: 2026-11-25T01:33:30Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C433
-next_campaign: C434
+latest_campaign_done: C434
+next_campaign: C435
 oos_edge_proven: false
-active_campaign: C434
+active_campaign: C435
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-24T17:32:13Z: C430 DISTCOR COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T071440Z, 2592 configs, dominant dcor_signmag_dev/share 0.1684, 50/50 tests green, c430_status). C431 CQ COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T080617Z, 2592 configs, dominant cq_market_placebo/share 0.2057, 64 tests green, c431_status). C432 EDF-GOF COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261124T163545Z, 2592 configs, dominant edf_ks_dev/share 0.1736, 65 tests green incl brute-force EDF-GOF equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact + cache SHAs recorded under c432_status). C281B-C432 ALL FROZEN formal negatives, NO EDGE through C433. Active next: C434; C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297) — genuinely-new graph/network-theoretic price-only family; per causal trailing-window standardized returns build HVG (connect i<j iff z_i,z_j > all z_k between) and compute mean_degree / degree_entropy / assortativity / clustering; 8 signals (4 dev + 4 placebo) x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592; brute-force O(W^2) reference equality maxdiff<1e-12 required. Bottlenecks: NONE (no C433 files on disk, no clone-trap; author all five from scratch by adapting C432 counterparts). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps re-verified read-only this session (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts at /home/runner/work/_temp/kilo-home/.local/bin (NOT on PATH) so always run python3 -m pytest, never bare pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T01:04:00Z"
-bottlenecks_note: 'CLONE-TRAP FIXED: archive/void_* were WRITABLE -> re-locked READ-ONLY (chmod -R a-w archive/void_*; git tree clean, write-bit untracked). TEST-COMMAND FIXED: system /usr/bin/python3 has NO numpy/pytest -> use .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0); never bare pytest, never system python3 -m pytest. research_state declares active_campaign: C434 / next_campaign: C434 / latest_campaign_done: C433 (C430-C433 frozen, never re-run); C435 now FULLY specified as queued next so the queue never runs dry. C312 5m source intact (data/cache/campaign312_usdt_m_ofi_5m/ 10 shards + meta). SWEEP PATH AMBIGUITY REMOVED: --smoke STILL runs the full build_underlying Lyapunov kernel (line 736, before smoke check at 794) and writes data/cache/campaign434_lyap_metrics.npz on completion, then runs only 1 reference config — so the next session MUST NOT re-run --smoke (would recompute ~1h) and MUST NOT kill PIDs 3843/3850-3853; instead WAIT for the cache file (blocking `while kill -0 3843; do sleep 30; done` with large timeout), then run the FULL sweep WITHOUT --smoke (.venv/bin/python scripts/run_c434_lyap_xsec_oos.py, reuses cached metrics, writes 5 reports). Workers healthy (~92% CPU, progressing). No campaign434 reports yet; metrics NPZ MISSING; no c434_status block yet.'
-queued_next_campaign: C434
-queued_next_campaign_note: 'C281B-C433 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C434 (sweep IN PROGRESS, see AGENTS.md INITIAL_TASK_MESSAGE). C435 is now FULLY SPECIFIED (see c435_lookahead) as the queued next campaign so the queue can never run dry: cross-asset transfer entropy / directed information flow, 8 signals (4 dev [te_mean/te_asym/te_max/te_conc] + 4 placebo, seed 20261299), literal 2592-config grid, brute-force O(W^2) reference equality maxdiff<1e-12, >=21 green tests. Never re-order, never reuse a kernel, never clone-and-rename; author from scratch once C434 freezes.'
-active_campaign: C434
-space_status: NO_EDGE_C281B_C433
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T01:33:30Z: C434 LYAP COMPLETE_FORMAL_NEGATIVE (RETRACTED 20261125T013202Z, full 2592 configs, dominant lyap_m4_placebo/share 0.2152, 63 tests green incl brute-force Lyapunov equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact + cache SHAs recorded under c434_status). C430-C434 ALL FROZEN formal negatives, NO EDGE through C434. Active next: C435; C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297); C434 LYAP frozen (seed 20261298) — first dynamical-chaos Lyapunov family, 8 signals x 6 lookbacks x 3 rebalances x 3 fees x 3 slips x 2 cost variants = 2592. C435 FULLY specified as active (cross-asset transfer entropy / directed information flow, seed 20261299, 8 signals, 2592 grid, brute-force O(W^2) reference maxdiff<1e-12). Bottlenecks: NONE (C434 complete; no clone-trap; author all five C435 files from scratch). Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact (10 x 315648 bars). Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
+bottlenecks_verified_removed_at_utc: "2026-11-25T01:33:30Z"
+bottlenecks_note: 'C434 COMPLETED END-TO-END this session (waited ~9 min for the 202 MB metrics NPZ, then ran the full 2592-config sweep reusing the cache — no recompute). CACHE-REUSE BUG FIXED: run_c434_lyap_xsec_oos.py build_underlying cached branch returned a FLAT dict {lyap_key:array} while build_scores expects the nested {"real":{...},"placebo":{...}} shape the fresh path returns (--smoke worked only because it built fresh); patched to return {"real":{k:z[k]},"placebo":{k:z[k+"_placebo"]}} — full sweep then ran clean. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). research_state declares active_campaign/next_campaign: C435 / latest_campaign_done: C434 (C430-C434 frozen, never re-run); C435 fully specified as active so the queue never runs dry. C312 5m source intact; archive/void_* clone-traps read-only. No campaign435 files yet; no c435_status block yet. No other session is blocked.'
+queued_next_campaign: C435
+queued_next_campaign_note: 'C281B-C434 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). Active: C435 (NOT yet started — author all five files from scratch). C435 is FULLY SPECIFIED (see c435_lookahead and AGENTS.md INITIAL_TASK_MESSAGE): cross-asset transfer entropy / directed information flow, 8 signals (4 dev [te_mean/te_asym/te_max/te_conc] + 4 placebo, seed 20261299), literal 2592-config grid, brute-force O(W^2) reference equality maxdiff<1e-12, >=21 green tests. Never re-order, never reuse a kernel, never clone-and-rename; author from scratch.'
+active_campaign: C435
+space_status: NO_EDGE_C281B_C434
 
 c435_lookahead:
   state: QUEUED_FULLY_SPECIFIED
@@ -34,7 +34,52 @@ c435_lookahead:
   brute_force_maxdiff: 'vectorized TE (sliding_window_view + per-window bincount 3D histograms) == naive O(W^2) per-window explicit triple-loop reference, maxdiff < 1e-12; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C434'
   deliverables: '3 scripts (build_c435_te_features.py, preflight_c435.py, run_c435_te_xsec_oos.py) + 2 tests + cache data/cache/campaign435_te_5m/ (10 shards + meta + provenance + campaign435_te_metrics.npz) + preflight ready:true + full 2592-config costed OOS sweep + 5 SHA256 reports + >=21 green tests, then record c435_status, move C435 -> C436'
   author_from_scratch: true
-  note: 'Author all five files FROM SCRATCH once C434 freezes; NEVER clone-and-rename, NEVER reuse a kernel, NEVER freeze by fiat. Run tests with .venv/bin/python -m pytest.'
+  note: 'Author all five files FROM SCRATCH now (C434 frozen); NEVER clone-and-rename, NEVER reuse a kernel, NEVER freeze by fiat. Run tests with .venv/bin/python -m pytest.'
+
+c434_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C434
+  family: largest_lyapunov_exponent_dynamical_chaos_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First Lyapunov-exponent / dynamical-systems chaos family ever run. Largest Lyapunov exponent (mean exponential divergence rate of nearby delay-embedded trajectories, nearest neighbor + Theiler window + finite horizon K=8) for embeddings m in {3,4,5,6}. Distinct from C433 HVG (static graph invariants), C425 RQA (recurrence-plot topology), C420 spectral coherence, C349/C355/C356 entropy, C358 MF-DFA/C426 WLMF, C427/428 LOCTIME/PTLT, C422/C423/C424 path/sign/spacing, C429 Markov sign-transition, C430 dCor, C431 CQ, C432 EDF-GOF, and every moment/sign/spectral family C281B-C433. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261125T013202Z
+  artifacts_ts: 20261125T013202Z
+  signals: [lyap_m3_dev, lyap_m4_dev, lyap_m5_dev, lyap_m6_dev, lyap_m3_placebo, lyap_m4_placebo, lyap_m5_placebo, lyap_m6_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261298
+  standardization: {W_q: 256, fallback: 128}
+  lyap_params: {tau: 1, theiler: 1, horizon_K: 8, embeddings_m: [3, 4, 5, 6]}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'lyap_m3_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [lyap_m3_dev, lyap_m4_dev, lyap_m5_dev, lyap_m6_dev]
+  scripts_present: [scripts/build_c434_lyap_features.py, scripts/preflight_c434.py, scripts/run_c434_lyap_xsec_oos.py]
+  tests_present: [tests/test_preflight_c434.py, tests/test_c434_lyap_xsec_oos.py]
+  cache_present: data/cache/campaign434_lyap_5m
+  artifacts_present: [reports/campaign434_oos_sweep_20261125T013202Z.json, reports/campaign434_tradable_edge_registry_20261125T013202Z.json, reports/campaign434_summary_20261125T013202Z.json, reports/campaign434_verdict_20261125T013202Z.json, reports/campaign434_binding_constraint_20261125T013202Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: lyap_m4_placebo
+  dominant_share: 0.21523809425752063
+  attribution_ok: false
+  tests_green: 63
+  brute_force_maxdiff: 'lyap_m3/m4/m5/m6 vectorized (sliding_window_view embedding + chunked pairwise NN + divergence accumulation) vs naive O(W^2) per-window reference: maxdiff < 1e-12; NaN patterns identical'
+  artifacts:
+    oos_sweep: 'e78d681f76d21813ba7f1ca5eed263d258e93f641c94e81b1779b75060342786'
+    tradable_edge_registry: 'd3e69354fa726c1be6a5eec46ab39ca4b36b7cbd4dbedeefa871433af371d441'
+    summary: '542d62ca55cfa99024e50ad91a8bfc5c8df998c53c2c1ca4198d54cd486c75ac'
+    verdict: '36db2ef50c298e481e70025e00de2153013a1431dae2ce382bec883360a8b9c8'
+    binding_constraint: '007c1d187a2c4a104d4afa51475f47d0c59119fc2910113054cab8688e2eba78'
+  cache_shas:
+    meta: '6aea6c995848294867a81f7393ab9169270bae33b3e642320cdfb9762885f4f9'
+    provenance: 'e0a287ddf25a54300f6cde0386759c3e6d4176298932f112d291d7131a9f0291'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: '43db1aa325f3a6f712032d04bae182bc5cc8453acacae457083cfd791b10c669'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -79,7 +124,7 @@ c433_status:
     provenance: 'e276ed2cd2410473a1ff31d579c105da9c8884910fa1f8c51d4386a9555524e1'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
     metrics: 'c134e269acfe77acd482b04b5ce2166277d9f5bdff705191bb88ae55bd2b7670'
-closure_note: 'C281B-C431 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge; binding universally multiple_testing; edge_claim NONE). Frozen boundary C430 DISTCOR RETRACTED 20261124T071440Z (dominant dcor_signmag_dev/share 0.1684 [no separation, placebos comparable], attribution_ok false, 50/50 tests green incl distance-correlation brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372, 5 artifact SHA256 + cache SHAs matching, recorded under c430_status). C431 CQ RETRACTED 20261124T080617Z (dominant cq_market_placebo/share 0.2057 [no separation, placebos comparable], attribution_ok false, 64 tests green incl cross-quantilogram brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, cache SHAs recorded under c431_status). C432 EDF-GOF RETRACTED 20261124T163545Z (dominant edf_ks_dev/share 0.1736 [no separation, placebos comparable], attribution_ok false, 65 tests green incl EDF-GOF brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact SHA256 + cache SHAs recorded under c432_status). C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297); active next C434 — see AGENTS.md C434_INITIAL_TASK for the unavoidable fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories re-verified read-only this session (re-apply chmod if found writable after checkout). Next session must build C433 HVG end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
+closure_note: 'C281B-C431 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge; binding universally multiple_testing; edge_claim NONE). Frozen boundary C430 DISTCOR RETRACTED 20261124T071440Z (dominant dcor_signmag_dev/share 0.1684 [no separation, placebos comparable], attribution_ok false, 50/50 tests green incl distance-correlation brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs C429/C416/C415/C405/C417/C407/C408/C410/C411/C375/C329/C328/C422/C423/C424/C425/C349/C355/C356/C358/C420/C421/C391/C372, 5 artifact SHA256 + cache SHAs matching, recorded under c430_status). C431 CQ RETRACTED 20261124T080617Z (dominant cq_market_placebo/share 0.2057 [no separation, placebos comparable], attribution_ok false, 64 tests green incl cross-quantilogram brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, cache SHAs recorded under c431_status). C432 EDF-GOF RETRACTED 20261124T163545Z (dominant edf_ks_dev/share 0.1736 [no separation, placebos comparable], attribution_ok false, 65 tests green incl EDF-GOF brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact SHA256 + cache SHAs recorded under c432_status). C433 HVG COMPLETE_FORMAL_NEGATIVE frozen (seed 20261297); C434 LYAP COMPLETE_FORMAL_NEGATIVE RETRACTED 20261125T013202Z (dominant lyap_m4_placebo/share 0.2152 [no separation, placebos comparable], attribution_ok false, 63 tests green incl Lyapunov brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact SHA256 + cache SHAs recorded under c434_status); active next C435 — see AGENTS.md C435_INITIAL_TASK for the unavoidable fully-specified heavy task. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. All archive/void_* directories re-verified read-only this session (re-apply chmod if found writable after checkout). Next session must build C435 transfer-entropy end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT plus SHAs.'
 c417_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C417
