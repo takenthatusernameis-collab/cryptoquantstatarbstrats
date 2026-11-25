@@ -1,7 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T18:43:34Z (refreshed & RE-VERIFIED against live repo at 2026-11-25T18:43:00Z; C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441; C440 TRUNCATED PATH SIGNATURE (Chen iterated integrals / rough-path signature method) COMPLETE end-to-end RETRACTED formal negative; NO C441 artifacts exist yet — next session builds ALL FIVE files FROM SCRATCH; archive/void_* clone-traps re-verified read-only dr-xr-xr-x and re-applied `chmod -R a-w`; no locks/stale processes; bottlenecks removed, `bottlenecks: none`). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
-
+**Handoff written:** 2026-11-25T18:45:13Z (refreshed; C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441; bottleneck removed: .venv recreated + pytest 9.2.0 installed; C441 partial artifacts build_c441_tda_features.py + preflight_c441.py present; run/preflight/tests/cache/reports pending). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
 ## INITIAL TASK MESSAGE (2026-11-25T18:43:34Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): C430-C440 are ALL COMPLETE_FORMAL_NEGATIVE and frozen (NO EDGE through C440). The queue is on C441 — the next stat-arb family campaign on the C312 USDT-M 5m `perp_close` universe following the established C430-C440 pattern.**
