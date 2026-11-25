@@ -1,21 +1,21 @@
-updated_at_utc: 2026-11-25T04:28:47Z
-handoff_refreshed_at_utc: 2026-11-25T04:28:47Z
+updated_at_utc: 2026-11-25T05:32:00Z
+handoff_refreshed_at_utc: 2026-11-25T05:32:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C437
-next_campaign: C438
+latest_campaign_done: C438
+next_campaign: C439
 oos_edge_proven: false
-active_campaign: C438
+active_campaign: C439
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T04:28:47Z: C436 MI COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T034638Z, full 2592 configs, dominant mi_mean_dev/share 0.125, 66 tests green); C437 JSD COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z, full 2592 configs, dominant_attribution null/share 0.0, attribution_ok false, 67 tests green); C430-C437 ALL FROZEN formal negatives, NO EDGE through C437. Active next: C438. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact. Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
-bottlenecks_verified_removed_at_utc: "2026-11-25T04:28:47Z"
-bottlenecks_note: 'C437 JSD COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z). All work done: scripts/build_c437_jsd_features.py + scripts/preflight_c437.py audited; scripts/run_c437_jsd_xsec_oos.py + tests/test_preflight_c437.py + tests/test_c437_jsd_xsec_oos.py authored from scratch; cache built (10 shards + meta + provenance + campaign437_jsd_metrics.npz); preflight ready:true; full literal-2592-config costed OOS sweep ran; 5 SHA256 reports generated; 67/67 tests green; c437_status recorded; queue moved C437 -> C438. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). C430-C437 frozen, never re-run. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
-queued_next_campaign: C438
-queued_next_campaign_note: 'C281B-C436 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C437 COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z, full 2592 configs, dominant_attribution null/share 0.0, attribution_ok false, 67 tests green incl JSD brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families, 5 artifact SHA256 + cache SHAs recorded under c437_status). Active next: C438.'
-active_campaign: C438
-space_status: NO_EDGE_C281B_C437
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Refreshed 2026-11-25T05:32:00Z: C436 MI COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T034638Z, full 2592 configs, dominant mi_mean_dev/share 0.125, 66 tests green); C437 JSD COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T042847Z, full 2592 configs, dominant_attribution null/share 0.0, attribution_ok false, 67 tests green); C438 WASSERSTEIN COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z, full 2592 configs, dominant wass_mean_dev/share 0.125, attribution_ok false, 45 tests green); C430-C438 ALL FROZEN formal negatives, NO EDGE through C438. Active next: C439. Environment ready (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). All archive/void_* clone-traps read-only (re-apply chmod -R a-w archive/void_* if found writable). C312 5m source intact. Console scripts NOT on PATH so always run .venv/bin/python -m pytest, never bare pytest, never system python3 -m pytest.'
+bottlenecks_verified_removed_at_utc: "2026-11-25T05:32:00Z"
+bottlenecks_note: 'C438 WASSERSTEIN COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z). All work done: scripts/build_c438_wasserstein_features.py + scripts/preflight_c438.py audited; scripts/run_c438_wasserstein_xsec_oos.py + tests/test_preflight_c438.py + tests/test_c438_wasserstein_xsec_oos.py authored from scratch; cache built (10 shards + meta + provenance + campaign438_wasserstein_metrics.npz); preflight ready:true; full literal-2592-config costed OOS sweep ran; 5 SHA256 reports generated; 45/45 tests green; c438_status recorded; queue moved C438 -> C439. TEST-COMMAND: always .venv/bin/python -m pytest (venv numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0; system /usr/bin/python3 has none). C430-C438 frozen, never re-run. C312 5m source intact; archive/void_* clone-traps read-only. No other session is blocked.'
+queued_next_campaign: C439
+queued_next_campaign_note: 'C281B-C437 are all FROZEN formal negatives (0 Holm+BH survivors, binding multiple_testing, edge_proven:false). C438 COMPLETE_FORMAL_NEGATIVE frozen (RETRACTED 20261125T052612Z, full 2592 configs, dominant wass_mean_dev/share 0.125, attribution_ok false, 45 tests green incl W1 brute-force equality maxdiff<1e-12 + kernel-distinctness guards vs ALL prior families C281B-C437, 5 artifact SHA256 + cache SHAs recorded under c438_status). Active next: C439.'
+active_campaign: C439
+space_status: NO_EDGE_C281B_C438
 
 
 
@@ -202,6 +202,53 @@ c437_status:
     provenance: '5c5daa1df0ff4dc5bf6da1ed2141c91371989500b7bbbcccacca721d383a27ee'
     manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
     metrics: '928dbf718c8d46e0a70c89fdb6d1c006e260fe72f77b70f760027e076e226c28'
+
+c438_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C438
+  family: cross_asset_wasserstein_earth_movers_optimal_transport_1_distance_causal_trailing_window_standardized_returns_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'First symmetric cross-asset Wasserstein (Earth Mover\'s) optimal-transport 1-distance family ever run. Distinct from C437 JSD (information divergence / marginal-histogram KL), C436 Mutual Information (symmetric joint-histogram dependence), C435 Transfer Entropy (directed TE_{i->j}), C434 Lyapunov (univariate dynamical divergence), C433 HVG (static graph invariants), C429 Markov sign-transition, C408 LEADLAG, C410 XCORR, C411 SEMCORR, C417 CDOM, C420 SCOH, every univariate entropy family C349/C355/C356/C338/C396/C357/C419, every moment/sign/spectral/path family C281B-C437. W1 is SYMMETRIC, CROSS-ASSET, optimal-transport marginal-distribution distance — no prior family computes it as a cross-asset pairwise sorted-quantile-L1 W1 profile. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261125T052612Z
+  artifacts_ts: 20261125T052612Z
+  signals: [wass_mean_dev, wass_max_dev, wass_conc_dev, wass_disp_dev, wass_mean_placebo, wass_max_placebo, wass_conc_placebo, wass_disp_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0.0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261302
+  standardization: {W_q: 256, fallback: 128}
+  wasserstein_params: {window_W: 256, statistics: [wass_mean, wass_max, wass_conc, wass_disp], pairs: unordered_i_lt_j, kernel: 1_wasserstein_sorted_quantile_L1}
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'wass_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [wass_mean_dev, wass_max_dev, wass_conc_dev, wass_disp_dev]
+  scripts_present: [scripts/build_c438_wasserstein_features.py, scripts/preflight_c438.py, scripts/run_c438_wasserstein_xsec_oos.py]
+  tests_present: [tests/test_preflight_c438.py, tests/test_c438_wasserstein_xsec_oos.py]
+  cache_present: data/cache/campaign438_wasserstein_5m
+  artifacts_present: [reports/campaign438_oos_sweep_20261125T052612Z.json, reports/campaign438_tradable_edge_registry_20261125T052612Z.json, reports/campaign438_summary_20261125T052612Z.json, reports/campaign438_verdict_20261125T052612Z.json, reports/campaign438_binding_constraint_20261125T052612Z.json]
+  preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all shards under push limit + budget, raw NaN total 0, funding all-NaN control)
+  tests_green: 45
+  brute_force_maxdiff: 'vectorized W1 (sliding trailing windows of z + per-window per-asset sort + pairwise sorted-quantile L1) == naive per-window explicit sorted-quantile-L1 reference, maxdiff < 1e-12 for wass_mean/max/conc/disp; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C437'
+  sweep: COMPLETE (full literal-2592-config costed OOS sweep ran reusing cache, no recompute; wrote campaign438_wasserstein_metrics.npz + 5 reports ts 20261125T052612Z)
+  artifacts:
+    oos_sweep: '923ec6b65c5f16cb20a0d89aaa213e2d24d55a9ee0130cbd1de979886103b2d6'
+    tradable_edge_registry: '093126aea2a5c2144afcbbfe8c1d310bdaa211ddd49eeb510cc5bc3a48a696e2'
+    summary: 'f29b056e649d0f405fcb241049e3d0c1b8f9796e7b6579527954c10f61f9ed2d'
+    verdict: '5d83eb5b052e33df6faa8df0a7e89d37f5a66316f33e3336101d71c2da6780e3'
+    binding_constraint: '5f89c3a30f288f9fe9343be9adead840446b0a2c6915e5446062b11451ea60b1'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_deterministic_edge: 0
+  dominant_attribution: wass_mean_dev
+  dominant_share: 0.125
+  attribution_ok: false
+  cache_shas:
+    meta: 'c171e941c9a24b3f42e7d2c0c36a90c4a13144fbf91b3f0695f7c04051e5359f'
+    provenance: '32dbdabaddfacc8eb7ffa7d7c3493f8f01e0057ca44514f97eecfa90cd52deb6'
+    manifest: 'ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f'
+    metrics: '60f17438f4c3e71362321c4fdff154f2e93b903c0f177f0f8897708e7db11805'
 
 c433_status:
   state: COMPLETE_FORMAL_NEGATIVE

@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261125T052612Z",
+  "campaign": 438,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign438_oos_sweep_20261125T052612Z.json",
+  "oos_sweep_sha256": "923ec6b65c5f16cb20a0d89aaa213e2d24d55a9ee0130cbd1de979886103b2d6",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "wass_mean_dev": 0.125,
+    "wass_max_dev": 0.125,
+    "wass_conc_dev": 0.125,
+    "wass_disp_dev": 0.125,
+    "wass_mean_placebo": 0.125,
+    "wass_max_placebo": 0.125,
+    "wass_conc_placebo": 0.125,
+    "wass_disp_placebo": 0.125
+  },
+  "dominant_attribution": "wass_mean_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "wass_mean_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      0.02240164250724778,
+      -0.04292097711845603,
+      -0.03939847600319504,
+      -0.11395122428302779,
+      -0.037983202120206755,
+      -0.06358539047702533,
+      0.04679864906969067,
+      -0.07031904627683619
+    ],
+    "sign_consistency": 0.25,
+    "first_half_sharpe": -0.9003294993003644,
+    "second_half_sharpe": -0.6702049013399258,
+    "sharpe_corr": 0.7582120188281511,
+    "stable": false
+  },
+  "diagnosis": "C438 price-only CROSS-ASSET WASSERSTEIN (Earth Mover's) OPTIMAL-TRANSPORT 1-DISTANCE stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
