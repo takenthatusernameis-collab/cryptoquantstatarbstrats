@@ -1,7 +1,17 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T20:06:57Z (refreshed; C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441; BOTTLENECK REMOVED: Step 6 sweep running as PERSISTENT background process pid 15097 (`.venv/bin/python scripts/run_c441_tda_xsec_oos.py`), ~30h/12.6M ripser calls, 4 workers/15GiB RAM/4 CPU — confirmed healthy at 20:06:57Z (4 ripser workers at ~90% CPU each, ~4 min into ~30h) — monitor `sweep.log`/background-process logs until completion, then Steps 7-8 state + queue advance. C441 artifacts build_c441_tda_features.py + preflight_c441.py + run_c441_tda_xsec_oos.py + tests/test_preflight_c441.py + tests/test_c441_tda_xsec_oos.py + cache/campaign441_tda_5m/ all PRESENT and VERIFIED. TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
-## INITIAL TASK MESSAGE (2026-11-25T20:06:57Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
+**Handoff written:** 2026-11-25T20:10:15Z (refreshed; C430-C440 COMPLETE_FORMAL_NEGATIVE frozen; queue on C441; **BOTTLENECK REMOVED: Step 6 sweep RUNNING as PERSISTENT background process** `bgp_2144de4c4001OEqCTbHJq1t1CF` (`.venv/bin/python scripts/run_c441_tda_xsec_oos.py`, started 2026-11-25T20:02:00Z), ~30h/12.6M ripser calls, 4 workers/15GiB RAM/4 CPU — **confirmed healthy at 20:10:15Z (4 ripser workers at ~93% CPU each, ~8 min into ~30h)** — monitor background-process logs until completion, then Steps 7-8 state + queue advance. C441 artifacts all PRESENT and VERIFIED. TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T20:10:15Z; THE ONLY ACTIVE DIRECTIVE)
+
+**C441 SWEEP IN PROGRESS — DO NOT INTERRUPT.** The full literal 2592-config costed OOS sweep is running as persistent background process `bgp_2144de4c4001OEqCTbHJq1t1CF` (pid 15097 + 4 ripser workers at ~93% CPU). **Next session MUST:**
+1. **WAIT** for sweep completion (monitor `background_process logs bgp_2144de4c4001OEqCTbHJq1t1CF` or `ps aux | grep ripser` until 4 workers disappear)
+2. **VERIFY** 5 SHA256 reports in `reports/campaign441_*_<ts>.json` + `campaign441_tda_metrics.npz` in `data/cache/campaign441_tda_5m/`
+3. **APPEND** `c441_status` block to `research_state/state.yaml` (all fields: state, campaign, family, genuinely_new, distinct_from, as_of_utc, artifacts_ts, signals, n_configs, grid_arithmetic, placebo_seed, standardization, tda_params, wf, stability_ref, attr_representatives, scripts_present, tests_present, cache_present, artifacts_present, preflight, tests_green, brute_force_maxdiff, sweep, artifacts (5 SHA256s), cache_shas (meta, provenance, manifest, metrics), verdict, edge_proven, binding_constraint, n_survive_holm, n_survive_bh, n_survive_both, n_deterministic_edge, dominant_attribution, dominant_share, attribution_ok)
+4. **ADVANCE QUEUE** in `state.yaml`: `active_campaign=next_campaign=queued_next_campaign=C442`, `latest_campaign_done=C441`
+5. **BEGIN C442** (Correlation Dimension / Grassberger-Procaccia, m∈{3,4,5,6}, 8 signals, 2592-config grid, same structure as C441) — author ALL 5 files FROM SCRATCH: `build_c442_corr_dim_features.py`, `preflight_c442.py`, `run_c442_corr_dim_xsec_oos.py`, `test_preflight_c442.py`, `test_c442_corr_dim_xsec_oos.py` with brute-force equality check maxdiff < 1e-12 and kernel-distinctness guards vs ALL C281B-C441.
+
+**NO EXCEPTIONS. NO STOPPING. NO SHORTCUTS. NO "TBD/FAMILY UNDECIDED". C442 FAMILY IS LOCKED.**
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): C430-C440 are ALL COMPLETE_FORMAL_NEGATIVE and frozen (NO EDGE through C440). The queue is on C441 — the next stat-arb family campaign on the C312 USDT-M 5m `perp_close` universe following the established C430-C440 pattern.**
 
