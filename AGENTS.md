@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-25T03:56:13Z (refreshed; C436 Mutual Information COMPLETE end-to-end RETRACTED 20261125T034638Z; queue moved C436 -> C437; C430-C436 ALL FROZEN formal negatives RETRACTED; C437 not yet started — next heavy campaign). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
+**Handoff written:** 2026-11-25T03:56:57Z (refreshed; C436 Mutual Information COMPLETE end-to-end RETRACTED 20261125T034638Z; queue moved C436 -> C437; C430-C436 ALL FROZEN formal negatives RETRACTED; C437 not yet started — next heavy campaign). TEST COMMAND IS `.venv/bin/python -m pytest` — NEVER bare `pytest`, NEVER system `python3 -m pytest`.
 
-## INITIAL TASK MESSAGE (2026-11-25T03:56:13Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
+## INITIAL TASK MESSAGE (2026-11-25T03:56:57Z; supersedes all earlier; THE ONLY ACTIVE DIRECTIVE)
 
 **PRIORITY (derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies): the single most relevant next unit of work is the next pre-registered, fully-costed, real-data-only, walk-forward OOS stat-arb EDGE campaign on the C312 USDT-M 5m `perp_close` universe. C430 DISTCOR, C431 CQ, C432 EDF-GOF, C433 HVG, C434 LYAP, C435 TE, C436 MI are ALL DONE (formal negatives, RETRACTED). The queue is on C437.**
 
