@@ -2795,7 +2795,7 @@ c441_status:
   family: tda_persistent_homology_h1_persistence_entropy_delay_embedded_perp_close_returns_usdt_m_5m
   genuinely_new: true
   distinct_from: 'First persistent-homology / TDA H1 persistence entropy family ever run. Vietoris-Rips filtration on the causal trailing-window standardized-return delay embedding (delay tau=1, embeddings m in {3,4,5,6}, window W_q=256 fallback 128), per-window scalar H1 persistence entropy H=-sum_k p_k log(p_k), p_k=(death_k-birth_k)/sum_j(death_j-birth_j). 4 dev (real embeddings) + 4 placebo (seeded iid permutation seed 20261441 of standardized returns). Distinct from C349 permutation/ordinal entropy (rank orderings), C365 KER (net-displacement/path-length ratio), C422 ZCRPATH/C376 QSPREAD/C392 DDRRUN (path functionals), C425 RQA/C433 HVG (static graph/topology), C434 Lyapunov (dynamical divergence), C430 dCor/C431 CQ/C432 EDF-GOF/C435 TE/C436 MI/C437 JSD/C438 Wasserstein/C439 HSIC (dependence/divergence), C440 truncated path signature (Chen iterated integrals). Price-only (perp_close), volume-free.'
-  as_of_utc: 20261125T194401Z
+  as_of_utc: 20261126T134805Z
   artifacts_ts: null
   signals: [tda_m3_dev, tda_m4_dev, tda_m5_dev, tda_m6_dev, tda_m3_placebo, tda_m4_placebo, tda_m5_placebo, tda_m6_placebo]
   n_configs: 2592
@@ -2813,7 +2813,7 @@ c441_status:
   preflight: ready:true (real_data_only:true, fabricated_data:false, executed_fills:false, interval=5m, source_campaign=312, no network/resample, all 10 shards under push limit + budget, raw NaN total 0, funding all-NaN control)
   tests_green: 41
   brute_force_maxdiff: 'vectorized H1 persistence entropy (sliding_window_view delay embedding + chunked Vietoris-Rips via ripser) == independent naive explicit per-window reference (explicit mean/std + explicit delay-embed loop + explicit pairwise-distance loop + ripser), maxdiff < 1e-12 for tda_m3/m4/m5/m6; NaN patterns identical; kernel-distinctness guards vs ALL prior families C281B-C440 incl. C349/C365/C422/C376/C392/C425/C433/C434/C429/C430/C431/C432/C435/C436/C437/C438/C439/C440'
-  sweep: 'PENDING (heavy compute: compute_tda_metrics on full 315648-bar panel x 10 assets x 4 embeddings = ~12.6M ripser calls, ~30h at 4 workers; NOT feasible in-session — next session must run scripts/run_c441_tda_xsec_oos.py to completion)'
+  sweep: 'RUNNING as of 20261126T134805Z (verified via ps+top: PID 3841 python + workers 3858-3861 each ~91-95% CPU, load 6.4 on 4 cores = MAXED; started 10:52Z, ~176min elapsed; 0/80 PH-series checkpoints on disk yet = EXPECTED first 4 imminent ~13:50-14:10Z, NOT a stall; per-series ~150-180min, full 80-series ~30-50h at 4 workers; runner AUTO-COMMITS each _ckpt_tda_10x315648/{real,placebo}_{i}_{m}.npy to git so a reset resumes with zero manual steps). Next session: check pgrep once, then schedule_wakeup +90min if 0 checkpoints else +4h, exit; on completion fill this block + advance queue C441->C442.'
   artifacts: {}
   verdict: not_yet_determined (sweep pending)
   edge_proven: false
