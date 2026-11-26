@@ -4,7 +4,7 @@
 
 **BOTTLENECK REMOVAL (2026-11-26T03:05:55Z): wakeups are PER-SESSION and ARE LOST on session replacement (proven: prior `wku_215a5bb62001...` due 02:48:32Z vanished at 02:21:36Z; prior `wku_215a8ec92001wZBMVmozppCXTp` due 04:22:01Z also does NOT carry; prior `wku_215aa3dd9001MQbcGnX6af8ZCw` due 04:23:28Z also does NOT carry). THIS fresh session MUST schedule its OWN fresh 2h wakeup via `schedule_wakeup` as its FIRST ACTION, then check sweep status, then exit. The sweep completes unattended; no external trigger is required or awaited, but a per-session wakeup MUST be re-armed by every fresh session.**
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-26T03:05:55Z; THE ONLY ACTIVE DIRECTIVE)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-26T03:08:34Z; THE ONLY ACTIVE DIRECTIVE)
 
 **C441 SWEEP RUNNING — MONITOR AND COMPLETE.** The persistent sweep process is running (bgp_2159f4bd8001WxGV1iniK3uG6K PID 5705 main / PID 5769 python, workers 5880-5883, started 2026-11-26T02:11Z, full literal 2592-config costed OOS sweep, ~12.6M ripser calls ~30h at 4 workers/15GiB RAM/4 CPU; verified alive 03:01Z at ~95% CPU, ~55 min elapsed). Cache is COMPLETE with meta/provenance (10 shards + meta + provenance, 315648 grid bars). Preflight PASSED ("ready": true, raw_nan_total: 0). Tests GREEN (41 passed). Wakeups are PER-SESSION and LOST on replacement — if you are a FRESH/replaced session, re-arm your own immediately via `schedule_wakeup` (delay 2h). **Next session MUST execute this exact sequence — NO DEVIATION, NO IDLE-BLOCKING:**
 
