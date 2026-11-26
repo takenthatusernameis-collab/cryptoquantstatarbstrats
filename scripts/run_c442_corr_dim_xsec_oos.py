@@ -424,24 +424,49 @@ def compute_corr_dim_metrics(log_return: np.ndarray, W_q: int = CORR_DIM_W) -> d
         mean, sd, _cnt = _rolling_mean_std(R[i], W_q)
         z[i] = np.where(sd > 0, (R[i] - mean) / np.where(sd > 0, sd, 1.0), np.nan)
 
+    # Per-(asset,embedding) checkpointing: each finished D2 series is persisted
+    # to disk and skipped on restart, so a multi-hour sweep never loses all work
+    # to an interruption. The terminal metrics cache is still written by
+    # build_underlying once every series is present.
+    ckpt_dir = METRICS_CACHE.parent / f"_ckpt_corr_dim_{n_assets}x{T}"
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+
+    def _ckpt_file(kind: str, i: int, m: int):
+        return ckpt_dir / f"{kind}_{i}_{m}.npy"
+
+    def _run_pool(tasks: list, kind: str) -> dict:
+        out: dict = {}
+        pending = []
+        for (i, m, z_i, w) in tasks:
+            cf = _ckpt_file(kind, i, m)
+            if cf.exists():
+                try:
+                    out[(i, m)] = np.load(cf)
+                    continue
+                except Exception:  # noqa: BLE001
+                    pass
+            pending.append((i, m, z_i, w))
+        if pending:
+            n_workers = min(4, len(pending))
+            with ProcessPoolExecutor(max_workers=n_workers) as ex:
+                futs = [ex.submit(_corr_dim_one_asset_m, t) for t in pending]
+                done = 0
+                total = len(futs)
+                for fut in as_completed(futs):
+                    i, m, series = fut.result()
+                    out[(i, m)] = series
+                    np.save(_ckpt_file(kind, i, m), series)
+                    done += 1
+                    if done % 5 == 0 or done == total:
+                        print(f"[C442] corr_dim {kind} progress: {done}/{total} (asset,embedding) series done", flush=True)
+        return out
+
     # Parallelize across (asset, embedding) — 40 independent D2 series.
     tasks = []
     for i in range(n_assets):
         for m in CORR_DIM_EMBEDDINGS:
             tasks.append((i, m, z[i], W_q))
-    results = {}
-    n_workers = min(4, len(tasks))
-    with ProcessPoolExecutor(max_workers=n_workers) as ex:
-        futs = [ex.submit(_corr_dim_one_asset_m, task) for task in tasks]
-        done = 0
-        total = len(futs)
-        for fut in as_completed(futs):
-            i, m, series = fut.result()
-            results[(i, m)] = series
-            done += 1
-            if done % 5 == 0 or done == total:
-                print(f"[C442] corr_dim progress: {done}/{total} (asset,embedding) series done", flush=True)
-
+    results = _run_pool(tasks, "real")
     for i in range(n_assets):
         for m in CORR_DIM_EMBEDDINGS:
             real["corr_dim_m%d" % m][i] = results[(i, m)]
@@ -455,19 +480,7 @@ def compute_corr_dim_metrics(log_return: np.ndarray, W_q: int = CORR_DIM_W) -> d
     for i in range(n_assets):
         for m in CORR_DIM_EMBEDDINGS:
             tasks_pl.append((i, m, z_pl[i], W_q))
-    results_pl = {}
-    n_workers = min(4, len(tasks_pl))
-    with ProcessPoolExecutor(max_workers=n_workers) as ex:
-        futs = [ex.submit(_corr_dim_one_asset_m, task) for task in tasks_pl]
-        done = 0
-        total = len(futs)
-        for fut in as_completed(futs):
-            i, m, series = fut.result()
-            results_pl[(i, m)] = series
-            done += 1
-            if done % 5 == 0 or done == total:
-                print(f"[C442] corr_dim placebo progress: {done}/{total} (asset,embedding) series done", flush=True)
-
+    results_pl = _run_pool(tasks_pl, "placebo")
     for i in range(n_assets):
         for m in CORR_DIM_EMBEDDINGS:
             placebo["corr_dim_m%d" % m][i] = results_pl[(i, m)]
