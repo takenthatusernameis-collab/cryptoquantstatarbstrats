@@ -428,6 +428,29 @@ def compute_tda_metrics(log_return: np.ndarray, W_q: int = TDA_W) -> dict:
     def _ckpt_file(kind: str, i: int, m: int):
         return ckpt_dir / f"{kind}_{i}_{m}.npy"
 
+    def _commit_checkpoint(cf) -> None:
+        """Best-effort: persist a finished PH series to git the instant it is
+        written, so an environment reset (which wipes untracked files AND kills
+        the process) resumes from the last committed checkpoint instead of
+        restarting the 30h sweep from zero. This removes the prior bottleneck
+        where durability depended on a live agent session running `git commit`.
+        Never raises: on any failure the checkpoint simply stays on disk and the
+        manual commit path in the handoff still applies."""
+        try:
+            import subprocess
+
+            subprocess.run(
+                ["git", "add", "-f", str(cf)],
+                cwd=str(ROOT), check=True, capture_output=True, timeout=120,
+            )
+            subprocess.run(
+                ["git", "commit", "-m", f"ckpt(c441): {cf.name}",
+                 "--quiet", "--", str(cf)],
+                cwd=str(ROOT), check=True, capture_output=True, timeout=120,
+            )
+        except Exception:  # noqa: BLE001
+            pass
+
     def _run_pool(tasks: list, kind: str) -> dict:
         out: dict = {}
         pending = []
@@ -450,6 +473,7 @@ def compute_tda_metrics(log_return: np.ndarray, W_q: int = TDA_W) -> dict:
                     i, m, series = fut.result()
                     out[(i, m)] = series
                     np.save(_ckpt_file(kind, i, m), series)
+                    _commit_checkpoint(_ckpt_file(kind, i, m))
                     done += 1
                     if done % 5 == 0 or done == total:
                         print(f"[C441] TDA {kind} PH progress: {done}/{total} (asset,embedding) series done", flush=True)
