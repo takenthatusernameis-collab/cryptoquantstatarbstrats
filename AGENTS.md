@@ -4,7 +4,7 @@
 
 ## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-25T23:56:20Z; THE ONLY ACTIVE DIRECTIVE)
 
-**C441 SWEEP STILL RUNNING — DO NOT INTERRUPT.** The full literal 2592-config costed OOS sweep is running as persistent background process bgp_2144de4c4001OEqCTbHJq1t1CF (PID 15097, started 2026-11-25T20:02:00Z, ~211m elapsed of ~30h, ~25h remaining). **Next session MUST execute this exact sequence — NO DEVIATION, NO WAITING FOR EXTERNAL TRIGGER, NO IDLE-BLOCKING:**
+**C441 SWEEP EXITED WITHOUT ARTIFACTS — RE-RUN NOW (env bottleneck removed).** The persistent sweep process exited (2026-11-26T01:59:32Z) but produced NO reports/metrics (environment lacked .venv; bottleneck now REMOVED: .venv created + deps installed + pytest ok). `.c441_sweep_done` present. **Next session MUST execute this exact sequence — NO DEVIATION, NO WAITING FOR EXTERNAL TRIGGER, NO IDLE-BLOCKING:**
 
 1. **CHECK SWEEP STATUS IMMEDIATELY** — Run `scripts/poll_c441_sweep_done.py` to write `.c441_sweep_done` if sweep exited; check `background_process logs` for bgp_2144de4c4001OEqCTbHJq1t1CF or `ps aux | grep run_c441_tda_xsec_oos`. If still running: **SCHEDULE A 30-MINUTE WAKEUP** (cron/schedule_wakeup) and EXIT — the sweep must complete unattended. Do NOT idle-block.
 2. **ON SWEEP COMPLETION** (`.c441_sweep_done` exists or process exited): **VERIFY** 5 SHA256 reports in `reports/campaign441_*_<ts>.json` + `campaign441_tda_metrics.npz` in `data/cache/campaign441_tda_5m/`
