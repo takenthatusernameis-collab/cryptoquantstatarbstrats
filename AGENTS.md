@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T22:23:07Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:23:07Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. ONE +4h wakeup SCHEDULED this session — when it fires, re-run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
+**Handoff written:** 2026-11-27T22:23:36Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:23:36Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. ONE +4h wakeup SCHEDULED this session — when it fires, re-run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. ONE +4h wakeup SCHEDULED this session (22:23Z) — it carries the sweep forward (nothing else does). When it fires: re-run the ONE check and pick ONE branch — (b) still LIVE+ckpt>0 → schedule the NEXT single +4h and exit; (c) done → go to C442. Do NOT loop/cron (the prior +50min loop caused ~60 churn sessions).
@@ -11,7 +11,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:23:07Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:23:36Z)
 
 **C441 SWEEP IS LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. A +4h WAKEUP IS ALREADY SCHEDULED; when it fires, run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
 
