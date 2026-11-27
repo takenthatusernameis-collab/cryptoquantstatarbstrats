@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T22:20:00Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:20:00Z: sweep LIVE persistent wrapper 4033/main 4040 + workers 4057-4060, 16 ckpt, 0 reports, no dup procs, git clean, venv OK, C442 files all present. Wakeup wku_21f180f570013i6X1mll01ivCt scheduled +4h, due 2026-11-28T02:20:00Z.)
+**Handoff written:** 2026-11-27T22:21:00Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:20:51Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. NO wakeup/cron currently pending — the next session MUST schedule exactly ONE +4h wakeup per the INITIAL TASK MESSAGE then exit.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
-- `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. NO pending wakeups/crons (verified 21:31Z — no churn bottleneck; do NOT create any).
+- `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. NO wakeup/cron pending right now (verified 22:20:51Z). The next session MUST schedule exactly ONE +4h wakeup (branch b) then exit — do NOT skip it (nothing else carries the sweep forward) and do NOT loop/cron it (the prior +50min loop caused ~60 churn sessions).
 - C441 sweep LIVE as PERSISTENT background process (bg id `bgp_21eaa19d1001iVtTzWZhHFESSq`, wrapper PID 4033, python MAIN PID 4040 + workers 4057-4060, ~83% CPU each, single clean sweep, NO duplicate). Relaunched 2026-11-27T20:23Z after a reset (after 17:11Z) killed the prior run AND wiped `.venv`; `.venv` REBUILT before relaunch.
 - **BRANCH (b): LIVE process AND checkpoints > 0.** 16/80 checkpoints on disk in `data/cache/_ckpt_tda_10x315648/` (real_0_3/4/5/6 + real_1_3/4/5/6 + real_2_3/4/5/6 + real_3_3/4/5/6, git-tracked/committed — resume point durable; all 16 stamped 20:14Z relaunch). Next new batch of 4 checkpoints ETA ~23:54Z (~3.7h/round). Runner AUTO-COMMITS each checkpoint; reset resumes with ZERO manual steps (only `.venv` must be rebuilt after a reset).
 - Cache COMPLETE (10 git-tracked shards + meta + provenance, 315648 grid bars). Meta SHA `40dd021ce269feec86a396be1b2a922abcbaa044d07760d63eb310abda7fa419`; Provenance SHA `cbd157e89a89d8b90812ab53cb728413366cf53396ae4d107f9ffe96b8d3f62e`; Manifest SHA `ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f`.
@@ -11,7 +11,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:20:00Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:21:00Z)
 
 **C441 SWEEP IS LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, JUST SCHEDULE ONE LONG WAKEUP (+4h) AND EXIT. THEN C442 IS MANDATORY HEAVY WORK.**
 
@@ -21,7 +21,7 @@ Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 - (c) NO process AND `reports/campaign441_*` (5 files) + `data/cache/campaign441_tda_metrics.npz` present → sweep DONE, go to step 3.
 - (d) NO process AND no reports → reset killed it: rebuild venv (`python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt`), cache meta PRESENT (no rebuild needed), then re-launch `.venv/bin/python scripts/run_c441_tda_xsec_oos.py` as PERSISTENT background process (resumes from auto-committed checkpoints) and exit.
 
-RULES — DO NOT kill a running sweep; DO NOT spawn a duplicate (NEVER use `background_process` `monitor` with a command on the sweep — it spawns a new process; use `logs`/`status` with the bg id ONLY); if two `run_c441_tda_xsec_oos` python mains appear, `stop` the session-lifetime one and keep the `persistent` one; DO NOT re-arm wakeups in a loop; DO NOT idle-block. CHECKPOINT DIR = `data/cache/_ckpt_tda_10x315648/` (NOT under `campaign441_tda_5m/`). METRICS = `data/cache/campaign441_tda_metrics.npz`.
+RULES — DO NOT kill a running sweep; DO NOT spawn a duplicate (NEVER use `background_process` `monitor` with a command on the sweep — it spawns a new process; use `logs`/`status` with the bg id ONLY); if two `run_c441_tda_xsec_oos` python mains appear, `stop` the session-lifetime one and keep the `persistent` one; DO NOT re-arm wakeups in a loop; DO NOT idle-block. CHECKPOINT DIR = `data/cache/_ckpt_tda_10x315648/` (NOT under `campaign441_tda_5m/`). METRICS = `data/cache/campaign441_tda_metrics.npz`. WHEN EDITING THIS FILE: make ONE minimal exact-match edit (copy the current line verbatim); do NOT attempt large rewrites — prior sessions churned dozens of turns on failed oldString matches.
 
 ## STEPS
 1. **RECOVER ENV IF RESET (only if needed)** — `.venv/bin/python` present now; if wiped: `python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt`. Cache meta `data/cache/campaign441_tda_5m.meta.json` PRESENT (no rebuild needed). requirements.txt pins ripser>=0.6.15 + pytest>=7.0. Console scripts NOT on PATH — always run `.venv/bin/python -m pytest`.
