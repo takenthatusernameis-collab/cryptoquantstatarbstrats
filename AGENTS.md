@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T02:25:01Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 02:25:01Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. THE +4h WAKEUP (id `wku_21f1ca927001wjt6oehN5BuTRF`) FIRES NOW — run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
+**Handoff written:** 2026-11-27T22:28:24Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:28:24Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) is SCHEDULED for 2026-11-28T02:28:28Z — when it fires run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
-- `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. ONE +4h wakeup SCHEDULED this session (id `wku_21f1ca927001wjt6oehN5BuTRF`, due 2026-11-28T02:25Z) — it carries the sweep forward (nothing else does). When it fires: re-run the ONE check and pick ONE branch — (b) still LIVE+ckpt>0 → schedule the NEXT single +4h and exit; (c) done → go to C442. Do NOT loop/cron (the prior +50min loop caused ~60 churn sessions).
+- `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. ONE +4h wakeup SCHEDULED this session (id `wku_21f1fd06f001n7uL3oA6QSCH1E`, due 2026-11-28T02:28:28Z) — it carries the sweep forward (nothing else does). When it fires: re-run the ONE check and pick ONE branch — (b) still LIVE+ckpt>0 → schedule the NEXT single +4h and exit; (c) done → go to C442. Do NOT loop/cron (the prior +50min loop caused ~60 churn sessions).
 - C441 sweep LIVE as PERSISTENT background process (bg id `bgp_21eaa19d1001iVtTzWZhHFESSq`, wrapper PID 4033, python MAIN PID 4040 + workers 4057-4060, ~83% CPU each, single clean sweep, NO duplicate). Relaunched 2026-11-27T20:23Z after a reset (after 17:11Z) killed the prior run AND wiped `.venv`; `.venv` REBUILT before relaunch.
 - **BRANCH (b): LIVE process AND checkpoints > 0.** 16/80 checkpoints on disk in `data/cache/_ckpt_tda_10x315648/` (real_0_3/4/5/6 + real_1_3/4/5/6 + real_2_3/4/5/6 + real_3_3/4/5/6, git-tracked/committed — resume point durable; all 16 stamped 20:14Z relaunch). Next new batch of 4 checkpoints ETA ~23:54Z (~3.7h/round). Runner AUTO-COMMITS each checkpoint; reset resumes with ZERO manual steps (only `.venv` must be rebuilt after a reset).
 - Cache COMPLETE (10 git-tracked shards + meta + provenance, 315648 grid bars). Meta SHA `40dd021ce269feec86a396be1b2a922abcbaa044d07760d63eb310abda7fa419`; Provenance SHA `cbd157e89a89d8b90812ab53cb728413366cf53396ae4d107f9ffe96b8d3f62e`; Manifest SHA `ed77576cbee8a1579f080428750c6a40b6f45488cc818c22d2971a97eb00479f`.
@@ -11,9 +11,9 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:25:01Z — WAKEUP FIRES)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:28:28Z — WAKEUP FIRES)
 
-**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f1ca927001wjt6oehN5BuTRF`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
+**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
 
 Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 - (a) `pgrep -af run_c441_tda_xsec_oos` LIVE AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` is 0 → `schedule_wakeup` ONCE for +90min and exit (first checkpoint imminent; sweep checkpoints on its own; blocking shell sleep forbidden; do NOT poll sooner).
