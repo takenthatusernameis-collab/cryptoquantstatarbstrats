@@ -13,7 +13,7 @@
 
 ## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T03:23:32Z — WAKEUP FIRES)
 
-**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f523b98001XRfK00MqRUt3nh`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
+**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f523b98001XRfK00MqRUt3nh`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT; C442 IS THE UNAVOIDABLE NEXT CAMPAIGN — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
 
 Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 - (a) `pgrep -af run_c441_tda_xsec_oos` LIVE AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` is 0 → `schedule_wakeup` ONCE for +90min and exit (first checkpoint imminent; sweep checkpoints on its own; blocking shell sleep forbidden; do NOT poll sooner).
