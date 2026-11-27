@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T22:21:00Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:20:51Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. NO wakeup/cron currently pending — the next session MUST schedule exactly ONE +4h wakeup per the INITIAL TASK MESSAGE then exit.)
+**Handoff written:** 2026-11-27T22:21:00Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:22:06Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. NO wakeup/cron currently pending — the next session MUST schedule exactly ONE +4h wakeup per the INITIAL TASK MESSAGE then exit.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. NO wakeup/cron pending right now (verified 22:20:51Z). The next session MUST schedule exactly ONE +4h wakeup (branch b) then exit — do NOT skip it (nothing else carries the sweep forward) and do NOT loop/cron it (the prior +50min loop caused ~60 churn sessions).
@@ -11,7 +11,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:21:00Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:22:06Z)
 
 **C441 SWEEP IS LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, JUST SCHEDULE ONE LONG WAKEUP (+4h) AND EXIT. THEN C442 IS MANDATORY HEAVY WORK.**
 
