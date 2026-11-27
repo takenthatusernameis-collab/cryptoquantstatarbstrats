@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T21:34:07Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 21:34:07Z: sweep LIVE, 16 ckpt, no crons, no dup procs, git clean.)
+**Handoff written:** 2026-11-27T22:17:10Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:17:10Z: sweep LIVE persistent wrapper 4033/main 4040 + workers 4057-4060, 16 ckpt, 0 reports, no dup procs, git clean.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. NO pending wakeups/crons (verified 21:31Z — no churn bottleneck; do NOT create any).
