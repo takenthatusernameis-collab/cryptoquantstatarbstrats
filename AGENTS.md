@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T21:32:06Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 21:32:49Z: sweep LIVE, 16 ckpt, no crons, no dup procs, git clean.)
+**Handoff written:** 2026-11-27T21:34:07Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 21:34:07Z: sweep LIVE, 16 ckpt, no crons, no dup procs, git clean.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. NO pending wakeups/crons (verified 21:31Z — no churn bottleneck; do NOT create any).
@@ -11,7 +11,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T21:32:49Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T21:34:07Z)
 
 **C441 SWEEP IS LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, JUST SCHEDULE ONE LONG WAKEUP (+4h) AND EXIT. THEN C442 IS MANDATORY HEAVY WORK.**
 
