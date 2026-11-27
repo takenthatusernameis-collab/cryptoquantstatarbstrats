@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T22:29:03Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:28:24Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) is SCHEDULED for 2026-11-28T02:28:28Z — when it fires run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
+**Handoff written:** 2026-11-27T22:29:57Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:29:57Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) is SCHEDULED for 2026-11-28T02:28:28Z — when it fires run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. ONE +4h wakeup SCHEDULED this session (id `wku_21f1fd06f001n7uL3oA6QSCH1E`, due 2026-11-28T02:28:28Z) — it carries the sweep forward (nothing else does). When it fires: re-run the ONE check and pick ONE branch — (b) still LIVE+ckpt>0 → schedule the NEXT single +4h and exit; (c) done → go to C442. Do NOT loop/cron (the prior +50min loop caused ~60 churn sessions).
@@ -13,7 +13,7 @@
 
 ## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:28:28Z — WAKEUP FIRES)
 
-**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
+**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f1fd06f001n7uL3oA6QSCH1E`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
 
 Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 - (a) `pgrep -af run_c441_tda_xsec_oos` LIVE AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` is 0 → `schedule_wakeup` ONCE for +90min and exit (first checkpoint imminent; sweep checkpoints on its own; blocking shell sleep forbidden; do NOT poll sooner).
