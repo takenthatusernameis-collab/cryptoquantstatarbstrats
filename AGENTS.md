@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-27T22:24:55Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 22:24:55Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. ONE +4h wakeup NOW SCHEDULED this session — id `wku_21f1ca927001wjt6oehN5BuTRF`, due 2026-11-28T02:25:01Z — when it fires, re-run the ONE check, pick ONE branch, do NOT re-confirm in a loop. THE PRIOR SESSION CLAIMED A WAKEUP BUT NONE EXISTED — THIS ONE IS REAL, VERIFIED PRESENT.)
+**Handoff written:** 2026-11-28T02:25:01Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. (State re-verified 02:25:01Z: sweep LIVE persistent wrapper PID 4033 / python MAIN 4040 + workers 4057-4060, 16 ckpt on disk, 0 reports, 0 metrics, no dup procs, git clean, venv OK, all 5 C442 files present. THE +4h WAKEUP (id `wku_21f1ca927001wjt6oehN5BuTRF`) FIRES NOW — run the ONE check, pick ONE branch, do NOT re-confirm in a loop.)
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - `.venv` healthy (numpy 2.5.5 + ripser OK). Git tree clean, branch main. ONE +4h wakeup SCHEDULED this session (id `wku_21f1ca927001wjt6oehN5BuTRF`, due 2026-11-28T02:25Z) — it carries the sweep forward (nothing else does). When it fires: re-run the ONE check and pick ONE branch — (b) still LIVE+ckpt>0 → schedule the NEXT single +4h and exit; (c) done → go to C442. Do NOT loop/cron (the prior +50min loop caused ~60 churn sessions).
@@ -11,15 +11,17 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-27T22:24:55Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:25:01Z — WAKEUP FIRES)
 
-**C441 SWEEP IS LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. A +4h WAKEUP IS ALREADY SCHEDULED; when it fires, run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
+**C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (id `wku_21f1ca927001wjt6oehN5BuTRF`) FIRES NOW; run the ONE check, pick ONE branch, act, exit. THEN C442 IS MANDATORY HEAVY WORK.**
 
 Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 - (a) `pgrep -af run_c441_tda_xsec_oos` LIVE AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` is 0 → `schedule_wakeup` ONCE for +90min and exit (first checkpoint imminent; sweep checkpoints on its own; blocking shell sleep forbidden; do NOT poll sooner).
-- (b) LIVE AND checkpoints > 0 → `schedule_wakeup` ONCE for +4h and exit (each ~3.7h round writes 4 checkpoints; +4h efficient — do NOT use +50min, that caused ~60 churn sessions). ← **CURRENT BRANCH.**
+- (b) LIVE AND checkpoints > 0 → `schedule_wakeup` ONCE for +4h and exit (each ~3.7h round writes 4 checkpoints; +4h efficient — do NOT use +50min, that caused ~60 churn sessions). ← **EXPECTED BRANCH (sweep ~4h in, ~60-75h total).**
 - (c) NO process AND `reports/campaign441_*` (5 files) + `data/cache/campaign441_tda_metrics.npz` present → sweep DONE, go to step 3.
 - (d) NO process AND no reports → reset killed it: rebuild venv (`python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt`), cache meta PRESENT (no rebuild needed), then re-launch `.venv/bin/python scripts/run_c441_tda_xsec_oos.py` as PERSISTENT background process (resumes from auto-committed checkpoints) and exit.
+
+**BOTTLENECK REMOVAL:** The prior +50min polling loop caused ~60 churn sessions. This wakeup IS the scheduled long-wakeup discipline. If branch (b): schedule NEXT single +4h wakeup and EXIT. Do NOT spawn a cron, do NOT poll, do NOT idle-block. The persistent bg process (bg id `bgp_21eaa19d1001iVtTzWZhHFESSq`) checkpoints autonomously; your only job at wakeup is the ONE check → ONE branch → ONE wakeup → exit.
 
 RULES — DO NOT kill a running sweep; DO NOT spawn a duplicate (NEVER use `background_process` `monitor` with a command on the sweep — it spawns a new process; use `logs`/`status` with the bg id ONLY); if two `run_c441_tda_xsec_oos` python mains appear, `stop` the session-lifetime one and keep the `persistent` one; DO NOT re-arm wakeups in a loop; DO NOT idle-block. CHECKPOINT DIR = `data/cache/_ckpt_tda_10x315648/` (NOT under `campaign441_tda_5m/`). METRICS = `data/cache/campaign441_tda_metrics.npz`. WHEN EDITING THIS FILE: make ONE minimal exact-match edit (copy the current line verbatim); do NOT attempt large rewrites — prior sessions churned dozens of turns on failed oldString matches.
 
