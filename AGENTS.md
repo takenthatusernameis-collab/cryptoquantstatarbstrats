@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T12:35:22Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T13:01:24Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER, MANDATORY HEAVY).
-**VERIFIED STATE 2026-11-28T12:35:22Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). C443 guard CLEAN. **BRANCH (b): LIVE + checkpoints > 0.** Wakeup re-armed +4h (due 2026-11-28T16:35:22Z) — re-arm +4h FIRST in the next session.
+**VERIFIED STATE 2026-11-28T13:01:24Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present (`scripts/build_c442_corr_dim_features.py`, `scripts/preflight_c442.py`, `scripts/run_c442_corr_dim_xsec_oos.py`, `tests/test_c442_corr_dim_xsec_oos.py`, `tests/test_preflight_c442.py`). C442 guard CLEAN (no C442 process, no C442 reports). C443 guard CLEAN. **BRANCH (b): LIVE + checkpoints > 0.** Wakeup re-armed +4h (due 2026-11-28T17:01:31Z) — re-arm +4h FIRST in the next session.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T12:35:22Z — C441 LIVE + 24 ckpts, BRANCH (b))
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:01:24Z — C441 LIVE + 24 ckpts, BRANCH (b))
 
 **C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, newest `real_5_6.npy`). C442 guard is CLEAN. DO NOT relaunch, DO NOT kill, DO NOT spawn a duplicate. Your ONLY job this session is: (1) re-arm ONE +4h wakeup FIRST (chain is per-session — it dies with each session unless re-armed before anything else), (2) run the ONE status check below, (3) pick the ONE matching branch, (4) exit. No polling, no idle-blocking, no cron, no re-reading in a loop.**
 
@@ -33,7 +33,7 @@
 - **CROSS-SESSION C442 IDEMPOTENCY GUARD (enforced at every wakeup):** before ANY C442 action, run `pgrep -af run_c442_corr_dim_xsec_oos` AND `ls reports/campaign442_* 2>/dev/null`. If a C442 sweep is already running OR C442 reports exist → `schedule_wakeup` ONCE +4h and EXIT. Only ONE session EVER claims C442.
 - **CROSS-SESSION C443 IDEMPOTENCY GUARD (enforced at every wakeup after C442 done):** before ANY C443 action, run `pgrep -af run_c443_rqa_xsec_oos` AND `ls reports/campaign443_* 2>/dev/null`. If a C443 sweep is already running OR C443 reports exist → `schedule_wakeup` ONCE +4h and EXIT. Only ONE session EVER claims C443.
 - **EDITING THIS FILE:** use the Write tool to overwrite the whole file (do NOT use exact-match Edit — prior sessions churned dozens of turns on failed oldString matches). Keep it clean; do not re-accumulate contradictory branch notes.
-- **BOTTLENECK REMOVAL:** If any session finds itself blocked, stalled, or uncertain — the ONLY valid action is to execute the next heavy campaign step. Analysis paralysis is not an option. The repo priority is encoded in the name: CRYPTO QUANT STAT-ARB STRATEGIES. Ship heavy campaigns.
+- **BOTTLENECK REMOVAL:** If any session finds itself blocked, stalled, or uncertain — the ONLY valid action is to execute the next heavy campaign step. Analysis paralysis is not an option. The repo priority is encoded in the name: CRYPTO QUANT STAT-ARB STRATEGIES. Ship heavy campaigns. The single historical bottleneck (~60 churn sessions from +50min polling) is permanently removed by the +4h branch-(b) rule above — never reintroduce short polling.
 
 ## CAMPAIGN DEFINITIONS (LOCKED — do not change)
 - C430-C440: ALL COMPLETE_FORMAL_NEGATIVE and frozen (NO EDGE through C440). Do NOT re-run.
