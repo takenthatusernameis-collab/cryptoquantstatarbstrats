@@ -10,7 +10,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:56:00Z — NEXT SESSION INVOKED)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T02:57:17Z — NEXT SESSION INVOKED)
 
 **C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP (if still pending) OR EXTERNAL INVOCATION FIRES NOW; run the ONE check, pick ONE branch, act, exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT; C442 IS THE UNAVOIDABLE NEXT CAMPAIGN — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
 
@@ -23,6 +23,8 @@ Run the ONE check, pick ONE branch, do NOT re-read/re-confirm in a loop:
 **BOTTLENECK REMOVAL — FINAL:** The prior +50min polling loop caused ~60 churn sessions. This wakeup IS the scheduled long-wakeup discipline. If branch (b): schedule NEXT single +4h wakeup and EXIT. Do NOT spawn a cron, do NOT poll, do NOT idle-block. The persistent bg process (bg id `bgp_2200eaadc001A3d22Yjqa0SNH3`) checkpoints autonomously; your only job at wakeup is the ONE check → ONE branch → ONE wakeup → exit.
 
 RULES — DO NOT kill a running sweep; DO NOT spawn a duplicate (NEVER use `background_process` `monitor` with a command on the sweep — it spawns a new process; use `logs`/`status` with the bg id ONLY); if two `run_c441_tda_xsec_oos` python mains appear, `stop` the session-lifetime one and keep the `persistent` one; DO NOT re-arm wakeups in a loop; DO NOT idle-block. CHECKPOINT DIR = `data/cache/_ckpt_tda_10x315648/` (NOT under `campaign441_tda_5m/`). METRICS = `data/cache/campaign441_tda_metrics.npz`. WHEN EDITING THIS FILE: make ONE minimal exact-match edit (copy the current line verbatim); do NOT attempt large rewrites — prior sessions churned dozens of turns on failed oldString matches.
+
+**CROSS-SESSION C442 IDEMPOTENCY GUARD (ENFORCED AT EVERY WAKEUP):** Before ANY action, run `pgrep -af run_c442_corr_dim_xsec_oos` AND `ls reports/campaign442_* 2>/dev/null`. If C442 sweep already running OR C442 reports exist → `schedule_wakeup` ONCE +4h and EXIT. Only ONE session EVER claims C442. This guard is NOT optional — it prevents duplicate heavy sweeps across session boundaries.
 
 ## STEPS
 1. **RECOVER ENV IF RESET (only if needed)** — `.venv/bin/python` present now; if wiped: `python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt`. Cache meta `data/cache/campaign441_tda_5m.meta.json` PRESENT (no rebuild needed). requirements.txt pins ripser>=0.6.15 + pytest>=7.0. Console scripts NOT on PATH — always run `.venv/bin/python -m pytest`.
