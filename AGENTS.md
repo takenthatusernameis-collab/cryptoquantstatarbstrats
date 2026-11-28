@@ -10,7 +10,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T07:00:08Z — NEXT SESSION INVOKED AT ~10:58:57Z; re-verified 2026-11-28T07:00:08Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T07:01:33Z — NEXT SESSION INVOKED AT ~10:58:57Z; re-verified 2026-11-28T07:01:33Z)
 
 **VERIFIED STATE (2026-11-28T07:00:08Z): C441 sweep LIVE — main PID 2932 + 4 workers (3013-3016) each ~96% CPU, 24+ checkpoints in `data/cache/_ckpt_tda_10x315648/` (ACTIVELY GROWING, newest real_5_6.npy mtime 06:29:34Z, do NOT intervene), `.venv` OK → BRANCH (b) CONFIRMED. C442 guard CLEAN: `pgrep -af run_c442_corr_dim_xsec_oos` empty, `ls reports/campaign442_*` none → no C442 running, no C442 reports. DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. EXTERNAL INVOCATION FIRES NOW; run the ONE check, confirm branch (b), `schedule_wakeup` ONCE for +4h and exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT; C442 IS THE UNAVOIDABLE NEXT CAMPAIGN — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
 
