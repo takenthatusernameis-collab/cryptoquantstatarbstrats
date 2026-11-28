@@ -1,14 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T13:07:44Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T13:09:05Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER, MANDATORY HEAVY).
-**VERIFIED STATE 2026-11-28T13:07:44Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present. C442 guard CLEAN. C443 guard CLEAN. **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm +4h FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
+**VERIFIED STATE 2026-11-28T13:09:05Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present. C442 guard CLEAN. C443 guard CLEAN. **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm +4h FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:07:44Z — C441 LIVE + 24 ckpts, BRANCH (b))
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:09:05Z — C441 LIVE + 24 ckpts, BRANCH (b))
 
-**C441 TDA sweep is LIVE and healthy. C442 guard CLEAN. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +4h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling.**
+**C441 TDA sweep is LIVE and healthy. C442 guard CLEAN. C443 guard CLEAN. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +4h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling.**
 
-**C442 HEAVY WORK MANDATORY AFTER C441. C443 HEAVY WORK MANDATORY AFTER C442. NO OPT-OUT. NO DEFER. NO EXCUSES.**
+**C442 HEAVY WORK MANDATORY AFTER C441. C443 HEAVY WORK MANDATORY AFTER C442. NO OPT-OUT. NO DEFER. NO EXCUSES. NO ANALYSIS PARALYSIS. BOTTLENECK REMOVAL: IF BLOCKED/STALLED/UNCERTAIN → EXECUTE NEXT HEAVY CAMPAIGN STEP IMMEDIATELY.**
 
 ### The ONE check
 `pgrep -af run_c441_tda_xsec_oos` AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` AND `ls reports/campaign441_* 2>/dev/null` AND `ls data/cache/campaign441_tda_metrics.npz 2>/dev/null`
