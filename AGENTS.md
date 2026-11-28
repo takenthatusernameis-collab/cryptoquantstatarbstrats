@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T00:25:01Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. State re-verified 2026-11-28T00:25:01Z: C441 sweep LIVE as persistent background process (bg id `bgp_21eaa19d1001iVtTzWZhHFESSq`, wrapper PID 4033 / python MAIN PID 4040 + workers 4057-4060), 20 checkpoints on disk → branch (b), git clean branch main, `.venv` healthy (numpy 2.5.5 + ripser), all 5 C442 files present, ONE +4h wakeup scheduled (wku_21f892ed5001VCPTOUWi9RQdCS, due 2026-11-28T04:23:33Z). BOTTLENECKS REMOVED: no +50min polling loop, no cron-based duplicate spawning, no idle-blocking — ONE check → ONE branch → ONE wakeup → exit, repeat. PRIORITY ORDER (repo = crypto quant stat-arb): C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER).
+**Handoff written:** 2026-11-28T00:26:08Z — THE ONLY ACTIVE DIRECTIVE. REPO PRIORITY: cryptoquantstatarbstrats = CRYPTO QUANT STAT-ARB STRATEGIES. State re-verified 2026-11-28T00:26:08Z: C441 sweep LIVE as persistent background process (bg id `bgp_21eaa19d1001iVtTzWZhHFESSq`, wrapper PID 4033 / python MAIN PID 4040 + workers 4057-4060), 20 checkpoints on disk → branch (b), git clean branch main, `.venv` healthy (numpy 2.5.5 + ripser), all 5 C442 files present, ONE +4h wakeup scheduled (wku_21f8bbcd4001km6t552aZzqGne, due 2026-11-28T04:26:21Z). BOTTLENECKS REMOVED: no +50min polling loop, no cron-based duplicate spawning, no idle-blocking — ONE check → ONE branch → ONE wakeup → exit, repeat. PRIORITY ORDER (repo = crypto quant stat-arb): C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER).
 
 ## CURRENT STATE (read once, do not re-confirm in a loop)
 - C441 sweep LIVE: persistent bg `bgp_21eaa19d1001iVtTzWZhHFESSq` (wrapper 4033, main 4040, workers 4057-4060). ~83% CPU each, single clean sweep, NO duplicate. Relaunched 2026-11-27T20:23Z after a reset wiped `.venv`; `.venv` rebuilt before relaunch.
@@ -10,7 +10,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T04:23:33Z — WAKEUP FIRES)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T04:26:21Z — WAKEUP FIRES)
 
 **C441 SWEEP STILL LIVE — DO NOT RELAUNCH, DO NOT DUPLICATE, DO NOT RE-CONFIRM IN A LOOP. THE +4h WAKEUP FIRES NOW; run the ONE check, pick ONE branch, act, exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT; C442 IS THE UNAVOIDABLE NEXT CAMPAIGN — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING.**
 
