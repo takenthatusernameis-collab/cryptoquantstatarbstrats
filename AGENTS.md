@@ -1,41 +1,48 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T13:10:22Z — THE ONLY ACTIVE DIRECTIVE.
-**REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER, MANDATORY HEAVY).
-**VERIFIED STATE 2026-11-28T13:10:22Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present. C442 guard CLEAN. C443 guard CLEAN. **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm +4h FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
+**Handoff written:** 2026-11-28T13:14:00Z — THE ONLY ACTIVE DIRECTIVE.
+**REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY, ALL 5 FILES READY) → C443 RQA (AFTER, MANDATORY HEAVY, NOT YET AUTHORED — BUILD FROM SCRATCH).
+**VERIFIED STATE 2026-11-28T13:14:00Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE, workers ~95% CPU in R-state, schedstat CPU time ADVANCING = genuine forward progress, NOT a hang). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present (build/preflight/run + 2 tests). C442 guard CLEAN. C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm ONE wakeup FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:10:22Z — C441 LIVE + 24 ckpts, BRANCH (b))
+## BOTTLENECK ANALYSIS (2026-11-28T13:14:00Z — READ, DO NOT RE-DERIVE)
+- The prior handoff's "healthy 24 ckpts" churn hid the REAL bottleneck: the 4-worker pool is HEAD-OF-LINE BLOCKED on 4 pathologically slow TAIL series (assets 6-9, m=3). Overnight the "easy" assets 0-5 each finished ~4 series per ~20min round; the current process started 11:01:42Z and after 2h10m has written ZERO new checkpoints because all 4 workers are each still grinding ONE hard tail series.
+- VERIFIED NOT A HANG: `/proc/<pid>/stat` utime advances ~1900 ticks/20s per worker (~95% CPU, R-state, wchan=0). They WILL finish; it is just slow (degenerate/near-zero-variance windows in assets 6-9 produce large persistence diagrams that ripser chokes on).
+- DO NOT kill the sweep (it is progressing). DO NOT relaunch. DO NOT reduce W_q (256 is LOCKED pre-registered spec). The per-(asset,embedding) auto-commit checkpoint already guarantees durability across resets.
+- The slow tail means the sweep may take many more hours. That is EXPECTED and acceptable. The next session's job is to re-arm and exit, NOT to babysit or re-confirm in a loop.
 
-**C441 TDA sweep is LIVE and healthy. C442 guard CLEAN. C443 guard CLEAN. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +4h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling.**
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:14:00Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL)
 
-**C442 HEAVY WORK MANDATORY AFTER C441. C443 HEAVY WORK MANDATORY AFTER C442. NO OPT-OUT. NO DEFER. NO EXCUSES. NO ANALYSIS PARALYSIS. BOTTLENECK REMOVAL: IF BLOCKED/STALLED/UNCERTAIN → EXECUTE NEXT HEAVY CAMPAIGN STEP IMMEDIATELY.**
+**C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta). C442 ready. C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
+
+**C442 HEAVY WORK MANDATORY AFTER C441 (all 5 files ready). C443 HEAVY WORK MANDATORY AFTER C442 (author all 5 files FROM SCRATCH — no opt-out). BOTTLENECK REMOVAL: IF BLOCKED/TRULY-STALLED/UNCERTAIN → EXECUTE NEXT HEAVY CAMPAIGN STEP IMMEDIATELY.**
 
 ### The ONE check
 `pgrep -af run_c441_tda_xsec_oos` AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` AND `ls reports/campaign441_* 2>/dev/null` AND `ls data/cache/campaign441_tda_metrics.npz 2>/dev/null`
 
 - (a) LIVE AND ckpts==0 → +90min, exit
-- (b) LIVE AND ckpts>0 → +4h, exit (CURRENT)
-- (c) NO process + 5 reports + metrics → DONE → ON SWEEP COMPLETION
-- (d) NO process + no reports → rebuild venv, relaunch persistent, +4h, exit
+- (b) LIVE AND ckpts>0 → +6h, exit (CURRENT — slow tail, do NOT shorten)
+- (c) NO process + 5 reports + metrics → DONE → ON SWEEP COMPLETION (below)
+- (d) NO process + no reports → rebuild venv, relaunch persistent, +6h, exit
+- (e) LIVE BUT ckpt count UNCHANGED since last session AND CPU-delta==0 (truly stalled) → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit. (CPU-delta check: `for p in $(pgrep -f run_c441_tda_xsec_oos); do awk '{print $14}' /proc/$p/stat; done` twice 20s apart; if all identical → stalled.)
 
 ### ON SWEEP COMPLETION (c) — EXECUTE IMMEDIATELY, NO PAUSE
 1. VERIFY 5 SHA256 reports + metrics npz.
 2. FILL c441_status in research_state/state.yaml (all fields).
 3. ADVANCE QUEUE: active=next=queued=C442, latest_done=C441.
-4. BEGIN C442: build → preflight (ready:true) → tests (all pass) → full 2592-config sweep (auto-ckpt _ckpt_corr_dim_*), +4h discipline.
-5. ON C442 DONE → BEGIN C443 RQA same sequence (auto-ckpt _ckpt_rqa_*).
+4. BEGIN C442 (ALL 5 FILES READY): build → preflight (ready:true) → tests (all pass) → full 2592-config sweep (auto-ckpt `_ckpt_corr_dim_10x315648/`), +6h discipline. C442 uses SAME slow-tail risk — apply branch (e) if truly stalled.
+5. ON C442 DONE → AUTHOR C443 RQA FROM SCRATCH (all 5 files: build_c443_rqa_features.py, preflight_c443.py, run_c443_rqa_xsec_oos.py, tests/test_preflight_c443.py, tests/test_c443_rqa_xsec_oos.py; DET/LAM/ENTR, m∈{3,4,5,6}, placebo seed 20261443, auto-ckpt `_ckpt_rqa_*`) → preflight ready:true → tests green → full 2592-config sweep → +6h discipline.
 
 ## RULES
-- WAKEUPS PER-SESSION: re-arm ONE +4h FIRST every session.
-- DO NOT kill sweep / spawn duplicate / monitor with command. Use logs/status with bg id.
-- CHECKPOINT DIR = data/cache/_ckpt_tda_10x315648/. METRICS = data/cache/campaign441_tda_metrics.npz.
-- C442 GUARD: pgrep run_c442 + ls reports/campaign442_*. If running or reports exist → +4h exit. Only one session claims C442.
+- WAKEUPS PER-SESSION: re-arm ONE +6h FIRST every session (slow tail justifies 6h over 4h).
+- DO NOT kill sweep / spawn duplicate / monitor with command. Use logs/status with bg id `bgp_221d1699f001sGlxgqN9peJ0wo`. Branch (e) is the ONLY kill path and requires CPU-delta==0 proof.
+- CHECKPOINT DIR = data/cache/_ckpt_tda_10x315648/. METRICS = data/cache/campaign441_tda_metrics.npz. C442 ckpt = data/cache/_ckpt_corr_dim_10x315648/. C443 ckpt = data/cache/_ckpt_rqa_10x315648/.
+- C442 GUARD: pgrep run_c442 + ls reports/campaign442_*. If running or reports exist → +6h exit. Only one session claims C442.
 - C443 GUARD: same for rqa.
-- BOTTLENECK REMOVAL: blocked/stalled/uncertain → execute next heavy campaign step immediately. No analysis paralysis.
+- BOTTLENECK REMOVAL: blocked/truly-stalled/uncertain → execute next heavy campaign step immediately. No analysis paralysis. Do NOT re-derive the slow-tail analysis (it is recorded above).
 - **NO SESSION MAY END WITHOUT RE-ARMING WAKEUP OR ADVANCING TO NEXT MANDATORY CAMPAIGN.**
 
 ## CAMPAIGNS
 - C430-C440: FROZEN (NO EDGE). Do NOT re-run.
-- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close.
-- C442: Correlation Dimension D2, m∈{3,4,5,6}, placebo seed 20261442, 2592-config OOS, MANDATORY after C441.
-- C443: RQA DET/LAM/ENTR, m∈{3,4,5,6}, placebo seed 20261443, 2592-config OOS, MANDATORY after C442.
+- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close. LIVE (24/80 ckpts).
+- C442: Correlation Dimension D2 (Grassberger-Procaccia), m∈{3,4,5,6}, placebo seed 20261442, 2592-config OOS, MANDATORY after C441. ALL 5 FILES READY.
+- C443: RQA DET/LAM/ENTR, m∈{3,4,5,6}, placebo seed 20261443, 2592-config OOS, MANDATORY after C442. NOT YET AUTHORED — build from scratch.
