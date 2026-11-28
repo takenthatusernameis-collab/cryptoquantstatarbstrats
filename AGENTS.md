@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T14:16:57Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T15:03:32Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim D2 (NEXT, MANDATORY HEAVY, ALL 5 FILES READY) → C443 RQA (AFTER, MANDATORY HEAVY, NOT YET AUTHORED — BUILD FROM SCRATCH).
 
-**VERIFIED STATE 2026-11-28T14:15:01Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 parent + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). CPU-delta RE-VERIFIED ADVANCING at 14:15:01Z (two samples 8s apart): 4693 +777, 4694 +766, 4695 +775, 4696 +772 ticks/8s = genuine forward progress, NOT a hang, NOT stalled; parent 4660 static is NORMAL — it waits on the pool. 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`; count 24 UNCHANGED because the 4 tail series assets 6-9 are pathologically slow — CPU-delta proves work IS happening, do NOT misread unchanged count as a stall). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/`+`tests/` (build_c442_corr_dim_features.py, preflight_c442.py, run_c442_corr_dim_xsec_oos.py, test_preflight_c442.py, test_c442_corr_dim_xsec_oos.py). C442 guard CLEAN (no proc, no reports). C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0 (24), CPU-delta ADVANCING → NOT branch (e).** +6h wakeup due 20:09:12Z — then exit. DO NOT relaunch/kill/duplicate. No polling.
+**VERIFIED STATE 2026-11-28T15:03:32Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 parent + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). CPU-delta RE-VERIFIED ADVANCING at 15:03:32Z (two samples 20s apart): 4693 +2860, 4694 +2778, 4695 +2855, 4696 +2832 ticks/20s = genuine forward progress, NOT a hang, NOT stalled; parent 4660 static is NORMAL — it waits on the pool. 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`; count 24 UNCHANGED because the 4 tail series assets 6-9 are pathologically slow — CPU-delta proves work IS happening, do NOT misread unchanged count as a stall). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/`+`tests/` (build_c442_corr_dim_features.py, preflight_c442.py, run_c442_corr_dim_xsec_oos.py, test_preflight_c442.py, test_c442_corr_dim_xsec_oos.py). C442 guard CLEAN (no proc, no reports). C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0 (24), CPU-delta ADVANCING → NOT branch (e).** +6h wakeup due 21:03:32Z — then exit. DO NOT relaunch/kill/duplicate. No polling.
 
 ## BOTTLENECK ANALYSIS (2026-11-28T13:14:00Z — READ, DO NOT RE-DERIVE)
 - REAL bottleneck: the 4-worker pool is HEAD-OF-LINE BLOCKED on 4 pathologically slow TAIL series (assets 6-9, m=3). Assets 0-5 are done; the tail series grind on (degenerate/near-zero-variance windows produce large persistence diagrams ripser chokes on).
@@ -11,9 +11,9 @@
 - BOTTLENECK REMOVAL (do NOT re-derive): DO NOT kill the sweep, DO NOT relaunch, DO NOT spawn duplicates, DO NOT reduce W_q (256 LOCKED pre-registered spec). The per-(asset,embedding) auto-commit checkpoint guarantees durability across resets. The session's job is to re-arm +6h and exit, OR advance to C442 once C441 completes — NOT to babysit or re-confirm in a loop.
 - Branch (e) is the ONLY kill path and requires CPU-delta==0 proof: `for p in $(pgrep -f run_c441_tda_xsec_oos); do awk '{print $14}' /proc/$p/stat; done` twice 20s apart; if all identical → stalled → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T14:15:01Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL, CPU-delta VERIFIED ADVANCING +766/+766/+775/+772 ticks/8s)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T15:03:32Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL, CPU-delta VERIFIED ADVANCING +2860/+2778/+2855/+2832 ticks/20s)
 
-**C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta +766–777 ticks/8s per worker at 14:15:01Z; ckpt count 24 unchanged is EXPECTED for the pathologically slow assets 6-9 tail, NOT a stall). C442 ready (all 5 files). C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
+**C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta +2778–2860 ticks/20s per worker at 15:03:32Z; ckpt count 24 unchanged is EXPECTED for the pathologically slow assets 6-9 tail, NOT a stall). C442 ready (all 5 files). C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
 
 **C442 HEAVY WORK MANDATORY AFTER C441 (all 5 files ready). C443 HEAVY WORK MANDATORY AFTER C442 (author all 5 files FROM SCRATCH — no opt-out). IF BLOCKED/TRULY-STALLED/UNCERTAIN → EXECUTE NEXT HEAVY CAMPAIGN STEP IMMEDIATELY. No analysis paralysis.**
 
@@ -44,6 +44,6 @@
 
 ## CAMPAIGNS
 - C430-C440: FROZEN (NO EDGE). Do NOT re-run.
-- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close. LIVE (24/80 ckpts, CPU-delta advancing 2026-11-28T14:15:01Z).
+- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close. LIVE (24/80 ckpts, CPU-delta advancing 2026-11-28T15:03:32Z).
 - C442: Correlation Dimension D2 (Grassberger-Procaccia), m∈{3,4,5,6}, placebo seed 20261442, 2592-config OOS, MANDATORY after C441. ALL 5 FILES READY.
 - C443: RQA DET/LAM/ENTR, m∈{3,4,5,6}, placebo seed 20261443, 2592-config OOS, MANDATORY after C442. NOT YET AUTHORED — build from scratch.
