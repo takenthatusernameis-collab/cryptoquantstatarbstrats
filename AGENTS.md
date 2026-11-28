@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T11:18:01Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T11:19:51Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER).
-**VERIFIED STATE 2026-11-28T11:18:01Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696 at ~93% CPU, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). **BRANCH (b): LIVE + checkpoints>0.**
+**VERIFIED STATE 2026-11-28T11:19:51Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696 at ~93% CPU, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). **BRANCH (b): LIVE + checkpoints>0.**
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:18:01Z — C441 LIVE + 24 ckpts, BRANCH (b))
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:19:51Z — C441 LIVE + 24 ckpts, BRANCH (b))
 
 C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, newest `real_5_6.npy`). C442 guard is CLEAN. **DO NOT relaunch, DO NOT kill, DO NOT spawn a duplicate.** Your ONLY job this session is: (1) re-arm ONE +4h wakeup FIRST (chain is per-session — it dies with each session unless re-armed before anything else), (2) run the ONE status check below, (3) pick the ONE matching branch, (4) exit. No polling, no idle-blocking, no cron, no re-reading in a loop.
 
