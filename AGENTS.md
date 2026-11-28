@@ -1,14 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T11:19:51Z — THE ONLY ACTIVE DIRECTIVE.
-**REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER).
-**VERIFIED STATE 2026-11-28T11:19:51Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696 at ~93% CPU, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). **BRANCH (b): LIVE + checkpoints>0.**
+**Handoff written:** 2026-11-28T11:20:35Z — THE ONLY ACTIVE DIRECTIVE.
+**REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER, MANDATORY HEAVY).
+**VERIFIED STATE 2026-11-28T11:20:00Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696 at ~93% CPU, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). **BRANCH (b): LIVE + checkpoints>0.**
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:19:51Z — C441 LIVE + 24 ckpts, BRANCH (b))
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:20:35Z — C441 LIVE + 24 ckpts, BRANCH (b))
 
-C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, newest `real_5_6.npy`). C442 guard is CLEAN. **DO NOT relaunch, DO NOT kill, DO NOT spawn a duplicate.** Your ONLY job this session is: (1) re-arm ONE +4h wakeup FIRST (chain is per-session — it dies with each session unless re-armed before anything else), (2) run the ONE status check below, (3) pick the ONE matching branch, (4) exit. No polling, no idle-blocking, no cron, no re-reading in a loop.
+**C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, newest `real_5_6.npy`). C442 guard is CLEAN. DO NOT relaunch, DO NOT kill, DO NOT spawn a duplicate. Your ONLY job this session is: (1) re-arm ONE +4h wakeup FIRST (chain is per-session — it dies with each session unless re-armed before anything else), (2) run the ONE status check below, (3) pick the ONE matching branch, (4) exit. No polling, no idle-blocking, no cron, no re-reading in a loop.**
 
-**C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT, NO SKIPPING, NO LIGHTENING, NO DEFERRING, NO RE-SKINNING. C442 IS THE UNAVOIDABLE NEXT CAMPAIGN.**
+**C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT, NO SKIPPING, NO LIGHTENING, NO DEFERRING, NO RE-SKINNING. C442 IS THE UNAVOIDABLE NEXT CAMPAIGN. C443 RQA HEAVY WORK IS MANDATORY AFTER C442 — SAME CONSTRAINTS. THIS REPO EXISTS FOR HEAVY QUANT CAMPAIGNS ONLY.**
 
 ### The ONE check (run once, then branch)
 `pgrep -af run_c441_tda_xsec_oos` AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` AND `ls reports/campaign441_* 2>/dev/null` AND `ls data/cache/campaign441_tda_metrics.npz 2>/dev/null`
@@ -18,11 +18,12 @@ C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, new
 - **(c) NO process AND 5 `reports/campaign441_*` files + `data/cache/campaign441_tda_metrics.npz` present** → sweep DONE → go to "ON SWEEP COMPLETION" below.
 - **(d) NO process AND no reports** → reset killed it: rebuild venv (`python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt`), cache meta PRESENT (no rebuild needed), then re-launch `.venv/bin/python scripts/run_c441_tda_xsec_oos.py` as a PERSISTENT background process (resumes from auto-committed checkpoints), then `schedule_wakeup` ONCE +4h and exit.
 
-### ON SWEEP COMPLETION (branch c)
+### ON SWEEP COMPLETION (branch c) — MANDATORY EXECUTION, NO DEVIATION
 1. **VERIFY** 5 SHA256 reports in `reports/campaign441_*_<ts>.json` + `data/cache/campaign441_tda_metrics.npz`.
 2. **FILL** the existing `c441_status` template block in `research_state/state.yaml` (ALL fields: state, campaign, family, genuinely_new, distinct_from, as_of_utc, artifacts_ts, signals, n_configs, grid_arithmetic, placebo_seed, standardization, tda_params, wf, stability_ref, attr_representatives, scripts_present, tests_present, cache_present, artifacts_present, preflight, tests_green, brute_force_maxdiff, sweep, artifacts (5 SHA256s), cache_shas (meta, provenance, manifest, metrics), verdict, edge_proven, binding_constraint, n_survive_holm, n_survive_bh, n_survive_both, n_deterministic_edge, dominant_attribution, dominant_share, attribution_ok). Template exists (sweep: PENDING) — fill null/pending fields.
 3. **ADVANCE QUEUE** in `state.yaml`: `active_campaign=next_campaign=queued_next_campaign=C442`, `latest_campaign_done=C441`.
 4. **BEGIN C442 IMMEDIATELY — MANDATORY HEAVY WORK, NO SKIPPING/LIGHTENING/DEFERRING.** Run in order: `.venv/bin/python scripts/build_c442_corr_dim_features.py` → `.venv/bin/python scripts/preflight_c442.py --json` (must be ready:true) → `.venv/bin/python -m pytest tests/test_preflight_c442.py tests/test_c442_corr_dim_xsec_oos.py -v` (must all pass) → `.venv/bin/python scripts/run_c442_corr_dim_xsec_oos.py` (full literal 2592-config costed OOS sweep, auto-checkpoints `_ckpt_corr_dim_*`). Same long-wakeup discipline (do NOT poll every 50min).
+5. **ON C442 COMPLETION — IMMEDIATELY BEGIN C443 RQA — MANDATORY HEAVY WORK.** Same sequence: build → preflight → tests → full 2592-config OOS sweep with auto-checkpoints `_ckpt_rqa_*`. No opt-out. No deferral. No re-skinning.
 
 ## RULES (non-negotiable)
 - **WAKEUPS ARE PER-SESSION.** Re-arm exactly ONE +4h wakeup as the FIRST action of every session, BEFORE any check, BEFORE exiting. A crash mid-check must never break the chain.
@@ -30,7 +31,9 @@ C441 TDA sweep is LIVE and healthy (pid 4660 + 4 workers, 24/80 checkpoints, new
 - DO NOT re-arm wakeups in a loop. DO NOT idle-block. DO NOT spawn a cron.
 - CHECKPOINT DIR = `data/cache/_ckpt_tda_10x315648/` (NOT under `campaign441_tda_5m/`). METRICS = `data/cache/campaign441_tda_metrics.npz`.
 - **CROSS-SESSION C442 IDEMPOTENCY GUARD (enforced at every wakeup):** before ANY C442 action, run `pgrep -af run_c442_corr_dim_xsec_oos` AND `ls reports/campaign442_* 2>/dev/null`. If a C442 sweep is already running OR C442 reports exist → `schedule_wakeup` ONCE +4h and EXIT. Only ONE session EVER claims C442.
+- **CROSS-SESSION C443 IDEMPOTENCY GUARD (enforced at every wakeup after C442 done):** before ANY C443 action, run `pgrep -af run_c443_rqa_xsec_oos` AND `ls reports/campaign443_* 2>/dev/null`. If a C443 sweep is already running OR C443 reports exist → `schedule_wakeup` ONCE +4h and EXIT. Only ONE session EVER claims C443.
 - **EDITING THIS FILE:** use the Write tool to overwrite the whole file (do NOT use exact-match Edit — prior sessions churned dozens of turns on failed oldString matches). Keep it clean; do not re-accumulate contradictory branch notes.
+- **BOTTLENECK REMOVAL:** If any session finds itself blocked, stalled, or uncertain — the ONLY valid action is to execute the next heavy campaign step. Analysis paralysis is not an option. The repo priority is encoded in the name: CRYPTO QUANT STAT-ARB STRATEGIES. Ship heavy campaigns.
 
 ## CAMPAIGN DEFINITIONS (LOCKED — do not change)
 - C430-C440: ALL COMPLETE_FORMAL_NEGATIVE and frozen (NO EDGE through C440). Do NOT re-run.
