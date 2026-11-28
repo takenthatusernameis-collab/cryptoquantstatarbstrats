@@ -10,7 +10,7 @@
 - All 5 C442 files present (compile-clean): scripts/build_c442_corr_dim_features.py, scripts/preflight_c442.py, scripts/run_c442_corr_dim_xsec_oos.py, tests/test_preflight_c442.py, tests/test_c442_corr_dim_xsec_oos.py. C442 runner auto-commits `_ckpt_corr_dim_*` checkpoints (scripts/run_c442_corr_dim_xsec_oos.py:437-482).
 - ~12.6M ripser calls, ~60-75h at 4 workers on a 4-core box.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:02:00Z — C441 RELAUNCHED, LIVE; re-verified 2026-11-28T11:02:00Z)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T11:05:11Z — C441 LIVE + 24 ckpts verified, +4h wakeup re-armed wku_221d4cba30015pRlUR8tm5uuMQ; EXPECTED BRANCH (b))
 
 **VERIFIED STATE (2026-11-28T11:02:00Z): C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696), `pgrep -af run_c441_tda_xsec_oos` LIVE, `.venv` REBUILT (ripser 0.6.15), 24/80 checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest real_5_6.npy) + cache meta/provenance PRESENT. C442 guard CLEAN: `pgrep -af run_c442_corr_dim_xsec_oos` empty, `ls reports/campaign442_*` none. DO NOT RELAUNCH (sweep is live — relaunching would spawn a duplicate). EXTERNAL INVOCATION FIRES NOW; FIRST `schedule_wakeup` ONCE for +4h (re-arm BEFORE anything else — chain is per-session), THEN run the ONE check (expect branch (a)/(b): LIVE + checkpoints>0 → +4h), and exit. C442 CORRELATION-DIMENSION HEAVY WORK IS MANDATORY AFTER C441 — NO OPT-OUT; C442 IS THE UNAVOIDABLE NEXT CAMPAIGN — NO SKIPPING, LIGHTENING, DEFERRING, OR RE-SKINNING. REPO PRIORITY = CRYPTO QUANT STAT-ARB STRATEGIES: C441 TDA (RELAUNCH) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER).**
 
