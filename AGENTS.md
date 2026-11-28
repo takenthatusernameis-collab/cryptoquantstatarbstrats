@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T12:24:49Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T12:27:57Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from repo name `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim (NEXT, MANDATORY HEAVY) → C443 RQA (AFTER, MANDATORY HEAVY).
 **VERIFIED STATE 2026-11-28T12:24:49Z:** C441 sweep LIVE — PERSISTENT bg (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). `.venv` rebuilt (ripser 0.6.15 imports OK). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (newest `real_5_6.npy`). Cache meta/provenance PRESENT. git clean on `main`. All 5 C442 files present. C442 guard CLEAN (no C442 process, no C442 reports). C443 guard CLEAN. **BRANCH (b): LIVE + checkpoints > 0.** Wakeup re-armed +4h (due 2026-11-28T16:22:28Z, id wku_2221b5dca001pBIgAeM4D1P7P8).
 
