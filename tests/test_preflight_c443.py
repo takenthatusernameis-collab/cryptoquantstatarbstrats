@@ -1,0 +1,110 @@
+"""Tests for C443 preflight (scripts/preflight_c443.py): schema/flag validation of
+emitted real-data artifacts. No network, no fabricated market data."""
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import preflight_c443 as P  # noqa: E402
+
+
+def test_preflight_ready_true_on_real_cache():
+    """Integration test: preflight exits 0 with ready:true on the real C443 cache."""
+    result = subprocess.run(
+        [sys.executable, "-m", "scripts.preflight_c443"],
+        cwd=ROOT, capture_output=True, text=True, timeout=120
+    )
+    assert result.returncode == 0, f"preflight failed: {result.stderr}"
+    out = json.loads(result.stdout)
+    assert out["ready"] is True
+    assert out["campaign"] == 443
+    assert out["real_data_only"] is True
+    assert out["fabricated_data"] is False
+    assert out["executed_fills"] is False
+
+
+def test_preflight_artifact_flags():
+    """Verify emitted artifacts carry required flags."""
+    result = subprocess.run(
+        [sys.executable, "-m", "scripts.preflight_c443", "--json"],
+        cwd=ROOT, capture_output=True, text=True, timeout=120
+    )
+    assert result.returncode == 0
+    out = json.loads(result.stdout)
+    assert out["ready"] is True
+    checks = out["checks"]
+    assert checks["meta"]["real_data_only"] is True
+    assert checks["meta"]["fabricated_data"] is False
+    assert checks["meta"]["network_ingest"] is False
+    assert checks["meta"]["resample"] is False
+    assert checks["meta"]["executed_fills"] is False
+    assert checks["meta"]["under_push_limit"] is True
+    assert checks["meta"]["under_cache_budget"] is True
+    rqap = checks["meta"]["rqa_params"]
+    assert int(rqap["window_W_q"]) == 256
+    assert int(rqap["fallback_W"]) == 128
+    assert int(rqap["delay_tau"]) == 1
+    assert list(rqap["embeddings_m"]) == [3, 4, 5, 6]
+    assert float(rqap["eps_quantile"]) == 0.05
+    assert int(rqap["l_min"]) == 2
+    assert int(rqap["v_min"]) == 2
+    assert int(rqap["placebo_seed"]) == 20261443
+    assert rqap["placebo"] == "seeded_iid_permutation_of_standardized_returns"
+    assert list(rqap["signals_dev"]) == ["rqa_det_m3_dev", "rqa_lam_m4_dev", "rqa_ent_m5_dev", "rqa_det_m6_dev"]
+    assert list(rqap["signals_placebo"]) == ["rqa_det_m3_placebo", "rqa_lam_m4_placebo", "rqa_ent_m5_placebo", "rqa_det_m6_placebo"]
+    assert checks["feature_integrity"]["ok"] is True
+    assert checks["feature_integrity"]["raw_nan_total"] == 0
+    assert checks["per_symbol"]["ok"] is True
+    assert checks["provenance"]["ok"] is True
+
+
+def test_cache_meta_rqa_params_distinct():
+    """Verify C443 cache meta has distinct rqa params (not other campaign params)."""
+    meta_path = ROOT / "data" / "cache" / "campaign443_rqa_5m.meta.json"
+    if not meta_path.exists():
+        return
+    meta = json.loads(meta_path.read_text())
+    assert meta["campaign"] == 443
+    assert meta["source_campaign"] == 312
+    rqap = meta["rqa_params"]
+    assert int(rqap["window_W_q"]) == 256
+    assert int(rqap["fallback_W"]) == 128
+    assert int(rqap["delay_tau"]) == 1
+    assert list(rqap["embeddings_m"]) == [3, 4, 5, 6]
+    assert float(rqap["eps_quantile"]) == 0.05
+    assert int(rqap["l_min"]) == 2
+    assert int(rqap["v_min"]) == 2
+    assert int(rqap["placebo_seed"]) == 20261443
+    assert rqap["placebo"] == "seeded_iid_permutation_of_standardized_returns"
+    assert list(rqap["signals_dev"]) == ["rqa_det_m3_dev", "rqa_lam_m4_dev", "rqa_ent_m5_dev", "rqa_det_m6_dev"]
+    assert list(rqap["signals_placebo"]) == ["rqa_det_m3_placebo", "rqa_lam_m4_placebo", "rqa_ent_m5_placebo", "rqa_det_m6_placebo"]
+    assert rqap["scalar"] == "rqa_det_lam_entr"
+    assert rqap["norm"] == "euclidean"
+    for other in ("corr_dim_params", "hsic_params", "te_params", "mi_params", "jsd_params", "lyap_params", "edfgof_params", "cq_params",
+                  "perm_ent_params", "ker_params", "zcrpath_params", "qspread_params", "ddrun_params",
+                  "rqa_params", "signentropy_params", "hvg_params", "wass_params", "signature_params", "path_signature_params",
+                  "wlmf_params", "loctime_params", "ptlt_params", "iesd_params", "runlen_params", "autocf_params", "xcorr_params",
+                  "cdom_params", "ktrend_params", "cbreak_params", "specfm_params", "magnet_params",
+                  "ou_params", "qreg_params", "lvac_params", "hill_params", "rskek_params", "opte_params",
+                  "qatm_params", "dsrv_params", "domfreq_params", "bpv_params", "rmad_params", "gmd_params",
+                  "rskrkt_params", "tirv_params", "rlrv_params", "signrun_params", "acovk_params", "pslope_params",
+                  "vovr_params", "curv_params", "semicov_params", "tailmem_params", "turningpt_params",
+                  "extpos_params", "prrough_params", "halfrange_params", "bandx_params", "madr_params",
+                  "minrv_params", "xcoex_params", "xskew3_params", "ou_halflife_params", "lmom_params",
+                  "tscale_params", "rar_params", "asymcurv_params", "betaasym_params", "beta_params",
+                  "market_beta_params", "coskew_params", "cokurt_params", "xsrank_params", "signcomotion_params",
+                  "rcf_params", "taildep_params", "tailbeta_params", "signpower_params", "semcorr_params",
+                  "coh_params", "tda_params"):
+        assert other not in meta, f"meta must not contain {other} (prior campaign params)"
+
+
+if __name__ == "__main__":
+    test_preflight_ready_true_on_real_cache()
+    test_preflight_artifact_flags()
+    test_cache_meta_rqa_params_distinct()
+    print("All C443 preflight tests passed")
