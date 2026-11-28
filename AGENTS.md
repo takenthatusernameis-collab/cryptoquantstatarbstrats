@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T13:16:22Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T13:17:46Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim D2 (NEXT, MANDATORY HEAVY, ALL 5 FILES READY) → C443 RQA (AFTER, MANDATORY HEAVY, NOT YET AUTHORED — BUILD FROM SCRATCH).
 
-**VERIFIED STATE 2026-11-28T13:16:22Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE, workers ~95% CPU R-state, schedstat CPU time ADVANCING = genuine forward progress, NOT a hang). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/` (+2 tests). C442 guard CLEAN. C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm ONE wakeup FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
+**VERIFIED STATE 2026-11-28T13:17:46Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE, workers ~95% CPU R-state, schedstat CPU time ADVANCING = genuine forward progress, NOT a hang). 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/` (+2 tests). C442 guard CLEAN. C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0.** Re-arm ONE wakeup FIRST this session, then exit — DO NOT relaunch/kill/duplicate. No polling.
 
 ## BOTTLENECK ANALYSIS (2026-11-28T13:14:00Z — READ, DO NOT RE-DERIVE)
 - REAL bottleneck: the 4-worker pool is HEAD-OF-LINE BLOCKED on 4 pathologically slow TAIL series (assets 6-9, m=3). Assets 0-5 are done; after 2h+ the tail series are still grinding (degenerate/near-zero-variance windows produce large persistence diagrams ripser chokes on).
@@ -11,7 +11,7 @@
 - BOTTLENECK REMOVAL (do NOT re-derive): DO NOT kill the sweep, DO NOT relaunch, DO NOT spawn duplicates, DO NOT reduce W_q (256 LOCKED pre-registered spec). The per-(asset,embedding) auto-commit checkpoint guarantees durability across resets. The session's job is to re-arm +6h and exit, OR advance to C442 once C441 completes — NOT to babysit or re-confirm in a loop.
 - Branch (e) is the ONLY kill path and requires CPU-delta==0 proof: `for p in $(pgrep -f run_c441_tda_xsec_oos); do awk '{print $14}' /proc/$p/stat; done` twice 20s apart; if all identical → stalled → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:16:22Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T13:17:46Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL)
 
 **C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta). C442 ready. C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
 
