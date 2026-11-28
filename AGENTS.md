@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-28T14:07:05Z — THE ONLY ACTIVE DIRECTIVE.
+**Handoff written:** 2026-11-28T14:09:08Z — THE ONLY ACTIVE DIRECTIVE.
 **REPO PRIORITY (from `cryptoquantstatarbstrats` = CRYPTO QUANT STAT-ARB STRATEGIES):** C441 TDA (LIVE) → C442 corr-dim D2 (NEXT, MANDATORY HEAVY, ALL 5 FILES READY) → C443 RQA (AFTER, MANDATORY HEAVY, NOT YET AUTHORED — BUILD FROM SCRATCH).
 
-**VERIFIED STATE 2026-11-28T14:07:05Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 parent + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE, workers ~95-99% CPU R-state). CPU-delta RE-VERIFIED ADVANCING at 14:07:05Z: +2521/+2515/+2523/+2529 ticks/20s per worker (4693/4694/4695/4696) = genuine forward progress, NOT a hang, NOT stalled; parent 4660 static (1198 ticks) is NORMAL — it waits on the pool. 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/`+`tests/` (build_c442_corr_dim_features.py, preflight_c442.py, run_c442_corr_dim_xsec_oos.py, test_preflight_c442.py, test_c442_corr_dim_xsec_oos.py). C442 guard CLEAN (no proc, no reports). C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0.** +6h wakeup RE-ARMED this session — then exit. DO NOT relaunch/kill/duplicate. No polling.
+**VERIFIED STATE 2026-11-28T14:09:08Z:** C441 sweep LIVE — PERSISTENT bg `bgp_221d1699f001sGlxgqN9peJ0wo` (pid 4660 parent + 4 workers 4693-4696, `pgrep -af run_c441_tda_xsec_oos` LIVE). CPU-delta RE-VERIFIED ADVANCING at 14:09:08Z (two samples 20s apart): 4693 +1958, 4694 +1930, 4695 +1949, 4696 +1948 ticks/20s = genuine forward progress, NOT a hang, NOT stalled; parent 4660 static (1198 ticks) is NORMAL — it waits on the pool. 24/80 auto-committed checkpoints in `data/cache/_ckpt_tda_10x315648/` (assets 0-5 real done; newest `real_5_6.npy`; count 24 UNCHANGED since 14:07:05Z because the 4 tail series assets 6-9 are pathologically slow — CPU-delta proves work IS happening, do NOT misread unchanged count as a stall). 16 real (assets 6-9) + 40 placebo REMAIN. Cache meta/provenance PRESENT (`data/cache/campaign441_tda_5m.meta.json`). git clean on `main`. All 5 C442 files present in `scripts/`+`tests/` (build_c442_corr_dim_features.py, preflight_c442.py, run_c442_corr_dim_xsec_oos.py, test_preflight_c442.py, test_c442_corr_dim_xsec_oos.py). C442 guard CLEAN (no proc, no reports). C443 guard CLEAN (no files yet — must be authored). **BRANCH (b): LIVE AND checkpoints > 0 (24), CPU-delta ADVANCING → NOT branch (e).** +6h wakeup RE-ARMED this session (`wku_2227d1452001ROSIqxQYccznth`, due 20:09:12Z) — then exit. DO NOT relaunch/kill/duplicate. No polling.
 
 ## BOTTLENECK ANALYSIS (2026-11-28T13:14:00Z — READ, DO NOT RE-DERIVE)
 - REAL bottleneck: the 4-worker pool is HEAD-OF-LINE BLOCKED on 4 pathologically slow TAIL series (assets 6-9, m=3). Assets 0-5 are done; the tail series grind on (degenerate/near-zero-variance windows produce large persistence diagrams ripser chokes on).
@@ -11,9 +11,9 @@
 - BOTTLENECK REMOVAL (do NOT re-derive): DO NOT kill the sweep, DO NOT relaunch, DO NOT spawn duplicates, DO NOT reduce W_q (256 LOCKED pre-registered spec). The per-(asset,embedding) auto-commit checkpoint guarantees durability across resets. The session's job is to re-arm +6h and exit, OR advance to C442 once C441 completes — NOT to babysit or re-confirm in a loop.
 - Branch (e) is the ONLY kill path and requires CPU-delta==0 proof: `for p in $(pgrep -f run_c441_tda_xsec_oos); do awk '{print $14}' /proc/$p/stat; done` twice 20s apart; if all identical → stalled → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit.
 
-## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T14:07:05Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL, CPU-delta VERIFIED ADVANCING)
+## INITIAL TASK MESSAGE FOR NEXT SESSION (2026-11-28T14:09:08Z — C441 LIVE + 24 ckpts, BRANCH (b), SLOW TAIL, CPU-delta VERIFIED ADVANCING +1958/+1930/+1949/+1948 ticks/20s)
 
-**C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta +2521..+2529 ticks/20s per worker at 14:07:05Z). C442 ready (all 5 files). C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
+**C441 TDA sweep is LIVE and genuinely progressing (slow tail series, NOT a hang — verified via CPU-delta +1958/+1930/+1949/+1948 ticks/20s per worker at 14:09:08Z; ckpt count 24 unchanged is EXPECTED for the pathologically slow assets 6-9 tail, NOT a stall). C442 ready (all 5 files). C443 not yet authored. DO NOT relaunch/kill/duplicate. ONLY job: (1) re-arm ONE +6h wakeup FIRST, (2) run ONE status check, (3) pick ONE branch, (4) exit. No polling, no re-deriving the bottleneck.**
 
 **C442 HEAVY WORK MANDATORY AFTER C441 (all 5 files ready). C443 HEAVY WORK MANDATORY AFTER C442 (author all 5 files FROM SCRATCH — no opt-out). IF BLOCKED/TRULY-STALLED/UNCERTAIN → EXECUTE NEXT HEAVY CAMPAIGN STEP IMMEDIATELY. No analysis paralysis.**
 
@@ -21,10 +21,10 @@
 `pgrep -af run_c441_tda_xsec_oos` AND `ls data/cache/_ckpt_tda_10x315648/ | wc -l` AND `ls reports/campaign441_* 2>/dev/null` AND `ls data/cache/campaign441_tda_metrics.npz 2>/dev/null`
 
 - (a) LIVE AND ckpts==0 → +90min, exit
-- (b) LIVE AND ckpts>0 → +6h, exit (CURRENT — slow tail, do NOT shorten)
+- (b) LIVE AND ckpts>0 → verify CPU-delta (two `/proc/$p/stat` field-14 samples 20s apart); if ADVANCING → +6h, exit (CURRENT — slow tail, do NOT shorten, do NOT kill on unchanged ckpt count alone); if ALL IDENTICAL → branch (e)
 - (c) NO process + 5 reports + metrics → DONE → ON SWEEP COMPLETION (below)
 - (d) NO process + no reports → rebuild venv, relaunch persistent, +6h, exit
-- (e) LIVE BUT ckpt count UNCHANGED since last session AND CPU-delta==0 (truly stalled) → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit.
+- (e) LIVE BUT CPU-delta==0 (truly stalled, ckpt count irrelevant) → kill bg `bgp_221d1699f001sGlxgqN9peJ0wo`, relaunch persistent, +6h, exit.
 
 ### ON SWEEP COMPLETION (c) — EXECUTE IMMEDIATELY, NO PAUSE
 1. VERIFY 5 SHA256 reports + metrics npz.
@@ -44,6 +44,6 @@
 
 ## CAMPAIGNS
 - C430-C440: FROZEN (NO EDGE). Do NOT re-run.
-- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close. LIVE (24/80 ckpts).
+- C441: TDA H1 persistence entropy, m∈{3,4,5,6}, placebo seed 20261441, price-only perp_close. LIVE (24/80 ckpts, CPU-delta advancing 2026-11-28T14:09:08Z).
 - C442: Correlation Dimension D2 (Grassberger-Procaccia), m∈{3,4,5,6}, placebo seed 20261442, 2592-config OOS, MANDATORY after C441. ALL 5 FILES READY.
 - C443: RQA DET/LAM/ENTR, m∈{3,4,5,6}, placebo seed 20261443, 2592-config OOS, MANDATORY after C442. NOT YET AUTHORED — build from scratch.
